@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +14,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/sessionSetCsrf', 'SetCsrf@setCsrf'); // get crsf
+
+Route::post('/authCheck', 'User@authCheck'); // check if authenticated user
+
+Route::get('/{any}', function () { // break all routes and return app (simple page application)
+    return view('app');
+})->where('any', '.*');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
