@@ -1,3 +1,45 @@
+.sidebar .logo {
+  padding: 14px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  background: $bg-color-main-darken;
+  border-bottom: none;
+
+  p {
+    float: left;
+    font-size: 20px;
+    margin: 10px 10px;
+    line-height: 20px;
+  }
+
+  .simple-text {
+    padding: $padding-small-vertical $padding-zero;
+    display: block;
+    font-size: $font-size-base;
+    text-align: center;
+    font-weight: $font-weight-bold;
+    line-height: 40px;
+    text-align: left;
+
+    .logo-img{
+      width: 40px;
+      display: inline-block;
+      height: 40px;
+      margin-left: 0px;
+      margin-right: 10px;
+      background: white;
+      border-radius: 40px;
+      text-align: center;
+
+      img{
+        max-width: 21px;
+      }
+    }
+  }
+}
+
+
 .sidebar {
   position: absolute;
   top: 0;
@@ -11,7 +53,8 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 260px;
+    width: 100%;
+    background: $body-bg-color;
     z-index: 4;
     box-shadow: inset -1px 0px 0px 0px $medium-gray;
   }
@@ -29,59 +72,30 @@
 
 }
 
+
+
 .sidebar,
 .off-canvas-sidebar {
   width: 260px;
   display: block;
   font-weight: 200;
 
-  .logo {
-    padding: 13px 0;
-    margin: 0 20px;
 
-    p {
-      float: left;
-      font-size: 20px;
-      margin: 10px 10px;
-      line-height: 20px;
-    }
-
-    .simple-text {
-      padding: $padding-small-vertical $padding-zero;
-      display: block;
-      font-size: $font-size-base;
-      text-align: center;
-      font-weight: $font-weight-bold;
-      line-height: 40px;
-      text-align: left;
-
-      .logo-img{
-          width: 40px;
-          display: inline-block;
-          height: 40px;
-          margin-left: 0px;
-          margin-right: 10px;
-          background: white;
-          border-radius: 40px;
-          text-align: center;
-
-        img{
-            max-width: 21px;
-        }
-      }
-    }
-  }
 
   .nav {
     //margin-top: 20px;
 
     li {
       > a {
-        margin: 10px 0px;
-        padding-left: 25px;
-        padding-right: 25px;
+        margin: 3px 0px;
+        padding: 6px 25px;
 
-        opacity: .7;
+        /*opacity: .7;*/
+        opacity: 1;
+
+        i {
+          color: $default-bg-icons;
+        }
       }
 
       &:hover > a {
@@ -98,8 +112,8 @@
       margin: 0;
       line-height: 30px;
       font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
+      font-weight: 500;
+     /* text-transform: uppercase;*/
     }
 
     i {
@@ -112,7 +126,7 @@
     }
   }
 
-  &:after,
+ /* &:after,
   &:before {
     display: block;
     content: "";
@@ -122,8 +136,8 @@
     top: 0;
     left: 0;
     z-index: 2;
-    background: $white-background-color;
-  }
+    background: $body-bg-color;
+  }*/
 
   &,
   &[data-background-color="white"] {

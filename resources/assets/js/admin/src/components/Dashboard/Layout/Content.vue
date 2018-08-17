@@ -1,6 +1,7 @@
 <template>
   <div class="content">
     <div class="container-fluid">
+        <div class="breadcrumbs"><a href="/" class="link_breadcrumbs">< dashboard</a></div>
         <transition name="fade" mode="out-in">
             <keep-alive>
                 <router-view></router-view>

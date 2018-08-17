@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('/css/paper-dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/admin.css') }}">
 
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 </head>
 <body>
 <div id="app"></div>

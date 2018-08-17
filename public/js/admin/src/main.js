@@ -50923,7 +50923,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "/*      light colors - used for select dropdown         */\n.fade-enter-active[data-v-7b322a89],\n.fade-leave-active[data-v-7b322a89] {\n  -webkit-transition: opacity .3s;\n  transition: opacity .3s;\n}\n.fade-enter[data-v-7b322a89],\n.fade-leave-to[data-v-7b322a89] {\n  opacity: 0;\n}\n.alert[data-v-7b322a89] {\n  border: 0;\n  border-radius: 0;\n  color: #FFFFFF;\n  padding: 10px 15px;\n  font-size: 14px;\n  z-index: 100;\n  display: inline-block;\n  position: fixed;\n  -webkit-transition: all 0.5s ease-in-out;\n  transition: all 0.5s ease-in-out;\n}\n.alert.center[data-v-7b322a89] {\n    left: 0px;\n    right: 0px;\n    margin: 0 auto;\n}\n.alert.left[data-v-7b322a89] {\n    left: 20px;\n}\n.alert.right[data-v-7b322a89] {\n    right: 20px;\n}\n.container .alert[data-v-7b322a89] {\n    border-radius: 4px;\n}\n.navbar .alert[data-v-7b322a89] {\n    border-radius: 0;\n    left: 0;\n    position: absolute;\n    right: 0;\n    top: 85px;\n    width: 100%;\n    z-index: 3;\n}\n.navbar:not(.navbar-transparent) .alert[data-v-7b322a89] {\n    top: 70px;\n}\n.alert .alert-icon[data-v-7b322a89] {\n    font-size: 30px;\n    margin-right: 5px;\n}\n.alert .close ~ span[data-v-7b322a89] {\n    display: block;\n    max-width: 89%;\n}\n.alert[data-notify=\"container\"][data-v-7b322a89] {\n    width: 350px;\n    padding: 10px 10px 10px 20px;\n    border-radius: 4px;\n}\n.alert.alert-with-icon[data-v-7b322a89] {\n    padding-left: 65px;\n}\n.alert-info[data-v-7b322a89] {\n  background-color: #7CE4FE;\n  color: #3091B2;\n}\n.alert-success[data-v-7b322a89] {\n  background-color: #8EF3C5;\n  color: #229863;\n}\n.alert-warning[data-v-7b322a89] {\n  background-color: #FFE28C;\n  color: #BB992F;\n}\n.alert-danger[data-v-7b322a89] {\n  background-color: #FF8F5E;\n  color: #B33C12;\n}\n", ""]);
+exports.push([module.i, "/*      light colors - used for select dropdown         */\n.fade-enter-active[data-v-7b322a89],\n.fade-leave-active[data-v-7b322a89] {\n  -webkit-transition: opacity .3s;\n  transition: opacity .3s;\n}\n.fade-enter[data-v-7b322a89],\n.fade-leave-to[data-v-7b322a89] {\n  opacity: 0;\n}\n.alert[data-v-7b322a89] {\n  border: 0;\n  border-radius: 0;\n  color: #FFFFFF;\n  padding: 10px 15px;\n  font-size: 14px;\n  z-index: 100;\n  display: inline-block;\n  position: fixed;\n  -webkit-transition: all 0.5s ease-in-out;\n  transition: all 0.5s ease-in-out;\n}\n.alert.center[data-v-7b322a89] {\n    left: 0px;\n    right: 0px;\n    margin: 0 auto;\n}\n.alert.left[data-v-7b322a89] {\n    left: 20px;\n}\n.alert.right[data-v-7b322a89] {\n    right: 20px;\n}\n.container .alert[data-v-7b322a89] {\n    border-radius: 4px;\n}\n.navbar .alert[data-v-7b322a89] {\n    border-radius: 0;\n    left: 0;\n    position: absolute;\n    right: 0;\n    top: 85px;\n    width: 100%;\n    z-index: 3;\n}\n.navbar:not(.navbar-transparent) .alert[data-v-7b322a89] {\n    top: 70px;\n}\n.alert .alert-icon[data-v-7b322a89] {\n    font-size: 30px;\n    margin-right: 5px;\n}\n.alert .close ~ span[data-v-7b322a89] {\n    display: block;\n    max-width: 89%;\n}\n.alert[data-notify=\"container\"][data-v-7b322a89] {\n    width: 350px;\n    padding: 10px 10px 10px 20px;\n    border-radius: 4px;\n}\n.alert.alert-with-icon[data-v-7b322a89] {\n    padding-left: 65px;\n}\n.alert-info[data-v-7b322a89] {\n  background-color: #7CE4FE;\n  color: #3091B2;\n}\n.alert-success[data-v-7b322a89] {\n  background-color: #8EF3C5;\n  color: #ec4c16;\n}\n.alert-warning[data-v-7b322a89] {\n  background-color: #FFE28C;\n  color: #BB992F;\n}\n.alert-danger[data-v-7b322a89] {\n  background-color: #FF8F5E;\n  color: #B33C12;\n}\n", ""]);
 
 // exports
 
@@ -51280,7 +51280,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -51293,6 +51293,22 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MovingArrow_vue__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MovingArrow_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__MovingArrow_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -51580,19 +51596,126 @@ var render = function() {
     "div",
     {
       class: _vm.sidebarClasses,
-      attrs: {
-        "data-background-color": _vm.backgroundColor,
-        "data-active-color": _vm.activeColor
-      }
+      attrs: { "data-active-color": _vm.activeColor }
     },
     [
+      _c("div", { staticClass: "logo" }, [
+        _c(
+          "svg",
+          {
+            attrs: {
+              width: "31",
+              id: "logo_svg",
+              height: "40",
+              viewBox: "0 0 31 40",
+              fill: "none",
+              xmlns: "http://www.w3.org/2000/svg"
+            }
+          },
+          [
+            _c("g", { attrs: { filter: "url(#filter0_d)" } }, [
+              _c("rect", {
+                attrs: {
+                  width: "22.0573",
+                  height: "32",
+                  fill: "black",
+                  "fill-opacity": "0",
+                  transform: "translate(4)"
+                }
+              }),
+              _vm._v(" "),
+              _c("path", {
+                attrs: {
+                  d:
+                    "M12.8747 0C14.8905 0.710093 13.3787 5.84109 12.7144 7.03221C11.4316 9.36865 9.41589 11.0179 7.67502 12.9878C5.63637 15.3243 3.84968 17.9127 4.01003 21.005C4.30781 26.6858 10.9506 30.3508 15.6922 32C15.486 31.9313 15.5548 30.0759 15.5548 29.8697C15.5777 28.9535 15.6922 28.0372 15.8984 27.121C16.7459 23.3873 19.5863 20.753 21.0294 17.2713C22.335 14.1102 21.9914 9.9413 20.2734 6.78024C18.7845 4.0544 15.8755 1.05369 12.8747 0Z",
+                  fill: "white"
+                }
+              }),
+              _vm._v(" "),
+              _c("path", {
+                attrs: {
+                  d:
+                    "M16.6085 32C16.6085 32 16.6085 31.3816 16.6085 31.3586C16.5856 28.5183 17.3415 26.0444 18.7617 23.6163C20.7316 20.272 23.5491 16.9048 22.7932 12.7588C22.8619 13.1482 23.2513 13.8354 23.4345 14.2019C23.6865 14.66 23.9156 15.1181 24.1217 15.5763C24.5111 16.4238 24.9692 17.1568 25.3128 18.0272C26.2291 20.3408 26.5956 23.1811 24.6486 25.0823C23.2284 26.4567 21.4417 27.3042 19.9299 28.5641C18.6929 29.572 17.6164 30.7631 16.6085 32Z",
+                  fill: "#ECD7CF"
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("defs", [
+              _c(
+                "filter",
+                {
+                  attrs: {
+                    id: "filter0_d",
+                    x: "0",
+                    y: "0",
+                    width: "30.0574",
+                    height: "40",
+                    filterUnits: "userSpaceOnUse",
+                    "color-interpolation-filters": "sRGB"
+                  }
+                },
+                [
+                  _c("feFlood", {
+                    attrs: {
+                      "flood-opacity": "0",
+                      result: "BackgroundImageFix"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("feColorMatrix", {
+                    attrs: {
+                      in: "SourceAlpha",
+                      type: "matrix",
+                      values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("feOffset", { attrs: { dy: "4" } }),
+                  _vm._v(" "),
+                  _c("feGaussianBlur", { attrs: { stdDeviation: "2" } }),
+                  _vm._v(" "),
+                  _c("feColorMatrix", {
+                    attrs: {
+                      type: "matrix",
+                      values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("feBlend", {
+                    attrs: {
+                      mode: "normal",
+                      in2: "BackgroundImageFix",
+                      result: "effect1_dropShadow"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("feBlend", {
+                    attrs: {
+                      mode: "normal",
+                      in: "SourceGraphic",
+                      in2: "effect1_dropShadow",
+                      result: "shape"
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("h2", { attrs: { id: "admin_header_name" } }, [_vm._v("boostys")])
+      ]),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "sidebar-wrapper", attrs: { id: "style-3" } },
+        {
+          staticClass: "sidebar-wrapper",
+          attrs: { id: "style-3", "data-background-color": _vm.backgroundColor }
+        },
         [
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._t("default"),
+          _vm._t("default", [_vm._m(0)]),
           _vm._v(" "),
           _c(
             "ul",
@@ -51601,6 +51724,7 @@ var render = function() {
               return _c(
                 "router-link",
                 {
+                  key: link.path,
                   ref: link.name,
                   refInFor: true,
                   attrs: { to: link.path, tag: "li" }
@@ -51614,9 +51738,7 @@ var render = function() {
                 ]
               )
             })
-          ),
-          _vm._v(" "),
-          _c("moving-arrow", { attrs: { "move-y": _vm.arrowMovePx } })
+          )
         ],
         2
       )
@@ -51628,14 +51750,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "logo" }, [
-      _c("a", { staticClass: "simple-text", attrs: { href: "#" } }, [
-        _c("div", { staticClass: "logo-img" }, [
-          _c("img", { attrs: { src: "/static/img/vue-logo.png", alt: "" } })
-        ]),
-        _vm._v("\n        Paper Dashboard\n      ")
-      ])
-    ])
+    return _c(
+      "button",
+      { staticClass: "btn", attrs: { id: "add_action_sidebar" } },
+      [_vm._v("Add company "), _c("i", { staticClass: "ti-plus" })]
+    )
   }
 ]
 render._withStripped = true
@@ -52281,109 +52400,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("nav", { staticClass: "navbar navbar-default" }, [
-    _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "navbar-header" }, [
-        _c(
-          "button",
-          {
-            staticClass: "navbar-toggle",
-            class: { toggled: _vm.$sidebar.showSidebar },
-            attrs: { type: "button" },
-            on: { click: _vm.toggleSidebar }
-          },
-          [
-            _c("span", { staticClass: "sr-only" }, [
-              _vm._v("Toggle navigation")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "icon-bar bar1" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "icon-bar bar2" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "icon-bar bar3" })
-          ]
-        ),
-        _vm._v(" "),
-        _c("a", { staticClass: "navbar-brand" }, [
-          _vm._v(_vm._s(_vm.routeName))
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "navbar-right-menu" }, [
-        _c(
-          "ul",
-          { staticClass: "nav navbar-nav navbar-right" },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "drop-down",
-              { attrs: { title: "5 Notifications", icon: "ti-bell" } },
-              [
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Notification 1")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Notification 2")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Notification 3")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Notification 4")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("Another notification")
-                  ])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _vm._m(1)
-          ],
-          1
-        )
-      ])
-    ])
-  ])
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "open" }, [
-      _c(
-        "a",
-        {
-          staticClass: "dropdown-toggle btn-magnify",
-          attrs: { href: "#", "data-toggle": "dropdown" }
-        },
-        [
-          _c("i", { staticClass: "ti-panel" }),
+    return _c(
+      "nav",
+      { staticClass: "navbar navbar-default", attrs: { id: "navbar_paper" } },
+      [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "navbar-header" }),
           _vm._v(" "),
-          _c("p", [_vm._v("Stats")])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { staticClass: "btn-rotate", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "ti-settings" }),
-        _vm._v(" "),
-        _c("p", [_vm._v("\n              Settings\n            ")])
-      ])
-    ])
+          _c("div", { staticClass: "navbar-right-menu" }, [
+            _c("ul", { staticClass: "nav navbar-nav navbar-right" })
+          ])
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -52688,6 +52724,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
@@ -52704,6 +52741,8 @@ var render = function() {
       "div",
       { staticClass: "container-fluid" },
       [
+        _vm._m(0),
+        _vm._v(" "),
         _c(
           "transition",
           { attrs: { name: "fade", mode: "out-in" } },
@@ -52715,7 +52754,18 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "breadcrumbs" }, [
+      _c("a", { staticClass: "link_breadcrumbs", attrs: { href: "/" } }, [
+        _vm._v("< dashboard")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

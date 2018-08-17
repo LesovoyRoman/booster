@@ -34,17 +34,19 @@ $success-input-bg: #ABF3CB !default;
 $other-medium-gray: #A49E93 !default;
 $transparent-bg: transparent !default;
 
-$default-color: #66615B !default;
+$default-bg-icons: #707070 !default;
+
+$default-color: #131D28 !default;
 $default-bg: #66615B !default;
 $default-states-color: #403D39 !default;
 
-$primary-color: #7A9E9F !default;
-$primary-bg: #7A9E9F !default;
-$primary-states-color: #427C89 !default;
+$primary-color: #D44816 !default;
+$primary-bg: #c54214 !default;
+$primary-states-color: #a83810 !default;
 
-$success-color: #41B883 !default;   // this is the green color from Vue.js branding
-$success-bg: #41B883 !default;
-$success-states-color: #229863 !default;
+$success-color: #D44816 !default;   // this is the green color from Vue.js branding
+$success-bg: #D44816 !default;
+$success-states-color: #ec4c16 !default;
 
 $info-color: #68B3C8 !default;
 $info-bg: #68B3C8 !default;
@@ -161,8 +163,8 @@ $transition-linear: linear !default;
 $transition-bezier: cubic-bezier(0.34, 1.61, 0.7, 1) !default;
 $transition-ease: ease 0s;
 
-$navbar-padding-a: 10px 15px;
-$navbar-margin-a: 15px 0px;
+$navbar-padding-a: 17px 15px;
+$navbar-margin-a: 0px 0px;
 
 $padding-social-a: 10px 5px;
 
@@ -252,3 +254,8 @@ $sidebar-subtitle-purple: #5a283d !default;
 $sidebar-background-orange: #ff8f5e !default;
 $sidebar-font-orange: #772510 !default;
 $sidebar-subtitle-orange: #e95e37 !default;
+
+// custom
+$bg-color-main: #D44816 !default;
+$bg-color-main-darken: #BD4013 !default;
+$body-bg-color: #f4f3ef !default;
