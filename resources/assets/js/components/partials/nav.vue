@@ -34,7 +34,7 @@
                         this.$root.statusAuth(false, '/login');
                     })
                     .catch(error => {
-                        console.log(error.response);
+                        console.log('logout error-> ', error.response);
                         vmThis.$root.updateCrsf();
                     });
             },

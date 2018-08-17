@@ -11,5 +11,11 @@ let mix = require('laravel-mix');
  |
  */
 
+// app
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
+
+
+// admin
+mix.js('resources/assets/js/admin/src/main.js', 'public/js/admin/src')
+    .sass('resources/assets/sass/paper/paper-dashboard.scss', 'public/css');

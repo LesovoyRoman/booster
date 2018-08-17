@@ -6,6 +6,8 @@ Vue.use(VueRouter);
 import VueResource from "vue-resource"
 Vue.use(VueResource);
 
+/*import 'element-ui/lib/theme-chalk/index.css'*/
+
 import home from './components/home.vue'
 import login from './components/auth/login.vue'
 import notFound from './components/notFound.vue'
@@ -18,6 +20,7 @@ let token = document.querySelector('meta[name="csrf-token"]').getAttribute('cont
 let authenticated = false;
 let router;
 let routes = [];
+let vmThis = {};
 
 function authCheck() {
     axios.post('/authCheck',
@@ -82,24 +85,29 @@ function app() {
         data() {
             return {
                 authenticated: authenticated,
+                vmThis: this,
             }
         },
         methods: {
             statusAuth (data, redirectTo) {
                 this.authenticated = data;
+                authenticated = data;
                 localStorage.setItem('authenticated', data);
-                this.$router.push(redirectTo);
 
-                this.updateCrsf();
-
+                this.updateCrsf(redirectTo);
             },
-            updateCrsf() {
+            updateCrsf(redirect) {
                 axios.get('/sessionSetCsrf',
                 ).then(response => {
+                    /*console.log('old ' + token);
+                    console.log('new ' + response.data);*/
                     token = response.data;
                     document.querySelector('meta[name="csrf-token"]').setAttribute('content', token);
                     window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
                     if (token) { window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token; } else { }
+                    if(redirect) {
+                        this.$router.push(redirect);
+                    }
                 })
                     .catch(error => {
                         console.log(error.response);
