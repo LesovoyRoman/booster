@@ -1,0 +1,42 @@
+@import "paper/variables";
+
+* {
+  box-sizing: border-box !important;
+}
+#navbar_paper {
+  background: $bg-color-main;
+}
+
+#logo_svg {
+  position: absolute;
+  left: 25px;
+}
+
+#navbar_paper .navbar-nav a {
+  color: rgba(255, 255, 255, 0.54);
+}
+
+#add_action_sidebar {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  background: $bg-color-main;
+  margin: 30px 25px 15px 25px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none;
+  color: white;
+  display: block;
+  font-size: 12px;
+  padding: 10px 22px;
+  width: calc(100% - 50px);
+
+  i {
+    font-size: 8px;
+  }
+
+  &:hover {
+    background: $bg-color-main-darken;
+  }
+}
+
