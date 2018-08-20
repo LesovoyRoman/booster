@@ -49,5 +49,5 @@ new Vue({
   router,
   data: {
     Chartist: Chartist
-  }
+  },
 })

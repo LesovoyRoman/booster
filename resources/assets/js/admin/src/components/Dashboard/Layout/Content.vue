@@ -1,7 +1,11 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-        <div class="breadcrumbs"><a href="/" class="link_breadcrumbs">< dashboard</a></div>
+
+        <Breadcrumbs></Breadcrumbs>
+
+        <h2 id="header_admin_content">{{ nameHeader }}</h2>
+
         <transition name="fade" mode="out-in">
             <keep-alive>
                 <router-view></router-view>
@@ -11,7 +15,26 @@
   </div>
 </template>
 <script>
-  export default {}
+    import Breadcrumbs from '../../UIComponents/Breadcrumbs.vue'
+
+    export default {
+        components: {
+            Breadcrumbs
+        },
+        methods: {
+            setName() {
+                this.nameHeader = this.$route.meta.nameHeader;
+            }
+        },
+        created() {
+            this.setName();
+        },
+        watch:{
+            $route (to, from){
+                this.setName();
+            }
+        }
+    }
 </script>
 <style>
   .fade-enter-active,

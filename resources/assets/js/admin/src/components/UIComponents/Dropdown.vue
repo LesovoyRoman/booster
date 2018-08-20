@@ -1,6 +1,6 @@
 <template>
-  <li class="dropdown" :class="{open:isOpen}" @click="toggleDropDown">
-    <a class="dropdown-toggle btn-rotate" data-toggle="dropdown" >
+  <li class="dropdown" :class="{open:isOpen}" @click="toggleDropDown" data-toggle="dropdown">
+    <a class="dropdown-toggle btn-rotate"  >
       <slot name="title">
         <i :class="icon"></i>
         <p class="notification">{{title}}
@@ -16,21 +16,24 @@
 <script>
   export default{
     props: {
-      title: String,
-      icon: String
+      title: this.title,
+      icon: String,
     },
     data () {
       return {
-        isOpen: false
+        isOpen: false,
       }
     },
     methods: {
       toggleDropDown () {
-        this.isOpen = !this.isOpen
+          this.isOpen = !this.isOpen
       },
       closeDropDown () {
         this.isOpen = false
+      },
+    },
+      updated(){
+          console.log(this.title)
       }
-    }
   }
 </script>

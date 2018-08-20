@@ -48,9 +48,9 @@ $success-color: #D44816 !default;   // this is the green color from Vue.js brand
 $success-bg: #D44816 !default;
 $success-states-color: #ec4c16 !default;
 
-$info-color: #68B3C8 !default;
-$info-bg: #68B3C8 !default;
-$info-states-color: #3091B2 !default;
+$info-color: #28313B !default;
+$info-bg: #28313B !default;
+$info-states-color: #D44816 !default;
 
 $warning-color: #F3BB45 !default;
 $warning-bg: #F3BB45 !default;
@@ -259,3 +259,7 @@ $sidebar-subtitle-orange: #e95e37 !default;
 $bg-color-main: #D44816 !default;
 $bg-color-main-darken: #BD4013 !default;
 $body-bg-color: #f4f3ef !default;
+
+$breadcrumbs-color: #28313B !default;
+$header-color: #28313B !default;
+$footer-link: #28313B !default;

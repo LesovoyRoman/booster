@@ -2,43 +2,37 @@
   <nav class="navbar navbar-default" id="navbar_paper">
     <div class="container-fluid">
       <div class="navbar-header">
-        <!--<button type="button" class="navbar-toggle" :class="{toggled: $sidebar.showSidebar}" @click="toggleSidebar">
+
+        <div class="logo">
+          <img src="/static/img/boostr.png" alt="logo boostr" id="logo_svg">
+          <h2 id="admin_header_name">boostys</h2>
+        </div>
+
+        <button type="button" class="navbar-toggle" :class="{toggled: $sidebar.showSidebar}" @click="toggleSidebar">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar bar1"></span>
           <span class="icon-bar bar2"></span>
           <span class="icon-bar bar3"></span>
-        </button>-->
-        <!--<a class="navbar-brand">{{routeName}}</a>-->
+        </button>
       </div>
       <div class="navbar-right-menu">
         <ul class="nav navbar-nav navbar-right">
-          <!--<li class="open">
+             <drop-down v-bind:title="'En'">
+               <li><a href="#" @click="this.title='Ru'">Ru</a></li>
+               <li><a href="#" @click="this.title='Ru'">En</a></li>
+             </drop-down>
+          <li class="open">
             <a href="#" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
-              <i class="ti-panel"></i>
-              <p>Stats</p>
+              <i class="ti-bell"></i>
             </a>
-          </li>-->
-             <!--<drop-down title="5 Notifications" icon="ti-bell">
-               <li><a href="#">Notification 1</a></li>
-               <li><a href="#">Notification 2</a></li>
-               <li><a href="#">Notification 3</a></li>
-               <li><a href="#">Notification 4</a></li>
-               <li><a href="#">Another notification</a></li>
-             </drop-down>-->
-          <!--<li>
-            <a href="#" class="btn-rotate">
-              <i class="ti-settings"></i>
-              <p>
-                Settings
-              </p>
-            </a>
-          </li>-->
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 </template>
 <script>
+  let title = '';
   export default {
     computed: {
       routeName () {
@@ -48,7 +42,8 @@
     },
     data () {
       return {
-        activeNotifications: false
+        activeNotifications: false,
+        title: title
       }
     },
     methods: {
@@ -67,7 +62,8 @@
       hideSidebar () {
         this.$sidebar.displaySidebar(false)
       }
-    }
+    },
+
   }
 
 </script>

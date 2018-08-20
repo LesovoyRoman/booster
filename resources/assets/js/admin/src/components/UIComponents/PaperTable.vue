@@ -2,11 +2,11 @@
   <div>
     <div class="header">
       <slot name="header">
-        <h4 class="title">{{title}}</h4>
-        <p class="category">{{subTitle}}</p>
+        <!--<h4 class="title">{{title}}</h4>
+        <p class="category">{{subTitle}}</p>-->
       </slot>
     </div>
-    <div class="content table-responsive table-full-width">
+    <div class="content table-responsive">
       <table class="table" :class="tableClass">
         <thead>
           <th v-for="column in columns">{{column}}</th>

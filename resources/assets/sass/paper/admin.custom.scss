@@ -10,10 +10,15 @@
 #logo_svg {
   position: absolute;
   left: 25px;
+  top: 10px;
 }
 
 #navbar_paper .navbar-nav a {
   color: rgba(255, 255, 255, 0.54);
+}
+
+#navbar_paper .dropdown-menu a {
+  color: $bg-color-main;
 }
 
 #add_action_sidebar {
@@ -37,6 +42,36 @@
 
   &:hover {
     background: $bg-color-main-darken;
+  }
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: white;
+}
+
+.content-panel-tabs {
+  border-bottom: 1px solid #E1E2E4;
+  padding: 0;
+
+  .content-tab {
+    display: inline-block;
+    margin: 0px 5px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    a {
+      padding: 15px 40px;
+      display: block;
+      text-transform: uppercase;
+      font-size: 12px;
+
+      &.active {
+        color: $bg-color-main;
+        border-bottom: 3px solid $bg-color-main;
+      }
+    }
   }
 }
 
