@@ -18,7 +18,7 @@ const SidebarStore = {
       icon: 'ti-user',
       path: '/admin/stats'
     },
-    {
+    /*{
       name: 'Typography',
       icon: 'ti-text',
       path: '/admin/typography'
@@ -32,7 +32,7 @@ const SidebarStore = {
       name: 'Notifications',
       icon: 'ti-bell',
       path: '/admin/notifications'
-    }
+    }*/
   ],
   displaySidebar (value) {
     this.showSidebar = value

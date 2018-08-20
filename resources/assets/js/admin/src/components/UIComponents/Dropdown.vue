@@ -32,8 +32,5 @@
         this.isOpen = false
       },
     },
-      updated(){
-          console.log(this.title)
-      }
   }
 </script>
