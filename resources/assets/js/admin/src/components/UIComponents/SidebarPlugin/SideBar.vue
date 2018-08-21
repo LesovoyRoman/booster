@@ -16,7 +16,7 @@
     <div class="sidebar-wrapper" id="style-3" :data-background-color="backgroundColor" >
 
       <slot>
-          <button id="add_action_sidebar" class="btn">Add company <i class="ti-plus"></i></button>
+          <button id="add_action_sidebar" class="btn"><router-link :to="'/admin/companies/create'">Add company <i class="ti-plus"></i></router-link></button>
       </slot>
       <ul :class="navClasses">
         <!--By default vue-router adds an active class to each route link. This way the links are colored when clicked-->

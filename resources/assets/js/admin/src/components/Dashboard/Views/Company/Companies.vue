@@ -36,7 +36,7 @@
     </div>
 </template>
 <script>
-    import PaperTable from '../../UIComponents/PaperTable.vue'
+    import PaperTable from '../../../UIComponents/PaperTable.vue'
     const tableColumns = ['Company', 'Points', 'Check', 'Start', 'End'];
     const tableData1 = [
         {

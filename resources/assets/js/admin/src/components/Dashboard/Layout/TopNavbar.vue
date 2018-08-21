@@ -27,7 +27,9 @@
             </a>
           </li>
           <drop-down ref="dropdown" title="Chet Faker" :notCaret="true" id="dropDownUser">
-            <li><a href="#" @click="">Logout</a></li>
+            <li>
+                <a href="#" @click="logout()"><i class="ti ti-home"></i> Logout</a>
+            </li>
           </drop-down>
         </ul>
       </div>
@@ -48,6 +50,18 @@
       }
     },
     methods: {
+        logout: function() {
+
+            return axios.post('/logout',
+                {
+
+                }).then(response => {
+                window.location.href = '/';
+            })
+                .catch(error => {
+                    console.log('logout error-> ', error.response);
+                });
+        },
       capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
       },

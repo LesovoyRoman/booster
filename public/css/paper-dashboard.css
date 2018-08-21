@@ -4639,11 +4639,15 @@ textarea.form-control {
   text-transform: uppercase;
   font-weight: bold;
   border: none;
+  padding: 0;
+  width: calc(100% - 50px);
+}
+
+#add_action_sidebar a {
   color: white;
   display: block;
   font-size: 12px;
   padding: 10px 22px;
-  width: calc(100% - 50px);
 }
 
 #add_action_sidebar i {
