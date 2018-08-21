@@ -8,7 +8,8 @@ import UserProfile from '../components/Dashboard/Views/UserProfile.vue'
 import Notifications from '../components/Dashboard/Views/Notifications.vue'
 import Icons from '../components/Dashboard/Views/Icons.vue'
 import Typography from '../components/Dashboard/Views/Typography.vue'
-import Companies from '../components/Dashboard/Views/Companies.vue'
+import Companies from '../components/Dashboard/Views/Company/Companies.vue'
+import CompanyCreate from '../components/Dashboard/Views/Company/CompanyCreate.vue'
 
 const routes = [
   {
@@ -31,7 +32,13 @@ const routes = [
         path: 'companies',
         name: 'companies',
         component: Companies,
-        meta: {nameHeader: 'My Conpanies'}
+        meta: {nameHeader: 'My Companies'}
+      },
+      {
+          path: 'companies/create',
+          name: 'companyCreate',
+          component: CompanyCreate,
+          meta: {nameHeader: 'Create Company'}
       },
       {
         path: 'stats',
