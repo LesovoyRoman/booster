@@ -4785,6 +4785,31 @@ textarea.form-control {
   color: #D44816;
 }
 
+#navbar_paper #dropDownUser {
+  border-left: 1px solid #BD4013;
+  padding-left: 40px;
+  position: relative;
+  min-width: 200px;
+}
+
+#navbar_paper #dropDownUser .dropdown-toggle {
+  color: white;
+}
+
+#navbar_paper #dropDownUser:before {
+  position: absolute;
+  content: '';
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  background-image: url("/static/img/faces/face-2.jpg");
+  background-size: 30px;
+  top: 50%;
+  margin-top: -15px;
+}
+
 /*      light colors - used for select dropdown         */
 
 .breadcrumbs .link_breadcrumbs {

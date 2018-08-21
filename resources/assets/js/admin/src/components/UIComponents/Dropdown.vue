@@ -4,7 +4,7 @@
       <slot name="title">
         <i :class="icon"></i>
         <p class="notification">{{ownTitle}}
-          <b class="caret"></b>
+          <b class="caret" v-if="notCaret == undefined"></b>
         </p>
       </slot>
     </a>
@@ -17,13 +17,13 @@
   export default{
     props: {
       icon: String,
-      title: String
+      title: String,
+      notCaret: this.notCaret
     },
     data () {
       return {
         isOpen: false,
         ownTitle: ''
-       // title: this.title
       }
     },
     methods: {

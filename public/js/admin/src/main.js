@@ -50666,13 +50666,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     icon: String,
-    title: String
+    title: String,
+    notCaret: this.notCaret
   },
   data: function data() {
     return {
       isOpen: false,
       ownTitle: ''
-      // title: this.title
     };
   },
 
@@ -50718,7 +50718,9 @@ var render = function() {
             _vm._v(" "),
             _c("p", { staticClass: "notification" }, [
               _vm._v(_vm._s(_vm.ownTitle) + "\n        "),
-              _c("b", { staticClass: "caret" })
+              _vm.notCaret == undefined
+                ? _c("b", { staticClass: "caret" })
+                : _vm._e()
             ])
           ])
         ],
@@ -52122,7 +52124,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52133,6 +52135,9 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -52278,7 +52283,31 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "drop-down",
+                {
+                  ref: "dropdown",
+                  attrs: {
+                    title: "Chet Faker",
+                    notCaret: true,
+                    id: "dropDownUser"
+                  }
+                },
+                [
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: { click: function($event) {} }
+                      },
+                      [_vm._v("Logout")]
+                    )
+                  ])
+                ]
+              )
             ],
             1
           )
@@ -60412,7 +60441,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -60477,9 +60506,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     itemValue: function itemValue(item, column) {
       return item[column.toLowerCase()];
     }
-  },
-  created: function created() {
-    console.log(this.data);
   }
 });
 

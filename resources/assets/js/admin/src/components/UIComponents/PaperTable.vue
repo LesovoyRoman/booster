@@ -53,9 +53,6 @@
         return item[column.toLowerCase()]
       }
     },
-    created() {
-        console.log(this.data);
-    }
   }
 
 </script>

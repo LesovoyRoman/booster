@@ -26,6 +26,9 @@
               <i class="ti-bell"></i>
             </a>
           </li>
+          <drop-down ref="dropdown" title="Chet Faker" :notCaret="true" id="dropDownUser">
+            <li><a href="#" @click="">Logout</a></li>
+          </drop-down>
         </ul>
       </div>
     </div>
