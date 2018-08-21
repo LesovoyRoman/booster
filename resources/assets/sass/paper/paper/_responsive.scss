@@ -480,5 +480,22 @@
     -ms-overflow-style: -ms-autohiding-scrollbar;
     -webkit-overflow-scrolling: touch;
   }
+  #pagination-custom .pagination .page-link {
+    font-size: 12px;
+  }
+}
 
+@media (max-width: 425px) {
+  .card .content-filter {
+    .content-value-filter {
+      min-width: 130px;
+      padding: 8px 10px 8px 20px;
+    }
+    .dropdown {
+      padding: 8px 10px;
+    }
+  }
+  #pagination-custom .pagination .page-link {
+    font-size: 10px;
+  }
 }

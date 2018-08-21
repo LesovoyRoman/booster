@@ -11,6 +11,8 @@ import GlobalComponents from './gloablComponents'
 import Notifications from './components/UIComponents/NotificationPlugin'
 import SideBar from './components/UIComponents/SidebarPlugin'
 import App from './App'
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 // router setup
 import routes from './routes/routes'
@@ -21,12 +23,14 @@ import Chartist from 'chartist'
 import '../../../sass/paper/paper-dashboard.scss'
 import 'es6-promise/auto'
 
+
 // plugin setup
 Vue.use(VueRouter)
 Vue.use(GlobalComponents)
 Vue.use(vClickOutside)
 Vue.use(Notifications)
 Vue.use(SideBar)
+Vue.use(BootstrapVue);
 
 // configure router
 const router = new VueRouter({

@@ -52,13 +52,17 @@
                     },
                     withCredentials: true
                 }).then(function (response) {
-                    switch (response.status) {
-                        case 200:
-                            vmThis.$root.statusAuth(true, '/');
-                            break;
+                    if(response.data === 1111) {
+                        window.location.href = '/admin';
+                    } else {
+                        switch (response.status) {
+                            case 200:
+                                vmThis.$root.statusAuth(true, '/');
+                                break;
 
-                        default:
-                            break
+                            default:
+                                break
+                        }
                     }
                 })
                     .catch(error => {

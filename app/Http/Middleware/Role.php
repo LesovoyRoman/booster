@@ -21,6 +21,8 @@ class Role
         if(Auth::id()) {
             $user = auth()->user();
             if($user->user_role == 'admin') {
+                //redirect to admin panel
+                //return redirect('/admin');
                 return $next($request);
             }
             if($user->user_role == 'user') {

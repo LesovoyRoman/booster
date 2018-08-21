@@ -1,19 +1,20 @@
 <template>
   <div>
-    <div class="header">
+    <!--<div class="header">
       <slot name="header">
-        <!--<h4 class="title">{{title}}</h4>
-        <p class="category">{{subTitle}}</p>-->
+        <h4 class="title">{{title}}</h4>
+        <p class="category">{{subTitle}}</p>
       </slot>
-    </div>
+    </div>-->
     <div class="content table-responsive">
-      <table class="table" :class="tableClass">
+      <table class="table" id="companiesTable" :class="tableClass">
         <thead>
           <th v-for="column in columns">{{column}}</th>
         </thead>
         <tbody>
           <tr v-for="item in data">
-            <td v-for="column in columns" v-if="hasValue(item, column)">{{itemValue(item, column)}}</td>
+            <td v-for="column in columns" v-if="column == 'Company' && hasValue(item, column)"><a href="">{{itemValue(item, column)}}</a></td>
+            <td v-for="column in columns" v-if="hasValue(item, column) && column !== 'Company'">{{itemValue(item, column)}}</td>
           </tr>
         </tbody>
       </table>
@@ -51,6 +52,9 @@
       itemValue (item, column) {
         return item[column.toLowerCase()]
       }
+    },
+    created() {
+        console.log(this.data);
     }
   }
 

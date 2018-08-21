@@ -1,5 +1,5 @@
 <template>
-    <div id="breadcrubms">
+    <div id="breadcrubms" v-if="this.$route.name !== 'overview'">
         <div class="content">
             <div class="breadcrumbs">
                 <router-link :to="{path:'/admin'}">< Dashboard</router-link>

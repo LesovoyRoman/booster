@@ -3,7 +3,7 @@
     <a class="dropdown-toggle btn-rotate"  >
       <slot name="title">
         <i :class="icon"></i>
-        <p class="notification">{{title}}
+        <p class="notification">{{ownTitle}}
           <b class="caret"></b>
         </p>
       </slot>
@@ -16,12 +16,14 @@
 <script>
   export default{
     props: {
-      title: this.title,
       icon: String,
+      title: String
     },
     data () {
       return {
         isOpen: false,
+        ownTitle: ''
+       // title: this.title
       }
     },
     methods: {
@@ -31,6 +33,12 @@
       closeDropDown () {
         this.isOpen = false
       },
+      clickDropDown(newTitle) {
+          this.ownTitle = newTitle;
+      },
     },
+    created() {
+        this.ownTitle = this.title;
+    }
   }
 </script>

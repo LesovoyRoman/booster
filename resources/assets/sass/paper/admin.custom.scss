@@ -1,7 +1,12 @@
 @import "paper/variables";
 
+.show.fade {
+  opacity: 1 !important;
+}
 * {
   box-sizing: border-box !important;
+  outline: none;
+
 }
 #navbar_paper {
   background: $bg-color-main;
@@ -62,7 +67,7 @@
     }
 
     a {
-      padding: 15px 40px;
+      padding: 15px 40px 12px 40px;
       display: block;
       text-transform: uppercase;
       font-size: 12px;
@@ -74,4 +79,104 @@
     }
   }
 }
+
+.content-filter {
+  margin: 15px;
+  border: 1px solid #D4D5D7;
+  border-radius: 5px;
+  position: relative;
+
+  .dropdown {
+    list-style: none;
+    display: inline-block;
+    width: 105px;
+    padding: 8px 15px;
+    margin-right: 10px;
+    background: linear-gradient(to bottom, #FFFFFF 0%, rgba(210, 210, 210, 0.4) 154.55%);
+    background: -moz-linear-gradient(to bottom, #FFFFFF 0%, rgba(210, 210, 210, 0.4) 154.55%);
+    background: -o-linear-gradient(to bottom, #FFFFFF 0%, rgba(210, 210, 210, 0.4) 154.55%);
+    background: -webkit-linear-gradient(to bottom, #FFFFFF 0%, rgba(210, 210, 210, 0.4) 154.55%);
+
+    .notification {
+      margin: 0;
+      font-size: 14px;
+      position: relative;
+
+      .caret {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -3px;
+      }
+    }
+  }
+
+  .content-value-filter {
+    width: calc(100% - 180px);
+    min-width: 150px;
+    border: none;
+    padding: 8px 15px 8px 20px;
+    font-size: 14px;
+    &::-webkit-input-placeholder {
+      color: #c8c9cb;
+    }
+    &::-moz-placeholder {
+      color: #c8c9cb;
+    }
+    &:-ms-input-placeholder {
+      color: #c8c9cb;
+    }
+  }
+  .label-content-value-filter {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+
+    i {
+      margin-left: -3px;
+    }
+  }
+}
+
+#pagination-custom {
+  text-align: center;
+
+  .pagination-sm>li>a {
+    font-weight: 500;
+  }
+  .pagination-sm>li:last-child>a,
+  .pagination-sm>li:first-child>a,
+  .pagination-sm>li:first-child span,
+  .pagination-sm>li:last-child span
+  {
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .page-link {
+    background-color: transparent;
+    color: $info-color;
+    border: none;
+    font-size: 14px;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.btn-primary {
+      color: $pagination-active-link;
+    }
+  }
+}
+
+#companiesTable td>a {
+  color: $link-product;
+
+  &:hover {
+    color: $bg-color-main;
+  }
+}
+
+
 

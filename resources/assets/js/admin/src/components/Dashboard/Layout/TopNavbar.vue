@@ -17,9 +17,9 @@
       </div>
       <div class="navbar-right-menu">
         <ul class="nav navbar-nav navbar-right">
-             <drop-down v-bind:title="'En'">
-               <li><a href="#" @click="this.title='Ru'">Ru</a></li>
-               <li><a href="#" @click="this.title='Ru'">En</a></li>
+             <drop-down ref="dropdown" title="En">
+               <li><a href="#" @click="changeLang('Ru')">Ru</a></li>
+               <li><a href="#" @click="changeLang('En')">En</a></li>
              </drop-down>
           <li class="open">
             <a href="#" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
@@ -32,7 +32,6 @@
   </nav>
 </template>
 <script>
-  let title = '';
   export default {
     computed: {
       routeName () {
@@ -43,7 +42,6 @@
     data () {
       return {
         activeNotifications: false,
-        title: title
       }
     },
     methods: {
@@ -61,9 +59,11 @@
       },
       hideSidebar () {
         this.$sidebar.displaySidebar(false)
+      },
+      changeLang(lang) {
+          this.$refs.dropdown.clickDropDown(lang);
       }
     },
-
   }
 
 </script>

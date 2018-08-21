@@ -118,7 +118,8 @@
     },
     watch: {
       $route: function (newRoute, oldRoute) {
-        this.findActiveLink()
+        this.findActiveLink();
+        this.$sidebar.displaySidebar(false);
       }
     }
   }
