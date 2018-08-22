@@ -10,8 +10,8 @@
 
                 <div class="content-filter">
                     <drop-down ref="dropdown" title="Filter">
-                        <li><a href="#" @click="changeOption('Name')">Name</a></li>
-                        <li><a href="#" @click="changeOption('Price')">Price</a></li>
+                        <li><a href="#" @click="changeOptionFilter('Name')">Name</a></li>
+                        <li><a href="#" @click="changeOptionFilter('Price')">Price</a></li>
                     </drop-down>
                     <label for="content-value-filter" class="label-content-value-filter"><i class="ti ti-search"></i></label>
                     <input type="text" id="content-value-filter" class="content-value-filter" placeholder="Type name of company you are looking for">
@@ -207,7 +207,7 @@
             }
         },
         methods: {
-            changeOption(opt) {
+            changeOptionFilter(opt) {
                 this.$refs.dropdown.clickDropDown(opt);
             }
         }
