@@ -17,10 +17,7 @@
       </div>
       <div class="navbar-right-menu">
         <ul class="nav navbar-nav navbar-right">
-             <drop-down ref="dropdown" title="En">
-               <li><a href="#" @click="changeLang('Ru')">Ru</a></li>
-               <li><a href="#" @click="changeLang('En')">En</a></li>
-             </drop-down>
+              <b-form-select v-model="selected" :options="options" class="mb-3" size="sm" id="select_lang" />
           <li class="open">
             <a href="#" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
               <i class="ti-bell"></i>
@@ -46,6 +43,11 @@
     },
     data () {
       return {
+        selected: 'En',
+        options: [
+            { value: 'Ru', text: 'Ru' },
+            { value: 'En', text: 'En' },
+        ],
         activeNotifications: false,
       }
     },
@@ -77,8 +79,8 @@
       hideSidebar () {
         this.$sidebar.displaySidebar(false)
       },
-      changeLang(lang) {
-          this.$refs.dropdown.clickDropDown(lang);
+      changeLang(lang, id) {
+          this.$refs.dropdown.clickDropDown(lang, id);
       }
     },
   }

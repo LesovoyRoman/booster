@@ -38,7 +38,7 @@ const routes = [
           path: 'companies/create',
           name: 'companyCreate',
           component: CompanyCreate,
-          meta: {nameHeader: 'Create Company'}
+          meta: {nameHeader: 'Create New Company'}
       },
       {
         path: 'stats',

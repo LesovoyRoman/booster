@@ -18,7 +18,7 @@
     props: {
       icon: String,
       title: String,
-      notCaret: this.notCaret
+      notCaret: this.notCaret,
     },
     data () {
       return {

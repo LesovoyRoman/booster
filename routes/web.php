@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 */
 
 Route::group([
+    'pattern' => '*',
     'namespace' => 'Admin',
     'prefix' => 'admin',
     'as' => 'admin.',
@@ -22,6 +23,7 @@ Route::group([
 ], function () {
     Route::get('/', 'AdminController@index')->name('home');
     Route::get('/{any}', 'AdminController@index');
+    Route::get('/{any}/{pattern}', 'AdminController@index');
 });
 
 Route::post('/userrole', 'HomeController@index');
