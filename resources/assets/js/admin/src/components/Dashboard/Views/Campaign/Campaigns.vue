@@ -4,8 +4,8 @@
             <div class="card">
 
                 <ul class="content-panel-tabs">
-                    <li class="content-tab"><a id="activeCompanies" href="#" :class="{active:'activeCompanies' == selected}" @click="tabIndex = 0; selected = 'activeCompanies'">Active</a></li>
-                    <li class="content-tab"><a id="archiveCompanies" href="#" :class="{active:'archiveCompanies' == selected}" @click="tabIndex = 1; selected = 'archiveCompanies'">Archive</a></li>
+                    <li class="content-tab"><a id="activeCampaigns" href="#" :class="{active:'activeCampaigns' == selected}" @click="tabIndex = 0; selected = 'activeCampaigns'">Active</a></li>
+                    <li class="content-tab"><a id="archiveCampaigns" href="#" :class="{active:'archiveCampaigns' == selected}" @click="tabIndex = 1; selected = 'archiveCampaigns'">Archive</a></li>
                 </ul>
 
                 <div class="content-filter">
@@ -14,7 +14,7 @@
                         <li><a href="#" @click="changeOptionFilter('Price')">Price</a></li>
                     </drop-down>
                     <label for="content-value-filter" class="label-content-value-filter"><i class="ti ti-search"></i></label>
-                    <input type="text" id="content-value-filter" class="content-value-filter" placeholder="Type name of company you are looking for">
+                    <input type="text" id="content-value-filter" class="content-value-filter" placeholder="Type name of campaign you are looking for">
                 </div>
 
                 <b-tabs v-model="tabIndex">
@@ -37,73 +37,73 @@
 </template>
 <script>
     import PaperTable from '../../../UIComponents/PaperTable.vue'
-    const tableColumns = ['Company', 'Points', 'Check', 'Start', 'End'];
+    const tableColumns = ['Campaign', 'Points', 'Check', 'Start', 'End'];
     const tableData1 = [
         {
-            company: 'milk',
+            campaign: 'milk',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'sugar',
+            campaign: 'sugar',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'tomatoes',
+            campaign: 'tomatoes',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'cheese',
+            campaign: 'cheese',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'crisps',
+            campaign: 'crisps',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'milk',
+            campaign: 'milk',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'sugar',
+            campaign: 'sugar',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'tomatoes',
+            campaign: 'tomatoes',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'cheese',
+            campaign: 'cheese',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'crisps',
+            campaign: 'crisps',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
@@ -112,70 +112,70 @@
     ];
     const tableData2 = [
         {
-            company: 'sour milk',
+            campaign: 'sour milk',
             points: '600/400',
             check: 'photo & recognizing',
             start: '07.07.2018',
             end: '07.07.2019'
         },
         {
-            company: 'brown sugar',
+            campaign: 'brown sugar',
             points: '500/400',
             check: 'photo & recognizing',
             start: '07.07.2018',
             end: '07.07.2019'
         },
         {
-            company: 'tomatoes',
+            campaign: 'tomatoes',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'cheese',
+            campaign: 'cheese',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'crisps',
+            campaign: 'crisps',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'sour milk',
+            campaign: 'sour milk',
             points: '600/400',
             check: 'photo & recognizing',
             start: '07.07.2018',
             end: '07.07.2019'
         },
         {
-            company: 'brown sugar',
+            campaign: 'brown sugar',
             points: '500/400',
             check: 'photo & recognizing',
             start: '07.07.2018',
             end: '07.07.2019'
         },
         {
-            company: 'tomatoes',
+            campaign: 'tomatoes',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'cheese',
+            campaign: 'cheese',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
-            company: 'crisps',
+            campaign: 'crisps',
             points: '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
@@ -190,7 +190,7 @@
         data () {
             return {
                 currentPage: 3,
-                selected: 'activeCompanies',
+                selected: 'activeCampaigns',
                 tabIndex: 0,
                 table1: {
                     title: 'Stripped Table',

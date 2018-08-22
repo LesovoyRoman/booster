@@ -8,8 +8,11 @@ import UserProfile from '../components/Dashboard/Views/UserProfile.vue'
 import Notifications from '../components/Dashboard/Views/Notifications.vue'
 import Icons from '../components/Dashboard/Views/Icons.vue'
 import Typography from '../components/Dashboard/Views/Typography.vue'
-import Companies from '../components/Dashboard/Views/Company/Companies.vue'
-import CompanyCreate from '../components/Dashboard/Views/Company/CompanyCreate.vue'
+import Campaigns from '../components/Dashboard/Views/Campaign/Campaigns.vue'
+import CampaignCreate from '../components/Dashboard/Views/Campaign/CampaignCreate.vue'
+import ResultsCampaigns from '../components/Dashboard/Views/Campaign/ResultCampaigns.vue'
+import ChecksBonuses from '../components/Dashboard/Views/Campaign/ChecksBonuses.vue'
+import BonusesCampaigns from '../components/Dashboard/Views/Campaign/BonusesCampaings.vue'
 
 const routes = [
   {
@@ -29,16 +32,35 @@ const routes = [
         meta: {nameHeader: 'Dashboard'}
       },
       {
-        path: 'companies',
-        name: 'companies',
-        component: Companies,
-        meta: {nameHeader: 'My Companies'}
+        path: 'campaigns',
+        name: 'campaigns',
+        component: Campaigns,
+        meta: {nameHeader: 'My Campaigns'}
       },
       {
-          path: 'companies/create',
-          name: 'companyCreate',
-          component: CompanyCreate,
-          meta: {nameHeader: 'Create New Company'}
+          path: 'campaigns/results',
+          name: 'resultsCampaigns',
+          meta: {nameHeader: 'Results Campaigns'},
+          component: ResultsCampaigns,
+
+      },
+      {
+          path: 'campaigns/bonuses',
+          name: 'bonusesCampaigns',
+          meta: {nameHeader: 'My Campaigns'},
+          component: BonusesCampaigns,
+      },
+      {
+          path: 'campaigns/check-bonuses',
+          name: 'checkBonusesCampaigns',
+          meta: {nameHeader: 'Checks Bonuses'},
+          component: ChecksBonuses,
+      },
+      {
+          path: 'campaigns/create',
+          name: 'campaignCreate',
+          component: CampaignCreate,
+          meta: {nameHeader: 'Create New Campaign'}
       },
       {
         path: 'stats',

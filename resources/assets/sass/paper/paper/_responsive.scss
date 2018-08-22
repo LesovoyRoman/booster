@@ -483,6 +483,9 @@
   #pagination-custom .pagination .page-link {
     font-size: 12px;
   }
+  .router-link-exact-active .router_sidebar_child {
+    margin-left: 45px;
+  }
 }
 
 @media (max-width: 425px) {
@@ -497,5 +500,8 @@
   }
   #pagination-custom .pagination .page-link {
     font-size: 10px;
+  }
+  .router-link-exact-active .router_sidebar_child {
+    margin-left: 25px;
   }
 }

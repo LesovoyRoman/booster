@@ -4582,6 +4582,10 @@ textarea.form-control {
   #pagination-custom .pagination .page-link {
     font-size: 12px;
   }
+
+  .router-link-exact-active .router_sidebar_child {
+    margin-left: 45px;
+  }
 }
 
 @media (max-width: 425px) {
@@ -4596,6 +4600,10 @@ textarea.form-control {
 
   #pagination-custom .pagination .page-link {
     font-size: 10px;
+  }
+
+  .router-link-exact-active .router_sidebar_child {
+    margin-left: 25px;
   }
 }
 
@@ -4786,11 +4794,11 @@ textarea.form-control {
   color: #337ab7;
 }
 
-#companiesTable td > a {
+#campaingsTable td > a {
   color: #337ab7;
 }
 
-#companiesTable td > a:hover {
+#campaingsTable td > a:hover {
   color: #D44816;
 }
 
@@ -4819,7 +4827,7 @@ textarea.form-control {
   margin-top: -15px;
 }
 
-.create-company-card {
+.campaign-card {
   padding: 30px;
 }
 
@@ -4829,15 +4837,15 @@ textarea.form-control {
   margin-bottom: 30px;
 }
 
-.create-company-card .form-group {
+.campaign-card .form-group {
   padding: 5px 0;
 }
 
-.create-company-card .form-group.form-group-sm {
+.campaign-card .form-group.form-group-sm {
   width: calc(50% - 8px);
 }
 
-.create-company-card .form-group textarea {
+.campaign-card .form-group textarea {
   resize: none;
   height: 120px;
   color: #000;
@@ -4847,29 +4855,29 @@ textarea.form-control {
   border-radius: 4px;
 }
 
-.create-company-card .form-group textarea::-webkit-input-placeholder {
+.campaign-card .form-group textarea::-webkit-input-placeholder {
   color: #D8D8D8;
   font-style: italic;
 }
 
-.create-company-card .form-group textarea::-moz-placeholder {
+.campaign-card .form-group textarea::-moz-placeholder {
   color: #D8D8D8;
   font-style: italic;
 }
 
-.create-company-card .form-group textarea:-ms-input-placeholder {
+.campaign-card .form-group textarea:-ms-input-placeholder {
   color: #D8D8D8;
   font-style: italic;
 }
 
-.create-company-card .form-group .label_checkbox {
+.campaign-card .form-group .label_checkbox {
   position: relative;
   padding-left: 30px;
   margin-bottom: 10px;
   display: block;
 }
 
-.create-company-card .form-group .label_checkbox:before {
+.campaign-card .form-group .label_checkbox:before {
   position: absolute;
   content: '';
   width: 24px;
@@ -4879,7 +4887,7 @@ textarea.form-control {
   border: 1px solid #D8D8D8;
 }
 
-.create-company-card .form-group .custom_btn_form {
+.campaign-card .form-group .custom_btn_form {
   padding: 16px 14px;
   text-transform: uppercase;
   background: #D8D8D8;
@@ -4897,16 +4905,16 @@ textarea.form-control {
   border: none;
 }
 
-.create-company-card .form-group .custom_btn_form:focus,
-.create-company-card .form-group .custom_btn_form:active {
+.campaign-card .form-group .custom_btn_form:focus,
+.campaign-card .form-group .custom_btn_form:active {
   background: #bfbebe;
 }
 
-.create-company-card .form-group input[type=checkbox]:checked + label:before {
+.campaign-card .form-group input[type=checkbox]:checked + label:before {
   background: #D8D8D8;
 }
 
-.create-company-card .form-group .label_form_group {
+.campaign-card .form-group .label_form_group {
   font-size: 14px;
   color: #000;
   margin-bottom: 5px;
@@ -4914,12 +4922,12 @@ textarea.form-control {
   display: block;
 }
 
-.create-company-card .form-group .label_form_group.custom_btn_form {
+.campaign-card .form-group .label_form_group.custom_btn_form {
   font-size: 12px;
 }
 
-.create-company-card .form-group input[type='text'],
-.create-company-card .form-group input[type='date'] {
+.campaign-card .form-group input[type='text'],
+.campaign-card .form-group input[type='date'] {
   height: 50px;
   border: 1px solid #D8D8D8;
   border-radius: 4px;
@@ -4928,33 +4936,33 @@ textarea.form-control {
   width: 100%;
 }
 
-.create-company-card .form-group input[type='text'].input_width_auto,
-.create-company-card .form-group input[type='date'].input_width_auto {
+.campaign-card .form-group input[type='text'].input_width_auto,
+.campaign-card .form-group input[type='date'].input_width_auto {
   width: auto;
   display: inline-block;
   min-width: 200px;
   vertical-align: bottom;
 }
 
-.create-company-card .form-group input[type='text']::-webkit-input-placeholder,
-.create-company-card .form-group input[type='date']::-webkit-input-placeholder {
+.campaign-card .form-group input[type='text']::-webkit-input-placeholder,
+.campaign-card .form-group input[type='date']::-webkit-input-placeholder {
   color: #D8D8D8;
   font-style: italic;
 }
 
-.create-company-card .form-group input[type='text']::-moz-placeholder,
-.create-company-card .form-group input[type='date']::-moz-placeholder {
+.campaign-card .form-group input[type='text']::-moz-placeholder,
+.campaign-card .form-group input[type='date']::-moz-placeholder {
   color: #D8D8D8;
   font-style: italic;
 }
 
-.create-company-card .form-group input[type='text']:-ms-input-placeholder,
-.create-company-card .form-group input[type='date']:-ms-input-placeholder {
+.campaign-card .form-group input[type='text']:-ms-input-placeholder,
+.campaign-card .form-group input[type='date']:-ms-input-placeholder {
   color: #D8D8D8;
   font-style: italic;
 }
 
-.create-company-card .form-group select {
+.campaign-card .form-group select {
   border: 1px solid #D8D8D8;
   border-radius: 4px;
   color: black;
@@ -4962,42 +4970,42 @@ textarea.form-control {
   height: 50px;
 }
 
-.create-company-card .form-group select.select_width_auto {
+.campaign-card .form-group select.select_width_auto {
   width: auto;
   display: inline-block;
   min-width: 200px;
   vertical-align: bottom;
 }
 
-.create-company-card .form-group select option {
+.campaign-card .form-group select option {
   color: black;
 }
 
-.create-company-card .form-group .form-group-part {
+.campaign-card .form-group .form-group-part {
   display: inline-block;
   width: calc(50% - 8px);
 }
 
-.create-company-card .form-group .form-group-part.noneFloat select,
-.create-company-card .form-group .form-group-part.noneFloat input {
+.campaign-card .form-group .form-group-part.noneFloat select,
+.campaign-card .form-group .form-group-part.noneFloat input {
   display: block;
   width: 100%;
 }
 
-.create-company-card .form-group .form-group-part:first-child {
+.campaign-card .form-group .form-group-part:first-child {
   margin-right: 10px;
 }
 
-.create-company-card .form-group .form-group-part:last-child:not(.noneFloat) {
+.campaign-card .form-group .form-group-part:last-child:not(.noneFloat) {
   float: right;
 }
 
-.create-company-card .form-group .form-group-part.part-sm {
+.campaign-card .form-group .form-group-part.part-sm {
   width: 200px;
   max-width: calc(50% - 8px);
 }
 
-.create-company-card .form-group .form-group-part.part-sm:last-child {
+.campaign-card .form-group .form-group-part.part-sm:last-child {
   float: none;
 }
 
@@ -5029,6 +5037,14 @@ select#select_lang > option {
 
 .floatRight {
   float: right !important;
+}
+
+.router_sidebar_child {
+  margin-left: 55px;
+}
+
+.router_sidebar_child li a {
+  display: block;
 }
 
 /*      light colors - used for select dropdown         */

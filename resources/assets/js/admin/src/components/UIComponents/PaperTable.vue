@@ -7,14 +7,14 @@
       </slot>
     </div>-->
     <div class="content table-responsive">
-      <table class="table" id="companiesTable" :class="tableClass">
+      <table class="table" id="campaignsTable" :class="tableClass">
         <thead>
           <th v-for="column in columns">{{column}}</th>
         </thead>
         <tbody>
           <tr v-for="item in data">
-            <td v-for="column in columns" v-if="column == 'Company' && hasValue(item, column)"><a href="">{{itemValue(item, column)}}</a></td>
-            <td v-for="column in columns" v-if="hasValue(item, column) && column !== 'Company'">{{itemValue(item, column)}}</td>
+            <td v-for="column in columns" v-if="column == 'Campaign' && hasValue(item, column)"><a href="">{{itemValue(item, column)}}</a></td>
+            <td v-for="column in columns" v-if="hasValue(item, column) && column !== 'Campaign'">{{itemValue(item, column)}}</td>
           </tr>
         </tbody>
       </table>

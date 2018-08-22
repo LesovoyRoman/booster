@@ -1,36 +1,36 @@
 <template>
     <div class="row">
         <div class="col-md-12">
-            <div class="card create-company-card">
+            <div class="card campaign-card">
                 <form action="" enctype="multipart/form-data">
                     <p class="pre-header-card">Common info</p>
 
                     <div class="form-group">
-                        <label for="name_company" class="label_form_group">Name of company</label>
-                        <input type="text" name="name_company" id="name_company" placeholder="Type your future name of company">
+                        <label for="name_campaign" class="label_form_group">Name of campaign</label>
+                        <input type="text" name="name_campaign" id="name_campaign" placeholder="Type your future name of campaign">
                     </div>
                     <div class="form-group">
-                        <label for="id_company" class="label_form_group">ID company (can't be changed)</label>
-                        <input type="text" name="id_company" id="id_company" placeholder="Type your future id of company">
+                        <label for="id_campaign" class="label_form_group">ID campaign (can't be changed)</label>
+                        <input type="text" name="id_campaign" id="id_campaign" placeholder="Type your future id of campaign">
                     </div>
                     <div class="form-group">
                         <div class="form-group-part part-sm">
-                            <label for="company_ends" class="label_form_group">Company ends</label>
-                            <b-form-select size="sm" v-model="selectedCompanyEnd" :options="companiesEnd" class="mb-3 select_width_auto"></b-form-select>
+                            <label for="campaign_ends" class="label_form_group">Campaign ends</label>
+                            <b-form-select size="sm" v-model="selectedCampaignEnd" :options="campaignsEnd" class="mb-3 select_width_auto"></b-form-select>
                         </div>
                         <div class="form-group-part part-sm">
-                            <input type="date" name="date_company_ends" class="input_width_auto" id="company_ends" value="2001-01-01">
+                            <input type="date" name="date_campaign_ends" class="input_width_auto" id="campaign_ends" value="2001-01-01">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-group-part">
-                            <p class="form-group-paragraph label_form_group">Country of company</p>
+                            <p class="form-group-paragraph label_form_group">Country of campaign</p>
                             <input type="checkbox" id="all_countries" name="all_countries" hidden>
                             <label for="all_countries" class="label_checkbox">All countries</label>
                             <b-form-select size="sm" v-model="selectedCountry" :options="countries" class="mb-3"></b-form-select>
                         </div>
                         <div class="form-group-part">
-                            <p class="form-group-paragraph label_form_group">City of company</p>
+                            <p class="form-group-paragraph label_form_group">City of campaign</p>
                             <input type="checkbox" id="all_cities" name="all_cities" hidden>
                             <label for="all_cities" class="label_checkbox">All cities</label>
                             <b-form-select size="sm" v-model="selectedCity" :options="citiesAll[selectedCountry]" class="mb-3"></b-form-select>
@@ -39,7 +39,7 @@
 
                     <div class="custom-divider-form"></div>
 
-                    <p class="pre-header-card">Product of company</p>
+                    <p class="pre-header-card">Product of campaign</p>
                     <div class="form-group">
                         <label for="name_product" class="label_form_group">Name of product</label>
                         <input type="text" name="name_product" id="name_product" placeholder="Type your name of product">
@@ -70,13 +70,13 @@
                     <p class="pre-header-card">Additional info</p>
                     <div class="form-group">
                         <div class="form-group-part noneFloat">
-                            <label for="company_ends" class="label_form_group">Checking type</label>
+                            <label for="campaign_ends" class="label_form_group">Checking type</label>
                             <b-form-select size="sm" v-model="selectedCheckingType" :options="checkingType" class="mb-3 select_width_auto"></b-form-select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="conditions_company" class="label_form_group">Conditions</label>
-                        <textarea name="conditions_company" id="conditions_company" placeholder="Type conditions of company"></textarea>
+                        <label for="conditions_campaign" class="label_form_group">Conditions</label>
+                        <textarea name="conditions_campaign" id="conditions_campaign" placeholder="Type conditions of campaign"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="instruction_blogers" class="label_form_group">Instruction for blogers</label>
@@ -119,8 +119,9 @@
                     { value: 2, text: 'Argentina' },
                     { value: 3, text: 'Peru' },
                 ],
-                companiesEnd: [
+                campaignsEnd: [
                     { value: 'Date', text: 'Date' },
+                    { value: 'Amount of points', text: 'Amount of points' }
                 ],
                 currencies: [
                     { value: 1, text: 'RUB' },
@@ -130,21 +131,19 @@
                 checkingType: [
                     { value: 1, text: 'Type serial number' },
                     { value: 2, text: 'QR code' },
+                    { value: 3, text: 'Photo' },
                 ],
                 selectedCheckingType: 1,
                 selectedCurrency: 1,
                 selectedCountry: 1,
                 selectedCity: 1,
-                selectedCompanyEnd: 'Date',
+                selectedCampaignEnd: 'Date',
 
             }
         },
         methods: {
             sendRefer(opt){
                 this.$refs.dropdown.clickDropDown(opt);
-            },
-            endCompany(opt) {
-                this.sendRefer(opt);
             },
             selectCountry(opt){
                 opt === 'Ukraine' ?
@@ -157,9 +156,6 @@
                 this.sendRefer(opt);
             },
         },
-        created() {
-            //console.log(this.citiesAll[1]);
-        }
     }
 
 </script>

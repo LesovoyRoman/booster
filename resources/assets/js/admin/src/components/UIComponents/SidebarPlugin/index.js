@@ -9,9 +9,23 @@ const SidebarStore = {
       path: '/admin/overview'
     },
     {
-      name: 'My Companies',
+      name: 'My Campaigns',
       icon: 'ti-world',
-      path: '/admin/companies'
+      path: '/admin/campaigns',
+        children: [
+            {
+                path: '/admin/campaigns/results',
+                name: 'Results Campaigns',
+            },
+            {
+                path: '/admin/campaigns/bonuses',
+                name: 'Campaign Bonuses',
+            },
+            {
+                path: '/admin/campaigns/check-bonuses',
+                name: 'Checks Bonuses',
+            },
+          ]
     },
     {
       name: 'User Profile',

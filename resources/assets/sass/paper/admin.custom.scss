@@ -178,7 +178,7 @@
   }
 }
 
-#companiesTable td>a {
+#campaingsTable td>a {
   color: $link-product;
 
   &:hover {
@@ -213,7 +213,7 @@
   }
 }
 
-.create-company-card {
+.campaign-card {
   padding: 30px;
 }
 
@@ -226,7 +226,7 @@
 
 
 
-  .create-company-card {
+  .campaign-card {
     .form-group {
       padding: 5px 0;
 
@@ -413,3 +413,11 @@
     float: right !important;
   }
 
+
+  // nav
+  .router_sidebar_child {
+    margin-left: 55px;
+    li a {
+      display: block;
+    }
+  }

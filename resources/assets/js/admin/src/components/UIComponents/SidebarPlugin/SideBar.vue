@@ -16,7 +16,7 @@
     <div class="sidebar-wrapper" id="style-3" :data-background-color="backgroundColor" >
 
       <slot>
-          <button id="add_action_sidebar" class="btn"><router-link :to="'/admin/companies/create'">Add company <i class="ti-plus"></i></router-link></button>
+          <button id="add_action_sidebar" class="btn"><router-link :to="'/admin/campaigns/create'">Add campaign <i class="ti-plus"></i></router-link></button>
       </slot>
       <ul :class="navClasses">
         <!--By default vue-router adds an active class to each route link. This way the links are colored when clicked-->
@@ -27,6 +27,11 @@
             <p>{{link.name}}
             </p>
           </a>
+          <div v-if="link.children !== undefined && $route.path.indexOf(link.path) !== -1" class="router_sidebar_child">
+              <router-link v-for="(linkChild, index) in link.children" :to="linkChild.path" tag="li" :ref="linkChild.name" v-bind:key="linkChild.path">
+                <a>{{ linkChild.name }}</a>
+              </router-link>
+          </div>
         </router-link>
       </ul>
       <!--<moving-arrow :move-y="arrowMovePx"></moving-arrow>-->
@@ -121,7 +126,7 @@
         this.findActiveLink();
         this.$sidebar.displaySidebar(false);
       }
-    }
+    },
   }
 
 </script>
