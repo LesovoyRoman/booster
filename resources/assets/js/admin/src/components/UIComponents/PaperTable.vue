@@ -9,11 +9,16 @@
     <div class="content table-responsive">
       <table class="table" id="campaignsTable" :class="tableClass">
         <thead>
-          <th v-for="column in columns">{{column}}</th>
+          <th v-for="column in columns">
+            <span class="filter_high_low">{{column}}
+              <button class="btn-high"></button>
+              <button class="btn-low"></button>
+            </span>
+          </th>
         </thead>
         <tbody>
           <tr v-for="item in data">
-            <td v-for="column in columns" v-if="column == 'Campaign' && hasValue(item, column)"><a href="">{{itemValue(item, column)}}</a></td>
+            <td v-for="column in columns" v-if="column == 'Campaign' && hasValue(item, column)"><a href="" class="campaign_link">{{itemValue(item, column)}}</a></td>
             <td v-for="column in columns" v-if="hasValue(item, column) && column !== 'Campaign'">{{itemValue(item, column)}}</td>
           </tr>
         </tbody>
@@ -22,6 +27,7 @@
   </div>
 </template>
 <script>
+  let nameColumn;
   export default {
     props: {
       columns: Array,
@@ -47,10 +53,12 @@
     },
     methods: {
       hasValue (item, column) {
-        return item[column.toLowerCase()] !== 'undefined'
+        nameColumn = column.replace(' ', '_').toLowerCase();
+        return item[nameColumn] !== 'undefined'
       },
       itemValue (item, column) {
-        return item[column.toLowerCase()]
+        nameColumn = column.replace(' ', '_').toLowerCase();
+        return item[nameColumn]
       }
     },
   }

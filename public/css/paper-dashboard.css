@@ -1943,7 +1943,7 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .form-control.border-input {
-  border: 1px solid #CCC5B9;
+  border: 1px solid #E8E8E9;
 }
 
 .open .form-control {
@@ -1990,7 +1990,7 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .border-input .input-group-addon {
-  border: solid 1px #CCC5B9;
+  border: solid 1px #E8E8E9;
 }
 
 .input-group {
@@ -2143,7 +2143,7 @@ textarea.form-control {
 .table tbody tr > td,
 .table tfoot tr > th,
 .table tfoot tr > td {
-  border-top: 1px solid #CCC5B9;
+  border-top: 1px solid #E8E8E9;
 }
 
 .table > thead > tr > th {
@@ -4794,11 +4794,11 @@ textarea.form-control {
   color: #337ab7;
 }
 
-#campaingsTable td > a {
+#campaignsTable td > a {
   color: #337ab7;
 }
 
-#campaingsTable td > a:hover {
+#campaignsTable td > a:hover {
   color: #D44816;
 }
 
@@ -4835,6 +4835,16 @@ textarea.form-control {
   color: rgba(0, 0, 0, 0.54);
   text-transform: uppercase;
   margin-bottom: 30px;
+}
+
+.campaign-card.campaign-results .form-group input,
+.campaign-card.campaign-results .form-group select {
+  background: #D8D8D8;
+}
+
+.campaign-card.campaign-results .form-group input option,
+.campaign-card.campaign-results .form-group select option {
+  background: white;
 }
 
 .campaign-card .form-group {
@@ -5045,6 +5055,41 @@ select#select_lang > option {
 
 .router_sidebar_child li a {
   display: block;
+}
+
+.filter_high_low {
+  position: relative;
+  padding-right: 35px;
+  font-weight: 500;
+}
+
+.filter_high_low .btn-high,
+.filter_high_low .btn-low {
+  position: absolute;
+  content: '';
+  right: 10px;
+  border: 5px solid transparent;
+  border-bottom: 5px solid #DCDCDC;
+  top: 50%;
+  margin-top: -13px;
+  background: transparent;
+  padding: 0;
+}
+
+.filter_high_low .btn-high:hover,
+.filter_high_low .btn-high:active {
+  border-bottom: 5px solid #838383;
+}
+
+.filter_high_low .btn-low {
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid #DCDCDC;
+  margin-top: 2px;
+}
+
+.filter_high_low .btn-low:hover,
+.filter_high_low .btn-low:active {
+  border-top: 5px solid #838383;
 }
 
 /*      light colors - used for select dropdown         */

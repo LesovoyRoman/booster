@@ -129,13 +129,13 @@
             showArea: true,
             height: '245px',
             axisX: {
-              showGrid: false
+              showGrid: true
             },
             lineSmooth: this.$Chartist.Interpolation.simple({
               divisor: 3
             }),
             showLine: true,
-            showPoint: false
+            showPoint: true
           }
         },
         activityChart: {
