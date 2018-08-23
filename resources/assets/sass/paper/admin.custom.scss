@@ -214,7 +214,7 @@
 }
 
 .campaign-card {
-  padding: 30px;
+  padding: 20px 30px;
 }
 
 .pre-header-card {
@@ -224,15 +224,43 @@
 
 }
 
-
-
   .campaign-card {
 
-    &.campaign-results .form-group input, &.campaign-results .form-group select {
+    .label_form_group .data-line {
+      font-size: 14px;
+    }
+    .data-line {
+      color: $custom-form-color;
+      font-size: 24px;
+
+      span.data-line-value {
+        color: $custom-color-inputs;
+      }
+    }
+    .form-group > .data-line {
+      margin-left: 20px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+
+    &.campaign-results .form-group input, &.campaign-results .form-group select, &.campaign-bonuses .form-group input, &.campaign-bonuses .form-group select {
       background: $custom-form-color;
+      margin: 10px auto;
 
       option {
         background: white;
+      }
+    }
+
+    &.campaign-bonuses .form-group .form-group-part, &.campaign-bonuses .form-group .form-group-part {
+      margin-right: 27px;
+      &:first-child {
+        margin-right: 27px;
+      }
+
+      select, input {
+        height: 36px;
       }
     }
 
@@ -312,7 +340,7 @@
         font-size: 14px;
         color: $custom-color-inputs;
         margin-bottom: 5px;
-        font-weight: 500;
+        /*font-weight: 500;*/
         display: block;
 
         &.custom_btn_form {
@@ -464,4 +492,8 @@
         border-top: 5px solid darken($custom-btn-filter-color, 35);
       }
     }
+  }
+
+  .btns_to_justify {
+    text-align: center !important;
   }

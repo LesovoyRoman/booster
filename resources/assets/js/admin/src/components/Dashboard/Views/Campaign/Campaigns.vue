@@ -37,74 +37,74 @@
 </template>
 <script>
     import PaperTable from '../../../UIComponents/PaperTable.vue'
-    const tableColumns = ['Campaign', 'Points', 'Check', 'Start', 'End'];
+    const tableColumns = ['Campaign', 'Points (all/checked)', 'Check', 'Start', 'End'];
     const tableData1 = [
         {
             campaign: 'milk',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'sugar',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'tomatoes',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'cheese',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'crisps',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'milk',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'sugar',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'tomatoes',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'cheese',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'crisps',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
@@ -113,70 +113,70 @@
     const tableData2 = [
         {
             campaign: 'sour milk',
-            points: '600/400',
+            'points_(all/checked)': '600/400',
             check: 'photo & recognizing',
             start: '07.07.2018',
             end: '07.07.2019'
         },
         {
             campaign: 'brown sugar',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '07.07.2018',
             end: '07.07.2019'
         },
         {
             campaign: 'tomatoes',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'cheese',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'crisps',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'sour milk',
-            points: '600/400',
+            'points_(all/checked)': '600/400',
             check: 'photo & recognizing',
             start: '07.07.2018',
             end: '07.07.2019'
         },
         {
             campaign: 'brown sugar',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '07.07.2018',
             end: '07.07.2019'
         },
         {
             campaign: 'tomatoes',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'cheese',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'
         },
         {
             campaign: 'crisps',
-            points: '500/400',
+            'points_(all/checked)': '500/400',
             check: 'photo & recognizing',
             start: '08.08.2018',
             end: '08.08.2019'

@@ -521,7 +521,7 @@ hr {
 
 .sidebar .nav li > a i,
 .off-canvas-sidebar .nav li > a i {
-  color: #707070;
+  color: #A7A7A7;
 }
 
 .sidebar .nav li:hover > a,
@@ -4828,7 +4828,7 @@ textarea.form-control {
 }
 
 .campaign-card {
-  padding: 30px;
+  padding: 20px 30px;
 }
 
 .pre-header-card {
@@ -4837,14 +4837,57 @@ textarea.form-control {
   margin-bottom: 30px;
 }
 
+.campaign-card .label_form_group .data-line {
+  font-size: 14px;
+}
+
+.campaign-card .data-line {
+  color: #D8D8D8;
+  font-size: 24px;
+}
+
+.campaign-card .data-line span.data-line-value {
+  color: #000;
+}
+
+.campaign-card .form-group > .data-line {
+  margin-left: 20px;
+}
+
+.campaign-card .form-group > .data-line:first-child {
+  margin-left: 0;
+}
+
 .campaign-card.campaign-results .form-group input,
-.campaign-card.campaign-results .form-group select {
+.campaign-card.campaign-results .form-group select,
+.campaign-card.campaign-bonuses .form-group input,
+.campaign-card.campaign-bonuses .form-group select {
   background: #D8D8D8;
+  margin: 10px auto;
 }
 
 .campaign-card.campaign-results .form-group input option,
-.campaign-card.campaign-results .form-group select option {
+.campaign-card.campaign-results .form-group select option,
+.campaign-card.campaign-bonuses .form-group input option,
+.campaign-card.campaign-bonuses .form-group select option {
   background: white;
+}
+
+.campaign-card.campaign-bonuses .form-group .form-group-part,
+.campaign-card.campaign-bonuses .form-group .form-group-part {
+  margin-right: 27px;
+}
+
+.campaign-card.campaign-bonuses .form-group .form-group-part:first-child,
+.campaign-card.campaign-bonuses .form-group .form-group-part:first-child {
+  margin-right: 27px;
+}
+
+.campaign-card.campaign-bonuses .form-group .form-group-part select,
+.campaign-card.campaign-bonuses .form-group .form-group-part input,
+.campaign-card.campaign-bonuses .form-group .form-group-part select,
+.campaign-card.campaign-bonuses .form-group .form-group-part input {
+  height: 36px;
 }
 
 .campaign-card .form-group {
@@ -4928,7 +4971,7 @@ textarea.form-control {
   font-size: 14px;
   color: #000;
   margin-bottom: 5px;
-  font-weight: 500;
+  /*font-weight: 500;*/
   display: block;
 }
 
@@ -5092,6 +5135,10 @@ select#select_lang > option {
   border-top: 5px solid #838383;
 }
 
+.btns_to_justify {
+  text-align: center !important;
+}
+
 /*      light colors - used for select dropdown         */
 
 .breadcrumbs .link_breadcrumbs {
@@ -5130,5 +5177,53 @@ h4 {
 
 .breadcrumbs .link_breadcrumbs {
   display: inline-block;
+}
+
+/*      light colors - used for select dropdown         */
+
+.campaign-card .card-elem-bonus {
+  margin: 15px auto;
+  border-radius: 4px;
+  border: 1px solid #E1E2E4;
+  min-height: 400px;
+}
+
+.campaign-card .card-elem-bonus .block-img-elem {
+  background: #E1E2E4;
+  height: 260px;
+}
+
+.campaign-card .card-elem-bonus .block-data-elem {
+  padding: 20px;
+}
+
+.campaign-card .card-elem-bonus .block-data-elem p {
+  color: #000;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 0;
+  line-height: 20px;
+}
+
+.campaign-card .card-elem-bonus .block-data-elem .block_btns_bonus {
+  margin-top: 15px;
+}
+
+.campaign-card .card-elem-bonus .block-data-elem .block-status-elem .custom_btn_form {
+  float: right;
+  max-width: 130px;
+  padding: 8px 12px;
+  min-height: 36px;
+}
+
+.campaign-card .card-elem-bonus .block-data-elem .block-status-elem .reject_bonus {
+  background: transparent;
+  float: left;
+  max-width: 130px;
+  color: #686F76;
+  text-transform: none;
+  font-size: 14px;
+  font-weight: normal;
 }
 

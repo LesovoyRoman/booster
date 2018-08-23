@@ -47,7 +47,7 @@ const routes = [
       {
           path: 'campaigns/bonuses',
           name: 'bonusesCampaigns',
-          meta: {nameHeader: 'Checking Bonuses'},
+          meta: {nameHeader: 'Bloggers Bonuses'},
           component: BonusesCampaigns,
       },
       {

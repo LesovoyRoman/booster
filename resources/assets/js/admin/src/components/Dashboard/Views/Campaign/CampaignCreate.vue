@@ -10,7 +10,7 @@
                         <input type="text" name="name_campaign" id="name_campaign" placeholder="Type your future name of campaign">
                     </div>
                     <div class="form-group">
-                        <label for="id_campaign" class="label_form_group">ID campaign (can't be changed)</label>
+                        <label for="id_campaign" class="label_form_group">ID campaign <span class="data-line">(can't be changed)</span></label>
                         <input type="text" name="id_campaign" id="id_campaign" placeholder="Type your future id of campaign">
                     </div>
                     <div class="form-group">

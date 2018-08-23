@@ -69053,7 +69053,7 @@ var routes = [{
   }, {
     path: 'campaigns/bonuses',
     name: 'bonusesCampaigns',
-    meta: { nameHeader: 'Checking Bonuses' },
+    meta: { nameHeader: 'Bloggers Bonuses' },
     component: __WEBPACK_IMPORTED_MODULE_11__components_Dashboard_Views_Campaign_BonusesCampaings_vue___default.a
   }, {
     path: 'campaigns/check-bonuses',
@@ -77698,125 +77698,125 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-var tableColumns = ['Campaign', 'Points', 'Check', 'Start', 'End'];
+var tableColumns = ['Campaign', 'Points (all/checked)', 'Check', 'Start', 'End'];
 var tableData1 = [{
     campaign: 'milk',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'sugar',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'tomatoes',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'cheese',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'crisps',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'milk',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'sugar',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'tomatoes',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'cheese',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'crisps',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }];
 var tableData2 = [{
     campaign: 'sour milk',
-    points: '600/400',
+    'points_(all/checked)': '600/400',
     check: 'photo & recognizing',
     start: '07.07.2018',
     end: '07.07.2019'
 }, {
     campaign: 'brown sugar',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '07.07.2018',
     end: '07.07.2019'
 }, {
     campaign: 'tomatoes',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'cheese',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'crisps',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'sour milk',
-    points: '600/400',
+    'points_(all/checked)': '600/400',
     check: 'photo & recognizing',
     start: '07.07.2018',
     end: '07.07.2019'
 }, {
     campaign: 'brown sugar',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '07.07.2018',
     end: '07.07.2019'
 }, {
     campaign: 'tomatoes',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'cheese',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
 }, {
     campaign: 'crisps',
-    points: '500/400',
+    'points_(all/checked)': '500/400',
     check: 'photo & recognizing',
     start: '08.08.2018',
     end: '08.08.2019'
@@ -78784,7 +78784,12 @@ var staticRenderFns = [
       _c(
         "label",
         { staticClass: "label_form_group", attrs: { for: "id_campaign" } },
-        [_vm._v("ID campaign (can't be changed)")]
+        [
+          _vm._v("ID campaign "),
+          _c("span", { staticClass: "data-line" }, [
+            _vm._v("(can't be changed)")
+          ])
+        ]
       ),
       _vm._v(" "),
       _c("input", {
@@ -79381,10 +79386,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {};
+        return {
+            currentPage: 5,
+            selectedBonuses: 1,
+            selectedCampaigns: 1,
+            selectedBloggers: 1,
+            selectBonuses: [{ value: 1, text: 'All' }, { value: 2, text: 'Last month' }],
+            campaigns: [{ value: 1, text: 'All campaigns' }, { value: 2, text: 'Last month' }],
+            bloggers: [{ value: 1, text: 'All bloggers' }, { value: 2, text: 'Last month' }],
+
+            bonuses: [{ photoPath: '', nameProduct: 'Milk', accepted: false, whoGets: 'Jet Faker', from: 'Jet Faker', namePrise: 'Dodge Viper' }, { photoPath: '', nameProduct: 'Milk', accepted: false, whoGets: 'Jet Faker', from: 'Jet Faker', namePrise: 'Dodge Viper' }, { photoPath: '', nameProduct: 'Milk', accepted: false, whoGets: 'Jet Faker', from: 'Jet Faker', namePrise: 'Dodge Viper' }, { photoPath: '', nameProduct: 'Milk', accepted: false, whoGets: 'Jet Faker', from: 'Jet Faker', namePrise: 'Dodge Viper' }, { photoPath: '', nameProduct: 'Milk', accepted: false, whoGets: 'Jet Faker', from: 'Jet Faker', namePrise: 'Dodge Viper' }, { photoPath: '', nameProduct: 'Milk', accepted: false, whoGets: 'Jet Faker', from: 'Jet Faker', namePrise: 'Dodge Viper' }, { photoPath: '', nameProduct: 'Milk', accepted: false, whoGets: 'Jet Faker', from: 'Jet Faker', namePrise: 'Dodge Viper' }]
+        };
     }
 });
 
@@ -79396,16 +79462,170 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "card campaign-card campaign-bonuses" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "div",
+            { staticClass: "form-group-part part-sm" },
+            [
+              _c("b-form-select", {
+                staticClass: "mb-3",
+                attrs: { size: "sm", options: _vm.selectBonuses },
+                model: {
+                  value: _vm.selectedBonuses,
+                  callback: function($$v) {
+                    _vm.selectedBonuses = $$v
+                  },
+                  expression: "selectedBonuses"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group-part part-sm" },
+            [
+              _c("b-form-select", {
+                staticClass: "mb-3",
+                attrs: { size: "sm", options: _vm.campaigns },
+                model: {
+                  value: _vm.selectedCampaigns,
+                  callback: function($$v) {
+                    _vm.selectedCampaigns = $$v
+                  },
+                  expression: "selectedCampaigns"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group-part part-sm" },
+            [
+              _c("b-form-select", {
+                staticClass: "mb-3",
+                attrs: { size: "sm", options: _vm.bloggers },
+                model: {
+                  value: _vm.selectedBloggers,
+                  callback: function($$v) {
+                    _vm.selectedBloggers = $$v
+                  },
+                  expression: "selectedBloggers"
+                }
+              })
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "div",
+            { staticClass: "row" },
+            _vm._l(_vm.bonuses, function(bonus, index) {
+              return _c(
+                "div",
+                { staticClass: "col-md-6 col-lg-4 col-sm-6 col-xs-12" },
+                [
+                  _c("div", { staticClass: "card-elem-bonus" }, [
+                    _c("div", { staticClass: "block-img-elem" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "block-data-elem" }, [
+                      _c("p", [_vm._v(_vm._s(bonus.nameProduct))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(bonus.whoGets))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(bonus.from))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(bonus.namePrise))]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "block-status-elem" }, [
+                        bonus.accepted
+                          ? _c("div", [_c("p", [_vm._v("Потдверждено")])])
+                          : _c(
+                              "div",
+                              {
+                                staticClass: "btns_to_justify block_btns_bonus"
+                              },
+                              [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "reject_bonus custom_btn_form"
+                                  },
+                                  [_vm._v("Отклонить")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  { staticClass: "custom_btn_form" },
+                                  [_vm._v("Одобрить")]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "clearfix" })
+                              ]
+                            )
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            })
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "pagination-custom",
+            attrs: { id: "pagination-custom" }
+          },
+          [
+            _c("b-pagination", {
+              attrs: {
+                size: "sm",
+                limit: 9,
+                "hide-goto-end-buttons": "",
+                "total-rows": 100,
+                "per-page": 10
+              },
+              model: {
+                value: _vm.currentPage,
+                callback: function($$v) {
+                  _vm.currentPage = $$v
+                },
+                expression: "currentPage"
+              }
+            })
+          ],
+          1
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card create-campaign-card" })
+    return _c("div", { staticClass: "form-group" }, [
+      _c("span", { staticClass: "data-line" }, [
+        _vm._v("\n                    Checked: "),
+        _c("span", { staticClass: "data-line-value" }, [_vm._v("5555")])
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "data-line" }, [
+        _vm._v("\n                    To check: "),
+        _c("span", { staticClass: "data-line-value" }, [_vm._v("5555")])
       ])
     ])
   }
