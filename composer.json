@@ -1,12 +1,13 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "adenvt/laravel-coreui-vue",
+    "description": "Laravel + CoreUI + Vue Boilerplate",
+    "keywords": ["framework", "boilerplate", "laravel", "coreui", "vue"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0"
     },
@@ -33,8 +34,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-            ]
+            "dont-discover": []
         }
     },
     "scripts": {
