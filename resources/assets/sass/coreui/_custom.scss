@@ -1,0 +1,21 @@
+// Here you can add other styles
+@import "core-variables";
+
+// colors
+.navbar-nav .nav-link {
+  color: $color_link_simple
+}
+
+.breadcrumb {
+  a {
+    color: $main-color;
+  }
+  .open.active {
+    color: $main-color;
+  }
+}
+
+/*
+.sidebar .nav-link i {
+  color: #fff;
+}*/

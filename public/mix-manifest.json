@@ -1,6 +1,5 @@
 {
-    "/js/admin/src/main.js": "/js/admin/src/main.js",
-    "/css/paper-dashboard.css": "/css/paper-dashboard.css",
     "/js/app.js": "/js/app.js",
+    "/custom/js/vue.js": "/custom/js/vue.js",
     "/css/app.css": "/css/app.css"
 }
