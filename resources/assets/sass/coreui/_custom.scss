@@ -1,6 +1,14 @@
 // Here you can add other styles
 @import "core-variables";
 
+
+a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
+  font-family: 'Rubik', sans-serif !important;
+}
+
+.sidebar .nav-link {
+  font-weight: 400;
+}
 // colors
 .navbar-nav .nav-link {
   color: $color_link_simple
@@ -15,7 +23,7 @@
   }
 }
 
-/*
-.sidebar .nav-link i {
-  color: #fff;
-}*/
+.nav-item.nav-dropdown.open .nav-link i {
+  color: $sidebar-nav-link-active-icon-color
+}
+

@@ -18398,7 +18398,7 @@ base-chart.chart {
 }
 
 .sidebar .nav-dropdown.open {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(189, 64, 19, 0.39);
 }
 
 .sidebar .nav-dropdown.open > .nav-dropdown-items {
@@ -21198,6 +21198,26 @@ hr.transparent {
   border-right-color: #536c79;
 }
 
+a,
+h6,
+h5,
+h4,
+h3,
+h2,
+h1,
+span,
+p,
+pre,
+li {
+  font-family: 'Rubik', sans-serif !important;
+}
+
+.sidebar .nav-link,
+.sidebar .navbar .dropdown-toggle,
+.navbar .sidebar .dropdown-toggle {
+  font-weight: 400;
+}
+
 .navbar-nav .nav-link,
 .navbar-nav .navbar .dropdown-toggle,
 .navbar .navbar-nav .dropdown-toggle {
@@ -21212,10 +21232,11 @@ hr.transparent {
   color: #BD4013;
 }
 
-/*
-.sidebar .nav-link i {
+.nav-item.nav-dropdown.open .nav-link i,
+.nav-item.nav-dropdown.open .navbar .dropdown-toggle i,
+.navbar .nav-item.nav-dropdown.open .dropdown-toggle i {
   color: #fff;
-}*/
+}
 
 .vue-notification.warning {
   background: #ffb648;
