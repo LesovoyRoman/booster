@@ -1,0 +1,79 @@
+#app, #bg_app {
+  height: 100vh;
+  margin-bottom: -10px;
+}
+
+#app {
+  background: $bg-color;
+  position: relative;
+  float: right;
+}
+
+#app {
+
+  &.open {
+    left: -260px !important;
+
+    .aside-menu {
+      margin-left: 100%;
+      z-index: 555;
+      right: auto;
+      left: 4px;
+      width: 250px;
+    }
+  }
+}
+
+// block bg (login\registr)
+#bg_app {
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  z-index: 1111;
+  transition: all 0.4s ease;
+
+  &.open {
+    width: calc(50% - 260px) !important;
+  }
+}
+
+#app .title {
+  font-size: 24px;
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+#form_login, #form_register, #navVue {
+  max-width: 450px;
+  width: 100%;
+  display: block;
+  margin: 0 auto 15px auto;
+}
+#navVue {
+  padding: 0 0 15px 0;
+  margin: 0px auto;
+}
+
+#login, #register {
+  padding-top: 20px;
+
+  .form-group label {
+    font-weight: 500;
+  }
+}
+
+
+/// ASIDE custom
+.aside-menu {
+  position: absolute;
+  border: none;
+  top: 0;
+  //left: -255px;
+  //right: -255px;
+  z-index: -1;
+  right: 0;
+  height: 100vh;
+  background: $brighten-grey;
+}

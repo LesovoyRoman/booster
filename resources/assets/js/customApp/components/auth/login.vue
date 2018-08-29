@@ -2,20 +2,26 @@
 
     <div id="login">
         <div v-if="!auth">
-            <div class="title m-b-md">
-                Login
-            </div>
             <form action="" id="form_login" v-model="actionURI">
-                <div class="form-group row">
+                <div class="title m-b-md">
+                    Login
+                </div>
+                <div class="form-group">
                     <label for="email" class="col-form-label text-md-right">Email</label>
                     <input type="text" class="form-control" id="email" name="email" v-model="credentials.email">
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                     <label for="password" class="col-form-label text-md-right">Password</label>
                     <input type="password" class="form-control" id="password" name="password" v-model="credentials.password">
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
+                    <router-link class="float-link" v-bind:to="'/password-rescue'">Forgot password?</router-link>
+
                     <button type="submit" class="btn btn-primary" onclick="event.preventDefault()"  @click="loginData()">submit</button>
+                </div>
+
+                <div class="form-group">
+                    <router-link class="" v-bind:to="'/register-performer'"><span class="color-dark">Do not have an account?</span> REGISTRATION</router-link>
                 </div>
             </form>
         </div>

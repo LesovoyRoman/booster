@@ -12,7 +12,8 @@ Vue.use(VueRouter);
 import home from './components/home.vue'
 import login from './components/auth/login.vue'
 import notFound from './components/notFound.vue'
-import register from './components/auth/register.vue'
+import registerPerformer from './components/auth/registerPerformer.vue'
+import registerBlogger from './components/auth/registerBlogger.vue'
 
 const defaultPage = 'login';
 const homePage = 'home';
@@ -21,7 +22,12 @@ let token = document.querySelector('meta[name="csrf-token"]').getAttribute('cont
 let authenticated = false;
 let router;
 let routes = [];
-let vmThis = {};
+let vm = {};
+let bgimages_routes = [
+    {path: '/login', img: '/images/bglogin1.png'},
+    {path: '/register-performer', img: '/images/bgregister1.png'},
+    {path: '/register-blogger', img: '/images/bgregister1.png'},
+];
 
 function authCheck() {
     axios.post('/authCheck',
@@ -42,9 +48,10 @@ authCheck();
 function routesAllowToUse() {
     routes = [
         { path: '/', component: home, name: 'home' },
-        { path: "*", component: notFound, name: 'notFound' },
+        { path: "*", component: notFound, name: 'notFound', meta: { nothing: true } },
         { path: '/login', component: login, name: 'login',  meta: { redirectHome: true } },
-        { path: '/register', component: register, name: 'Register', meta: { redirectHome: true } },
+        { path: '/register-performer', component: registerPerformer, name: 'RegisterPerformer', meta: { redirectHome: true } },
+        { path: '/register-blogger', component: registerBlogger, name: 'RegisterBlogger', meta: { redirectHome: true } },
 
         /*
          * redirectHome - if authenticated then redirect
@@ -68,6 +75,9 @@ function checkRoutes() {
             if(to.meta.redirectHome && JSON.parse(isAuth)) {
                 next({name: homePage})
             } else {
+                if(to.meta.nothing) {
+                    document.getElementById('bg_app').style.background = 'url("/images/bglogin1.png") no-repeat center/cover';
+                }
                 next();
             }
 
@@ -89,6 +99,14 @@ function app() {
                 vmThis: this,
             }
         },
+        created() {
+            vm = this;
+            bgimages_routes.forEach(function (item) {
+                if(item.path === vm.$route.path) {
+                    vm.changeBg(item.img);
+                }
+            })
+        },
         methods: {
             statusAuth (data, redirectTo) {
                 this.authenticated = data;
@@ -96,6 +114,11 @@ function app() {
                 localStorage.setItem('authenticated', data);
 
                 this.updateCrsf(redirectTo);
+            },
+            changeBg(path, position) {
+                position = position || 'center';
+                document.getElementById('bg_app').style.backgroundImage = 'url(' + path + ')';
+                document.getElementById('bg_app').style.backgroundPosition = position;
             },
             updateCrsf(redirect) {
                 axios.get('/sessionSetCsrf',
@@ -113,6 +136,15 @@ function app() {
                     .catch(error => {
                         console.log(error.response);
                     });
+            }
+        },
+        watch:{
+            $route (to, from){
+                bgimages_routes.forEach(function (item) {
+                    if(item.path === to.path) {
+                        vm.changeBg(item.img);
+                    }
+                })
             }
         }
     }).$mount('#app');

@@ -1,24 +1,38 @@
 <template>
     <div id="app">
+        <div class="container">
 
-        <appNav></appNav>
+            <transition name="fade" mode="out-in">
+                <appNav></appNav>
+            </transition>
 
-        <!--<transition name="fade" mode="out-in">
-            <keep-alive>-->
+            <transition name="fade" mode="out-in">
+                <Caside></Caside>
+            </transition>
 
-            <div class="container">
-                <router-view></router-view>
-            </div>
+            <!--<transition name="fade" mode="out-in">
+                <keep-alive>-->
 
-            <!--</keep-alive>
-        </transition>-->
+                    <router-view></router-view>
 
+                <!--</keep-alive>
+            </transition>-->
+
+            <div class="clearfix"></div>
+            <cfooter></cfooter>
+
+        </div>
     </div>
 </template>
 
 <script>
 
+    let vm = {};
+
+
     import appNav from '../components/partials/nav.vue'
+    import Caside from '../components/partials/aside.vue'
+    import cfooter from '../components/partials/footer.vue'
 
     export default {
         name: 'app',
@@ -31,7 +45,9 @@
 
         },
         components: {
-            appNav
+            appNav,
+            Caside,
+            cfooter
         },
         created() {
 
@@ -42,14 +58,5 @@
 </script>
 
 <style>
-    #app .title {
-        font-size: 32px;
-        display: block;
-        text-align: center;
-    }
-    #form_login, #form_register, #navVue {
-        max-width: 300px;
-        display: block;
-        margin: 15px auto;
-    }
+
 </style>

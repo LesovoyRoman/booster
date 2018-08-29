@@ -13,6 +13,7 @@ const mix = require('laravel-mix')
  */
 // custom app
 mix.js('resources/assets/js/customApp/vue.js', 'public/custom/js')
+mix.sass('resources/assets/sass/custom/app.scss', 'public/custom/css')
 
 // app
 mix.js('resources/assets/js/app.js', 'public/js')
