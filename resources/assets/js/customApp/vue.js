@@ -47,8 +47,8 @@ authCheck();
 
 function routesAllowToUse() {
     routes = [
-        { path: '/', component: home, name: 'home' },
-        { path: "*", component: notFound, name: 'notFound', meta: { nothing: true } },
+        { path: '/', component: home, name: 'home', meta: { nothingImg: true } },
+        { path: "*", component: notFound, name: 'notFound', meta: { nothingImg: true } },
         { path: '/login', component: login, name: 'login',  meta: { redirectHome: true } },
         { path: '/register-performer', component: registerPerformer, name: 'RegisterPerformer', meta: { redirectHome: true } },
         { path: '/register-blogger', component: registerBlogger, name: 'RegisterBlogger', meta: { redirectHome: true } },
@@ -75,7 +75,7 @@ function checkRoutes() {
             if(to.meta.redirectHome && JSON.parse(isAuth)) {
                 next({name: homePage})
             } else {
-                if(to.meta.nothing) {
+                if(to.meta.nothingImg) {
                     document.getElementById('bg_app').style.background = 'url("/images/bglogin1.png") no-repeat center/cover';
                 }
                 next();
