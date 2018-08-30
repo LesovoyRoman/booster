@@ -12,6 +12,7 @@ html body {
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
 }
 
 #app {
@@ -35,7 +36,7 @@ html body {
 }
 
 .btn-primary {
-  padding: 10px 35px;
+  padding: 6px 35px;
   border-radius: 4px;
   text-transform: uppercase;
   font-size: 12px;
@@ -82,7 +83,8 @@ html body {
 }
 
 .footer-custom .text-footer-custom {
-  color: #6c757d;
+  color: rgba(0, 0, 0, 0.53);
+  font-size: 12px;
 }
 
 .form-group,
@@ -132,14 +134,13 @@ html body {
   font-size: 24px;
   display: block;
   text-align: left;
-  font-weight: bold;
+  font-weight: 500;
   margin-bottom: 15px;
 }
 
 #form_login,
 #form_register,
 #navVue {
-  max-width: 450px;
   width: 100%;
   display: block;
   margin: 0 auto 15px auto;
@@ -157,7 +158,8 @@ html body {
 
 #login .form-group label,
 #register .form-group label {
-  font-weight: 500;
+  font-weight: normal;
+  color: #23282C;
 }
 
 .aside-menu {

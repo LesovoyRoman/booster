@@ -42,11 +42,11 @@
   font-size: 24px;
   display: block;
   text-align: left;
-  font-weight: bold;
+  font-weight: 500;
   margin-bottom: 15px;
 }
 #form_login, #form_register, #navVue {
-  max-width: 450px;
+  //max-width: 450px;
   width: 100%;
   display: block;
   margin: 0 auto 15px auto;
@@ -60,7 +60,8 @@
   padding-top: 20px;
 
   .form-group label {
-    font-weight: 500;
+    font-weight: normal;
+    color: $label-color;
   }
 }
 
