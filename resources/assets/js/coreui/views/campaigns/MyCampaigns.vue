@@ -222,7 +222,7 @@
                     { id: 25, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
                 ]),
                 fields: [
-                    { key: 'id' },
+                    { key: 'id', label: '№' },
                     { key: 'campaign_name', sortable: true, label: 'Name' },
                     { key: 'points', sortable: true, label: 'Points'  },
                     { key: 'check_type', sortable: true, label: 'Checking' },

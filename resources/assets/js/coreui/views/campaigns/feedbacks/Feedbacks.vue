@@ -124,7 +124,7 @@
                     { id: 33, campaign_name: 'Snacks', participants: '1000', status: '5' },
                 ]),
                 fields: [
-                    { key: 'id' },
+                    { key: 'id', label: '№' },
                     { key: 'campaign_name', sortable: true, label: 'Name' },
                     { key: 'participants',  sortable: true, label: 'Participants' },
                     { key: 'status', 'class': 'text-center', sortable: true, label: 'Status' },
