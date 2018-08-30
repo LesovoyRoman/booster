@@ -1,13 +1,15 @@
 export default {
   items: [
+      {
+          name : 'Add new company',
+          url  : '/dashboard',
+          icon : 'icon-plus',
+          variant: 'primary'
+      },
     {
       name : 'Dashboard',
       url  : '/dashboard',
       icon : 'icon-speedometer',
-      badge: {
-        variant: 'primary',
-        text   : 'NEW',
-      },
     },
     {
       title  : true,
@@ -18,16 +20,16 @@ export default {
         attributes: {},
       },
     },
-    {
+    /*{
       name: 'Colors',
       url : '/theme/colors',
       icon: 'icon-drop',
-    },
-    {
+    },*/
+    /*{
       name: 'Typography',
       url : '/theme/typography',
       icon: 'icon-pencil',
-    },
+    },*/
     {
       title  : true,
       name   : 'Components',

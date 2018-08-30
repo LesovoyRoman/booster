@@ -56,9 +56,10 @@ import Register from '@/views/pages/Register'
 // Campaigns
 import MyCampaigns from '@/views/campaigns/MyCampaigns'
 import ResultsCampaigns from '@/views/campaigns/ResultsCampaigns'
-import Feedbacks from '@/views/campaigns/Feedbacks'
-import InfluencersBonuses from '@/views/campaigns/InfluencersBonuses'
-import CheckingBonuses from '@/views/campaigns/CheckingBonuses'
+import AllFeedbacks from '@/views/campaigns/feedbacks/Feedbacks'
+import Feedback from '@/views/campaigns/feedbacks/Feedback'
+import InfluencersBonuses from '@/views/campaigns/bonuses/InfluencersBonuses'
+import CheckingBonuses from '@/views/campaigns/bonuses/CheckingBonuses'
 
 Vue.use(Router)
 
@@ -96,7 +97,24 @@ export default new Router({
                 {
                     path     : 'feedbacks',
                     name     : 'Feedbacks',
-                    component: Feedbacks,
+                    redirect: '/campaigns/feedbacks/all-feedbacks',
+                    component: {
+                        render (c) {
+                            return c('router-view')
+                        },
+                    },
+                    children: [
+                        {
+                            path     : 'feedback',
+                            name     : 'Feedback',
+                            component: Feedback,
+                        },
+                        {
+                            path     : 'all-feedbacks',
+                            name     : 'AllFeedbacks',
+                            component: AllFeedbacks,
+                        },
+                    ]
                 },
                 {
                     path     : 'influencers-bonuses',

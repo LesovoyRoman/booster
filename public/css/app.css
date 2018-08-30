@@ -21230,7 +21230,13 @@ h2 {
 
 .custom_btn_change i {
   color: black;
-  font-size: 16px;
+  font-size: 15px;
+}
+
+.sidebar .nav-link.nav-link-primary,
+.sidebar .navbar .nav-link-primary.dropdown-toggle,
+.navbar .sidebar .nav-link-primary.dropdown-toggle {
+  color: white;
 }
 
 a,
