@@ -1,5 +1,6 @@
 #app, #bg_app {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   margin-bottom: -10px;
 }
 
@@ -7,6 +8,7 @@
   background: $bg-color;
   position: relative;
   float: right;
+  padding-bottom: 55px;
 }
 
 #app {

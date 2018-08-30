@@ -53,8 +53,12 @@ import Page500 from '@/views/pages/Page500'
 import Login from '@/views/pages/Login'
 import Register from '@/views/pages/Register'
 
-// Custom
-import Custom from '@/views/custom/Custom'
+// Campaigns
+import MyCampaigns from '@/views/campaigns/MyCampaigns'
+import ResultsCampaigns from '@/views/campaigns/ResultsCampaigns'
+import Feedbacks from '@/views/campaigns/Feedbacks'
+import InfluencersBonuses from '@/views/campaigns/InfluencersBonuses'
+import CheckingBonuses from '@/views/campaigns/CheckingBonuses'
 
 Vue.use(Router)
 
@@ -75,9 +79,41 @@ export default new Router({
           component: Dashboard,
         },
         {
-            path     : 'custom',
-            name     : 'custom',
-            component: Custom,
+            path: 'campaigns',
+            redirect: '/campaigns/my-campaigns',
+            name: 'Campaigns',
+            component: {
+                render (c) {
+                    return c('router-view')
+                },
+            },
+            children: [
+                {
+                    path     : 'checking-bonuses',
+                    name     : 'Checking bonuses',
+                    component: CheckingBonuses,
+                },
+                {
+                    path     : 'feedbacks',
+                    name     : 'Feedbacks',
+                    component: Feedbacks,
+                },
+                {
+                    path     : 'influencers-bonuses',
+                    name     : 'Influencers bonuses',
+                    component: InfluencersBonuses,
+                },
+                {
+                    path     : 'my-campaigns',
+                    name     : 'My campaigns',
+                    component: MyCampaigns,
+                },
+                {
+                    path     : 'results-campaigns',
+                    name     : 'Results campaigns',
+                    component: ResultsCampaigns,
+                },
+            ],
         },
         {
           path     : 'theme',

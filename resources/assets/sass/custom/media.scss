@@ -3,6 +3,7 @@
 
   #app {
     padding: 20px 30px;
+    padding-bottom: 55px;
   }
 }
 
@@ -44,5 +45,14 @@
   /// ASIDE custom
   .aside-menu-hidden .aside-menu {
 
+  }
+
+  // footer
+  .footer-custom {
+    width: 100%;
+
+    .text-footer-custom {
+      left: 35px;
+    }
   }
 }

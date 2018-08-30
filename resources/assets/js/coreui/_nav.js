@@ -37,10 +37,37 @@ export default {
         attributes: {},
       },
     },
-    {
-        name: 'custom',
-        url : '/custom',
-        icon: 'icon-emotsmile',
+      {
+          name    : 'Campaigns',
+          url     : '/campaigns',
+          icon    : 'icon-globe',
+          children: [
+              {
+                  name      : 'Checking bonuses',
+                  url       : '/campaigns/checking-bonuses',
+                  icon      : 'icon-check',
+              },
+              {
+                  url       : '/campaigns/feedbacks',
+                  name      : 'Feedbacks',
+                  icon      : 'icon-feed',
+              },
+              {
+                  url       : '/campaigns/influencers-bonuses',
+                  name      : 'Influencers bonuses',
+                  icon      : 'icon-present',
+              },
+              {
+                  url       : '/campaigns/my-campaigns',
+                  name      : 'My campaigns',
+                  icon      : 'icon-briefcase',
+              },
+              {
+                  url       : '/campaigns/results-campaigns',
+                  name      : 'Results campaigns',
+                  icon      : 'icon-chart',
+              },
+          ]
     },
     {
       name    : 'Base',

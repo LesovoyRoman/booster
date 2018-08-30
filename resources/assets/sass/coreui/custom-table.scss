@@ -1,0 +1,25 @@
+// tables
+
+.tab-content {
+  border: none;
+}
+
+.custom_btn_change {
+  padding: 0px;
+  background: transparent;
+  border: 0;
+
+  &:active, &:hover, &:focus {
+    background: transparent !important;
+    box-shadow: none !important;
+
+    i {
+      color: $main-color;
+    }
+  }
+
+  i {
+    color: black;
+    font-size: 16px;
+  }
+}

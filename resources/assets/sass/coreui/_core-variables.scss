@@ -2,9 +2,11 @@
 
 
 // colors
-$color_link_simple: #fff;
+$color_link_simple:                     #fff;
 
-$main-color: #BD4013 !default;
+$color_text_common:                     #28313B !default;
+
+$main-color:                            #BD4013 !default;
 
 $navbar-brand-bg:                       $main-color !default;
 $navbar-color:                          #fff !default;
@@ -23,8 +25,12 @@ $sidebar-nav-link-active-icon-color:    #fff !default;
 $sidebar-nav-link-hover-icon-color:     #fff !default;
 
 $sidebar-nav-dropdown-indicator-color:  #fff !default;
-$sidebar-nav-dropdown-bg:               rgba(189, 64, 19, 0.39) !default;
-
+$sidebar-nav-dropdown-bg:               rgba(189, 64, 19, 0.65) !default;
 
 // sizes
-$navbar-brand-logo-size:              85% auto !default;
+$navbar-brand-logo-size:                85% auto !default;
+
+// typography
+$h-color :                              $color_text_common !default;
+$h-2-size:                              32px !default;
+$h-2-margin-bottom:                     30px !default;

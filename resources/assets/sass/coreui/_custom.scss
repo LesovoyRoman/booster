@@ -1,5 +1,7 @@
 // Here you can add other styles
 @import "core-variables";
+@import "custom-typography";
+@import "custom-table";
 
 
 a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
@@ -25,5 +27,9 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
 
 .nav-item.nav-dropdown.open .nav-link i {
   color: $sidebar-nav-link-active-icon-color
+}
+
+.app-header.navbar .navbar-brand {
+  border-bottom: none;
 }
 
