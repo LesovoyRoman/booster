@@ -23,3 +23,12 @@
     font-size: 15px;
   }
 }
+
+thead .sorting {
+  font-weight: 500;
+
+  &:hover, &:active, &:focus, &.sorting_asc, &.sorting_desc {
+    background: $main-color;
+    color: white;
+  }
+}

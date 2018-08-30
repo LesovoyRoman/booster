@@ -11,16 +11,19 @@
 
                                 <b-form-group>
                                     <b-input-group>
-                                        <!-- Attach Left button -->
                                         <b-input-group-prepend>
-                                            <b-dropdown
-                                                    text="Filter"
-                                                    variant="primary">
-                                                <b-dropdown-item>Name</b-dropdown-item>
-                                                <b-dropdown-item>Status</b-dropdown-item>
-                                            </b-dropdown>
+                                            <b-form-select dark v-model="sortBy" :options="sortOptions">
+                                                <option slot="first" :value="null">Filter</option>
+                                            </b-form-select>
+                                            <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+                                                <option :value="false">Low</option>
+                                                <option :value="true">High</option>
+                                            </b-form-select>
                                         </b-input-group-prepend>
-                                        <b-form-input placeholder="Type name company or influencer"/>
+                                        <b-form-input v-model="filter" placeholder="Type name company or influencer"/>
+                                        <b-input-group-append>
+                                            <b-btn :variant="'primary'" :disabled="!filter" @click="filter = ''">Clear</b-btn>
+                                        </b-input-group-append>
                                     </b-input-group>
                                 </b-form-group>
 
@@ -33,8 +36,20 @@
                                         responsive="sm"
                                         :items="activeTable"
                                         :fields="fields"
+
+                                        :filter="filter"
+                                        :sort-by.sync="sortBy"
+                                        :sort-desc.sync="sortDesc"
+                                        :sort-direction="sortDirection"
+                                        @filtered="onFiltered"
+
                                         :current-page="currentPage"
                                         :per-page="perPage">
+                                    <template
+                                            slot="campaign_name"
+                                            slot-scope="data">
+                                        <router-link :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign } }">{{ data.item.campaign_name }}</router-link>
+                                    </template>
                                     <template
                                             slot="status"
                                             slot-scope="data" justified="center">
@@ -63,16 +78,19 @@
 
                                 <b-form-group>
                                     <b-input-group>
-                                        <!-- Attach Left button -->
                                         <b-input-group-prepend>
-                                            <b-dropdown
-                                                    text="Filter"
-                                                    variant="primary">
-                                                <b-dropdown-item>Name</b-dropdown-item>
-                                                <b-dropdown-item>Status</b-dropdown-item>
-                                            </b-dropdown>
+                                            <b-form-select dark v-model="sortBy" :options="sortOptions">
+                                                <option slot="first" :value="null">Filter</option>
+                                            </b-form-select>
+                                            <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+                                                <option :value="false">Low</option>
+                                                <option :value="true">High</option>
+                                            </b-form-select>
                                         </b-input-group-prepend>
-                                        <b-form-input placeholder="Type name company or influencer"/>
+                                        <b-form-input v-model="filter" placeholder="Type name company or influencer"/>
+                                        <b-input-group-append>
+                                            <b-btn :variant="'primary'" :disabled="!filter" @click="filter = ''">Clear</b-btn>
+                                        </b-input-group-append>
                                     </b-input-group>
                                 </b-form-group>
 
@@ -85,8 +103,20 @@
                                         responsive="sm"
                                         :items="archiveTable"
                                         :fields="fields"
+
+                                        :filter="filter"
+                                        :sort-by.sync="sortBy"
+                                        :sort-desc.sync="sortDesc"
+                                        :sort-direction="sortDirection"
+                                        @filtered="onFiltered"
+
                                         :current-page="currentPage"
                                         :per-page="perPage">
+                                    <template
+                                            slot="campaign_name"
+                                            slot-scope="data">
+                                        <router-link :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign } }">{{ data.item.campaign_name }}</router-link>
+                                    </template>
                                     <template
                                             slot="status"
                                             slot-scope="data">
@@ -123,12 +153,12 @@
 <script>
 
     const shuffleArray = (array) => {
-        for (let i = array.length - 1; i > 0; i--) {
+        /*for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1))
             const temp = array[i]
             array[i] = array[j]
             array[j] = temp
-        }
+        }*/
         return array
     }
 
@@ -138,71 +168,85 @@
             return {
                 header: 'My campaigns',
                 activeTable: shuffleArray([
-                    { campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
-                    { campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
-                    { campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
-                    { campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo', start: '20/08/2018', finish: '31/12/2018', status: '5', change: '' },
-                    { campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
-                    { campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
-                    { campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Snacks', points: '60000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 1, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 2, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
+                    { id: 3, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 4, campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 5, campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 6, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 7, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
+                    { id: 8, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 9, campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 10, campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 11, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 12, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
+                    { id: 13, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 14, campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 15, campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 16, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo', start: '20/08/2018', finish: '31/12/2018', status: '5', change: '' },
+                    { id: 17, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
+                    { id: 18, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 19, campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 20, campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 21, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 22, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
+                    { id: 23, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 24, campaign_name: 'Snacks', points: '60000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 25, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
                 ]),
                 archiveTable: shuffleArray([
-                    { campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
-                    { campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
-                    { campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
-                    { campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo', start: '20/08/2018', finish: '31/12/2018', status: '5', change: '' },
-                    { campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
-                    { campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
-                    { campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
-                    { campaign_name: 'Cheese', points: '60000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
-                    { campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 1, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 2, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
+                    { id: 3, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 4, campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 5, campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 6, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 7, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
+                    { id: 8, campaign_name: 'Cheese', points: '80000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 9, campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 10, campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 11, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 12, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
+                    { id: 13, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 14, campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 15, campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 16, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo', start: '20/08/2018', finish: '31/12/2018', status: '5', change: '' },
+                    { id: 17, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
+                    { id: 18, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 19, campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 20, campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 21, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 22, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '3', change: '' },
+                    { id: 23, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
+                    { id: 24, campaign_name: 'Cheese', points: '60000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: '5', change: '' },
+                    { id: 25, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: '4', change: '' },
                 ]),
                 fields: [
-                    { key: 'campaign_name' },
-                    { key: 'points' },
-                    { key: 'check_type' },
-                    { key: 'start' },
-                    { key: 'finish' },
-                    { key: 'status', 'class': 'text-center' },
+                    { key: 'id' },
+                    { key: 'campaign_name', sortable: true, label: 'Name' },
+                    { key: 'points', sortable: true, label: 'Points'  },
+                    { key: 'check_type', sortable: true, label: 'Checking' },
+                    { key: 'start', sortable: true, label: 'Start Date' },
+                    { key: 'finish', sortable: true, label: 'Finish Date' },
+                    { key: 'status', 'class': 'text-center', sortable: true, label: 'Status' },
                     { key: 'change', 'class': 'text-center' }
                 ],
                 currentPage: 1,
                 perPage    : 10,
                 totalRows  : 0,
+
+                filter: null,
+                sortBy: null,
+                sortDesc: false,
+                sortDirection: 'asc',
+            }
+        },
+        computed: {
+            sortOptions () {
+                // Create an options list from our fields
+                return this.fields
+                    .filter(f => f.sortable)
+                    .map(f => { return { text: f.label, value: f.key } })
             }
         },
         methods: {
@@ -214,6 +258,11 @@
             getRowCount (items) {
                 return items.length
             },
+            onFiltered (filteredItems) {
+                // Trigger pagination to update the number of buttons/pages due to filtering
+                this.totalRows = filteredItems.length
+                this.currentPage = 1
+            }
         },
     }
 </script>

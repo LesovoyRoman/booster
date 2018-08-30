@@ -1,6 +1,8 @@
 // core overrides
 
 
+$color-bg-body:                         #f0f0f0 !default;
+
 // colors
 $color_link_simple:                     #fff;
 
@@ -34,3 +36,9 @@ $navbar-brand-logo-size:                85% auto !default;
 $h-color :                              $color_text_common !default;
 $h-2-size:                              32px !default;
 $h-2-margin-bottom:                     30px !default;
+
+
+
+
+// table
+$active-field-color:                    rgba(189, 64, 19, 0.65) !default;

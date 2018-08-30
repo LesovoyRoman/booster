@@ -55,6 +55,7 @@ import Register from '@/views/pages/Register'
 
 // Campaigns
 import MyCampaigns from '@/views/campaigns/MyCampaigns'
+import Campaign from '@/views/campaigns/Campaign'
 import ResultsCampaigns from '@/views/campaigns/ResultsCampaigns'
 import AllFeedbacks from '@/views/campaigns/feedbacks/Feedbacks'
 import Feedback from '@/views/campaigns/feedbacks/Feedback'
@@ -108,6 +109,7 @@ export default new Router({
                             path     : 'feedback',
                             name     : 'Feedback',
                             component: Feedback,
+                            props: true,
                         },
                         {
                             path     : 'all-feedbacks',
@@ -125,6 +127,12 @@ export default new Router({
                     path     : 'my-campaigns',
                     name     : 'My campaigns',
                     component: MyCampaigns,
+                },
+                {
+                    path     : 'campaign',
+                    name     : 'Campaign',
+                    component: Campaign,
+                    props: true,
                 },
                 {
                     path     : 'results-campaigns',

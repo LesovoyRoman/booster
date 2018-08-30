@@ -21233,10 +21233,27 @@ h2 {
   font-size: 15px;
 }
 
+thead .sorting {
+  font-weight: 500;
+}
+
+thead .sorting:hover,
+thead .sorting:active,
+thead .sorting:focus,
+thead .sorting.sorting_asc,
+thead .sorting.sorting_desc {
+  background: #BD4013;
+  color: white;
+}
+
 .sidebar .nav-link.nav-link-primary,
 .sidebar .navbar .nav-link-primary.dropdown-toggle,
 .navbar .sidebar .nav-link-primary.dropdown-toggle {
   color: white;
+}
+
+body {
+  background: #f0f0f0;
 }
 
 a,
