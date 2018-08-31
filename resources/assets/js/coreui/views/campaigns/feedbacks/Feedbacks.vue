@@ -45,31 +45,15 @@
                             <template
                                     slot="campaign_name"
                                     slot-scope="data">
-                                <router-link :data="feedback = data.item" :to="{ name: 'Feedback', params: { feedback } }">{{ data.item.campaign_name }}</router-link>
+                                <router-link :id="id = data.item.id" :data="feedback = data.item" :to="{ name: 'Feedback', params: { feedback: feedback, id: id } }">{{ data.item.campaign_name }}</router-link>
                             </template>
                             <template
                                     slot="status"
                                     slot-scope="data" justified="center">
-                                        <span :variant="getBadge(data.item.status)" v-if="data.item.status === '5'">
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star star_active"></i>
-                                        </span>
-                                <span :variant="getBadge(data.item.status)" v-if="data.item.status === '4'">
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star"></i>
-                                        </span>
-                                <span :variant="getBadge(data.item.status)" v-if="data.item.status === '3'">
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star star_active"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                                        <span :variant="getBadge(data.item.status)">
+                                            <i v-for="k in data.item.status" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
+                                            <i v-if="data.item.status === 4" class="fa fa-star"></i>
                                         </span>
 
                             </template>
@@ -110,39 +94,39 @@
                 header: 'Feedbacks',
 
                 feedbacks: shuffleArray([
-                    { id: 1, campaign_name: 'Snacks', participants: '100', status: '5' },
-                    { id: 2, campaign_name: 'Snacks', participants: '200', status: '5' },
-                    { id: 3, campaign_name: 'Snacks', participants: '300', status: '5' },
-                    { id: 4, campaign_name: 'Snacks', participants: '500', status: '5' },
-                    { id: 5, campaign_name: 'Snacks', participants: '1000', status: '5' },
-                    { id: 6, campaign_name: 'Snacks', participants: '100', status: '5' },
-                    { id: 7, campaign_name: 'Snacks', participants: '200', status: '5' },
-                    { id: 8, campaign_name: 'Snacks', participants: '300', status: '5' },
-                    { id: 9, campaign_name: 'Snacks', participants: '500', status: '5' },
-                    { id: 10, campaign_name: 'Snacks', participants: '100', status: '5' },
-                    { id: 11, campaign_name: 'Snacks', participants: '200', status: '5' },
-                    { id: 12, campaign_name: 'Snacks', participants: '300', status: '4' },
-                    { id: 13, campaign_name: 'Snacks', participants: '500', status: '5' },
-                    { id: 14, campaign_name: 'Snacks', participants: '1000', status: '5' },
-                    { id: 15, campaign_name: 'Snacks', participants: '100', status: '5' },
-                    { id: 16, campaign_name: 'Snacks', participants: '200', status: '5' },
-                    { id: 17, campaign_name: 'Snacks', participants: '300', status: '5' },
-                    { id: 18, campaign_name: 'Snacks', participants: '500', status: '5' },
-                    { id: 19, campaign_name: 'Snacks', participants: '1000', status: '4' },
-                    { id: 20, campaign_name: 'Snacks', participants: '100', status: '5' },
-                    { id: 21, campaign_name: 'Snacks', participants: '200', status: '5' },
-                    { id: 22, campaign_name: 'Snacks', participants: '300', status: '5' },
-                    { id: 23, campaign_name: 'Snacks', participants: '500', status: '5' },
-                    { id: 24, campaign_name: 'Snacks', participants: '100', status: '3' },
-                    { id: 25, campaign_name: 'Snacks', participants: '200', status: '5' },
-                    { id: 26, campaign_name: 'Snacks', participants: '300', status: '3' },
-                    { id: 27, campaign_name: 'Snacks', participants: '500', status: '5' },
-                    { id: 28, campaign_name: 'Snacks', participants: '1000', status: '5' },
-                    { id: 29, campaign_name: 'Snacks', participants: '100', status: '5' },
-                    { id: 30, campaign_name: 'Snacks', participants: '200', status: '5' },
-                    { id: 31, campaign_name: 'Snacks', participants: '300', status: '5' },
-                    { id: 32, campaign_name: 'Snacks', participants: '500', status: '5' },
-                    { id: 33, campaign_name: 'Snacks', participants: '1000', status: '5' },
+                    { id: 1, campaign_name: 'Snacks', participants: '100', status: 5 },
+                    { id: 2, campaign_name: 'Snacks', participants: '200', status: 5 },
+                    { id: 3, campaign_name: 'Snacks', participants: '300', status: 5 },
+                    { id: 4, campaign_name: 'Snacks', participants: '500', status: 5 },
+                    { id: 5, campaign_name: 'Snacks', participants: '1000', status: 5 },
+                    { id: 6, campaign_name: 'Snacks', participants: '100', status: 5 },
+                    { id: 7, campaign_name: 'Snacks', participants: '200', status: 5 },
+                    { id: 8, campaign_name: 'Snacks', participants: '300', status: 5 },
+                    { id: 9, campaign_name: 'Snacks', participants: '500', status: 5 },
+                    { id: 10, campaign_name: 'Snacks', participants: '100', status: 5 },
+                    { id: 11, campaign_name: 'Snacks', participants: '200', status: 5 },
+                    { id: 12, campaign_name: 'Snacks', participants: '300', status: 4 },
+                    { id: 13, campaign_name: 'Snacks', participants: '500', status: 5 },
+                    { id: 14, campaign_name: 'Snacks', participants: '1000', status: 5 },
+                    { id: 15, campaign_name: 'Snacks', participants: '100', status: 5 },
+                    { id: 16, campaign_name: 'Snacks', participants: '200', status: 5 },
+                    { id: 17, campaign_name: 'Snacks', participants: '300', status: 5 },
+                    { id: 18, campaign_name: 'Snacks', participants: '500', status: 5 },
+                    { id: 19, campaign_name: 'Snacks', participants: '1000', status: 4 },
+                    { id: 20, campaign_name: 'Snacks', participants: '100', status: 5 },
+                    { id: 21, campaign_name: 'Snacks', participants: '200', status: 5 },
+                    { id: 22, campaign_name: 'Snacks', participants: '300', status: 5 },
+                    { id: 23, campaign_name: 'Snacks', participants: '500', status: 5 },
+                    { id: 24, campaign_name: 'Snacks', participants: '100', status: 3 },
+                    { id: 25, campaign_name: 'Snacks', participants: '200', status: 5 },
+                    { id: 26, campaign_name: 'Snacks', participants: '300', status: 3 },
+                    { id: 27, campaign_name: 'Snacks', participants: '500', status: 5 },
+                    { id: 28, campaign_name: 'Snacks', participants: '1000', status: 5 },
+                    { id: 29, campaign_name: 'Snacks', participants: '100', status: 5 },
+                    { id: 30, campaign_name: 'Snacks', participants: '200', status: 5 },
+                    { id: 31, campaign_name: 'Snacks', participants: '300', status: 5 },
+                    { id: 32, campaign_name: 'Snacks', participants: '500', status: 5 },
+                    { id: 33, campaign_name: 'Snacks', participants: '1000', status: 5 },
                 ]),
                 fields: [
                     { key: 'id', label: '№' },

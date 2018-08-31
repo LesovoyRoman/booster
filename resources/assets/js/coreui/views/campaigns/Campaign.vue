@@ -45,9 +45,9 @@
                                 :current-page="currentPage"
                                 :per-page="perPage">
                             <template
-                                    slot="campaign_name"
+                                    slot="name"
                                     slot-scope="data">
-                                <router-link :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign } }">{{ data.item.campaign_name }}</router-link>
+                                <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'InfluencerBonuses', params: { influencer: influencer, id: id, campaign_name: campaign.campaign_name } }">{{ data.item.name }}</router-link>
                             </template>
                             <template
                                     slot="status"
@@ -133,7 +133,8 @@
         computed: {
             computedCampaign: function() {
                 if(typeof this.campaign === 'undefined') {
-                    vm.$router.push('/campaigns');
+                    //vm.$router.push('/campaigns');
+                    vm.$router.go(-1)
                 }
             },
             sortOptions () {

@@ -2,7 +2,7 @@ export default {
   items: [
       {
           name : 'Add new company',
-          url  : '/dashboard',
+          url  : '/campaigns/add-new',
           icon : 'icon-plus',
           variant: 'primary'
       },

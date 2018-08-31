@@ -59,8 +59,9 @@ import Campaign from '@/views/campaigns/Campaign'
 import ResultsCampaigns from '@/views/campaigns/ResultsCampaigns'
 import AllFeedbacks from '@/views/campaigns/feedbacks/Feedbacks'
 import Feedback from '@/views/campaigns/feedbacks/Feedback'
-import InfluencersBonuses from '@/views/campaigns/bonuses/InfluencersBonuses'
+import InfluencerBonuses from '@/views/campaigns/bonuses/InfluencerBonuses'
 import CheckingBonuses from '@/views/campaigns/bonuses/CheckingBonuses'
+import NewCompany from '@/views/campaigns/CreateNewCampaign'
 
 Vue.use(Router)
 
@@ -92,8 +93,13 @@ export default new Router({
             children: [
                 {
                     path     : 'checking-bonuses',
-                    name     : 'Checking bonuses',
+                    name     : 'CheckingBonuses',
                     component: CheckingBonuses,
+                },
+                {
+                  path       : 'add-new',
+                  name       : 'AddNewCampaign',
+                  component  : NewCompany
                 },
                 {
                     path     : 'feedbacks',
@@ -106,7 +112,7 @@ export default new Router({
                     },
                     children: [
                         {
-                            path     : 'feedback',
+                            path     : 'feedback-:id',
                             name     : 'Feedback',
                             component: Feedback,
                             props: true,
@@ -119,24 +125,25 @@ export default new Router({
                     ]
                 },
                 {
-                    path     : 'influencers-bonuses',
-                    name     : 'Influencers bonuses',
-                    component: InfluencersBonuses,
+                    path     : 'influencer-:id-bonuses',
+                    name     : 'InfluencerBonuses',
+                    component: InfluencerBonuses,
+                    props: true,
                 },
                 {
                     path     : 'my-campaigns',
-                    name     : 'My campaigns',
+                    name     : 'MyCampaigns',
                     component: MyCampaigns,
                 },
                 {
-                    path     : 'campaign',
+                    path     : 'campaign-id-:id',
                     name     : 'Campaign',
                     component: Campaign,
                     props: true,
                 },
                 {
                     path     : 'results-campaigns',
-                    name     : 'Results campaigns',
+                    name     : 'ResultsCampaigns',
                     component: ResultsCampaigns,
                 },
             ],

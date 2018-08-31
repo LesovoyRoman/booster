@@ -30,7 +30,8 @@
         computed: {
             computedFeedback: function() {
                 if(typeof this.feedback === 'undefined') {
-                    vm.$router.push('/campaigns/feedbacks/all-feedbacks');
+                   // vm.$router.push('/campaigns/feedbacks/all-feedbacks');
+                    vm.$router.go(-1)
                 }
             }
         },

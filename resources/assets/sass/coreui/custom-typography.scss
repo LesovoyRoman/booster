@@ -3,3 +3,9 @@ h2 {
   font-size: $h-2-size !important;
   margin-bottom: $h-2-margin-bottom !important;
 }
+
+.header_card_simple {
+  text-transform: uppercase;
+  color: $color_text_common;
+  display: block;
+}
