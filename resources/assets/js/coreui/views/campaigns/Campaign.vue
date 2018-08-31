@@ -52,12 +52,8 @@
                             <template
                                     slot="status"
                                     slot-scope="data" justified="center">
-                                <b-badge :variant="getBadge(data.item.status)">{{ data.item.status }}</b-badge>
-                            </template>
-                            <template slot="change" justified="center" slot-scope="row">
-                                <b-button size="sm" class="custom_btn_change" :variant="'primary'">
-                                    <i class="icon-pencil"></i>
-                                </b-button>
+                                <span :variant="setStatus(data.item.status)" v-if="data.item.status === 'All checked'"><i class="icon-check"></i> {{ data.item.status }}</span>
+                                <button class="btn btn-secondary" :variant="setStatus(data.item.status)" v-if="data.item.status === 'check'">{{ data.item.status }}</button>
                             </template>
                         </b-table>
 
@@ -148,7 +144,7 @@
             }
         },
         methods: {
-            getBadge (status) {
+            setStatus (status) {
                 return status === 'All checked' ? 'success'
                         : status === 'check' ? 'primary' : 'primary'
             },

@@ -49,8 +49,29 @@
                             </template>
                             <template
                                     slot="status"
-                                    slot-scope="data">
-                                <b-badge :variant="getBadge(data.item.status)">{{ data.item.status }}</b-badge>
+                                    slot-scope="data" justified="center">
+                                        <span :variant="getBadge(data.item.status)" v-if="data.item.status === '5'">
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                        </span>
+                                <span :variant="getBadge(data.item.status)" v-if="data.item.status === '4'">
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star"></i>
+                                        </span>
+                                <span :variant="getBadge(data.item.status)" v-if="data.item.status === '3'">
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </span>
+
                             </template>
                         </b-table>
                         <nav>

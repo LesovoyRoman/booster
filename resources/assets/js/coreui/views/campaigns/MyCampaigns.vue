@@ -53,7 +53,28 @@
                                     <template
                                             slot="status"
                                             slot-scope="data" justified="center">
-                                        <b-badge :variant="getBadge(data.item.status)">{{ data.item.status }}</b-badge>
+                                        <span :variant="getBadge(data.item.status)" v-if="data.item.status === '5'">
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                        </span>
+                                        <span :variant="getBadge(data.item.status)" v-if="data.item.status === '4'">
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star"></i>
+                                        </span>
+                                        <span :variant="getBadge(data.item.status)" v-if="data.item.status === '3'">
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </span>
+                                        
                                     </template>
                                     <template slot="change" justified="center" slot-scope="row">
                                         <b-button size="sm" class="custom_btn_change" :variant="'primary'">
@@ -119,8 +140,29 @@
                                     </template>
                                     <template
                                             slot="status"
-                                            slot-scope="data">
-                                        <b-badge :variant="getBadge(data.item.status)">{{ data.item.status }}</b-badge>
+                                            slot-scope="data" justified="center">
+                                        <span :variant="getBadge(data.item.status)" v-if="data.item.status === '5'">
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                        </span>
+                                        <span :variant="getBadge(data.item.status)" v-if="data.item.status === '4'">
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star"></i>
+                                        </span>
+                                        <span :variant="getBadge(data.item.status)" v-if="data.item.status === '3'">
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star star_active"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </span>
+
                                     </template>
                                     <template slot="change" justified="center" slot-scope="row">
                                         <b-button size="sm" class="custom_btn_change" :variant="'primary'">
@@ -228,7 +270,7 @@
                     { key: 'check_type', sortable: true, label: 'Checking' },
                     { key: 'start', sortable: true, label: 'Start Date' },
                     { key: 'finish', sortable: true, label: 'Finish Date' },
-                    { key: 'status', 'class': 'text-center', sortable: true, label: 'Status' },
+                    { key: 'status', sortable: true, label: 'Status' },
                     { key: 'change', 'class': 'text-center' }
                 ],
                 currentPage: 1,

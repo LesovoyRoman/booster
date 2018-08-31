@@ -1,5 +1,9 @@
 // tables
 
+table.table td, table th, table tr{
+  vertical-align: middle;
+}
+
 .tab-content {
   border: none;
 }
@@ -31,4 +35,12 @@ thead .sorting {
     background: $main-color;
     color: white;
   }
+}
+
+.fa.fa-star {
+  margin: 0 2px;
+  color: #D8D8D8;
+}
+.fa.fa-star.star_active {
+  color: $main-color;
 }
