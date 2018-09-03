@@ -65,7 +65,7 @@ export default {
                   icon      : 'icon-briefcase',
               },
               {
-                  url       : '/campaigns/results-campaigns',
+                  url       : '/campaigns/results/results-campaigns',
                   name      : 'Results campaigns',
                   icon      : 'icon-chart',
               },

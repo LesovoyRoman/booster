@@ -56,11 +56,16 @@ import Register from '@/views/pages/Register'
 // Campaigns
 import MyCampaigns from '@/views/campaigns/MyCampaigns'
 import Campaign from '@/views/campaigns/Campaign'
-import ResultsCampaigns from '@/views/campaigns/ResultsCampaigns'
+
+import ResultsCampaigns from '@/views/campaigns/results/ResultsCampaigns'
+import ResultCampign from '@/views/campaigns/results/ResultCampaign'
+
 import AllFeedbacks from '@/views/campaigns/feedbacks/Feedbacks'
 import Feedback from '@/views/campaigns/feedbacks/Feedback'
+
 import InfluencerBonuses from '@/views/campaigns/bonuses/InfluencerBonuses'
 import CheckingBonuses from '@/views/campaigns/bonuses/CheckingBonuses'
+
 import NewCompany from '@/views/campaigns/CreateNewCampaign'
 
 Vue.use(Router)
@@ -142,9 +147,28 @@ export default new Router({
                     props: true,
                 },
                 {
-                    path     : 'results-campaigns',
-                    name     : 'ResultsCampaigns',
-                    component: ResultsCampaigns,
+                    path     : 'results',
+                    name     : 'Results',
+                    redirect: '/campaigns/results/results-campaigns',
+                    component: {
+                        render (c) {
+                            return c('router-view')
+                        },
+                    },
+                    children: [
+                        {
+                            path     : 'results-campaigns',
+                            name     : 'ResultsCampaigns',
+                            component: ResultsCampaigns,
+                            props: true,
+                        },
+                        {
+                            path     : 'result',
+                            name     : 'ResultCampaign',
+                            component: ResultCampign,
+                            props: true,
+                        },
+                    ]
                 },
             ],
         },

@@ -5,7 +5,6 @@
                 <b-col sm="12" md="12">
                     <h2 class="h2">{{ header }} {{ campaign.campaign_name }}</h2>
                     <b-card>
-                        id campaign => {{ campaign.id }}
 
                         <b-form-group>
                             <b-input-group>
