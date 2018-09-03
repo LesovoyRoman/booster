@@ -23,15 +23,20 @@
                                         <option :value="'waiting'">Waiting</option>
                                     </b-form-select>
                                 </b-input-group-prepend>
+                                <b-input-group-prepend>
+                                    <b-form-select dark v-model="campaign_name_sort" :options="optionsUniqueCampaign_name">
+                                        <option slot="first" :value="null">All campaigns</option>
+                                    </b-form-select>
+                                </b-input-group-prepend>
                             </b-input-group>
                         </b-form-group>
 
 
                         <b-row :current-page="currentPage"
                                :per-page="perPage">
-                            <b-col md="6" sm="6" xs="12" lg="4" v-for="tmpInfluencer in filtered(tmpInfluencers, sortBy)
+                            <b-col md="6" sm="6" xs="12" lg="4" v-for="tmpInfluencer in filtered(tmpInfluencers, sortBy, campaign_name_sort)
                             .slice((currentPage - 1) * perPage, currentPage * perPage)" v-bind:key="tmpInfluencer.id"> <!-- pick amount that fits to current page -->
-                                <b-card :title="campaign_name"
+                                <b-card :title="tmpInfluencer.campaign_name"
                                         img-src="https://picsum.photos/600/300/?image=25"
                                         img-alt="Image"
                                         img-top
@@ -70,7 +75,7 @@
 
                     <nav>
                         <b-pagination
-                                :total-rows="getRowCount(tmpInfluencers, sortBy)"
+                                :total-rows="getRowCount(tmpInfluencers, sortBy, campaign_name_sort)"
                                 :per-page="perPage"
                                 align="center"
                                 v-model="currentPage"
@@ -100,6 +105,8 @@
                 sortBy: null,
                 sortDesc: false,
                 sortDirection: 'asc',
+                optionsUniqueCampaign_name: [],
+                campaign_name_sort: null,
 
                 fields: [
                     { key: 'id', label: '№', sortable: true },
@@ -112,37 +119,40 @@
                 fromNumber : 0,
 
                 tmpInfluencers: [
-                    { id: 1, name: 'Maria Adolfovna', status: 'accepted' },
-                    { id: 2, name: 'Maria Adolfovna', status: 'waiting' },
-                    { id: 3, name: 'Maria Adolfovna', status: 'accepted' },
-                    { id: 4, name: 'Maria Adolfovna', status: 'waiting' },
-                    { id: 5, name: 'Maria Adolfovna', status: 'declined' },
-                    { id: 6, name: 'Maria Adolfovna', status: 'declined' },
-                    { id: 7, name: 'Maria Adolfovna', status: 'accepted' },
-                    { id: 8, name: 'Maria Adolfovna', status: 'waiting' },
-                    { id: 9, name: 'Maria Adolfovna', status: 'accepted' },
-                    { id: 10, name: 'Maria Adolfovna', status: 'accepted' },
-                    { id: 11, name: 'Maria Adolfovna', status: 'waiting' },
-                    { id: 12, name: 'Maria Adolfovna', status: 'accepted' },
-                    { id: 13, name: 'Maria Adolfovna', status: 'waiting' },
-                    { id: 14, name: 'Maria Adolfovna', status: 'declined' },
-                    { id: 15, name: 'Maria Adolfovna', status: 'declined' },
-                    { id: 16, name: 'Maria Adolfovna', status: 'accepted' },
-                    { id: 17, name: 'Maria Adolfovna', status: 'waiting' },
-                    { id: 18, name: 'Maria Adolfovna', status: 'accepted' },
-                    { id: 19, name: 'Maria Adolfovna', status: 'waiting' },
-                    { id: 20, name: 'Maria Adolfovna', status: 'accepted' },
-                    { id: 21, name: 'Maria Adolfovna', status: 'waiting' },
-                    { id: 22, name: 'Maria Adolfovna', status: 'declined' },
-                    { id: 23, name: 'Maria Adolfovna', status: 'declined' },
-                    { id: 24, name: 'Maria Adolfovna', status: 'accepted' },
-                    { id: 25, name: 'Maria Adolfovna', status: 'waiting' },
-                    { id: 26, name: 'Maria Adolfovna', status: 'accepted' }
+                    { id: 1, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
+                    { id: 2, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Cheese' },
+                    { id: 3, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
+                    { id: 4, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks' },
+                    { id: 5, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese' },
+                    { id: 6, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese' },
+                    { id: 7, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
+                    { id: 8, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Cheese' },
+                    { id: 9, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
+                    { id: 10, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
+                    { id: 11, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks' },
+                    { id: 12, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese' },
+                    { id: 13, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks' },
+                    { id: 14, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese' },
+                    { id: 15, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Snacks' },
+                    { id: 16, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese' },
+                    { id: 17, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Cheese' },
+                    { id: 18, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese' },
+                    { id: 19, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Cheese' },
+                    { id: 20, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
+                    { id: 21, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks' },
+                    { id: 22, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese' },
+                    { id: 23, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Snacks' },
+                    { id: 24, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese' },
+                    { id: 25, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks' },
+                    { id: 26, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese' }
                 ],
             }
         },
         beforeCreate(){
             vm = this;
+        },
+        created(){
+            this.getOptions();
         },
         computed: {
             computedInfluencer: function() {
@@ -152,27 +162,62 @@
             },
         },
         methods: {
-            filtered (arrays, rule) {
-                if(rule === null) {
+            getOptions(){
+                this.tmpInfluencers.forEach(function (item, i) {
+                    if(!vm.optionsUniqueCampaign_name.includes(item.campaign_name)) {
+                        vm.optionsUniqueCampaign_name.push(item.campaign_name);
+                    }
+                });
+            },
+            filtered (arrays, rule, campaign_name) {
+                if(rule === null && campaign_name === null) {
                     this.getRowCount(this.tmpInfluencers);
                     return this.tmpInfluencers
                 } else {
                     let i = 0;
-                    this.tmpInfluencers.forEach(function (item, index) {
-                        if (item.status === rule) {
-                            i++
-                        }
-                    });
+                    if(campaign_name === null) {
+                        this.tmpInfluencers.forEach(function (item, index) {
+                            if (item.status === rule) {
+                                i++
+                            }
+                        });
 
-                    this.getRowCount(this.tmpInfluencers.filter(t => t.status === rule));
-                    return this.tmpInfluencers.filter(t => t.status === rule)
+                        this.getRowCount(this.tmpInfluencers.filter(t => t.status === rule));
+                        return this.tmpInfluencers.filter(t => t.status === rule)
+                    } else if (rule === null){
+                        this.tmpInfluencers.forEach(function (item, index) {
+                            if (item.campaign_name === campaign_name) {
+                                i++
+                            }
+                        });
+
+                        this.getRowCount(this.tmpInfluencers.filter(t => t.campaign_name === campaign_name));
+                        return this.tmpInfluencers.filter(t => t.campaign_name === campaign_name);
+                    } else {
+                        this.tmpInfluencers.forEach(function (item, index) {
+                            if (item.status === rule && item.campaign_name === campaign_name) {
+                                i++
+                            }
+                        });
+
+                        this.getRowCount(this.tmpInfluencers.filter(t => t.status === rule && t.campaign_name === campaign_name));
+                        return this.tmpInfluencers.filter(t => t.status === rule && t.campaign_name === campaign_name);
+                    }
                 }
             },
-            getRowCount (items, rule) {
-                if(rule === null) {
+            getRowCount (items, rule, campaign_rule) {
+                if(rule === null && campaign_rule === null) {
                     return items.length
                 } else {
-                    return items.filter(t => t.status === rule).length
+                    if(campaign_rule === null) {
+                        return items.filter(t => t.status === rule).length
+                    } else {
+                        if(rule === null) {
+                            return items.filter(t => t.campaign_name === campaign_rule).length
+                        } else {
+                            return items.filter(t => t.status === rule && t.campaign_name === campaign_rule).length
+                        }
+                    }
                 }
             },
             sorted(arrays) {

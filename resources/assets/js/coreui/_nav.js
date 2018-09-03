@@ -54,11 +54,11 @@ export default {
                   name      : 'Feedbacks',
                   icon      : 'icon-feed',
               },
-              {
+              /*{
                   url       : '/campaigns/influencers-bonuses',
                   name      : 'Influencers bonuses',
                   icon      : 'icon-present',
-              },
+              },*/
               {
                   url       : '/campaigns/my-campaigns',
                   name      : 'My campaigns',
