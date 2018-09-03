@@ -72,6 +72,7 @@
 
 <script>
     import LineChart from './../../charts/CustomChart.vue'
+    let vm = {}
 
     export default {
         props: ['campaign'],
@@ -127,6 +128,9 @@
                 sortDesc: false,
                 sortDirection: 'asc',
             }
+        },
+        beforeCreate(){
+            vm = this;
         },
         computed: {
             computedCampaign: function() {
