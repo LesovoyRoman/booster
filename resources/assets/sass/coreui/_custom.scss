@@ -66,3 +66,9 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
 .btn-custom-create-campaign.btn {
   padding: 8px 35px;
 }
+
+.input-group-prepend {
+  select, input, textarea, button {
+    margin-right: 10px;
+  }
+}

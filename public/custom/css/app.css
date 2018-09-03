@@ -172,6 +172,10 @@ html body {
   color: #23282C;
 }
 
+#login {
+  padding-top: 14vh;
+}
+
 .aside-menu {
   position: absolute;
   border: none;
@@ -220,6 +224,10 @@ html body {
   #login,
   #register {
     padding-top: 25px;
+  }
+
+  #login {
+    padding-top: 10vh;
   }
 
   .footer-custom {

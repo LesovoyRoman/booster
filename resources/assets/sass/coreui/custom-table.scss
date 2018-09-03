@@ -38,9 +38,35 @@ thead .sorting {
 }
 
 .fa.fa-star {
-  margin: 0 2px;
+  margin: 0 3px;
   color: #D8D8D8;
 }
 .fa.fa-star.star_active {
   color: $main-color;
+}
+
+#feedback .b-table-stacked {
+  tr {
+    border-top: 1px solid $main-color;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+  td {
+    grid-template-columns: 100% auto;
+    border: none;
+  }
+  td:before {
+    display: none;
+  }
+  td.comment_id {
+    display: none;
+  }
+  td.comment_username {
+    font-weight: 500;
+  }
+  td.comment_text {
+    color: $gray-color
+  }
 }
