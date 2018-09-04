@@ -16,21 +16,21 @@
   }
 
   .type_plan {
-    font-size: 35px;
+    font-size: 25px;
     color: $black-color;
 
     span.price_plan {
       display: block;
-      font-size: 55px;
+      font-size: 40px;
     }
     span.period_price {
       display: block;
-      font-size: 25px;
+      font-size: 20px;
     }
   }
 
   .card_tariff_month, .card_tariff_year {
-    min-height: 560px;
+    min-height: 460px;
     position: relative;
 
     .card-body {
