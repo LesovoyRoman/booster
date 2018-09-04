@@ -11,9 +11,26 @@
                         md="12">
                     <b-card id="resultCampaign">
 
-                        <div class="chart-wrapper">
-                            <line-chart :data="dataChart"></line-chart>
-                        </div>
+                            <b-tabs pills card>
+                                <b-tab title="Sells" active>
+                                    <div class="chart-wrapper">
+                                        <line-chart :data="dataChart1" style="max-height: 65vh"></line-chart>
+                                    </div>
+                                </b-tab>
+                                <b-tab title="Cities">
+
+                                </b-tab>
+                                <b-tab title="Auditory">
+                                    <div class="chart-wrapper">
+                                        <pie-chart :data="dataChart2" style="max-height: 65vh"></pie-chart>
+                                    </div>
+                                </b-tab>
+                                <b-tab title="Rating">
+                                    <div class="chart-wrapper">
+                                        <bar-chart :data="dataChart3" style="max-height: 65vh"></bar-chart>
+                                    </div>
+                                </b-tab>
+                            </b-tabs>
 
                         <div class="divider_custom"></div>
 
@@ -72,26 +89,51 @@
 
 <script>
     import LineChart from './../../charts/CustomChart.vue'
+    import PieChart from './../../charts/PieCustom.vue'
+    import BarChart from './../../charts/BarCustom.vue'
     let vm = {}
 
     export default {
         props: ['campaign'],
         components: {
-            LineChart
+            LineChart,
+            PieChart,
+            BarChart
         },
         name: 'ResultCampaign',
         data() {
             return {
                 header: 'Results',
-                dataChart: [
-                    Math.floor(Math.random() * 90) + 10,
-                    Math.floor(Math.random() * 90) + 10,
-                    Math.floor(Math.random() * 90) + 10,
-                    Math.floor(Math.random() * 90) + 10,
-                    Math.floor(Math.random() * 90) + 10,
-                    Math.floor(Math.random() * 90) + 10,
-                    Math.floor(Math.random() * 90) + 10
+                dataChart1: [
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5
                 ],
+                dataChart2: [
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                ],
+                dataChart3: [
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                ],
+
 
                 influencersList: [
                     {id: 1, name: 'Maria Adolfovna', points: '50000', checked_points: '35000', status: 5},

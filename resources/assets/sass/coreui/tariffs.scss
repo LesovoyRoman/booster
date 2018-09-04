@@ -1,0 +1,48 @@
+#tariff_plan {
+
+  .list-pros {
+    padding-left: 15px;
+    padding-top: 15px;
+
+    li {
+      color: $color_list;
+      padding: 3px 0;
+    }
+  }
+
+  .card-header {
+    padding: 0;
+    padding-bottom: 15px;
+  }
+
+  .type_plan {
+    font-size: 35px;
+    color: $black-color;
+
+    span.price_plan {
+      display: block;
+      font-size: 55px;
+    }
+    span.period_price {
+      display: block;
+      font-size: 25px;
+    }
+  }
+
+  .card_tariff_month, .card_tariff_year {
+    min-height: 560px;
+    position: relative;
+
+    .card-body {
+      padding-bottom: 50px;
+    }
+
+    .btn_plan {
+      position: absolute;
+      width: calc(100% - 40px);
+      left: 20px;
+      bottom: 20px;
+    }
+  }
+}
+

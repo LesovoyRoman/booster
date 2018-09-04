@@ -72,6 +72,11 @@ export default {
           ]
     },
     {
+      name    : 'Tariff',
+      url     : '/tariffs',
+      icon    : 'fa fa-credit-card-alt',
+    },
+    {
       name    : 'Base',
       url     : '/base',
       icon    : 'icon-puzzle',

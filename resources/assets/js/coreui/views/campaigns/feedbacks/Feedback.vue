@@ -34,7 +34,7 @@
                             </b-input-group>
                         </b-form-group>
 
-                        <p class="feedback_grade">Middle grade <span class="font500">{{ feedback.status }}</span></p>
+                        <p class="card-header-custom">Middle grade <span class="font500">{{ feedback.status }}</span></p>
 
                         <div class="stars">
                             <i v-for="k in 5" class="star_active fa fa-star"></i>

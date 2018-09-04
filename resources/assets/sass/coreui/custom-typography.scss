@@ -10,14 +10,19 @@ h2 {
   display: block;
 }
 
-.feedback_grade {
+.card-header-custom {
   color: $main-color;
   font-size: 24px;
 
   span {
     color: $black-color
   }
-  .title_stars {
-    margin-left: 10px;
+
+  &.small-header {
+    font-size: 16px;
   }
+}
+
+.title_stars {
+  margin-left: 10px;
 }

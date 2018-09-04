@@ -21,8 +21,66 @@
 }
 
 .card {
-
   label {
     font-weight: 500;
+  }
+}
+
+
+#tabs_tariffs {
+  .card-header {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    background: transparent;
+
+    .nav {
+      justify-content: center;
+    }
+
+    .nav-item {
+      &:first-child {
+        .nav-link {
+          margin-right: 20px;
+
+          &:before {
+            position: absolute;
+            right: -10px;
+            content: '';
+            top: 15px;
+            height: 25px;
+            width: 1px;
+            background: black;
+            -webkit-transform: rotate(20deg);
+            transform: rotate(20deg);
+          }
+        }
+      }
+    }
+    .nav-link {
+      font-size: 24px;
+      background: transparent;
+      color: $color_text_common;
+      position: relative;
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      &.active {
+        color: $main-color
+      }
+    }
+  }
+}
+
+// canvas
+#resultCampaign {
+  canvas {
+    max-height: 65vh;
+    width: auto !important;
+    margin: 0 auto;
+  }
+  #line-chart, #bar-chart {
+    min-width: 90% !important;
   }
 }

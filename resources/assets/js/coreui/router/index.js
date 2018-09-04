@@ -68,6 +68,8 @@ import CheckingBonuses from '@/views/campaigns/bonuses/CheckingBonuses'
 
 import NewCompany from '@/views/campaigns/CreateNewCampaign'
 
+import TariffPlan from '@/views/rates/Tariff'
+
 Vue.use(Router)
 
 export default new Router({
@@ -87,6 +89,11 @@ export default new Router({
           component: Dashboard,
         },
         {
+            path: 'tariffs',
+            name: 'Tariff Plan',
+            component: TariffPlan
+        },
+        {
             path: 'campaigns',
             redirect: '/campaigns/my-campaigns',
             name: 'Campaigns',
@@ -98,12 +105,12 @@ export default new Router({
             children: [
                 {
                     path     : 'checking-bonuses',
-                    name     : 'CheckingBonuses',
+                    name     : 'Checking Bonuses',
                     component: CheckingBonuses,
                 },
                 {
                   path       : 'add-new',
-                  name       : 'AddNewCampaign',
+                  name       : 'Add New Campaign',
                   component  : NewCompany
                 },
                 {
@@ -124,20 +131,20 @@ export default new Router({
                         },
                         {
                             path     : 'all-feedbacks',
-                            name     : 'AllFeedbacks',
+                            name     : 'All Feedbacks',
                             component: AllFeedbacks,
                         },
                     ]
                 },
                 {
                     path     : 'influencer-:id-bonuses',
-                    name     : 'InfluencerBonuses',
+                    name     : 'Influencer Bonuses',
                     component: InfluencerBonuses,
                     props: true,
                 },
                 {
                     path     : 'my-campaigns',
-                    name     : 'MyCampaigns',
+                    name     : 'My Campaigns',
                     component: MyCampaigns,
                 },
                 {
@@ -158,13 +165,13 @@ export default new Router({
                     children: [
                         {
                             path     : 'results-campaigns',
-                            name     : 'ResultsCampaigns',
+                            name     : 'Results Campaigns',
                             component: ResultsCampaigns,
                             props: true,
                         },
                         {
                             path     : 'result',
-                            name     : 'ResultCampaign',
+                            name     : 'Result Campaign',
                             component: ResultCampign,
                             props: true,
                         },

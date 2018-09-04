@@ -21210,16 +21210,20 @@ h2 {
   display: block;
 }
 
-.feedback_grade {
+.card-header-custom {
   color: #BD4013;
   font-size: 24px;
 }
 
-.feedback_grade span {
+.card-header-custom span {
   color: #000;
 }
 
-.feedback_grade .title_stars {
+.card-header-custom.small-header {
+  font-size: 16px;
+}
+
+.title_stars {
   margin-left: 10px;
 }
 
@@ -21339,6 +21343,122 @@ thead .sorting.sorting_desc {
 
 .card label {
   font-weight: 500;
+}
+
+#tabs_tariffs .card-header {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  background: transparent;
+}
+
+#tabs_tariffs .card-header .nav {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#tabs_tariffs .card-header .nav-item:first-child .nav-link,
+#tabs_tariffs .card-header .nav-item:first-child .navbar .dropdown-toggle,
+.navbar #tabs_tariffs .card-header .nav-item:first-child .dropdown-toggle {
+  margin-right: 20px;
+}
+
+#tabs_tariffs .card-header .nav-item:first-child .nav-link:before,
+#tabs_tariffs .card-header .nav-item:first-child .navbar .dropdown-toggle:before,
+.navbar #tabs_tariffs .card-header .nav-item:first-child .dropdown-toggle:before {
+  position: absolute;
+  right: -10px;
+  content: '';
+  top: 15px;
+  height: 25px;
+  width: 1px;
+  background: black;
+  -webkit-transform: rotate(20deg);
+  transform: rotate(20deg);
+}
+
+#tabs_tariffs .card-header .nav-link,
+#tabs_tariffs .card-header .navbar .dropdown-toggle,
+.navbar #tabs_tariffs .card-header .dropdown-toggle {
+  font-size: 24px;
+  background: transparent;
+  color: #28313B;
+  position: relative;
+}
+
+#tabs_tariffs .card-header .nav-link:hover,
+#tabs_tariffs .card-header .navbar .dropdown-toggle:hover,
+.navbar #tabs_tariffs .card-header .dropdown-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+#tabs_tariffs .card-header .nav-link.active,
+#tabs_tariffs .card-header .navbar .active.dropdown-toggle,
+.navbar #tabs_tariffs .card-header .active.dropdown-toggle {
+  color: #BD4013;
+}
+
+#resultCampaign canvas {
+  max-height: 65vh;
+  width: auto !important;
+  margin: 0 auto;
+}
+
+#resultCampaign #line-chart,
+#resultCampaign #bar-chart {
+  min-width: 90% !important;
+}
+
+#tariff_plan .list-pros {
+  padding-left: 15px;
+  padding-top: 15px;
+}
+
+#tariff_plan .list-pros li {
+  color: #686F76;
+  padding: 3px 0;
+}
+
+#tariff_plan .card-header {
+  padding: 0;
+  padding-bottom: 15px;
+}
+
+#tariff_plan .type_plan {
+  font-size: 35px;
+  color: #000;
+}
+
+#tariff_plan .type_plan span.price_plan {
+  display: block;
+  font-size: 55px;
+}
+
+#tariff_plan .type_plan span.period_price {
+  display: block;
+  font-size: 25px;
+}
+
+#tariff_plan .card_tariff_month,
+#tariff_plan .card_tariff_year {
+  min-height: 560px;
+  position: relative;
+}
+
+#tariff_plan .card_tariff_month .card-body,
+#tariff_plan .card_tariff_month .card-block,
+#tariff_plan .card_tariff_year .card-body,
+#tariff_plan .card_tariff_year .card-block {
+  padding-bottom: 50px;
+}
+
+#tariff_plan .card_tariff_month .btn_plan,
+#tariff_plan .card_tariff_year .btn_plan {
+  position: absolute;
+  width: calc(100% - 40px);
+  left: 20px;
+  bottom: 20px;
 }
 
 body {
