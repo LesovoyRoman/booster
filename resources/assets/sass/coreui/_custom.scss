@@ -73,3 +73,20 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
     margin-right: 10px;
   }
 }
+
+.custom_tooltip_label {
+  padding: 0px;
+  font-size: 13px;
+  background: #EAEAEA;
+  border-radius: 50%;
+  color: #7bcdff;
+  margin-left: 10px;
+  width: 19px;
+  height: 19px;
+  display: inline-block;
+  text-align: center;
+}
+
+.app-footer {
+  padding: 14px 25px;
+}

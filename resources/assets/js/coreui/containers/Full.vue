@@ -11,10 +11,10 @@
         <div class="container-fluid">
           <router-view/>
         </div>
+        <AppFooter/>
       </main>
       <AppAside/>
     </div>
-    <AppFooter/>
   </div>
 </template>
 
