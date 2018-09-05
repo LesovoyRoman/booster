@@ -87,6 +87,15 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
   text-align: center;
 }
 
+.main {
+  position: relative;
+  padding-bottom: 50px;
+}
 .app-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
   padding: 14px 25px;
 }
+
+

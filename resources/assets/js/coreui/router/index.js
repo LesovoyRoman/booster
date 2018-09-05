@@ -70,6 +70,8 @@ import NewCompany from '@/views/campaigns/CreateNewCampaign'
 
 import TariffPlan from '@/views/rates/Tariff'
 
+import MarketersList from '@/views/marketers/MarketersList'
+
 Vue.use(Router)
 
 export default new Router({
@@ -92,6 +94,11 @@ export default new Router({
             path: 'tariffs',
             name: 'Tariff Plan',
             component: TariffPlan
+        },
+        {
+            path: 'marketers',
+            name: 'Marketers',
+            component: MarketersList
         },
         {
             path: 'campaigns',

@@ -2,6 +2,17 @@
 
 table.table td, table th, table tr{
   vertical-align: middle;
+
+
+  th.table_label_hidden {
+    color: transparent;
+    background: transparent;
+
+    &:hover, &:active, &:focus {
+      color: transparent;
+      background: transparent;
+    }
+  }
 }
 
 .tab-content {

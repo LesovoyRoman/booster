@@ -77,6 +77,11 @@ export default {
       icon    : 'fa fa-credit-card-alt',
     },
     {
+      name    : 'Marketers',
+      url     : '/marketers',
+      icon    : 'fa fa-id-card-o'
+    },
+    {
       name    : 'Base',
       url     : '/base',
       icon    : 'icon-puzzle',

@@ -168,13 +168,13 @@
                                         <div class="custom-control custom-checkbox">
                                             <input
                                                     type="checkbox"
+                                                    :value="data.item.id"
+                                                    v-model="userIds"
+                                                    @click="select"
                                                     :id="'campaign_checkbox' + data.item.id"
                                                     :name="'campaign_checkbox' + data.item.id"
-                                                    class="custom-control-input"
-                                                    :value="true">
+                                                    class="custom-control-input">
                                             <label
-                                                    :value="data.item.id" number
-                                                    v-model="selected"
                                                     style="display: block"
                                                     class="custom-control-label"
                                                     :for="'campaign_checkbox' + data.item.id"></label>
@@ -295,7 +295,7 @@
                     { id: 25, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, change: '' },
                 ]),
                 fields: [
-                    { key: 'campaing_checkbox' },
+                    { key: 'campaing_checkbox', 'class': 'table_label_hidden' },
                     { key: 'id', label: '№' },
                     { key: 'campaign_name', sortable: true, label: 'Name' },
                     { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
@@ -303,7 +303,7 @@
                     { key: 'start', sortable: true, label: 'Start Date' },
                     { key: 'finish', sortable: true, label: 'Finish Date' },
                     { key: 'status', sortable: true, label: 'Status' },
-                    { key: 'change', 'class': 'text-center' }
+                    { key: 'change', 'class': 'text-center table_label_hidden' }
                 ],
                 checkbox_group: {},
                 currentPage: 1,
