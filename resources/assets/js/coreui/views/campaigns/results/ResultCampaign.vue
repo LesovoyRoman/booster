@@ -111,7 +111,12 @@
                     Math.floor(Math.random() * 45) + 5,
                     Math.floor(Math.random() * 45) + 5,
                     Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
+                    Math.floor(Math.random() * 45) + 5,
                 ],
                 dataChart2: [
                     Math.floor(Math.random() * 45) + 5,

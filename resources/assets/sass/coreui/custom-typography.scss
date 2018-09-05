@@ -6,7 +6,8 @@ h2 {
 
 .header_card_simple {
   text-transform: uppercase;
-  color: $color_text_common;
+  //color: $color_text_common;
+  color: rgba(0, 0, 0, 0.50);
   display: block;
 }
 
@@ -29,4 +30,7 @@ h2 {
 
 .font12 {
   font-size: 12px !important;
+}
+.fontNormal {
+  font-weight: normal !important;
 }

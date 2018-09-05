@@ -8,7 +8,7 @@
         mounted () {
             vm = this;
             this.renderChart({
-                labels  : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                labels  : ['20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
                 datasets: [
                     {
                         label                       : '% / Period',
@@ -19,7 +19,7 @@
 
                     },
                 ],
-            }, { responsive: true, maintainAspectRatio: true })
+            }, { responsive: false, maintainAspectRatio: true })
         },
     }
 </script>

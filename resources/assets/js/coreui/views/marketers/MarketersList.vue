@@ -12,7 +12,7 @@
                     <b-card>
 
                         <b-form-group>
-                            <b-button href="#" variant="primary" class="float-left font500 font12 uppercase">add marketer</b-button>
+                            <b-button href="#" v-bind:to="'/new-marketer'" variant="primary" class="float-left font500 font12 uppercase">add marketer</b-button>
                         </b-form-group>
 
                         <b-form-group>
@@ -79,7 +79,7 @@
                             </template>
                             <template
                                 slot="new_pass" slot-scope="data">
-                                <b-button href="#" :variant="'primary'" class="font500">Send new password</b-button>
+                                <b-button href="#" :variant="'primary'" class="">Send new password</b-button>
                             </template>
                             <template slot="change" justified="center" slot-scope="row">
                                 <b-button size="sm" class="custom_btn_change" :variant="'primary'">

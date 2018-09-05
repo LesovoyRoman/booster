@@ -72,7 +72,7 @@ export default {
           ]
     },
     {
-      name    : 'Tariff',
+      name    : 'Tariffs',
       url     : '/tariffs',
       icon    : 'fa fa-credit-card-alt',
     },
@@ -80,6 +80,11 @@ export default {
       name    : 'Marketers',
       url     : '/marketers',
       icon    : 'fa fa-id-card-o'
+    },
+    {
+      name    : 'Influencers',
+      url     : '/influencers',
+      icon    : 'fa fa-address-book-o'
     },
     {
       name    : 'Base',

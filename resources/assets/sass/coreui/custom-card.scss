@@ -84,3 +84,17 @@
     min-width: 90% !important;
   }
 }
+
+#fieldset_marketer_access {
+  label.btn {
+    &:first-child {
+      margin-left: 0;
+    }
+    &.active {
+      background: $main-color;
+      color: white;
+    }
+    font-weight: normal;
+    margin: auto 10px;
+  }
+}

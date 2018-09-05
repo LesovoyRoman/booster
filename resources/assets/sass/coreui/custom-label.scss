@@ -1,0 +1,36 @@
+
+label.control-type-grid {
+    position: relative;
+    height: 35px;
+    width: 35px;
+    margin: auto 5px auto 5px;
+    cursor: pointer;
+    border: 1px solid $gray-200;
+
+
+  &:before {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+  }
+  &.control-type-grid-list {
+    &:before {
+      background: url('~static/img/list.svg') no-repeat center center;
+      background-position: center center;
+    }
+  }
+  &.control-type-grid-cards {
+    margin-right: 0;
+    &:before {
+      background: url('~static/img/cards.svg') no-repeat center center;
+      background-position: center center;
+    }
+  }
+}
+
+.custom-control-input:checked + label.control-type-grid {
+  background-color: $gray-200;
+}

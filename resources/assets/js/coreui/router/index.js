@@ -57,20 +57,29 @@ import Register from '@/views/pages/Register'
 import MyCampaigns from '@/views/campaigns/MyCampaigns'
 import Campaign from '@/views/campaigns/Campaign'
 
+// Results
 import ResultsCampaigns from '@/views/campaigns/results/ResultsCampaigns'
 import ResultCampign from '@/views/campaigns/results/ResultCampaign'
 
+// Feedbacks
 import AllFeedbacks from '@/views/campaigns/feedbacks/Feedbacks'
 import Feedback from '@/views/campaigns/feedbacks/Feedback'
 
+// Bonuses
 import InfluencerBonuses from '@/views/campaigns/bonuses/InfluencerBonuses'
 import CheckingBonuses from '@/views/campaigns/bonuses/CheckingBonuses'
 
 import NewCompany from '@/views/campaigns/CreateNewCampaign'
 
+// Tariffs
 import TariffPlan from '@/views/rates/Tariff'
 
+// Marketers
 import MarketersList from '@/views/marketers/MarketersList'
+import CreateMarketer from '@/views/marketers/AddMarketer'
+
+// Influencers
+import InfluencersList from '@/views/influencers/Influencers'
 
 Vue.use(Router)
 
@@ -99,6 +108,16 @@ export default new Router({
             path: 'marketers',
             name: 'Marketers',
             component: MarketersList
+        },
+        {
+            path: 'influencers',
+            name: 'Influencers',
+            component: InfluencersList
+        },
+        {
+            path: 'new-marketer',
+            name: 'CreateMarketer',
+            component: CreateMarketer
         },
         {
             path: 'campaigns',
