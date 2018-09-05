@@ -26,7 +26,6 @@
                                         </b-input-group-append>
                                     </b-input-group>
                                 </b-form-group>
-
                                 <b-table
                                         :hover="false"
                                         :striped="false"
@@ -45,6 +44,38 @@
 
                                         :current-page="currentPage"
                                         :per-page="perPage">
+                                    <template slot="HEAD_campaing_checkbox" slot-scope="data" >
+                                        <div class="custom-control custom-checkbox">
+                                            <input
+                                                    type="checkbox"
+                                                    v-model="allSelected"
+                                                    :value="true"
+                                                    :id="'campaign_checkbox'"
+                                                    :name="'campaign_checkbox'"
+                                                    class="custom-control-input">
+                                           <label
+                                                   @click="selectAll"
+                                                    style="display: block"
+                                                    class="custom-control-label"
+                                                    :for="'campaign_checkbox'"></label>
+                                        </div>
+                                    </template>
+                                    <template slot="campaing_checkbox" slot-scope="data">
+                                        <div class="custom-control custom-checkbox">
+                                            <input
+                                                    type="checkbox"
+                                                    :value="data.item.id"
+                                                    v-model="userIds"
+                                                    @click="select"
+                                                    :id="'campaign_checkbox' + data.item.id"
+                                                    :name="'campaign_checkbox' + data.item.id"
+                                                    class="custom-control-input">
+                                            <label
+                                                    style="display: block"
+                                                    class="custom-control-label"
+                                                    :for="'campaign_checkbox' + data.item.id"></label>
+                                        </div>
+                                    </template>
                                     <template
                                             slot="campaign_name"
                                             slot-scope="data">
@@ -117,6 +148,38 @@
 
                                         :current-page="currentPage"
                                         :per-page="perPage">
+                                    <template slot="HEAD_campaing_checkbox" slot-scope="data" >
+                                        <div class="custom-control custom-checkbox">
+                                            <input
+                                                    type="checkbox"
+                                                    v-model="allSelected"
+                                                    :value="true"
+                                                    :id="'campaign_checkbox'"
+                                                    :name="'campaign_checkbox'"
+                                                    class="custom-control-input">
+                                            <label
+                                                    @click="selectAll"
+                                                    style="display: block"
+                                                    class="custom-control-label"
+                                                    :for="'campaign_checkbox'"></label>
+                                        </div>
+                                    </template>
+                                    <template slot="campaing_checkbox" slot-scope="data">
+                                        <div class="custom-control custom-checkbox">
+                                            <input
+                                                    type="checkbox"
+                                                    :id="'campaign_checkbox' + data.item.id"
+                                                    :name="'campaign_checkbox' + data.item.id"
+                                                    class="custom-control-input"
+                                                    :value="true">
+                                            <label
+                                                    :value="data.item.id" number
+                                                    v-model="selected"
+                                                    style="display: block"
+                                                    class="custom-control-label"
+                                                    :for="'campaign_checkbox' + data.item.id"></label>
+                                        </div>
+                                    </template>
                                     <template
                                             slot="campaign_name"
                                             slot-scope="data">
@@ -161,7 +224,7 @@
 </template>
 
 <script>
-
+    let vm = {};
     const shuffleArray = (array) => {
         /*for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1))
@@ -177,7 +240,7 @@
         data: () => {
             return {
                 header: 'My campaigns',
-                activeTable: shuffleArray([
+                activeTable: [
                     { id: 1, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, change: '' },
                     { id: 2, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, change: '' },
                     { id: 3, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, change: '' },
@@ -203,7 +266,7 @@
                     { id: 23, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, change: '' },
                     { id: 24, campaign_name: 'Snacks', points: '60000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, change: '' },
                     { id: 25, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, change: '' },
-                ]),
+                ],
                 archiveTable: shuffleArray([
                     { id: 1, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, change: '' },
                     { id: 2, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, change: '' },
@@ -232,18 +295,24 @@
                     { id: 25, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, change: '' },
                 ]),
                 fields: [
+                    { key: 'campaing_checkbox' },
                     { key: 'id', label: '№' },
                     { key: 'campaign_name', sortable: true, label: 'Name' },
-                    { key: 'points', sortable: true, label: 'Points'  },
+                    { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
                     { key: 'check_type', sortable: true, label: 'Checking' },
                     { key: 'start', sortable: true, label: 'Start Date' },
                     { key: 'finish', sortable: true, label: 'Finish Date' },
                     { key: 'status', sortable: true, label: 'Status' },
                     { key: 'change', 'class': 'text-center' }
                 ],
+                checkbox_group: {},
                 currentPage: 1,
                 perPage    : 10,
                 totalRows  : 0,
+
+                selected: [],
+                allSelected: false,
+                userIds: [],
 
                 filter: null,
                 sortBy: null,
@@ -257,7 +326,7 @@
                 return this.fields
                     .filter(f => f.sortable)
                     .map(f => { return { text: f.label, value: f.key } })
-            }
+            },
         },
         methods: {
             getBadge (status) {
@@ -272,7 +341,23 @@
                 // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
+            },
+            selectAll: function() {
+                vm.allSelected = !vm.allSelected;
+                vm.userIds = [];
+
+                if (vm.allSelected) {
+                    vm.activeTable.forEach(function(item){
+                        vm.userIds.push(item.id);
+                    })
+                }
+            },
+            select: function() {
+                vm.allSelected = false;
             }
         },
+        created() {
+            vm = this;
+        }
     }
 </script>

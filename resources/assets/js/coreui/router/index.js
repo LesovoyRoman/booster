@@ -105,12 +105,12 @@ export default new Router({
             children: [
                 {
                     path     : 'checking-bonuses',
-                    name     : 'Checking Bonuses',
+                    name     : 'CheckingBonuses',
                     component: CheckingBonuses,
                 },
                 {
                   path       : 'add-new',
-                  name       : 'Add New Campaign',
+                  name       : 'AddNewCampaign',
                   component  : NewCompany
                 },
                 {
@@ -131,20 +131,20 @@ export default new Router({
                         },
                         {
                             path     : 'all-feedbacks',
-                            name     : 'All Feedbacks',
+                            name     : 'AllFeedbacks',
                             component: AllFeedbacks,
                         },
                     ]
                 },
                 {
                     path     : 'influencer-:id-bonuses',
-                    name     : 'Influencer Bonuses',
+                    name     : 'InfluencerBonuses',
                     component: InfluencerBonuses,
                     props: true,
                 },
                 {
                     path     : 'my-campaigns',
-                    name     : 'My Campaigns',
+                    name     : 'MyCampaigns',
                     component: MyCampaigns,
                 },
                 {
@@ -165,13 +165,13 @@ export default new Router({
                     children: [
                         {
                             path     : 'results-campaigns',
-                            name     : 'Results Campaigns',
+                            name     : 'ResultsCampaigns',
                             component: ResultsCampaigns,
                             props: true,
                         },
                         {
                             path     : 'result',
-                            name     : 'Result Campaign',
+                            name     : 'ResultCampaign',
                             component: ResultCampign,
                             props: true,
                         },

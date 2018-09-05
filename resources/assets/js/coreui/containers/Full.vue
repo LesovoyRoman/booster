@@ -8,7 +8,7 @@
         :style="{ 'margin-top': offset }" />
       <main class="main">
         <breadcrumb :list="list"/>
-        <div class="container-fluid">
+        <div class="container-fluid container pull-left">
           <router-view/>
         </div>
         <AppFooter/>

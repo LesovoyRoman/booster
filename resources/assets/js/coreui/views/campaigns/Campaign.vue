@@ -106,8 +106,8 @@
                 fields: [
                     { key: 'id', label: '№' },
                     { key: 'name', sortable: true, label: 'Name' },
-                    { key: 'points', sortable: true, label: 'Points'  },
-                    { key: 'checked_points', sortable: true, label: 'Checked' },
+                    { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
+                    { key: 'checked_points', sortable: true, label: 'Checked', 'class': 'table_points'  },
                     { key: 'check_type', sortable: true, label: 'Type checking' },
                     { key: 'status', sortable: true, label: 'Status' },
                 ],

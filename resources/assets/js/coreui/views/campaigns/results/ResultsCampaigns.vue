@@ -115,7 +115,7 @@
                 fields: [
                     { key: 'id', label: '№' },
                     { key: 'campaign_name', sortable: true, label: 'Name' },
-                    { key: 'points', sortable: true, label: 'Points' },
+                    { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
                     { key: 'middle_price', sortable: true, label: 'Middle price' },
                     { key: 'influencers', sortable: true, label: 'Amount of influencers' },
                     { key: 'status', sortable: true, label: 'Status' },
