@@ -184,8 +184,8 @@
                     })
                 }
             },
-            removeElement: function (index) {
-                this.assistants.splice(index, 1);
+            removeElement: function (item) {
+                this.assistants.splice(item.index, 1);
             },
             select: function() {
                 vm.allSelected = false;

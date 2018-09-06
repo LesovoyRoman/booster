@@ -104,7 +104,7 @@
                                 <span class="showsTableCards">Age:</span> {{ data.item.age }}%
                             </template>
                             <template slot="sendOffer" justified="center" slot-scope="row">
-                                <b-button :variant="'primary'" @click="removeElement(row)" class="sendOffer">Send offer</b-button>
+                                <b-button :variant="'primary'" @click="prepareSendOffer(row)" class="sendOffer">Send offer</b-button>
                             </template>
                         </b-table>
 
@@ -123,6 +123,20 @@
                 </b-col>
             </b-row>
         </div>
+
+
+        <b-modal id="modalOffer" ref="modalOffer" hide-footer hide-header>
+            <button type="button" aria-label="Close" class="close" @click="closeModal">×</button>
+            <h2>Send offer to</h2>
+            <h3 class="modal_indluencer_name">{{ sendTo }}</h3>
+
+            <h5>for participationg in</h5>
+            <form id="form_sendOffer">
+                <b-form-select dark v-model="chosenCampaignOffer" :options="campaignsForOffer"></b-form-select>
+                <b-btn :variant="'primary'" @click="sendRequest(chosenInfluencer)" class="sendOfferModal">Send offer</b-btn>
+            </form>
+
+        </b-modal>
     </div>
 </template>
 
@@ -138,14 +152,20 @@
                 influencer_topic: null,
                 influencersList: true,
                 influencersCards: false,
+                chosenInfluencer: {},
 
                 optionsInflueceChannels: ['twitter', 'facebook', 'youtube', 'behance'],
                 optionsTopics: ['Wizard', 'Fashion', 'Nature'],
+
+                campaignsForOffer: ['Snacks', 'Cheese'],
+                chosenCampaignOffer: 'Snacks',
 
                 checkbox_group: {},
                 currentPage: 1,
                 perPage    : 10,
                 totalRows  : 0,
+
+                sendTo: '',
 
                 selected: [],
                 allSelected: false,
@@ -197,8 +217,17 @@
                     : status === 4 ? 'warning'
                         : status === 3 ? 'danger' : 'primary'
             },
-            removeElement: function(index) {
-                this.influencers.splice(index, 1);
+            closeModal: function () {
+                this.$refs.modalOffer.hide();
+            },
+            sendRequest(item){
+                this.influencers.splice(item.index, 1);
+                this.$refs.modalOffer.hide();
+            },
+            prepareSendOffer: function(row) {
+                vm.sendTo = row.item.name;
+                vm.chosenInfluencer = row;
+                this.$refs.modalOffer.show();
             },
             onFiltered (filteredItems) {
                 // Trigger pagination to update the number of buttons/pages due to filtering

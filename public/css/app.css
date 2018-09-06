@@ -21683,6 +21683,41 @@ label.control-type-grid.control-type-grid-cards:before {
   background-color: #c2cfd6;
 }
 
+#modalOffer {
+  text-align: center;
+}
+
+#modalOffer #form_sendOffer {
+  max-width: 300px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+#modalOffer h2 {
+  margin-bottom: 10px !important;
+  margin-top: 20px;
+}
+
+#modalOffer h5 {
+  color: #a4b7c1;
+  font-weight: normal;
+}
+
+#modalOffer .modal_indluencer_name {
+  margin-bottom: 30px;
+}
+
+#modalOffer .sendOfferModal {
+  margin-top: 15px;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 500px;
+    margin: 3.75rem auto;
+  }
+}
+
 body {
   background: #f0f0f0;
 }
