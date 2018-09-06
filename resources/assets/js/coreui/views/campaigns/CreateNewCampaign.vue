@@ -192,7 +192,7 @@
                                             <b-col>
                                                 <b-form-select dark v-model="new_campaign.checking_type">
                                                     <option :value="'Serial number'">Serial number</option>
-                                                    <option :value="'Photo'">Ukraine</option>
+                                                    <option :value="'Photo'">Photo</option>
                                                 </b-form-select>
                                             </b-col>
                                             <b-col v-show="new_campaign.checking_type == 'Serial number'">

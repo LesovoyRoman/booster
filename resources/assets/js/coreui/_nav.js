@@ -87,6 +87,28 @@ export default {
       icon    : 'fa fa-address-book-o'
     },
     {
+        name    : 'Gifts',
+        url     : '/gifts',
+        icon    : 'fa fa-gift',
+        children: [
+            {
+                url      : '/gifts/all-gifts',
+                name      : 'GiftsList',
+                icon      : 'fa fa-th-list'
+            },
+            {
+                url      : '/gifts/create-gift',
+                name      : 'CreateGift',
+                icon      : 'fa fa-folder-open'
+            },
+            {
+                url      : '/gifts/ordered-gifts',
+                name      : 'OrderedGifts',
+                icon      : 'fa fa-spin fa-circle-o-notch'
+            }
+        ],
+    }
+    /*{
       name    : 'Base',
       url     : '/base',
       icon    : 'icon-puzzle',
@@ -298,6 +320,6 @@ export default {
           icon: 'icon-star',
         },
       ],
-    },
+    },*/
   ],
 }

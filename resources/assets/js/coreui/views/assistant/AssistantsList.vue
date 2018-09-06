@@ -117,10 +117,10 @@
     let vm = {};
 
     export default {
-        name: 'Marketers',
+        name: 'Assistants',
         data() {
             return {
-                header: 'Marketers',
+                header: 'Assistants',
 
                 assistants: [
                     { id: 1, name: 'Joseph Stalin', email: 'josephstalin@rasstrelyat.com', campaign: 'Second world war' },

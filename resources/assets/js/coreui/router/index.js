@@ -81,6 +81,11 @@ import CreateAssistant from '@/views/assistant/AddAssistant'
 // Influencers
 import InfluencersList from '@/views/influencers/Influencers'
 
+// Gifts
+import CreateGift from '@/views/gifts/CreateGift'
+import GiftsList from '@/views/gifts/GiftsList'
+import OrderedGifts from '@/views/gifts/OrderedGifts'
+
 Vue.use(Router)
 
 export default new Router({
@@ -108,6 +113,33 @@ export default new Router({
             path: 'assistants',
             name: 'Assistants',
             component: AssistantsList
+        },
+        {
+              path     : 'gifts',
+              name     : 'Gifts',
+              redirect: '/gifts/all-gifts',
+              component: {
+                  render (c) {
+                      return c('router-view')
+                  },
+              },
+              children: [
+                  {
+                      path      : 'all-gifts',
+                      name      : 'GiftsList',
+                      component : GiftsList
+                  },
+                  {
+                      path      : 'create-gift',
+                      name      : 'CreateGift',
+                      component : CreateGift
+                  },
+                  {
+                      path      : 'ordered-gifts',
+                      name      : 'OrderedGifts',
+                      component : OrderedGifts
+                  }
+              ],
         },
         {
             path: 'influencers',
@@ -205,6 +237,7 @@ export default new Router({
                 },
             ],
         },
+          // default
         {
           path     : 'theme',
           redirect : '/theme/colors',
