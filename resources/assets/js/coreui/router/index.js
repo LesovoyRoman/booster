@@ -75,8 +75,8 @@ import NewCompany from '@/views/campaigns/CreateNewCampaign'
 import TariffPlan from '@/views/rates/Tariff'
 
 // Marketers
-import MarketersList from '@/views/marketers/MarketersList'
-import CreateMarketer from '@/views/marketers/AddMarketer'
+import AssistantsList from '@/views/assistant/AssistantsList'
+import CreateAssistant from '@/views/assistant/AddAssistant'
 
 // Influencers
 import InfluencersList from '@/views/influencers/Influencers'
@@ -105,9 +105,9 @@ export default new Router({
             component: TariffPlan
         },
         {
-            path: 'marketers',
-            name: 'Marketers',
-            component: MarketersList
+            path: 'assistants',
+            name: 'Assistants',
+            component: AssistantsList
         },
         {
             path: 'influencers',
@@ -115,9 +115,9 @@ export default new Router({
             component: InfluencersList
         },
         {
-            path: 'new-marketer',
-            name: 'CreateMarketer',
-            component: CreateMarketer
+            path: 'new-assistant',
+            name: 'CreateAssistant',
+            component: CreateAssistant
         },
         {
             path: 'campaigns',

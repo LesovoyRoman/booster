@@ -14,7 +14,29 @@
                             <b-tabs pills card>
                                 <b-tab title="Sells" active>
                                     <div class="chart-wrapper">
-                                        <line-chart :data="dataChart1" style="max-height: 65vh"></line-chart>
+                                        <b-button-toolbar
+                                                class="float-right"
+                                                aria-label="Toolbar with buttons group">
+                                            <b-form-radio-group
+                                                    class="mr-3"
+                                                    id="radiosBtn"
+                                                    buttons
+                                                    button-variant="outline-secondary"
+                                                    v-model="selected"
+                                                    name="radiosBtn">
+                                                <b-form-radio
+                                                        class="mx-0"
+                                                        value="days">Days</b-form-radio>
+                                                <b-form-radio
+                                                        class="mx-0"
+                                                        value="months">Months</b-form-radio>
+                                                <b-form-radio
+                                                        class="mx-0"
+                                                        value="years">Years</b-form-radio>
+                                            </b-form-radio-group>
+                                        </b-button-toolbar>
+                                        <main-chart :options="options" style="height:300px;margin-top:10px; margin-bottom: 30px;"
+                                                    height="300"></main-chart>
                                     </div>
                                 </b-tab>
                                 <b-tab title="Cities">
@@ -88,15 +110,15 @@
 </template>
 
 <script>
-    import LineChart from './../../charts/CustomChart.vue'
     import PieChart from './../../charts/PieCustom.vue'
     import BarChart from './../../charts/BarCustom.vue'
+    import MainChart from './../../charts/CustomMain.vue'
     let vm = {}
 
     export default {
         props: ['campaign'],
         components: {
-            LineChart,
+            MainChart,
             PieChart,
             BarChart
         },
@@ -104,20 +126,8 @@
         data() {
             return {
                 header: 'Results',
-                dataChart1: [
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                    Math.floor(Math.random() * 45) + 5,
-                ],
+                selected: 'days',
+
                 dataChart2: [
                     Math.floor(Math.random() * 45) + 5,
                     Math.floor(Math.random() * 45) + 5,
@@ -138,6 +148,32 @@
                     Math.floor(Math.random() * 45) + 5,
                     Math.floor(Math.random() * 45) + 5,
                 ],
+
+                options: {
+                    label: 'Days',
+                    labelAdd: 'Additional',
+                    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                    datas: [32, 76, 35, 60, 32, 65, 12, 87, 45, 13, 67, 45, 87, 34, 23, 60, 32, 65, 12, 87, 23, 96, 112, 45, 73, 99, 43, 25],
+                    datasAdd: [45, 73, 99, 43, 25, 67, 45, 87, 34, 67, 45, 87, 34, 23, 67, 45, 87, 34,  87, 23, 96, 112, ]
+                },
+
+                options1: {
+                    label: 'Days',
+                    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                    datas: [32, 76, 35, 60, 32, 65, 12, 87, 45, 13, 67, 45, 87, 34, 23, 60, 32, 65, 12, 87, 23, 96, 112, 45, 73, 99, 43, 25]
+                },
+
+                options2: {
+                    label: 'Months',
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    datas: [35, 60, 32, 65, 12, 87, 45, 13, 67, 45, 87, 34, 23]
+                },
+
+                options3: {
+                    label: 'Years',
+                    labels: ['2015', '2016', '2017', '2018'],
+                    datas: [25, 45, 30, 80]
+                },
 
 
                 influencersList: [
@@ -190,6 +226,13 @@
                 return this.fields
                     .filter(f => f.sortable)
                     .map(f => { return { text: f.labelOption, value: f.key } })
+            },
+        },
+        watch: {
+            selected: function() {
+                this.selected === 'months' ? this.options = this.options2 : this.options
+                this.selected === 'days' ? this.options = this.options1 : this.options
+                this.selected === 'years' ? this.options = this.options3 : this.options
             }
         },
         methods: {

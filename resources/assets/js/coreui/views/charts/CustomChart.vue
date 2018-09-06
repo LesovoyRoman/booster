@@ -16,7 +16,6 @@
                         data                        : vm.data,
                         pointBorderColor            : '#fff',
                         pointBackgroundColor        : '#D44816',
-
                     },
                 ],
             }, { responsive: false, maintainAspectRatio: true })

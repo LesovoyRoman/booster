@@ -8,7 +8,7 @@
         mounted () {
             vm = this;
             this.renderChart({
-                labels  : ['Green', 'Orange', 'Blue', 'Pink'],
+                labels: ['Green', 'Orange', 'Blue', 'Pink'],
                 datasets: [
                     {
                         backgroundColor: [
@@ -18,9 +18,41 @@
                             '#dd0689',
                         ],
                         data: vm.data,
+                        borderWidth: 2,
                     },
                 ],
-            }, { responsive: true, maintainAspectRatio: true })
-        },
+            }, {
+                /*maintainAspectRatio: false,*/
+                legend: {
+                    display: true,
+                },
+                /*scales: {
+                    xAxes: [{
+                        gridLines: {
+                            drawOnChartArea: false,
+                        },
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false,
+                            /!*maxTicksLimit: 5,
+                            stepSize: Math.ceil(250 / 5),
+                            max: 250,*!/
+                        },
+                        gridLines: {
+                            display: false,
+                        },
+                    }],
+                },*/
+                elements: {
+                    point: {
+                        radius: 0,
+                        hitRadius: 10,
+                        hoverRadius: 4,
+                        hoverBorderWidth: 3,
+                    },
+                }
+            })
+        }
     }
 </script>

@@ -15,6 +15,10 @@ table.table td, table th, table tr{
   }
 }
 
+.showsTableCards {
+  display: none;
+}
+
 .tab-content {
   border: none;
 }
@@ -58,6 +62,38 @@ table.table td, table th, table tr{
      font-weight: 500;
      color: $color_table;
    }
+
+   .star_influencer {
+     position: absolute;
+     top: calc(50% - 7px);
+   }
+
+   .photo_influencer_table {
+     margin-left: 30px;
+     border-radius: 4px;
+     width: 48px;
+     height: 48px;
+   }
+
+   .influencer-name-block {
+     margin-left: 10px;
+     display: inline-block;
+   }
+
+   .photo_influencer-block {
+     width: 80px;
+     float: left;
+     display: inline-block;
+     position: relative;
+   }
+
+   .icons_influencer {
+     i {
+       font-size: 18px;
+       color: #595f62;
+       margin: auto 2px;
+     }
+   }
  }
 
 .fa.fa-star {
@@ -91,5 +127,107 @@ table.table td, table th, table tr{
   }
   td.comment_text {
     color: $gray-color
+  }
+}
+
+
+#table_cards {
+  thead {
+    display: none !important;
+  }
+  tbody {
+    tr {
+      display: inline-block;
+      width: 30%;
+      margin: 15px 1.5%;
+      padding: 15px;
+      border: 1px solid #a4b7c1;
+
+      td {
+        display: block;
+        border: none;
+        padding: 0;
+        margin: 2px auto;
+
+        .showsTableCards {
+          display: inline-block;
+        }
+
+        &.channels_influencer, &.auditory_influencer {
+          width: auto;
+          display: inline-block;
+
+          &.channels_influencer {
+            padding-left: 0;
+            width: auto;
+            float: right;
+          }
+        }
+
+        .influencer-name-block {
+          display: block;
+          margin-left: 0;
+          margin-top: 5px;
+        }
+        .photo_influencer_table {
+          display: block;
+          width: calc(100% + 30px);
+          height: 260px;
+          margin-left: -15px;
+          margin-top: -17px;
+          border-radius: 0;
+        }
+        .star_influencer {
+          top: 10px;
+          left: 0px;
+        }
+        .photo_influencer-block {
+          display: block;
+          float: none;
+          width: auto;
+        }
+        .link_influencer {
+          font-size: 20px;
+          margin-top: 10px;
+
+        }
+        .star_influencer {
+          font-size: 18px;
+        }
+        &.influence_influencer {
+          span {
+            color: #000;
+          }
+        }
+        .sendOffer {
+          display: block;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 996px)  {
+  #table_cards {
+    tbody {
+      tr {
+        width: 48%;
+        margin: 15px 1%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 676px)  {
+  #table_cards {
+    tbody {
+      tr {
+        width: 100%;
+        display: block;
+        max-width: 280px;
+        margin: 15px auto;
+      }
+    }
   }
 }
