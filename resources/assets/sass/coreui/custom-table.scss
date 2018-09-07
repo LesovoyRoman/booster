@@ -94,6 +94,12 @@ table.table td, table th, table tr{
      display: inline-block;
    }
 
+   .gift-name-block {
+     color: #000;
+     line-height: 48px;
+     font-weight: 500;
+   }
+
 
 
    .photo_influencer-block, .photo_gift-block {
@@ -148,6 +154,12 @@ table.table td, table th, table tr{
 
 
 #table_cards {
+
+  .influencer-name-block, .gift-name-block {
+    line-height: initial;
+  }
+
+
 
   .check-box-gifts {
     display: none !important;
@@ -232,6 +244,9 @@ table.table td, table th, table tr{
           display: block;
           margin-left: 0;
           margin-top: 5px;
+        }
+        .influencer-name-block {
+          margin-top: 35px;
         }
         .gift-name-block {
           margin-top: 20px;

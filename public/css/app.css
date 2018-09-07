@@ -21353,6 +21353,12 @@ tbody tr td .gift-name-block {
   display: inline-block;
 }
 
+tbody tr td .gift-name-block {
+  color: #000;
+  line-height: 48px;
+  font-weight: 500;
+}
+
 tbody tr td .photo_influencer-block,
 tbody tr td .photo_gift-block {
   width: 80px;
@@ -21403,6 +21409,11 @@ tbody tr td .icons_influencer i {
 
 #feedback .b-table-stacked td.comment_text {
   color: #707070;
+}
+
+#table_cards .influencer-name-block,
+#table_cards .gift-name-block {
+  line-height: initial;
 }
 
 #table_cards .check-box-gifts {
@@ -21500,6 +21511,10 @@ tbody tr td .icons_influencer i {
   display: block;
   margin-left: 0;
   margin-top: 5px;
+}
+
+#table_cards tbody tr td .influencer-name-block {
+  margin-top: 35px;
 }
 
 #table_cards tbody tr td .gift-name-block {
