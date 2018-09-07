@@ -15,6 +15,12 @@ table.table td, table th, table tr{
   }
 }
 
+.table_label_hidden {
+  .custom-checkbox {
+    margin-right: -15px;
+  }
+}
+
 .showsTableCards {
   display: none;
 }
@@ -88,6 +94,8 @@ table.table td, table th, table tr{
      display: inline-block;
    }
 
+
+
    .photo_influencer-block, .photo_gift-block {
      width: 80px;
      float: left;
@@ -140,16 +148,64 @@ table.table td, table th, table tr{
 
 
 #table_cards {
+
+  .check-box-gifts {
+    display: none !important;
+  }
   thead {
     display: none !important;
   }
   tbody {
+
+    // gifts
+    .gift-name-block {
+      font-size: 18px;
+      color: #000;
+      text-align: center;
+    }
+
+    .gift-name-block {
+      position: relative;
+      margin-top: 30px;
+      &:before {
+        position: absolute;
+        content: '';
+        height: 1px;
+        width: calc(100% + 30px);
+        left: -15px;
+        top: -6px;
+        background-color: #E1E2E4;
+      }
+    }
+    .campaign_gift {
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .points_gift {
+      color: #000;
+    }
+    .points_gift, .inStock_gift {
+      position: absolute;
+      bottom: 20px;
+      left: 15px;
+      margin-top: 20px;
+    }
+    .change-gift, .delete-gift {
+      display: none;
+    }
+    .inStock_gift {
+      left: auto;
+      right: 15px;
+    }
+
     tr {
       display: inline-block;
       width: 30%;
       margin: 15px 1.5%;
       padding: 15px;
-      border: 1px solid #a4b7c1;
+      border: 1px solid #E1E2E4;
+      position: relative;
 
       td {
         display: block;
@@ -177,6 +233,9 @@ table.table td, table th, table tr{
           margin-left: 0;
           margin-top: 5px;
         }
+        .gift-name-block {
+          margin-top: 20px;
+        }
         .photo_influencer_table, .photo_gift_table {
           display: block;
           width: calc(100% + 30px);
@@ -184,6 +243,13 @@ table.table td, table th, table tr{
           margin-left: -15px;
           margin-top: -17px;
           border-radius: 0;
+        }
+        .photo_gift_table {
+          width: auto;
+          height: auto;
+          max-width: 100%;
+          margin: 0;
+          border: 1px solid #E1E2E4;
         }
         .star_influencer {
           top: 10px;
@@ -193,6 +259,12 @@ table.table td, table th, table tr{
           display: block;
           float: none;
           width: auto;
+          height: 235px;
+        }
+        .photo_gift-block {
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .link_influencer, .link_gift {
           font-size: 20px;

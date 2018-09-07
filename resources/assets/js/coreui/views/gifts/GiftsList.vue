@@ -79,6 +79,38 @@
 
                                         :current-page="currentPage"
                                         :per-page="perPage">
+                                    <template slot="HEAD_gift_checkbox" slot-scope="data" >
+                                        <div class="custom-control custom-checkbox">
+                                            <input
+                                                    type="checkbox"
+                                                    v-model="allSelected"
+                                                    :value="true"
+                                                    :id="'gift_checkbox'"
+                                                    :name="'gift_checkbox'"
+                                                    class="custom-control-input">
+                                            <label
+                                                    @click="selectAll"
+                                                    style="display: block"
+                                                    class="custom-control-label"
+                                                    :for="'gift_checkbox'"></label>
+                                        </div>
+                                    </template>
+                                    <template slot="gift_checkbox" slot-scope="data">
+                                        <div class="custom-control custom-checkbox">
+                                            <input
+                                                    type="checkbox"
+                                                    :value="data.item.id"
+                                                    v-model="giftsIds"
+                                                    @click="select"
+                                                    :id="'gift_checkbox' + data.item.id"
+                                                    :name="'gift_checkbox' + data.item.id"
+                                                    class="custom-control-input">
+                                            <label
+                                                    style="display: block"
+                                                    class="custom-control-label"
+                                                    :for="'gift_checkbox' + data.item.id"></label>
+                                        </div>
+                                    </template>
                                     <template slot="name" slot-scope="data">
                                         <div class="photo_gift-block">
                                             <keep-alive><img :src="data.item.photo" alt="photo_item" class="photo_gift_table"></keep-alive>
@@ -86,6 +118,26 @@
                                         <div class="gift-name-block">
                                           {{ data.item.name }}
                                         </div>
+                                    </template>
+
+                                    <template slot="points" slot-scope="data">
+                                        {{ data.item.points }} <span class="showsTableCards">points</span>
+                                    </template>
+                                    <template slot="inStock" slot-scope="data">
+                                        <span class="showsTableCards">In stock:</span> {{ data.item.inStock }}
+                                    </template>
+                                    <template slot="campaign_name" slot-scope="data">
+                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                    </template>
+                                    <template slot="change" justified="center" slot-scope="row">
+                                        <b-button size="sm" class="custom_btn_change" :variant="'primary'">
+                                            <i class="icon-pencil"></i>
+                                        </b-button>
+                                    </template>
+                                    <template slot="delete" justified="center" slot-scope="row">
+                                        <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
+                                            <i class="icon-close"></i>
+                                        </b-button>
                                     </template>
                                 </b-table>
 
@@ -133,7 +185,7 @@
 
                 selected: [],
                 allSelected: false,
-                userIds: [],
+                giftsIds: [],
 
                 filter: null,
                 sortBy: null,
@@ -143,15 +195,19 @@
                 campaigns: ['Snacks', 'Cheese'],
 
                 gifts: [
-                    { id: 1, photo: '../images/6.jpg', name: 'Iphone 8', points: 10000, inStock: 25, campaign: 'Snacks' },
-                    { id: 2, photo: '../images/7.jpg', name: 'Iphone 7', points: 20000, inStock: 50, campaign: 'Cheese' },
+                    { id: 1, photo: '../images/6.jpg', name: 'Iphone 8', points: 10000, inStock: 25, campaign_name: 'Snacks' },
+                    { id: 2, photo: '../images/7.jpg', name: 'Iphone 7', points: 20000, inStock: 50, campaign_name: 'Cheese' }, { id: 3, photo: '../images/8.jpg', name: 'Iphone 8', points: 40000, inStock: 1, campaign_name: 'Snacks' },
+                    { id: 4, photo: '../images/9.jpg', name: 'Iphone 7', points: 50000, inStock: 500, campaign_name: 'Smth' },
                 ],
 
                 fields: [
+                    { key: 'gift_checkbox', 'class': 'table_label_hidden check-box-gifts' },
                     { key: 'name', sortable: true, 'class': 'name_gift' },
                     { key: 'points', sortable: true, 'class': 'points_gift' },
                     { key: 'inStock', sortable: true, 'class': 'inStock_gift' },
-                    { key: 'campaign', sortable: true, 'class': 'campaign_gift' },
+                    { key: 'campaign_name', sortable: true, 'class': 'campaign_gift' },
+                    { key: 'change', label: '', 'class': 'table_label_hidden change-gift' },
+                    { key: 'delete', label: '', 'class': 'table_label_hidden delete-gift' }
                 ],
             }
         },
@@ -179,13 +235,17 @@
             },
             selectAll: function() {
                 vm.allSelected = !vm.allSelected;
-                vm.userIds = [];
+                vm.giftsIds = [];
+
 
                 if (vm.allSelected) {
-                    vm.activeTable.forEach(function(item){
-                        vm.userIds.push(item.id);
+                    vm.gifts.forEach(function(item){
+                        vm.giftsIds.push(item.id);
                     })
                 }
+            },
+            removeElement: function (item) {
+                this.gifts.splice(item.index, 1);
             },
             select: function() {
                 vm.allSelected = false;
@@ -197,20 +257,20 @@
                 } else {
                     let i = 0;
                     this.gifts.forEach(function (item, index) {
-                        if (item.campaign === campaign) {
+                        if (item.campaign_name === campaign) {
                             i++
                         }
                     });
 
-                    this.getRowCount(this.gifts.filter(t => t.campaign === campaign));
-                    return this.gifts.filter(t => t.campaign === campaign);
+                    this.getRowCount(this.gifts.filter(t => t.campaign_name === campaign));
+                    return this.gifts.filter(t => t.campaign_name === campaign);
                 }
             },
             getRowCount (items, campaign) {
                 if(campaign === null) {
                     return items.length
                 } else {
-                    return items.filter(t => t.campaign === campaign).length
+                    return items.filter(t => t.campaign_name === campaign).length
                 }
             },
         },
