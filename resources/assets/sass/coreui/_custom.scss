@@ -9,6 +9,7 @@
 @import "custom-modals";
 @import "gifts";
 @import "account";
+@import "influencersApp";
 
 body {
   background: $color-bg-body;
@@ -102,4 +103,12 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
   padding: 14px 25px;
 }
 
+
+.card .nav-pills.card-header-pills {
+
+
+  .nav-item a {
+    text-transform: uppercase;
+  }
+}
 

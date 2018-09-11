@@ -1,7 +1,7 @@
 export default {
   items: [
       {
-          name : 'Add new company',
+          name : 'Add new campaign',
           url  : '/campaigns/add-new',
           icon : 'icon-plus',
           variant: 'primary'
@@ -107,6 +107,11 @@ export default {
                 icon      : 'fa fa-spin fa-circle-o-notch'
             }
         ],
+    },
+    {
+        url      : '/offers',
+        name      : 'Offers',
+        icon      : 'fa fa-bullhorn'
     }
     /*{
       name    : 'Base',

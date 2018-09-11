@@ -100,6 +100,9 @@ import Invoices from '@/views/performers/invoices/Invoices'
 // Profile
  import ProfileI from '@/views/influencers/account/Profile'
 
+// Offers
+import Offers from '@/views/influencers/offers/Offers'
+
 Vue.use(Router)
 
 export default new Router({
@@ -274,7 +277,16 @@ export default new Router({
                 },
             ],
         },
-          // default
+          // INFLUENCERS
+
+        {
+            path: 'offers',
+            name: 'Offers',
+            component: Offers
+        },
+
+
+          /// default
         {
           path     : 'theme',
           redirect : '/theme/colors',
