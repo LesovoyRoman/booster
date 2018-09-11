@@ -34,9 +34,9 @@
       class="text-center">
       <strong>Settings</strong>
     </b-dropdown-header>
-    <b-dropdown-item>
+    <b-dropdown-item v-bind:to="'/account/profile'">
     <i class="fa fa-user"/> Profile</b-dropdown-item>
-    <b-dropdown-item>
+    <b-dropdown-item v-bind:to="'/account/settings'">
     <i class="fa fa-wrench"/> Settings</b-dropdown-item>
     <b-dropdown-item>
       <i class="fa fa-usd"/> Payments

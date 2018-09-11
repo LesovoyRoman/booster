@@ -86,6 +86,9 @@ import CreateGift from '@/views/gifts/CreateGift'
 import GiftsList from '@/views/gifts/GiftsList'
 import OrderedGifts from '@/views/gifts/OrderedGifts'
 
+// Account
+import Profile from '@/views/account/Profile'
+
 Vue.use(Router)
 
 export default new Router({
@@ -150,6 +153,23 @@ export default new Router({
             path: 'new-assistant',
             name: 'CreateAssistant',
             component: CreateAssistant
+        },
+        {
+            path: 'account',
+            name: 'Account',
+            redirect: '/account/profile',
+            component: {
+                render (c) {
+                    return c('router-view')
+                },
+            },
+            children: [
+                {
+                    path      : 'profile',
+                    name      : 'Profile',
+                    component : Profile
+                }
+            ]
         },
         {
             path: 'campaigns',
