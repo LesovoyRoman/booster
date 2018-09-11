@@ -53,41 +53,52 @@ import Page500 from '@/views/pages/Page500'
 import Login from '@/views/pages/Login'
 import Register from '@/views/pages/Register'
 
+
+// PERFORMERS ROUTES
 // Campaigns
-import MyCampaigns from '@/views/campaigns/MyCampaigns'
-import Campaign from '@/views/campaigns/Campaign'
+import MyCampaigns from '@/views/performers/campaigns/MyCampaigns'
+import Campaign from '@/views/performers/campaigns/Campaign'
 
 // Results
-import ResultsCampaigns from '@/views/campaigns/results/ResultsCampaigns'
-import ResultCampign from '@/views/campaigns/results/ResultCampaign'
+import ResultsCampaigns from '@/views/performers/campaigns/results/ResultsCampaigns'
+import ResultCampign from '@/views/performers/campaigns/results/ResultCampaign'
 
 // Feedbacks
-import AllFeedbacks from '@/views/campaigns/feedbacks/Feedbacks'
-import Feedback from '@/views/campaigns/feedbacks/Feedback'
+import AllFeedbacks from '@/views/performers/campaigns/feedbacks/Feedbacks'
+import Feedback from '@/views/performers/campaigns/feedbacks/Feedback'
 
 // Bonuses
-import InfluencerBonuses from '@/views/campaigns/bonuses/InfluencerBonuses'
-import CheckingBonuses from '@/views/campaigns/bonuses/CheckingBonuses'
+import InfluencerBonuses from '@/views/performers/campaigns/bonuses/InfluencerBonuses'
+import CheckingBonuses from '@/views/performers/campaigns/bonuses/CheckingBonuses'
 
-import NewCompany from '@/views/campaigns/CreateNewCampaign'
+import NewCompany from '@/views/performers/campaigns/CreateNewCampaign'
 
 // Tariffs
-import TariffPlan from '@/views/rates/Tariff'
+import TariffPlan from '@/views/performers/rates/Tariff'
 
 // Marketers
-import AssistantsList from '@/views/assistant/AssistantsList'
-import CreateAssistant from '@/views/assistant/AddAssistant'
+import AssistantsList from '@/views/performers/assistant/AssistantsList'
+import CreateAssistant from '@/views/performers/assistant/AddAssistant'
 
 // Influencers
-import InfluencersList from '@/views/influencers/Influencers'
+import InfluencersList from '@/views/performers/influencers/Influencers'
 
 // Gifts
-import CreateGift from '@/views/gifts/CreateGift'
-import GiftsList from '@/views/gifts/GiftsList'
-import OrderedGifts from '@/views/gifts/OrderedGifts'
+import CreateGift from '@/views/performers/gifts/CreateGift'
+import GiftsList from '@/views/performers/gifts/GiftsList'
+import OrderedGifts from '@/views/performers/gifts/OrderedGifts'
 
 // Account
-import Profile from '@/views/account/Profile'
+import ProfileP from '@/views/performers/account/Profile'
+
+// Invoices
+import Invoices from '@/views/performers/invoices/Invoices'
+
+///
+
+// INFLUENCERS ROUTES
+// Profile
+ import ProfileI from '@/views/influencers/account/Profile'
 
 Vue.use(Router)
 
@@ -145,6 +156,11 @@ export default new Router({
               ],
         },
         {
+            path: 'invoices',
+            name: 'Invoices',
+            component: Invoices
+        },
+        {
             path: 'influencers',
             name: 'Influencers',
             component: InfluencersList
@@ -167,7 +183,8 @@ export default new Router({
                 {
                     path      : 'profile',
                     name      : 'Profile',
-                    component : Profile
+                    //component : ProfileP // performer
+                    component : ProfileI // influencer
                 }
             ]
         },
