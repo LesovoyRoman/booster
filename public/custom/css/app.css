@@ -100,6 +100,20 @@ html body {
   margin-bottom: 0 !important;
 }
 
+select,
+textarea,
+.btn,
+input,
+.card,
+.custom-select,
+.nav-pills .nav-item a,
+.custom-control-label::after,
+.custom-control-label::before,
+.card input.form-control,
+.form-group input {
+  border-radius: 4px;
+}
+
 #app,
 #bg_app {
   min-height: 100vh;

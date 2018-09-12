@@ -127,6 +127,12 @@ export default {
       url      : '/points',
       name      : 'Points',
       icon      : 'fa fa-trophy'
+    },
+    {
+      /* @todo change url & name */
+      url      : '/influencer-campaigns',
+      name      : 'My Campaigns',
+      icon      : 'fa fa-calendar-check-o'
     }
     /*{
       name    : 'Base',

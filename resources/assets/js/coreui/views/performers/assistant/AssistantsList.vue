@@ -18,6 +18,9 @@
                         <b-form-group>
                             <b-input-group>
                                 <b-form-input v-model="filter" placeholder="Type name campaign or influencer"/>
+                                <b-input-group-append>
+                                    <b-btn :variant="'primary'" :disabled="!filter" @click="filter = ''">Clear</b-btn>
+                                </b-input-group-append>
                             </b-input-group>
                         </b-form-group>
 

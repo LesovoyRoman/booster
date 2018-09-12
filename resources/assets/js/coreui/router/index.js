@@ -109,6 +109,8 @@ import Invites from '@/views/influencers/invites/Invites'
 // Points
 import Points from '@/views/influencers/points/Points'
 
+import MyCampaignsI from '@/views/influencers/campaigns/MyCampaigns'
+
 
 Vue.use(Router)
 
@@ -306,6 +308,12 @@ export default new Router({
           path: 'points',
           name: 'Points',
           component: Points
+        },
+        {
+          /* @todo change path */
+          path: 'influencer-campaigns',
+          name: 'CampaignsInfluencer',
+          component: MyCampaignsI
         },
 
 
