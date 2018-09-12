@@ -117,6 +117,11 @@ export default {
         url      : '/offers',
         name      : 'Offers',
         icon      : 'fa fa-bullhorn'
+    },
+    {
+      url      : '/invites',
+      name      : 'Invites',
+      icon      : 'fa fa-user-plus'
     }
     /*{
       name    : 'Base',

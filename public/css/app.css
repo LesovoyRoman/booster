@@ -21593,6 +21593,10 @@ tbody tr td .icons_influencer i {
   color: black;
 }
 
+.table_invites .custom_btn_change {
+  margin-left: 15px;
+}
+
 .table_offers #table_cards .table_campaign_name {
   font-size: 20px;
   margin-bottom: 10px;
