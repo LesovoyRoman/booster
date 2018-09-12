@@ -382,6 +382,10 @@ table.table td, table th, table tr{
   }
 }
 
+#catalogGifts table .points_gift {
+  width: calc(100% - 30px)
+}
+
 @media screen and (max-width: 996px)  {
   #table_cards {
     tbody {

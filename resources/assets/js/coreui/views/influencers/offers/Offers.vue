@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" id="account">
+    <div class="wrapper" id="offers">
         <div class="animated fadeIn">
             <b-row>
                 <b-col sm="12" md="12">

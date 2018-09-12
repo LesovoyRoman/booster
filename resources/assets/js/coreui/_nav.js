@@ -114,25 +114,30 @@ export default {
         ],
     },
     {
-        url      : '/offers',
+        url       : '/offers',
         name      : 'Offers',
         icon      : 'fa fa-bullhorn'
     },
     {
-      url      : '/invites',
+      url       : '/invites',
       name      : 'Invites',
       icon      : 'fa fa-user-plus'
     },
     {
-      url      : '/points',
+      url       : '/points',
       name      : 'Points',
       icon      : 'fa fa-trophy'
     },
     {
       /* @todo change url & name */
-      url      : '/influencer-campaigns',
+      url       : '/influencer-campaigns',
       name      : 'My Campaigns',
       icon      : 'fa fa-calendar-check-o'
+    },
+    {
+      url       : '/catalog-gifts',
+      name      : 'Catalog Gifts',
+      icon      : 'fa fa-gift'
     }
     /*{
       name    : 'Base',

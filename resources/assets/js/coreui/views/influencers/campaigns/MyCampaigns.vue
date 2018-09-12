@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" id="account">
+    <div class="wrapper" id="myCampaigns">
         <div class="animated fadeIn">
             <b-row>
                 <b-col sm="12" md="12">
@@ -39,6 +39,9 @@
 
                                 :current-page="currentPage"
                                 :per-page="perPage">
+                            <template slot="campaign_name" slot-scope="data">
+                                <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                            </template>
                             <template slot="links" slot-scope="row">
                                 <div v-for="(linkItem, index) in row.item.links">
                                     <b-form-group class="groupLinksCampaigns">
@@ -93,7 +96,7 @@
 
                 campaigns: [
                     { id: 1, campaign_name: 'Snacks', links: [{path: 'https://linkFirst.com', gift: 'First gift'}, {path: 'https://linkSecond.com', gift: 'Second gift'}], },
-                    { id: 2, campaign_name: 'Cheese', links: [{path: 'https://linkCheeseFirst.com', gift: 'First cheese gift'}, {path: 'https://linkCheeseSecond.com', gift: 'Second cheese gift'}], },
+                    { id: 2, campaign_name: 'Cheese', links: [{path: 'https://linkCheeseFirst.com', gift: 'First cheese gift'},], },
                     { id: 3, campaign_name: 'Cheese', links: [{path: 'https://linkCheeseNew.com', gift: 'Iphone'}, {path: 'https://linkCheesesss.com', gift: 'Samsung Note2'}], }
                 ],
 
