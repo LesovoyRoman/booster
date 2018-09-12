@@ -72,6 +72,11 @@ export default {
           ]
     },
     {
+        name  : 'Profile Performer',
+        url   : 'profile-performer',
+        icon  : 'fa fa-user-circle'
+    },
+    {
       name    : 'Tariffs',
       url     : '/tariffs',
       icon    : 'fa fa-credit-card-alt',

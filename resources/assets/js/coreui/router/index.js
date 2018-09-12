@@ -191,6 +191,12 @@ export default new Router({
                 }
             ]
         },
+          // tmp
+          {
+              path      : '/profile-performer',
+              name      : 'Profile',
+              component : ProfileP // performer
+          },
         {
             path: 'campaigns',
             redirect: '/campaigns/my-campaigns',

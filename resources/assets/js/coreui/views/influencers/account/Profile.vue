@@ -177,7 +177,20 @@
                                     </b-col>
                                 </b-row>
 
+                                <div v-if="user.channels.length > 1 && index !== 0">
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-button
+                                                        class="font500 float-right uppercase"
+                                                        variant="primary" @click="removeChannel(index)">delete channel</b-button>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+                                </div>
+
                                 <div class="divider_custom" v-if="user.channels.length > 1 && index !== user.channels.length - 1"></div>
+
                             </div>
 
                             <b-row>
@@ -299,6 +312,9 @@
         methods: {
             addChannel(){
                 vm.user.channels.push({channel: 'YouTube', link: 'https://changeMe.com'})
+            },
+            removeChannel(index) {
+                vm.user.channels.splice(index, 1);
             }
         },
     }
