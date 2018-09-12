@@ -47,11 +47,31 @@
                                 </b-col>
 
                                 <b-col>
-                                    <b-button
-                                            class="font500 float-right uppercase"
-                                            variant="primary">change</b-button>
+                                    <b-form-group
+                                            id="fieldset_user_name"
+                                            description=""
+                                    >
+                                        <label for="user_name">Name</label>
+                                        <b-form-input id="user_name" placeholder="Enter name"  v-model.trim="user.name"></b-form-input>
+                                    </b-form-group>
+
+                                    <b-form-group
+                                            id="fieldset_user_surname"
+                                            description=""
+                                    >
+                                        <label for="user_surname">Surname</label>
+                                        <b-form-input id="user_surname" placeholder="Enter surname"  v-model.trim="user.surname"></b-form-input>
+                                    </b-form-group>
+
+                                    <b-col>
+                                        <b-button
+                                                class="font500 float-right uppercase"
+                                                variant="primary">change</b-button>
+                                    </b-col>
                                 </b-col>
                             </b-row>
+
+
 
                             <div class="divider_custom"></div>
 
@@ -271,6 +291,8 @@
                 user: {
                     email: 'email@user.com',
                     password: 'password',
+                    name: 'Arnold',
+                    surname: 'Schwarz',
                     phone: '+999999999999',
                     country: 'Russia',
                     city: 'Moscow',

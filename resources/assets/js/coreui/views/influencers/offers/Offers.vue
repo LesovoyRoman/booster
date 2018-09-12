@@ -11,14 +11,14 @@
                         md="12">
                     <b-card>
 
-                        <!--<b-input-group-append class="pull-right typeRenderGifts">
+                        <b-input-group-append class="pull-right typeRenderGifts">
                             <div class="">
                                 <input
                                         type="checkbox"
                                         id="customCheckboxInfluencersList"
                                         name="customCheckboxCountry"
                                         class="custom-control-input"
-                                        v-model="giftsList"
+                                        v-model="offersList"
                                         v-on:change="filterMedia(false)">
                                 <label
                                         style="display: block"
@@ -32,13 +32,13 @@
                                         name="customCheckboxCountry"
                                         class="custom-control-input"
                                         v-on:change="filterMedia(true)"
-                                        v-model="giftsCards">
+                                        v-model="offersCards">
                                 <label
                                         style="display: block"
                                         class="control-type-grid control-type-grid-cards"
                                         for="customCheckboxInfluencersCards"></label>
                             </div>
-                        </b-input-group-append>-->
+                        </b-input-group-append>
 
                         <b-tabs pills card>
                             <b-tab title="All" active>
@@ -52,6 +52,7 @@
                                 </b-form-group>
 
                                 <b-table
+                                        :id="offersCards ? 'table_cards' : ''"
                                         :hover="false"
                                         :striped="false"
                                         :bordered="false"
@@ -60,6 +61,7 @@
                                         responsive="sm"
                                         :items="offers"
                                         :fields="fields"
+                                        class="table_offers"
 
                                         :filter="filter"
                                         :sort-by.sync="sortBy"
@@ -73,6 +75,21 @@
                                             slot="campaign_name"
                                             slot-scope="data">
                                         <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                    </template>
+                                    <template slot="HEAD_status" slot-scope="data">
+
+                                    </template>
+                                    <template slot="price" slot-scope="data">
+                                        <span class="showsTableCards">Price:</span> {{ data.item.price }}
+                                    </template>
+                                    <template slot="conditions" slot-scope="data">
+                                        <span class="showsTableCards">Conditions:</span> {{ data.item.conditions }}
+                                    </template>
+                                    <template slot="prize" slot-scope="data">
+                                        <span class="showsTableCards">Main gift:</span> <a href="">{{ data.item.prize }}</a>
+                                    </template>
+                                    <template slot="period" slot-scope="data">
+                                        <span class="showsTableCards">Period:</span><span class="font500-cards"> {{ data.item.period }}</span>
                                     </template>
                                     <template slot="status" slot-scope="data">
                                         <div v-if="data.item.status === 'considering'">
@@ -143,13 +160,16 @@
                 ],
 
                 fields: [
-                    { key: 'campaign_name', sortable: true, },
-                    { key: 'price', sortable: true, },
-                    { key: 'conditions', sortable: false, 'class': 'table_points' },
-                    { key: 'prize', sortable: false, },
-                    { key: 'period', sortable: true, },
-                    { key: 'status', sortable: true, },
-                ]
+                    { key: 'campaign_name', sortable: true, 'class': 'table_campaign_name' },
+                    { key: 'price', sortable: true, 'class': 'table_price' },
+                    { key: 'conditions', sortable: false, 'class': 'table_conditions' },
+                    { key: 'prize', sortable: false, 'class': 'table_prize' },
+                    { key: 'period', sortable: true, 'class': 'table_period'  },
+                    { key: 'status', sortable: true, 'class': 'table_label_hidden table_status' },
+                ],
+
+                offersList: true,
+                offersCards: false,
             }
         },
         methods: {
@@ -159,6 +179,11 @@
             },
             getRowCount (items) {
                 return items.length
+            },
+            filterMedia(val){
+                val ? vm.offersList = false : vm.offersList = true;
+                val ? vm.offersCards = true : vm.offersCards = false;
+                val ? vm.perPage = 9 : vm.perPage = 10;
             },
         },
         created(){

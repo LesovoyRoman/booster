@@ -21239,6 +21239,10 @@ h2 {
   line-height: 1;
 }
 
+table td {
+  padding: 0.6rem;
+}
+
 table.table td,
 table th,
 table tr {
@@ -21580,6 +21584,47 @@ tbody tr td .icons_influencer i {
 }
 
 #table_cards tbody tr td .sendOffer {
+  display: block;
+  width: 100%;
+}
+
+.table_offers td.table_conditions {
+  font-weight: 500;
+  color: black;
+}
+
+.table_offers #table_cards .table_campaign_name {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.table_offers #table_cards .table_conditions {
+  font-weight: normal;
+  color: #516378;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.table_offers #table_cards .table_price {
+  font-size: 13px;
+}
+
+.table_offers #table_cards .table_prize,
+.table_offers #table_cards .table_period {
+  color: black;
+}
+
+.table_offers #table_cards .table_period {
+  margin-bottom: 15px;
+}
+
+.table_offers #table_cards .table_status {
+  margin-top: 5px;
+  display: block;
+  text-align: center;
+}
+
+.table_offers #table_cards .table_status button {
   display: block;
   width: 100%;
 }
@@ -21926,8 +21971,21 @@ li {
   font-weight: 500 !important;
 }
 
+#table_cards .font500-cards {
+  font-weight: 500 !important;
+}
+
 .uppercase {
   text-transform: uppercase !important;
+}
+
+.form-control,
+.custom-file-label {
+  border: 1px solid #E1E2E4;
+}
+
+.custom-control-label::before {
+  background-color: #E1E2E4;
 }
 
 .divider_custom {

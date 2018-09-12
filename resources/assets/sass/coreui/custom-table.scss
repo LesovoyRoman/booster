@@ -1,5 +1,9 @@
 // tables
 
+table td {
+  padding: 0.6rem;
+}
+
 table.table td, table th, table tr{
   vertical-align: middle;
 
@@ -216,7 +220,7 @@ table.table td, table th, table tr{
       width: 30%;
       margin: 15px 1.5%;
       padding: 15px;
-      border: 1px solid #E1E2E4;
+      border: $custom_border;
       position: relative;
 
       td {
@@ -264,7 +268,7 @@ table.table td, table th, table tr{
           height: auto;
           max-width: 100%;
           margin: 0;
-          border: 1px solid #E1E2E4;
+          border: $custom_border;
         }
         .star_influencer {
           top: 10px;
@@ -298,6 +302,49 @@ table.table td, table th, table tr{
           width: 100%;
         }
       }
+    }
+  }
+}
+
+
+// offers
+.table_offers {
+  td.table_conditions {
+    font-weight: 500;
+    color: black;
+  }
+}
+
+.table_offers #table_cards {
+
+  .table_campaign_name {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .table_conditions {
+    font-weight: normal;
+    color: #516378;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .table_price {
+    font-size: 13px;
+  }
+  .table_prize, .table_period {
+    color: black;
+  //  font-weight: 500;
+  }
+  .table_period {
+    margin-bottom: 15px
+  }
+  .table_status {
+    margin-top: 5px;
+    display: block;
+    text-align: center;
+
+    button {
+      display: block;
+      width: 100%;
     }
   }
 }

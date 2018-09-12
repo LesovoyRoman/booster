@@ -73,7 +73,7 @@ export default {
     },
     {
         name  : 'Profile Performer',
-        url   : 'profile-performer',
+        url   : '/profile-performer',
         icon  : 'fa fa-user-circle'
     },
     {

@@ -58,8 +58,20 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
   font-weight: 500 !important;
 }
 
+#table_cards .font500-cards {
+  font-weight: 500 !important;
+}
+
 .uppercase {
   text-transform: uppercase !important;
+}
+
+.form-control, .custom-file-label {
+  border: $custom_border;
+}
+
+.custom-control-label::before {
+  background-color: #E1E2E4;
 }
 
 .divider_custom {
