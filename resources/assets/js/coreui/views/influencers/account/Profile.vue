@@ -336,7 +336,9 @@
                 vm.user.channels.push({channel: 'YouTube', link: 'https://changeMe.com'})
             },
             removeChannel(index) {
-                vm.user.channels.splice(index, 1);
+                if(confirm("Are you sure?")) {
+                    vm.user.channels.splice(index, 1);
+                }
             }
         },
     }

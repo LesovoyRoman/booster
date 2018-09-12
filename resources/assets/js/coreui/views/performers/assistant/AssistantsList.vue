@@ -188,7 +188,9 @@
                 }
             },
             removeElement: function (item) {
-                this.assistants.splice(item.index, 1);
+                if(confirm("Are you sure?")) {
+                    this.assistants.splice(item.index, 1);
+                }
             },
             select: function() {
                 vm.allSelected = false;

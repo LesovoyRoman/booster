@@ -245,7 +245,9 @@
                 }
             },
             removeElement: function (item) {
-                this.gifts.splice(item.index, 1);
+                if(confirm("Are you sure?")) {
+                    this.gifts.splice(item.index, 1);
+                }
             },
             select: function() {
                 vm.allSelected = false;

@@ -21378,6 +21378,26 @@ tbody tr td .icons_influencer i {
   margin: auto 2px;
 }
 
+.groupLinksCampaigns input,
+.groupLinksCampaigns button {
+  margin: auto 10px;
+}
+
+.groupLinksCampaigns .inlineBlock {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+
+.groupLinksCampaigns .inlineBlock input {
+  width: auto;
+  display: inline-block;
+}
+
+.groupLinksCampaigns .inlineBlock button {
+  margin-top: 3px;
+}
+
 .fa.fa-star {
   margin: 0 3px;
   color: #D8D8D8;
@@ -22072,6 +22092,14 @@ li {
 
 .card .nav-pills.card-header-pills .nav-item a {
   text-transform: uppercase;
+}
+
+.verticalTop {
+  vertical-align: top !important;
+}
+
+.verticalTop td {
+  vertical-align: top !important;
 }
 
 .vue-notification.warning {

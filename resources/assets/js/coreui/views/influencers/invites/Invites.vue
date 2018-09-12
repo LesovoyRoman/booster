@@ -156,7 +156,9 @@
                 val ? vm.perPage = 9 : vm.perPage = 10;
             },
             removeElement: function (item) {
-                this.invites.splice(item.index, 1);
+                if(confirm("Are you sure?")) {
+                    this.invites.splice(item.index, 1);
+                }
             },
             acceptElement: function (item) {
                 this.invites[item.index].status = 'participate'
