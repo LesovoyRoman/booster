@@ -64,7 +64,7 @@
                                     </template>
                                     <template slot="status" slot-scope="row">
                                         <div v-if="row.item.status === 'waiting'">
-                                            <b-button class="btn btn-secondary" @click="acceptElement(row)">accept</b-button>
+                                            <b-button variant="primary" class="font500 uppercase" @click="acceptElement(row)">accept</b-button>
 
                                             <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
                                                 <i class="icon-close"></i>

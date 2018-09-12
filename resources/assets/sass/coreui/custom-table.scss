@@ -1,7 +1,11 @@
 // tables
 
-table td {
-  padding: 0.6rem;
+table.table {
+  tr  {
+    td, th {
+      padding: 0.6rem;
+    }
+  }
 }
 
 table.table td, table th, table tr{

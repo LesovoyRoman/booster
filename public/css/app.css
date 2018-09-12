@@ -21239,7 +21239,8 @@ h2 {
   line-height: 1;
 }
 
-table td {
+table.table tr td,
+table.table tr th {
   padding: 0.6rem;
 }
 
