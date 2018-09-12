@@ -122,6 +122,11 @@ export default {
       url      : '/invites',
       name      : 'Invites',
       icon      : 'fa fa-user-plus'
+    },
+    {
+      url      : '/points',
+      name      : 'Points',
+      icon      : 'fa fa-trophy'
     }
     /*{
       name    : 'Base',

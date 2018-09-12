@@ -106,6 +106,10 @@ import Offers from '@/views/influencers/offers/Offers'
 // Invites
 import Invites from '@/views/influencers/invites/Invites'
 
+// Points
+import Points from '@/views/influencers/points/Points'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -297,6 +301,11 @@ export default new Router({
           path: 'invites',
           name: 'Invites',
           component: Invites
+        },
+        {
+          path: 'points',
+          name: 'Points',
+          component: Points
         },
 
 
