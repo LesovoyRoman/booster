@@ -21239,6 +21239,17 @@ h2 {
   line-height: 1;
 }
 
+.paragraph_simple {
+  font-size: 18px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.span-row {
+  display: block;
+  color: black;
+}
+
 table.table tr td,
 table.table tr th {
   padding: 0.6rem;
@@ -22148,6 +22159,28 @@ li {
 
 .colorMain {
   color: #BD4013 !important;
+}
+
+.holder-img-profile-campaign {
+  width: 250px;
+  height: 250px;
+  max-width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.holder-img-profile-campaign img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.group-info-custom {
+  margin: 15px auto 15px 0;
 }
 
 .vue-notification.warning {

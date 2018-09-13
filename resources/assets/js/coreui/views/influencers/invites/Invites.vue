@@ -45,7 +45,7 @@
                                     <template
                                             slot="campaign_name"
                                             slot-scope="data">
-                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
                                     </template>
                                     <template slot="HEAD_status" slot-scope="data">
 

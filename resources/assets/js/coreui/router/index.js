@@ -117,6 +117,9 @@ import CatalogGifts from '@/views/influencers/catalog/Gifts'
 // My Gifts
 import MyGifts from '@/views/influencers/myGifts/MyGifts'
 
+// Profile Campaign
+import ProfileCampaign from '@/views/influencers/profileCampaign/ProfileCampaign'
+
 
 Vue.use(Router)
 
@@ -330,6 +333,12 @@ export default new Router({
           path: 'my-gifts',
           name: 'MyGifts',
           component: MyGifts
+        },
+        {
+          path     : 'profile-campaign-id-:id',
+          name     : 'ProfileCampaign',
+          component: ProfileCampaign,
+          props: true,
         },
 
 
