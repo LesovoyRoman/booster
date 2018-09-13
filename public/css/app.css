@@ -21687,6 +21687,10 @@ tbody tr td .icons_influencer i {
   width: calc(100% - 30px);
 }
 
+#profileCampaign tbody .name_gift .gift-name-block {
+  color: #BD4013;
+}
+
 #myGifts table .points_gift {
   position: static;
   width: 100%;

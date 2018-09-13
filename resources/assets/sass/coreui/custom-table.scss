@@ -401,6 +401,14 @@ table.table td, table th, table tr{
   }
 }
 
+#profileCampaign {
+  tbody {
+    .name_gift .gift-name-block {
+      color: $main-color
+    }
+  }
+}
+
 #myGifts {
   table {
     .points_gift {
