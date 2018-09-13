@@ -21565,7 +21565,6 @@ tbody tr td .icons_influencer i {
   height: auto;
   max-width: 100%;
   margin: 0;
-  border: 1px solid #E1E2E4;
 }
 
 #table_cards tbody tr td .star_influencer {
@@ -21658,8 +21657,43 @@ tbody tr td .icons_influencer i {
   width: 100%;
 }
 
-#catalogGifts table .points_gift {
+#myGifts .campaign_gift {
+  position: relative;
+}
+
+#myGifts .campaign_gift:before {
+  position: absolute;
+  content: '';
+  height: 1px;
+  width: calc(100% + 30px);
+  left: -15px;
+  bottom: -40px;
+  background-color: #E1E2E4;
+}
+
+#catalogGifts table .points_gift,
+#myGifts table .points_gift {
   width: calc(100% - 30px);
+}
+
+#myGifts table .points_gift {
+  position: static;
+  width: 100%;
+  margin-bottom: 15px;
+  margin-top: 0;
+}
+
+#myGifts table .campaign_gift {
+  margin-bottom: 10px;
+}
+
+#myGifts table .code_gift p {
+  color: black;
+  margin-bottom: 0;
+}
+
+#myGifts table .code_gift p span {
+  color: black;
 }
 
 @media screen and (max-width: 996px) {
@@ -22110,6 +22144,10 @@ li {
 
 .verticalTop td {
   vertical-align: top !important;
+}
+
+.colorMain {
+  color: #BD4013 !important;
 }
 
 .vue-notification.warning {

@@ -138,7 +138,13 @@ export default {
       url       : '/catalog-gifts',
       name      : 'Catalog Gifts',
       icon      : 'fa fa-gift'
+    },
+    {
+      url       : '/my-gifts',
+      name      : 'My Gifts',
+      icon      : 'fa fa-gift'
     }
+
     /*{
       name    : 'Base',
       url     : '/base',

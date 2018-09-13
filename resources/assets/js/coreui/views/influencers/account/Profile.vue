@@ -216,7 +216,7 @@
                                                 :id="'fieldset_user_auditory_' + index"
                                                 description=""
                                         >
-                                            <label for="user_auditory">Auditory</label>
+                                            <label :for="'user_auditory_' + index">Auditory</label>
                                             <b-form-select dark v-model="item.auditory" :options="auditories"></b-form-select>
                                         </b-form-group>
                                     </b-col>
@@ -224,7 +224,7 @@
 
                                 <b-row>
                                     <b-col md="12" lg="12" xs="12">
-                                        <label for="user_auditory">Auditory age</label>
+                                        <label>Auditory age</label>
                                     </b-col>
                                     <b-col md="4" lg="4">
                                         <b-form-group

@@ -295,7 +295,6 @@ table.table td, table th, table tr{
           height: auto;
           max-width: 100%;
           margin: 0;
-          border: $custom_border;
         }
         .star_influencer {
           top: 10px;
@@ -382,8 +381,46 @@ table.table td, table th, table tr{
   }
 }
 
-#catalogGifts table .points_gift {
-  width: calc(100% - 30px)
+#myGifts .campaign_gift {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    content: '';
+    height: 1px;
+    width: calc(100% + 30px);
+    left: -15px;
+    bottom: -40px;
+    background-color: #E1E2E4;
+  }
+}
+
+#catalogGifts, #myGifts {
+  table .points_gift {
+    width: calc(100% - 30px)
+  }
+}
+
+#myGifts {
+  table {
+    .points_gift {
+      position: static;
+      width: 100%;
+      margin-bottom: 15px;
+      margin-top: 0;
+    }
+    .campaign_gift {
+      margin-bottom: 10px;
+    }
+    .code_gift p {
+      color: black;
+      margin-bottom: 0;
+
+      span {
+        color: black;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 996px)  {

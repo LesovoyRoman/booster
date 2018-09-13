@@ -114,6 +114,9 @@ import MyCampaignsI from '@/views/influencers/campaigns/MyCampaigns'
 // Catalog Gifts
 import CatalogGifts from '@/views/influencers/catalog/Gifts'
 
+// My Gifts
+import MyGifts from '@/views/influencers/myGifts/MyGifts'
+
 
 Vue.use(Router)
 
@@ -322,6 +325,11 @@ export default new Router({
           path: 'catalog-gifts',
           name: 'CatalogGifts',
           component: CatalogGifts
+        },
+        {
+          path: 'my-gifts',
+          name: 'MyGifts',
+          component: MyGifts
         },
 
 
