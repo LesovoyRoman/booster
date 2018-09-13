@@ -160,19 +160,20 @@
 
                             <p class="card-text header_card_simple">Influence channels</p>
 
-                            <b-row>
-                                <b-col>
-                                    <b-form-group
-                                            id="fieldset_user_topic"
-                                            description=""
-                                    >
-                                        <label for="user_journeys">Topic</label>
-                                        <b-form-select dark v-model="user.topic" :options="topics"></b-form-select>
-                                    </b-form-group>
-                                </b-col>
-                            </b-row>
-
                             <div v-for="(item, index) in user.channels" :key="'channel_' + index">
+
+                                <b-row>
+                                    <b-col>
+                                        <b-form-group
+                                                :id="'fieldset_user_topic_' + index"
+                                                description=""
+                                        >
+                                            <label for="user_topic">Topic</label>
+                                            <b-form-select dark v-model="item.topic" :options="topics"></b-form-select>
+                                        </b-form-group>
+                                    </b-col>
+                                </b-row>
+
                                 <b-row>
                                     <b-col>
                                         <b-form-group
@@ -209,6 +210,45 @@
                                     </b-row>
                                 </div>
 
+                                <b-row>
+                                    <b-col md="4" lg="4">
+                                        <b-form-group
+                                                :id="'fieldset_user_auditory_' + index"
+                                                description=""
+                                        >
+                                            <label for="user_auditory">Auditory</label>
+                                            <b-form-select dark v-model="item.auditory" :options="auditories"></b-form-select>
+                                        </b-form-group>
+                                    </b-col>
+                                </b-row>
+
+                                <b-row>
+                                    <b-col md="12" lg="12" xs="12">
+                                        <label for="user_auditory">Auditory age</label>
+                                    </b-col>
+                                    <b-col md="4" lg="4">
+                                        <b-form-group
+                                                :id="'fieldset_user_auditory_from_' + index"
+                                                description=""
+                                        >
+                                            <b-form-select dark v-model="item.auditory_from" :options="auditories_from">
+                                                <option :value="null" disabled selected style="color:rgba(0,0,0,0.26)">from</option>
+                                            </b-form-select>
+                                        </b-form-group>
+                                    </b-col>
+
+                                    <b-col md="4" lg="4">
+                                        <b-form-group
+                                                :id="'fieldset_user_auditory_to_' + index"
+                                                description=""
+                                        >
+                                            <b-form-select dark v-model="item.auditory_to" :options="auditories_to">
+                                                <option :value="null" disabled selected style="color:rgba(0,0,0,0.25)">to</option>
+                                            </b-form-select>
+                                        </b-form-group>
+                                    </b-col>
+                                </b-row>
+
                                 <div class="divider_custom" v-if="user.channels.length > 1 && index !== user.channels.length - 1"></div>
 
                             </div>
@@ -219,45 +259,6 @@
                                         <b-button
                                                 class="font500 float-left uppercase"
                                                 variant="primary" @click="addChannel">+ influence channel</b-button>
-                                    </b-form-group>
-                                </b-col>
-                            </b-row>
-
-                            <b-row>
-                                <b-col md="4" lg="4">
-                                    <b-form-group
-                                            id="fieldset_user_auditory"
-                                            description=""
-                                    >
-                                        <label for="user_auditory">Auditory</label>
-                                        <b-form-select dark v-model="user.auditory" :options="auditories"></b-form-select>
-                                    </b-form-group>
-                                </b-col>
-                            </b-row>
-
-                            <b-row>
-                                <b-col md="12" lg="12" xs="12">
-                                    <label for="user_auditory">Auditory age</label>
-                                </b-col>
-                                <b-col md="4" lg="4">
-                                    <b-form-group
-                                            id="fieldset_user_auditory_from"
-                                            description=""
-                                    >
-                                        <b-form-select dark v-model="user.auditory_from" :options="auditories_from">
-                                            <option :value="null" disabled selected style="color:rgba(0,0,0,0.26)">from</option>
-                                        </b-form-select>
-                                    </b-form-group>
-                                </b-col>
-
-                                <b-col md="4" lg="4">
-                                    <b-form-group
-                                            id="fieldset_user_auditory_to"
-                                            description=""
-                                    >
-                                        <b-form-select dark v-model="user.auditory_to" :options="auditories_to">
-                                            <option :value="null" disabled selected style="color:rgba(0,0,0,0.25)">to</option>
-                                        </b-form-select>
                                     </b-form-group>
                                 </b-col>
                             </b-row>
@@ -301,16 +302,11 @@
                     house: '15',
                     apartments: '7',
                     index: '75324',
-                    topic: 'Journeys',
-                    auditory_from: null,
-                    auditory_to: null,
 
                     channels: [
-                        {channel: 'YouTube', link: 'https://iamlink.com'},
-                        {channel: 'Telegram', link: 'https://iamlink2.com'}
+                        {channel: 'YouTube', topic: 'Journeys', link: 'https://iamlink.com', auditory: '15-30', auditory_from: null, auditory_to: null},
+                        {channel: 'Telegram', topic: 'Fashion', link: 'https://iamlink2.com', auditory: '100-250', auditory_from: null, auditory_to: null}
                     ],
-
-                    auditory: '15-30',
 
                 },
 
@@ -333,7 +329,7 @@
         },
         methods: {
             addChannel(){
-                vm.user.channels.push({channel: 'YouTube', link: 'https://changeMe.com'})
+                vm.user.channels.push({channel: 'YouTube', topic: 'Fashion', link: 'https://changeMe.com', auditory: '100-250', auditory_from: null, auditory_to: null})
             },
             removeChannel(index) {
                 if(confirm("Are you sure?")) {
