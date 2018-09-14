@@ -150,7 +150,27 @@ export default {
       url       : '/my-gifts',
       name      : 'My Gifts',
       icon      : 'fa fa-gift'
-    }
+    },
+
+
+      /// admin
+      {
+          name    : 'Admin',
+          url     : '/admin/',
+          icon    : 'fa fa-user-circle-o',
+          children: [
+              {
+                  url       : '/admin/influencers',
+                  name      : 'InfluencersAdmin',
+                  icon      : 'fa fa-group'
+              },
+              {
+                  url       : '/admin/users',
+                  name      : 'UsersAdmin',
+                  icon      : 'fa fa-address-book'
+              },
+          ],
+      },
 
     /*{
       name    : 'Base',

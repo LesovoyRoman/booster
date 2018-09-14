@@ -122,6 +122,11 @@ import MyGifts from '@/views/influencers/myGifts/MyGifts'
 import ProfileCampaign from '@/views/influencers/profileCampaign/ProfileCampaign'
 
 
+
+/// admin
+import InfluencersListAdmin from '@/views/admin/influencers/InfluencersAdmin'
+import UsersListAdmin from '@/views/admin/users/Users'
+
 Vue.use(Router)
 
 export default new Router({
@@ -358,6 +363,31 @@ export default new Router({
           name     : 'ProfileCampaign',
           component: ProfileCampaign,
           props: true,
+        },
+
+
+
+          /// admin
+
+        {
+            path     : '/admin/',
+            name     : 'Admin',
+            redirect : 'admin/users',
+            component: {
+                render (c) { return c('router-view') },
+            },
+            children: [
+                {
+                    path      : '/admin/influencers',
+                    name      : 'InfluencersAdmin',
+                    component : InfluencersListAdmin
+                },
+                {
+                    path      : '/admin/users',
+                    name      : 'UsersAdmin',
+                    component : UsersListAdmin
+                },
+            ]
         },
 
 
