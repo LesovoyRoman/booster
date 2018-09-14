@@ -14,6 +14,19 @@
                             <b-tab title="Manually
 " active>
                                 <form action="">
+
+                                    <p class="card-text header_card_simple">Campaign</p>
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group>
+                                                <label>Choose campaign<i class="custom_tooltip_label" v-b-tooltip.hover title="'Choose campaign'">?</i></label>
+                                                <b-form-select dark v-model="newGift.current_campaign" :options="campaigns">
+                                                    <option :value="null" disabled>Choose the campaign</option>
+                                                </b-form-select>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
                                     <p class="card-text header_card_simple">New gift</p>
                                     <b-row>
                                         <b-col>
@@ -217,6 +230,18 @@
                             <b-tab title="Via Amazon">
 
                                 <form action="">
+
+                                    <p class="card-text header_card_simple">Campaign</p>
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group>
+                                                <label>Choose campaign<i class="custom_tooltip_label" v-b-tooltip.hover title="'Choose campaign'">?</i></label>
+                                                <b-form-select dark v-model="newGift.current_campaign" :options="campaigns">
+                                                    <option :value="null" disabled>Choose the campaign</option>
+                                                </b-form-select>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
 
                                     <b-row>
                                         <b-col>
@@ -443,6 +468,7 @@
                     price_gift_currency: 'RUB',
                     price_product_currency: 'RUB',
                     price_boost_currency: 'RUB',
+                    current_campaign: null
                 },
 
                 last_boost_currency: 1,
@@ -454,6 +480,8 @@
                 currencies: ['RUB', 'USD', 'EUR'],
                 eur_val: 0,
                 usd_val: 0,
+
+                campaigns: ['Snacks', 'Cheese']
             }
         },
         created(){
