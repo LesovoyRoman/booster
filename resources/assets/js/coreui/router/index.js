@@ -92,7 +92,8 @@ import OrderedGifts from '@/views/performers/gifts/OrderedGifts'
 import ProfileP from '@/views/performers/account/Profile'
 
 // Invoices
-import Invoices from '@/views/performers/invoices/Invoices'
+import InvoicesList from '@/views/performers/invoices/InvoicesList'
+import Invoice from '@/views/performers/invoices/Invoice'
 
 ///
 
@@ -179,7 +180,25 @@ export default new Router({
         {
             path: 'invoices',
             name: 'Invoices',
-            component: Invoices
+            redirect: '/invoices/all',
+            component: {
+                render (c) {
+                    return c('router-view')
+                },
+            },
+            children: [
+                {
+                    path: '/invoices/all',
+                    name: 'InvoicesList',
+                    component: InvoicesList
+                },
+                {
+                    path: 'invoices/invoice-id-:id',
+                    name: 'Invoice',
+                    component: Invoice,
+                    props: true
+                }
+            ]
         },
         {
             path: 'influencers',

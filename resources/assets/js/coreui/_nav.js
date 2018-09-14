@@ -97,22 +97,29 @@ export default {
         icon    : 'fa fa-gift',
         children: [
             {
-                url      : '/gifts/all-gifts',
+                url       : '/gifts/all-gifts',
                 name      : 'GiftsList',
                 icon      : 'fa fa-th-list'
             },
             {
-                url      : '/gifts/create-gift',
+                url       : '/gifts/create-gift',
                 name      : 'CreateGift',
                 icon      : 'fa fa-folder-open'
             },
             {
-                url      : '/gifts/ordered-gifts',
+                url       : '/gifts/ordered-gifts',
                 name      : 'OrderedGifts',
                 icon      : 'fa fa-spin fa-circle-o-notch'
             }
         ],
     },
+    {
+        url       : '/invoices/all',
+        name      : 'Invoices',
+        icon      : 'fa fa-external-link',
+    },
+
+      /// influencers
     {
         url       : '/offers',
         name      : 'Offers',
