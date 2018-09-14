@@ -61,7 +61,7 @@
                                                 <b-col>
                                                     <b-form-group
                                                             id="fieldset_gift_price">
-                                                        <label for="gift_price">Price of gift<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of gift'">?</i></label>
+                                                        <label for="gift_price">Price of gift<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of gift (counts as RUB)'">?</i></label>
                                                         <b-input-group>
 
                                                             <b-input-group-prepend>
@@ -80,7 +80,7 @@
                                                 <b-col>
                                                     <b-form-group
                                                             id="fieldset_gift_price_product">
-                                                        <label for="gift_price_product">Price for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of product'">?</i></label>
+                                                        <label for="gift_price_product">Price for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of product (counts as RUB)'">?</i></label>
 
                                                         <b-input-group>
                                                             <b-input-group-prepend>
@@ -98,7 +98,7 @@
                                                 <b-col>
                                                     <b-form-group
                                                             id="fieldset_gift_price_boost">
-                                                        <label for="gift_price_boost">Price of boosting for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of boosting'">?</i></label>
+                                                        <label for="gift_price_boost">Price of boosting for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of boosting (counts as RUB)'">?</i></label>
 
                                                         <b-input-group>
                                                             <b-input-group-prepend>
@@ -283,7 +283,7 @@
                                                 <b-col>
                                                     <b-form-group
                                                             id="fieldset_gift_price">
-                                                        <label for="gift_price">Price of gift<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of gift'">?</i></label>
+                                                        <label for="gift_price">Price of gift<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of gift (counts as RUB)'">?</i></label>
                                                         <b-input-group>
 
                                                             <b-input-group-prepend>
@@ -302,7 +302,7 @@
                                                 <b-col>
                                                     <b-form-group
                                                             id="fieldset_gift_price_product">
-                                                        <label for="gift_price_product">Price for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of product'">?</i></label>
+                                                        <label for="gift_price_product">Price for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of product (counts as RUB)'">?</i></label>
 
                                                         <b-input-group>
                                                             <b-input-group-prepend>
@@ -320,7 +320,7 @@
                                                 <b-col>
                                                     <b-form-group
                                                             id="fieldset_gift_price_boost">
-                                                        <label for="gift_price_boost">Price of boosting for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of boosting'">?</i></label>
+                                                        <label for="gift_price_boost">Price of boosting for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of boosting (counts as RUB)'">?</i></label>
 
                                                         <b-input-group>
                                                             <b-input-group-prepend>
@@ -492,7 +492,7 @@
                 vm.newGift.points = Math.ceil(vm.newGift.amount_products * vm.newGift.points_oneProduct)
             },
             priceProductCurrency(){
-                vm.newGift.price_product = Math.ceil(vm.newGift.price_product / vm.last_product_currency )
+                vm.newGift.price_product = Math.round(vm.newGift.price_product / vm.last_product_currency )
                 vm.last_product_currency = 1;
 
                 if (vm.newGift.price_product_currency === 'EUR') {
@@ -504,7 +504,7 @@
                 }
             },
             priceBoostCurrency(){
-                vm.newGift.price_boost = Math.ceil(vm.newGift.price_boost / vm.last_boost_currency )
+                vm.newGift.price_boost = Math.round(vm.newGift.price_boost / vm.last_boost_currency )
                 vm.last_boost_currency = 1;
 
                 if (vm.newGift.price_boost_currency === 'EUR') {
@@ -516,7 +516,7 @@
                 }
             },
             priceGiftCurrency (){
-                vm.newGift.price = Math.ceil(vm.newGift.price / vm.last_gift_currency )
+                vm.newGift.price = Math.round(vm.newGift.price / vm.last_gift_currency )
                 vm.last_gift_currency = 1;
 
                 if (vm.newGift.price_gift_currency === 'EUR') {
