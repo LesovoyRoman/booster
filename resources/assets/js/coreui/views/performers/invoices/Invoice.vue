@@ -10,11 +10,15 @@
                             <b-col md="4" lg="4">
                                 <p class="card-text header_card_simple">From</p>
 
-                                <span class="span-row">https://boost.devbrother.com</span>
-                                <span class="span-row">Lermontova 15</span>
-                                <span class="span-row">15-155 Kharkov, Ukraine</span>
-                                <span class="span-row"><span class="font500">Email:</span> boostyoursales@gmail.com</span>
-                                <span class="span-row"><span class="font500">Phone:</span> +345-777-00-00</span>
+                                <span class="span-row">BluEgg OÜ</span>
+                                <span class="span-row">Mannimae, Pudisoo kula,</span>
+                                <span class="span-row">Kuusalu vald, 74626, Estonia</span>
+                                <span class="span-row"><span class="font500">Bank name:</span>  AS LHV Pank</span>
+                                <span class="span-row"><span class="font500">Bank Address:</span>  Tartu mnt 2, 10145 Tallinn, Estonia</span>
+                                <span class="span-row">EE437700771002903764</span>
+                                <span class="span-row"><span class="font500">SWIFT/BIC:</span> LHVBEE22</span>
+                                <span class="span-row"><span class="font500">VAT</span> EE102054653</span>
+
                             </b-col>
 
                             <b-col md="4" lg="4">
@@ -30,11 +34,11 @@
                             <b-col md="4" lg="4">
                                 <p class="card-text header_card_simple">Details</p>
 
-                                <span class="span-row">https://boost.devbrother.com</span>
-                                <span class="span-row">Lermontova 15</span>
-                                <span class="span-row">15-155 Kharkov, Ukraine</span>
-                                <span class="span-row"><span class="font500">Email:</span> boostyoursales@gmail.com</span>
-                                <span class="span-row"><span class="font500">Phone:</span> +345-777-00-00</span>
+                                <span class="span-row"><span class="font500">Invoice:</span> {{ invoiceNumber }}</span>
+                                <span class="span-row">March 30, 2000</span>
+                                <span class="span-row"><span class="font500">VAT:</span> EE102054653</span>
+                                <span class="span-row"><span class="font500">Account name:</span> BOOSTYS.master</span>
+                                <span class="span-row"><span class="font500">SWIFT/CODE</span> SKDJ4325XUC</span>
                             </b-col>
                         </b-row>
 
