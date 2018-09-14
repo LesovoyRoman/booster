@@ -89,7 +89,9 @@
                                             <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
                                             <i v-if="data.item.status === 4" class="fa fa-star"></i>
                                         </span>
-
+                                <span v-if="data.item.status === 3"> (60%)</span>
+                                <span v-if="data.item.status === 4"> (80%)</span>
+                                <span v-if="data.item.status === 5"> (100%)</span>
                             </template>
                         </b-table>
                         <nav>
@@ -136,7 +138,7 @@
                     { key: 'id', labelOption: '№', label: '', 'class': 'comment_id' },
                     { key: 'name', sortable: true, labelOption: 'Name', label: '', 'class': 'comment_username'  },
                     { key: 'fromInfluencer', sortable: true, labelOption: 'Iinfluencer', label: '', 'class': 'fromInfluencer' },
-                    { key: 'status', 'class': 'text-left', sortable: true, labelOption: 'Status', label: '',  },
+                    { key: 'status', 'class': 'text-left', sortable: true, labelOption: 'Satisfied', label: '',  },
                     { key: 'text',  labelOption: 'Comment text', label: '', 'class': 'comment_text' },
                     /*{ key: 'date', labelOption: 'Date', sortable: true, label: '', 'class': 'comment_time'}*/
                 ],

@@ -57,7 +57,13 @@ table.table td, table th, table tr{
 
   i {
     color: black;
-    font-size: 15px;
+    //font-size: 15px;
+    font-size: 22px;
+
+    &.fa-stop-circle, &.fa-play-circle {
+      font-size: 25px;
+      vertical-align: super;
+    }
   }
 }
  thead th {

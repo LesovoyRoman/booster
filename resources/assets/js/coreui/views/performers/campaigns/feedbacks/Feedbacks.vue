@@ -55,7 +55,9 @@
                                             <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
                                             <i v-if="data.item.status === 4" class="fa fa-star"></i>
                                         </span>
-
+                                <span v-if="data.item.status === 3"> (60%)</span>
+                                <span v-if="data.item.status === 4"> (80%)</span>
+                                <span v-if="data.item.status === 5"> (100%)</span>
                             </template>
                         </b-table>
                         <nav>
@@ -132,7 +134,7 @@
                     { key: 'id', label: '№' },
                     { key: 'campaign_name', sortable: true, label: 'Name' },
                     { key: 'participants',  sortable: true, label: 'Participants' },
-                    { key: 'status', 'class': 'text-center', sortable: true, label: 'Status' },
+                    { key: 'status', 'class': 'text-center', sortable: true, label: 'Satisfied' },
                 ],
                 currentPage: 1,
                 perPage    : 10,

@@ -89,7 +89,9 @@
                                             <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
                                             <i v-if="data.item.status === 4" class="fa fa-star"></i>
                                         </span>
-                                        
+                                        <span v-if="data.item.status === 3"> (60%)</span>
+                                        <span v-if="data.item.status === 4"> (80%)</span>
+                                        <span v-if="data.item.status === 5"> (100%)</span>
                                     </template>
                                     <template slot="change" justified="center" slot-scope="row">
                                         <b-button size="sm" class="custom_btn_change" :variant="'primary'">
@@ -193,7 +195,9 @@
                                             <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
                                             <i v-if="data.item.status === 4" class="fa fa-star"></i>
                                         </span>
-
+                                        <span v-if="data.item.status === 3"> (60%)</span>
+                                        <span v-if="data.item.status === 4"> (80%)</span>
+                                        <span v-if="data.item.status === 5"> (100%)</span>
                                     </template>
                                     <template slot="change" justified="center" slot-scope="row">
                                         <b-button size="sm" class="custom_btn_change" :variant="'primary'">
@@ -302,7 +306,7 @@
                     { key: 'check_type', sortable: true, label: 'Checking' },
                     { key: 'start', sortable: true, label: 'Start Date' },
                     { key: 'finish', sortable: true, label: 'Finish Date' },
-                    { key: 'status', sortable: true, label: 'Status' },
+                    { key: 'status', sortable: true, label: 'Satisfied' },
                     { key: 'change', 'class': 'text-center table_label_hidden' }
                 ],
                 checkbox_group: {},

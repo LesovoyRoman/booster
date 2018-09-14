@@ -54,8 +54,6 @@
                                 </b-tab>
                             </b-tabs>
 
-                        <div class="divider_custom"></div>
-
                         <b-table
                                 :hover="false"
                                 :striped="false"
@@ -87,7 +85,9 @@
                                             <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
                                             <i v-if="data.item.status === 4" class="fa fa-star"></i>
                                         </span>
-
+                                <span v-if="data.item.status === 3"> (60%)</span>
+                                <span v-if="data.item.status === 4"> (80%)</span>
+                                <span v-if="data.item.status === 5"> (100%)</span>
                             </template>
                         </b-table>
 
@@ -199,7 +199,7 @@
                     { key: 'name', sortable: true, label: 'Name' },
                     { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'   },
                     { key: 'checked_points', sortable: true, label: 'Checked' },
-                    { key: 'status', sortable: true, label: 'Status' },
+                    { key: 'status', sortable: true, label: 'Satisfied' },
                 ],
 
                 currentPage: 1,

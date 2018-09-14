@@ -48,6 +48,12 @@
                                     slot-scope="data">
                                 <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ResultCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
                             </template>
+                            <template slot="influencers" slot-scope="data">
+                                {{ data.item.influencers }}
+                            </template>
+                            <template slot="points" slot-scope="data">
+                                {{ data.item.points }}
+                            </template>
                             <template
                                     slot="status"
                                     slot-scope="data" justified="center">
@@ -56,7 +62,9 @@
                                             <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
                                             <i v-if="data.item.status === 4" class="fa fa-star"></i>
                                         </span>
-
+                                        <span v-if="data.item.status === 3"> (60%)</span>
+                                        <span v-if="data.item.status === 4"> (80%)</span>
+                                        <span v-if="data.item.status === 5"> (100%)</span>
                             </template>
                         </b-table>
                         <nav>
@@ -115,10 +123,10 @@
                 fields: [
                     { key: 'id', label: '№' },
                     { key: 'campaign_name', sortable: true, label: 'Name' },
-                    { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
-                    { key: 'middle_price', sortable: true, label: 'Middle price' },
+                    { key: 'middle_price', sortable: true, label: 'Middle price', 'class': 'table_points' },
                     { key: 'influencers', sortable: true, label: 'Amount of influencers' },
-                    { key: 'status', sortable: true, label: 'Status' },
+                    { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
+                    { key: 'status', sortable: true, label: 'Satisfied' },
                 ],
                 currentPage: 1,
                 perPage    : 10,

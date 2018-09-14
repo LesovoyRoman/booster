@@ -86,7 +86,7 @@
                                 :per-page="perPage">
                             <template slot="name" slot-scope="data">
                                 <div class="photo_influencer-block">
-                                    <i class="fa fa-star star_active star_influencer" v-if="data.item.star === 'star'"></i>
+                                    <i style="cursor: pointer" :class="data.item.star ? 'fa fa-star star_influencer star_active' : 'fa fa-star star_influencer'"  @click="data.item.star = !data.item.star"></i>
                                     <keep-alive><img :src="data.item.photo" alt="photo_influencer" class="photo_influencer_table"></keep-alive>
                                 </div>
                                 <div class="influencer-name-block">
@@ -108,8 +108,14 @@
                             <template slot="age" slot-scope="data">
                                 <span class="showsTableCards">Age:</span> {{ data.item.age }}
                             </template>
-                            <template slot="sendOffer" justified="center" slot-scope="row">
-                                <b-button :variant="'primary'" @click="prepareSendOffer(row)" class="sendOffer">Send offer</b-button>
+
+                            <template slot="action" slot-scope="row">
+                                <b-button size="sm"  @click="row.item.action = !row.item.action" class="custom_btn_change" :variant="'primary'">
+                                    <i :class="row.item.action ? 'fa fa-stop-circle' : 'fa fa-play-circle'"></i>
+                                </b-button>
+                                <b-button size="sm" style="margin-left: 10px" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
+                                    <i class="icon-close"></i>
+                                </b-button>
                             </template>
                         </b-table>
 
@@ -128,20 +134,7 @@
                 </b-col>
             </b-row>
         </div>
-
-
-        <b-modal id="modalOffer" ref="modalOffer" hide-footer hide-header>
-            <button type="button" aria-label="Close" class="close" @click="closeModal">×</button>
-            <h2>Send offer to</h2>
-            <h3 class="modal_indluencer_name">{{ sendTo }}</h3>
-
-            <h5>for participationg in</h5>
-            <form id="form_sendOffer">
-                <b-form-select dark v-model="chosenCampaignOffer" :options="campaignsForOffer"></b-form-select>
-                <b-btn :variant="'primary'" @click="sendRequest(chosenInfluencer)" class="sendOfferModal">Send offer</b-btn>
-            </form>
-
-        </b-modal>
+        
     </div>
 </template>
 
@@ -185,17 +178,17 @@
                 sortDirection: 'asc',
 
                 influencers: [
-                    { id: 1, photo: '../images/6.jpg', name: 'Harry Potter', type: 'Wizard', channels: ['twitter', 'facebook', 'youtube'], auditory: 5000000, age: '18-60', influence: 75, star: 'star', lang: 'Russian' },
-                    { id: 2, photo: '../images/7.jpg', name: 'Ron Weasley', type: 'Wizard', channels: ['twitter', 'youtube'], auditory: 500000, age: '20-50', influence: 60, star: '', lang: 'English' },
-                    { id: 3, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: 'star', lang: 'Russian' },
-                    { id: 4, photo: '../images/6.jpg', name: 'Harry Potter', type: 'Wizard', channels: ['twitter', 'facebook', 'youtube'], auditory: 5000000, age: '18-60', influence: 75, star: 'star', lang: 'English' },
-                    { id: 5, photo: '../images/7.jpg', name: 'Ron Weasley', type: 'Wizard', channels: ['twitter', 'youtube'], auditory: 500000, age: '20-50', influence: 60, star: '', lang: 'English' },
-                    { id: 6, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: 'star', lang: 'Russian' },
-                    { id: 7, photo: '../images/6.jpg', name: 'Harry Potter', type: 'Wizard', channels: ['twitter', 'facebook', 'youtube'], auditory: 5000000, age: '18-60', influence: 75, star: 'star', lang: 'English' },
-                    { id: 8, photo: '../images/7.jpg', name: 'Ron Weasley', type: 'Wizard', channels: ['twitter', 'youtube'], auditory: 500000, age: '20-50', influence: 60, star: '', lang: 'English' },
-                    { id: 9, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: 'star', lang: 'Russian' },
-                    { id: 10, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: 'star', lang: 'English' },
-                    { id: 11, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: 'star', lang: 'English' },
+                    { id: 1, photo: '../images/6.jpg', name: 'Harry Potter', type: 'Wizard', channels: ['twitter', 'facebook', 'youtube'], auditory: 5000000, age: '18-60', influence: 75, star: true, lang: 'Russian', action: false },
+                    { id: 2, photo: '../images/7.jpg', name: 'Ron Weasley', type: 'Wizard', channels: ['twitter', 'youtube'], auditory: 500000, age: '20-50', influence: 60, star: false, lang: 'English', action: true },
+                    { id: 3, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: true, lang: 'Russian', action: true },
+                    { id: 4, photo: '../images/6.jpg', name: 'Harry Potter', type: 'Wizard', channels: ['twitter', 'facebook', 'youtube'], auditory: 5000000, age: '18-60', influence: 75, star: true, lang: 'English', action: false },
+                    { id: 5, photo: '../images/7.jpg', name: 'Ron Weasley', type: 'Wizard', channels: ['twitter', 'youtube'], auditory: 500000, age: '20-50', influence: 60, star: false, lang: 'English', action: true },
+                    { id: 6, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: true, lang: 'Russian', action: true },
+                    { id: 7, photo: '../images/6.jpg', name: 'Harry Potter', type: 'Wizard', channels: ['twitter', 'facebook', 'youtube'], auditory: 5000000, age: '18-60', influence: 75, star: true, lang: 'English', action: true },
+                    { id: 8, photo: '../images/7.jpg', name: 'Ron Weasley', type: 'Wizard', channels: ['twitter', 'youtube'], auditory: 500000, age: '20-50', influence: 60, star: false, lang: 'English', action: false },
+                    { id: 9, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: true, lang: 'Russian', action: true },
+                    { id: 10, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: true, lang: 'English', action: false },
+                    { id: 11, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: true, lang: 'English', action: true },
                 ],
                 fields: [
                     { key: 'name', sortable: true, 'class': 'name_influncer' },
@@ -203,7 +196,7 @@
                     { key: 'auditory', sortable: true, 'class':'auditory_influencer' },
                     { key: 'age', sortable: true, 'class':'auditory_age_influencer' },
                     { key: 'influence', sortable: true, 'class': 'influence_influencer' },
-                    { key: 'sendOffer', label: '', 'class': 'table_label_hidden'},
+                    { key: 'action', label: '', 'class': 'table_label_hidden'},
 
                 ]
             }
@@ -212,28 +205,6 @@
             vm = this;
         },
         methods: {
-            filterMedia(val){
-                val ? vm.influencersList = false : vm.influencersList = true;
-                val ? vm.influencersCards = true : vm.influencersCards = false;
-                val ? vm.perPage = 9 : vm.perPage = 10;
-            },
-            getBadge (status) {
-                return status === 5 ? 'success'
-                    : status === 4 ? 'warning'
-                        : status === 3 ? 'danger' : 'primary'
-            },
-            closeModal: function () {
-                this.$refs.modalOffer.hide();
-            },
-            sendRequest(item){
-                this.influencers.splice(item.index, 1);
-                this.$refs.modalOffer.hide();
-            },
-            prepareSendOffer: function(row) {
-                vm.sendTo = row.item.name;
-                vm.chosenInfluencer = row;
-                this.$refs.modalOffer.show();
-            },
             onFiltered (filteredItems) {
                 // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
@@ -249,6 +220,12 @@
                     })
                 }
             },
+            removeElement: function (item) {
+                if(confirm("Are you sure?")) {
+                    this.influencers.splice(item.index, 1);
+                }
+            },
+
             select: function() {
                 vm.allSelected = false;
             },
