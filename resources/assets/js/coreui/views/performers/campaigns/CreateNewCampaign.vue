@@ -166,15 +166,15 @@
                                 </b-col>
                             </b-row>
 
-                            <b-row>
+                           <!-- <b-row>
                                 <b-col>
                                     <b-form-group
                                             id="fieldset_campaign_points">
                                         <label for="campaign_product_points">Amount of points for one product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Amount of points for one product'">?</i></label>
-                                        <b-form-input type="number" v-model="new_campaign.product_points" id="amount_points"/>
+                                        <b-form-input disabled type="number" v-model="new_campaign.product_points" id="amount_points"/>
                                     </b-form-group>
                                 </b-col>
-                            </b-row>
+                            </b-row>-->
 
                             <div class="divider_custom"></div>
 

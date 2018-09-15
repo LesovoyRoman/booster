@@ -136,7 +136,7 @@
                                                     <b-form-group
                                                             id="fieldset_gift_points_oneProduct">
                                                         <label for="gift_points_oneProduct">Points for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price for 1 product'">?</i></label>
-                                                        <b-form-input min="1" type="number" @change="formulaCalculate('standart')" v-model="newGift.points_oneProduct" id="amount_points_oneProduct"/>
+                                                        <b-form-input disabled min="1" type="number" @change="formulaCalculate('standart')" v-model="newGift.points_oneProduct" id="amount_points_oneProduct"/>
                                                     </b-form-group>
                                                 </b-col>
                                             </b-row>
@@ -370,7 +370,7 @@
                                                     <b-form-group
                                                             id="fieldset_gift_points_oneProduct">
                                                         <label for="gift_points_oneProduct">Points for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price for 1 product'">?</i></label>
-                                                        <b-form-input min="1" type="number" @change="formulaCalculate('standart')" v-model="newGift.points_oneProduct" id="amount_points_oneProduct"/>
+                                                        <b-form-input min="1" disabled type="number" @change="formulaCalculate('standart')" v-model="newGift.points_oneProduct" id="amount_points_oneProduct"/>
                                                     </b-form-group>
                                                 </b-col>
                                             </b-row>

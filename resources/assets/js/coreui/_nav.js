@@ -1,16 +1,19 @@
 export default {
   items: [
-      {
-          name : 'Add new campaign',
-          url  : '/campaigns/add-new',
-          icon : 'icon-plus',
-          variant: 'primary'
-      },
     {
       name : 'Dashboard',
       url  : '/dashboard',
       icon : 'icon-speedometer',
     },
+
+      {
+          name : 'Add new campaign',
+          url  : '/campaigns/add-new',
+          icon : 'icon-plus',
+          variant: 'primary',
+          'class' : 'addNewCampaign'
+      },
+
     {
       title  : true,
       name   : 'Theme',

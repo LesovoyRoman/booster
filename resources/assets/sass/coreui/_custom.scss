@@ -167,3 +167,18 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
 .colorBlack {
   color: black !important;
 }
+
+.sidebar .nav-item.addNewCampaign {
+  margin: 20px auto;
+  max-width: 90%;
+  border-radius: 20px;
+
+  a {
+    padding: 10px;
+    border-radius: 20px;
+
+    .icon-plus {
+      margin-right: 4px;
+    }
+  }
+}
