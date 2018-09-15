@@ -40,7 +40,7 @@
 
                             <b-row :current-page="currentPage"
                                    :per-page="perPage">
-                                <b-col md="6" sm="6" xs="12" lg="4" v-for="tmpBonus in filtered(tmpAllBonuses, sortBy, campaign_name_sort, influencer_name_sort)
+                                <b-col md="6" sm="6" xs="12" lg="4" v-for="(tmpBonus, index) in filtered(tmpAllBonuses, sortBy, campaign_name_sort, influencer_name_sort)
                                 .slice((currentPage - 1) * perPage, currentPage * perPage)" v-bind:key="tmpBonus.id"> <!-- pick amount that fits to current page -->
                                     <b-card :title="tmpBonus.campaign_name"
                                             img-src="https://picsum.photos/600/300/?image=25"
@@ -58,8 +58,8 @@
                                             Iphone
                                         </p>
                                         <div v-if="tmpBonus.status === 'waiting'">
-                                            <b-button href="#" variant="secondary" class="float-left">decline</b-button>
-                                            <b-button href="#" variant="primary" class="float-right">accept</b-button>
+                                            <b-button variant="secondary" class="float-left" @click="tmpBonus.status = 'declined'">decline</b-button>
+                                            <b-button variant="primary" class="float-right" @click="tmpBonus.status = 'accepted';">accept</b-button>
                                         </div>
                                         <div v-if="tmpBonus.status === 'accepted'">
                                             <p :variant="'primary'" class="text-center uppercase font500 statusCard">

@@ -198,17 +198,6 @@
                                     </b-col>
                                 </b-row>
 
-                                <div v-if="user.channels.length > 1 && index !== 0">
-                                    <b-row>
-                                        <b-col>
-                                            <b-form-group>
-                                                <b-button
-                                                        class="font500 float-right uppercase"
-                                                        variant="primary" @click="removeChannel(index)">delete channel</b-button>
-                                            </b-form-group>
-                                        </b-col>
-                                    </b-row>
-                                </div>
 
                                 <b-row>
                                     <b-col md="4" lg="4">
@@ -216,21 +205,17 @@
                                                 :id="'fieldset_user_auditory_' + index"
                                                 description=""
                                         >
-                                            <label :for="'user_auditory_' + index">Auditory</label>
+                                            <label>Auditory</label>
+
                                             <b-form-select dark v-model="item.auditory" :options="auditories"></b-form-select>
                                         </b-form-group>
-                                    </b-col>
-                                </b-row>
-
-                                <b-row>
-                                    <b-col md="12" lg="12" xs="12">
-                                        <label>Auditory age</label>
                                     </b-col>
                                     <b-col md="4" lg="4">
                                         <b-form-group
                                                 :id="'fieldset_user_auditory_from_' + index"
                                                 description=""
                                         >
+                                            <label>Auditory age from</label>
                                             <b-form-select dark v-model="item.auditory_from" :options="auditories_from">
                                                 <option :value="null" disabled selected style="color:rgba(0,0,0,0.26)">from</option>
                                             </b-form-select>
@@ -242,12 +227,26 @@
                                                 :id="'fieldset_user_auditory_to_' + index"
                                                 description=""
                                         >
+                                            <label>Auditory age to</label>
                                             <b-form-select dark v-model="item.auditory_to" :options="auditories_to">
                                                 <option :value="null" disabled selected style="color:rgba(0,0,0,0.25)">to</option>
                                             </b-form-select>
                                         </b-form-group>
                                     </b-col>
                                 </b-row>
+
+
+                                <div v-if="user.channels.length > 1 && index !== 0">
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-button
+                                                        class="font500 float-right uppercase"
+                                                        variant="primary" @click="removeChannel(index)">delete channel</b-button>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+                                </div>
 
                                 <div class="divider_custom" v-if="user.channels.length > 1 && index !== user.channels.length - 1"></div>
 

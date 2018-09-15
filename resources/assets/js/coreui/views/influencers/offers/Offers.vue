@@ -51,6 +51,8 @@
                                     </b-input-group>
                                 </b-form-group>
 
+                                <span class="span-row font500">Total offers: {{ offers.length }}</span>
+
                                 <b-table
                                         :id="offersCards ? 'table_cards' : ''"
                                         :hover="false"
@@ -74,7 +76,7 @@
                                     <template
                                             slot="campaign_name"
                                             slot-scope="data">
-                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: false  } }">{{ data.item.campaign_name }}</router-link>
                                     </template>
                                     <template slot="HEAD_status" slot-scope="data">
 
@@ -86,7 +88,7 @@
                                         <span class="showsTableCards">Conditions:</span> {{ data.item.conditions }}
                                     </template>
                                     <template slot="prize" slot-scope="data">
-                                        <span class="showsTableCards">Main gift:</span> <a href="">{{ data.item.prize }}</a>
+                                        <span class="showsTableCards">Main gift:</span> <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: true } }">{{ data.item.prize }}</router-link>
                                     </template>
                                     <template slot="period" slot-scope="data">
                                         <span class="showsTableCards">Period:</span><span class="font500-cards"> {{ data.item.period }}</span>

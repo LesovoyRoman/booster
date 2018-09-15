@@ -54,6 +54,9 @@
                             <template slot="points" slot-scope="data">
                                 {{ data.item.points }}
                             </template>
+                            <template slot="turnover" slot-scope="data">
+                                {{ data.item.turnover }}
+                            </template>
                             <template
                                     slot="status"
                                     slot-scope="data" justified="center">
@@ -93,31 +96,31 @@
                 header: 'Campaigns Results',
 
                 campaigns: [
-                    { id: 1, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub',  status: 5, influencers: 5 },
-                    { id: 2, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub',  status: 3, influencers: 4 },
-                    { id: 3, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub',  status: 4, influencers: 3 },
-                    { id: 4, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', status: 4, influencers: 2 },
-                    { id: 5, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub',  status: 5, influencers: 3 },
-                    { id: 6, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', status: 5, influencers: 4 },
-                    { id: 7, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub',  status: 3, influencers: 10 },
-                    { id: 8, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub',  status: 4, influencers: 20 },
-                    { id: 9, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub',  status: 4, influencers: 3 },
-                    { id: 10, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub',  status: 5, influencers: 5 },
-                    { id: 11, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub',  status: 5, influencers: 2 },
-                    { id: 12, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub',  status: 3, influencers: 7 },
-                    { id: 13, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub',  status: 4, influencers: 9 },
-                    { id: 14, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub',  status: 4, influencers: 12 },
-                    { id: 15, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub',  status: 5, influencers: 16 },
-                    { id: 16, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub',  status: 5, influencers: 14 },
-                    { id: 17, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub',  status: 3, influencers: 13 },
-                    { id: 18, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub',  status: 4, influencers: 12 },
-                    { id: 19, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub',  status: 4, influencers: 12 },
-                    { id: 20, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub',  status: 5, influencers: 5 },
-                    { id: 21, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub',  status: 5, influencers: 8 },
-                    { id: 22, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub',  status: 3, influencers: 11 },
-                    { id: 23, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub',  status: 4, influencers: 42 },
-                    { id: 24, campaign_name: 'Snacks', points: '60000/35000', middle_price: '500 Rub',  status: 5, influencers: 21 },
-                    { id: 25, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub',  status: 4, influencers: 6 },
+                    { id: 1, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000',  status: 5, influencers: 5 },
+                    { id: 2, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000',  status: 3, influencers: 4 },
+                    { id: 3, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  status: 4, influencers: 3 },
+                    { id: 4, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000', status: 4, influencers: 2 },
+                    { id: 5, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000',  status: 5, influencers: 3 },
+                    { id: 6, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', status: 5, influencers: 4 },
+                    { id: 7, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000',  status: 3, influencers: 10 },
+                    { id: 8, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  status: 4, influencers: 20 },
+                    { id: 9, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000',  status: 4, influencers: 3 },
+                    { id: 10, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000',  status: 5, influencers: 5 },
+                    { id: 11, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000',  status: 5, influencers: 2 },
+                    { id: 12, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000',  status: 3, influencers: 7 },
+                    { id: 13, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  status: 4, influencers: 9 },
+                    { id: 14, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000',  status: 4, influencers: 12 },
+                    { id: 15, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000',  status: 5, influencers: 16 },
+                    { id: 16, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000',  status: 5, influencers: 14 },
+                    { id: 17, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000',  status: 3, influencers: 13 },
+                    { id: 18, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  status: 4, influencers: 12 },
+                    { id: 19, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000',  status: 4, influencers: 12 },
+                    { id: 20, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000',  status: 5, influencers: 5 },
+                    { id: 21, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000',  status: 5, influencers: 8 },
+                    { id: 22, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  status: 3, influencers: 11 },
+                    { id: 23, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  status: 4, influencers: 42 },
+                    { id: 24, campaign_name: 'Snacks', points: '60000/35000', middle_price: '500 Rub', turnover: '5500000',  status: 5, influencers: 21 },
+                    { id: 25, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000',  status: 4, influencers: 6 },
                 ],
 
                 fields: [
@@ -126,6 +129,7 @@
                     { key: 'middle_price', sortable: true, label: 'Middle price', 'class': 'table_points' },
                     { key: 'influencers', sortable: true, label: 'Amount of influencers' },
                     { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
+                    { key: 'turnover', sortable: true, 'class': 'table_turnoiver table_points' },
                     { key: 'status', sortable: true, label: 'Satisfied' },
                 ],
                 currentPage: 1,

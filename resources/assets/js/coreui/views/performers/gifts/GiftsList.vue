@@ -195,9 +195,9 @@
                 campaigns: ['Snacks', 'Cheese'],
 
                 gifts: [
-                    { id: 1, photo: '../images/6.jpg', name: 'Iphone 8', points: 10000, inStock: 25, campaign_name: 'Snacks' },
-                    { id: 2, photo: '../images/7.jpg', name: 'Iphone 7', points: 20000, inStock: 50, campaign_name: 'Cheese' }, { id: 3, photo: '../images/8.jpg', name: 'Iphone 8', points: 40000, inStock: 1, campaign_name: 'Snacks' },
-                    { id: 4, photo: '../images/9.jpg', name: 'Iphone 7', points: 50000, inStock: 500, campaign_name: 'Smth' },
+                    { id: 1, photo: '../images/iphone.png', name: 'Iphone 8', points: 10000, inStock: 25, campaign_name: 'Snacks' },
+                    { id: 2, photo: '../images/iphone.png', name: 'Iphone 7', points: 20000, inStock: 50, campaign_name: 'Cheese' }, { id: 3, photo: '../images/iphone.png', name: 'Iphone 8', points: 40000, inStock: 1, campaign_name: 'Snacks' },
+                    { id: 4, photo: '../images/iphone.png', name: 'Iphone 7', points: 50000, inStock: 500, campaign_name: 'Smth' },
                 ],
 
                 fields: [

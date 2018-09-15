@@ -121,7 +121,7 @@ import MyGifts from '@/views/influencers/myGifts/MyGifts'
 // Profile Campaign
 import ProfileCampaign from '@/views/influencers/profileCampaign/ProfileCampaign'
 
-
+import Influencer from '@/views/influencers/Influencer'
 
 /// admin
 import InfluencersListAdmin from '@/views/admin/influencers/InfluencersAdmin'
@@ -364,8 +364,12 @@ export default new Router({
           component: ProfileCampaign,
           props: true,
         },
-
-
+        {
+          path     : 'influencer-id-:id',
+          name     : 'Influencer',
+          component: Influencer,
+          props: true,
+        },
 
           /// admin
 

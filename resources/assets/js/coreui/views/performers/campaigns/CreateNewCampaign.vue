@@ -22,7 +22,7 @@
                                 </b-col>
                             </b-row>
 
-                            <b-row>
+                           <!-- <b-row>
                                 <b-col>
                                     <b-form-group
                                             id="fieldset_campaign_id"
@@ -32,7 +32,7 @@
                                         <b-form-input id="campaign_id" placeholder="Enter ID campaign" :state="state" v-model.trim="new_campaign.campaign_id"></b-form-input>
                                     </b-form-group>
                             </b-col>
-                        </b-row>
+                        </b-row>-->
 
                             <b-row>
                                 <b-col>
@@ -237,6 +237,8 @@
                             <b-row>
                                 <b-col>
                                     <b-form-group>
+                                        <router-link v-bind:to="'/gifts/create-gift'">Don't forget to create a gift for the campaign</router-link>
+
                                         <b-button
                                                 type="submit"
                                                 class="font500 float-right uppercase"

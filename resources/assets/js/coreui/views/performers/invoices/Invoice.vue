@@ -3,7 +3,25 @@
         <div class="animated fadeIn" v-if="invoice">
             <b-row>
                 <b-col sm="12" md="12">
-                    <h2 class="h2">{{ header }} {{ invoiceNumber }}</h2>
+                    <b-row>
+                        <b-col>
+                            <h2 class="h2">{{ header }} {{ invoiceNumber }}</h2>
+                        </b-col>
+                        <b-col>
+                            <b-button
+                                    type="submit"
+                                    class="font500 float-right uppercase"
+                                    variant="secondary"><i class="fa fa-file-pdf-o"></i> save pdf
+                            </b-button>
+                            <b-button
+                                    type="submit"
+                                    class="font500 float-right uppercase"
+                                    variant="secondary" style="margin-right: 15px;"><i class="fa fa-print"></i> print
+                            </b-button>
+                            <div class="clearfix"></div>
+                        </b-col>
+                    </b-row>
+
                     <b-card>
 
                         <b-row>
@@ -24,21 +42,17 @@
                             <b-col md="4" lg="4">
                                 <p class="card-text header_card_simple">To</p>
 
-                                <span class="span-row">https://boost.devbrother.com</span>
-                                <span class="span-row">Lermontova 15</span>
-                                <span class="span-row">15-155 Kharkov, Ukraine</span>
-                                <span class="span-row"><span class="font500">Email:</span> boostyoursales@gmail.com</span>
-                                <span class="span-row"><span class="font500">Phone:</span> +345-777-00-00</span>
+                                <span class="span-row">Campaign name: Snacks</span>
+                                <span class="span-row">Campaign ID: 37653</span>
                             </b-col>
 
                             <b-col md="4" lg="4">
                                 <p class="card-text header_card_simple">Details</p>
 
                                 <span class="span-row"><span class="font500">Invoice:</span> {{ invoiceNumber }}</span>
+                                <span class="span-row">Pay to: ...</span>
+                                <span class="span-row">Terms: ...</span>
                                 <span class="span-row">March 30, 2000</span>
-                                <span class="span-row"><span class="font500">VAT:</span> EE102054653</span>
-                                <span class="span-row"><span class="font500">Account name:</span> BOOSTYS.master</span>
-                                <span class="span-row"><span class="font500">SWIFT/CODE</span> SKDJ4325XUC</span>
                             </b-col>
                         </b-row>
 
@@ -109,12 +123,11 @@
                 header: 'Invoice',
 
                 invoiceCurrent: [
-                    { id: 1, tariff_name: 'Standart plan', date: '2017.05.21', currency_sum: 89,  vat: 10, total: 80, },
+                    { id: 1, tariff_name: 'Standart plan', currency_sum: 89,  vat: 10, total: 80, },
                 ],
 
                 fields: [
                     { key: 'tariff_name', sortable: false, 'class': 'table_tariffs' },
-                    { key: 'date', sortable: false, 'class': 'table_date' },
                     { key: 'currency_sum', sortable: false, 'class': 'table_currency_sum' },
                     { key: 'vat', sortable: false, 'class': 'table_vat' },
                     { key: 'total', sortable: false, 'class': 'table_total' },

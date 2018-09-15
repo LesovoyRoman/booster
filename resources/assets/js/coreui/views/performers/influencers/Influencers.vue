@@ -90,7 +90,7 @@
                                     <keep-alive><img :src="data.item.photo" alt="photo_influencer" class="photo_influencer_table"></keep-alive>
                                 </div>
                                 <div class="influencer-name-block">
-                                    <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'InfluencerBonuses', params: { influencer: influencer, id: id, campaign_name: '' } }"><span class="link_influencer">{{ data.item.name }}</span></router-link>
+                                    <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, id: id, campaign_name: '' } }"><span class="link_influencer">{{ data.item.name }}</span></router-link>
                                     <br><span>{{ data.item.type }}</span>
                                 </div>
                             </template>

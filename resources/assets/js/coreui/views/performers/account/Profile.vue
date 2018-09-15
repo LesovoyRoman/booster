@@ -49,6 +49,13 @@
 
                             <div class="divider_custom"></div>
 
+                            <p class="card-text header_card_simple">Tariff</p>
+
+                            <label class="span-row">Tariff plan: <span class="font24 font500">{{ user.tariffPlan }}</span></label>
+                            <label class="span-row">Tariff valid until: <span class="font500">{{ user.tariffTerm }}</span></label>
+
+                            <div class="divider_custom"></div>
+
                             <p class="card-text header_card_simple">Contacts</p>
 
                             <b-row>
@@ -160,6 +167,8 @@
                     site : 'https://mysite.com',
                     legal_company : 'Tino corporation',
                     nds : '23557645723954',
+                    tariffPlan: 'Silver',
+                    tariffTerm: '2020.12.12'
 
                 },
             }

@@ -77,6 +77,19 @@
   }
 }
 
+.card-info-influencer {
+
+  .block_logo_user {
+    margin-bottom: 20px;
+    width: 250px;
+    max-width: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
 // canvas
 #resultCampaign {
   canvas {

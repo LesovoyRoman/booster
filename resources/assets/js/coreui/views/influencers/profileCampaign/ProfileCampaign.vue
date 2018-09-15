@@ -46,6 +46,8 @@
                                     <img src="~static/img/iphone.png" alt="">
                                 </div>
 
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/ecyF6KStpB8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
                                 <div class="group-info-custom">
                                     <span class="span-row font500">Middle price 250 Rub</span>
 
@@ -75,7 +77,7 @@
                                 </div>
 
                             </b-tab>
-                            <b-tab title="Gifts">
+                            <b-tab title="Gifts" :active="tabGifts === true ? 'active' : false">
 
                                 <b-table
                                         :id="'table_cards'"
@@ -125,7 +127,7 @@
 
     export default {
         name: 'ProfileCampaign',
-        props: ['campaign'],
+        props: ['campaign', 'tabGifts'],
         data(){
             return {
                 header: 'Profile of Campaign',
