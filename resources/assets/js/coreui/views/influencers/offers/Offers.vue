@@ -93,19 +93,23 @@
                                     <template slot="period" slot-scope="data">
                                         <span class="showsTableCards">Period:</span><span class="font500-cards"> {{ data.item.period }}</span>
                                     </template>
-                                    <template slot="status" slot-scope="data">
-                                        <div v-if="data.item.status === 'considering'">
+                                    <template slot="status" slot-scope="row">
+                                        <div v-if="row.item.status === 'considering'">
                                             <span class="statusOfferConsider">
                                                 Considering
                                             </span>
                                         </div>
-                                        <div v-if="data.item.status === 'participate'">
+                                        <div v-if="row.item.status === 'participate'">
                                             <span class=""><i class="icon-check"></i>
-                                                Accepted
+                                                Participating
                                             </span>
                                         </div>
-                                        <div v-if="data.item.status === 'choose'">
-                                            <b-button class="btn btn-secondary">participate</b-button>
+                                        <div v-if="row.item.status === 'choose'">
+                                            <b-button variant="primary" class="font500 uppercase" @click="acceptElement(row)">participate</b-button>
+
+                                            <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
+                                                <i class="icon-close"></i>
+                                            </b-button>
                                         </div>
                                     </template>
                                 </b-table>
@@ -187,6 +191,40 @@
                 val ? vm.offersCards = true : vm.offersCards = false;
                 val ? vm.perPage = 9 : vm.perPage = 10;
             },
+            removeElement: function (item) {
+                if (confirm("Are you sure?")) {
+                    this.offers.splice(item.index, 1);
+                }
+            },
+            acceptElement: async function(item) {
+                 return this.setParticipate(item)
+                    .then(res => vm.$router.push('/influencer-campaigns'))
+                    .catch(err => console.log(err))
+            },
+            setParticipate: function(item){
+                return new Promise(function(resolve, reject){
+                    if (item){
+                        resolve(vm.offers[item.index].status = 'participate')
+                    } else {
+                        reject(new Error('No item'))
+                    }
+                })
+            }
+            // @todo another variant (can be useful)
+            /*acceptElement: async function(item) {
+                try {
+                    let status = await this.setParticipate(item)
+                    vm.$router.push('/influencer-campaigns')
+                }
+                catch(err) {
+                    console.log(err)
+                }
+            },
+            setParticipate(item) {
+                this.offers[item.index].status = 'participate';
+                return true
+            }*/
+
         },
         created(){
             vm = this;

@@ -80,6 +80,9 @@
                                     slot-scope="data">
                                 <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, id: id, campaign_name: data.item.campaign } }">{{ data.item.name }}</router-link>
                             </template>
+                            <template slot="campaigns" slot-scope="row">
+                                <router-link v-for="(campaign, index) in row.item.campaigns" :id="id = row.item.id" :key="index" :data="campaign_name = campaign" :to="{ name: 'Campaign', params: { campaign:campaign, id: index } }">{{ campaign }}<span v-if="index !== row.item.campaigns.length - 1">, </span></router-link>
+                            </template>
                             <template
                                 slot="new_pass" slot-scope="data">
                                 <b-button href="#" :variant="'primary'" class="">Send new password</b-button>
@@ -126,8 +129,8 @@
                 header: 'Assistants',
 
                 assistants: [
-                    { id: 1, name: 'Joseph Stalin', email: 'josephstalin@rasstrelyat.com', campaign: 'Second world war' },
-                    { id: 2, name: 'Adolf Hitler', email: 'adolf@sexymustache.com', campaign: 'Second world war' },
+                    { id: 1, name: 'Joseph Stalin', email: 'josephstalin@rasstrelyat.com', campaigns: ['Pineapple', 'Grape', 'Smth'] },
+                    { id: 2, name: 'Adolf Hitler', email: 'adolf@sexymustache.com', campaigns: ['Snacks', 'Cheese'] },
 
                 ],
 
@@ -136,7 +139,7 @@
                     { key: 'id', label: '№' },
                     { key: 'name', label: 'Name', sortable: true },
                     { key: 'email', sortable: true, label: 'Email'},
-                    { key: 'campaign', sortable: true, label: 'Campaign' },
+                    { key: 'campaigns', sortable: false, label: 'Campaigns' },
                     { key: 'new_pass', label: '', 'class': 'table_label_hidden'},
                     { key: 'change', label: '', 'class': 'table_label_hidden' },
                     { key: 'delete', label: '', 'class': 'table_label_hidden' }

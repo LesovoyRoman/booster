@@ -49,6 +49,9 @@
                             <template slot="bill" slot-scope="data">
                                 {{ data.item.bill }} Rub
                             </template>
+                            <template slot="status" slot-scope="data">
+                                {{ data.item.status }}
+                            </template>
                             <template slot="open_bill" slot-scope="data">
                                 <b-button class="" :id="id = data.item.id" :invoiceNumber="invoiceNumber = '#3487-34'" :data="invoice = data.item" v-bind:to="{ name: 'Invoice', params: { invoice:invoice, id: id, invoiceNumber: invoiceNumber } }" :variant="'primary'">
                                     Open bill
@@ -115,8 +118,8 @@
                     { key: 'tariff_name', sortable: true, 'class': 'table_tariffs' },
                     { key: 'start', sortable: true, 'class': 'table_start' },
                     { key: 'end', sortable: true, 'class': 'table_end' },
-                    { key: 'status', sortable: true, 'class': 'table_status' },
                     { key: 'bill', sortable: true, 'class': 'table_bill' },
+                    { key: 'status', sortable: true, 'class': 'table_status' },
                     { key: 'open_bill', label: '', 'class': 'table_label_hidden open_bill' }
                 ]
             }

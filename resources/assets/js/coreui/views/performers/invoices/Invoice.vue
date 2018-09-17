@@ -42,7 +42,7 @@
                             <b-col md="4" lg="4">
                                 <p class="card-text header_card_simple">To</p>
 
-                                <span class="span-row">Campaign name: Snacks</span>
+                                <span class="span-row">Campaign name: OAO Team Corporation</span>
                                 <span class="span-row">Campaign ID: 37653</span>
                             </b-col>
 
@@ -94,13 +94,13 @@
 
                         <div class="margin-top-30"></div>
 
-                        <b-row>
+                        <b-row v-if="invoice.status !== 'Paid'">
                             <b-col>
                                 <b-form-group>
                                     <b-button
                                             type="submit"
                                             class="font500 float-right uppercase"
-                                            variant="primary">get paid</b-button>
+                                            variant="primary" @click="openModal">get paid</b-button>
                                 </b-form-group>
                             </b-col>
                         </b-row>
@@ -109,7 +109,83 @@
                 </b-col>
             </b-row>
         </div>
+
+        <b-modal id="modalPayment" :header-bg-variant="'primary'" title="Choose type of Payment" size="lg" ref="modalPayment" hide-footer>
+            <!--<button type="button" aria-label="Close" class="close" @click="closeModal">×</button>-->
+
+            <div class="types_payment">
+                <div :class="chosenType === 'masterCard' ? 'type_payment active' : 'type_payment'" @click="chosenType = 'masterCard'"><img src="~static/img/masterCard.png" alt=""></div>
+                <div :class="chosenType === 'paypal' ? 'type_payment active' : 'type_payment'" @click="chosenType = 'paypal'"><img src="~static/img/paypal.png" alt=""></div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div v-if="chosenType === 'masterCard'">
+                <form action="">
+                    <div slot="header">
+                        <strong>Credit Card</strong> <small>Form</small>
+                    </div>
+                    <b-row>
+                        <b-col sm="12">
+                            <b-form-group>
+                                <label for="ccnumber">Credit Card Number</label>
+                                <b-form-input
+                                        type="text"
+                                        id="ccnumber"
+                                        placeholder="0000 0000 0000 0000"/>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col sm="4">
+                            <b-form-group >
+                                <label for="month1">Month</label>
+                                <b-form-select
+                                        id="month1"
+                                        :plain="true"
+                                        :options="[1,2,3,4,5,6,7,8,9,10,11,12]"/>
+                            </b-form-group>
+                        </b-col>
+                        <b-col sm="4">
+                            <b-form-group>
+                                <label for="year1">Year</label>
+                                <b-form-select
+                                        id="year1"
+                                        :plain="true"
+                                        :options="[2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025]"/>
+                            </b-form-group>
+                        </b-col>
+                        <b-col sm="4">
+                            <b-form-group>
+                                <label for="cvv">CVV/CVC</label>
+                                <b-form-input
+                                        type="text"
+                                        id="cvv"
+                                        placeholder="123"/>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
+                    <b-row>
+                        <b-col>
+                            <b-button type="submit" size="lg" class="float-right uppercase" :variant="'secondary'">Get Paid</b-button><br>
+
+                            <div class="clearfix"></div>
+                            <span class="font12">By clicking you accept our license policy.<br>You will accept the payment</span>
+                        </b-col>
+                    </b-row>
+                </form>
+            </div>
+
+            <div v-if="chosenType === 'paypal'">
+                <div class="margin-top-30"></div>
+                <b-button class="float-right uppercase" size="lg" type="submit" href="https://www.paypal.com/us/cgi-bin/webscr?cmd=_ship-now" target="_blank" :variant="'secondary'">Get Paid</b-button><br>
+                <div class="clearfix"></div>
+                <span class="font12">By clicking you accept license policy.<br>You'll be replaced to payment page</span>
+            </div>
+
+        </b-modal>
     </div>
+
 </template>
 
 <script>
@@ -121,6 +197,7 @@
         data(){
             return {
                 header: 'Invoice',
+                chosenType: 'masterCard',
 
                 invoiceCurrent: [
                     { id: 1, tariff_name: 'Standart plan', currency_sum: 89,  vat: 10, total: 80, },
@@ -145,7 +222,12 @@
             },
         },
         methods: {
-
+            closeModal: function () {
+                this.$refs.modalPayment.hide();
+            },
+            openModal: function () {
+                this.$refs.modalPayment.show();
+            },
         },
     }
 </script>

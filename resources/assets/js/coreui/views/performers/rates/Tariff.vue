@@ -25,8 +25,9 @@
                                                     style="max-width: 20rem;"
                                                     class="mb-2 card_tariff_month"
                                                     header-align="center">
-                                                <p class="card-header type_plan">Standart plan
-                                                    <span class="price_plan">$97</span>
+                                                <p class="card-header">
+                                                    <span class="type_plan">Standart plan</span>
+                                                    <span class="price_plan">$97</span><br>
                                                     <span class="period_price">per month</span>
                                                 </p>
                                                 <ul class="list-pros">
@@ -45,8 +46,11 @@
                                                     <li>
                                                         <span>1% Commission Form Turnove</span>
                                                     </li>
+                                                    <li>
+                                                        <span>Additional tax</span>
+                                                    </li>
                                                 </ul>
-                                                <b-button href="#" variant="primary" class="btn_plan">Choose</b-button>
+                                                <b-button href="#" variant="primary" class="btn_plan"  v-bind:to="'/invoices/all'">Choose</b-button>
                                             </b-card>
                                         </b-col>
                                         <b-col>
@@ -56,8 +60,9 @@
                                                     style="max-width: 20rem;"
                                                     class="mb-2 card_tariff_month"
                                                     header-align="center">
-                                                <p class="card-header type_plan">Silver plan
-                                                    <span class="price_plan">$297</span>
+                                                <p class="card-header">
+                                                    <span class="type_plan">Silver plan</span>
+                                                    <span class="price_plan">$297</span><br>
                                                     <span class="period_price">per month</span>
                                                 </p>
                                                 <ul class="list-pros">
@@ -71,7 +76,7 @@
                                                         <span>0.5% Commission Form Turnove</span>
                                                     </li>
                                                 </ul>
-                                                <b-button href="#" variant="primary" class="btn_plan">Choose</b-button>
+                                                <b-button variant="primary" class="btn_plan" v-bind:to="'Invoice'">Choose</b-button>
                                             </b-card>
                                         </b-col>
                                         <b-col>
@@ -81,8 +86,9 @@
                                                     style="max-width: 20rem;"
                                                     class="mb-2 card_tariff_month"
                                                     header-align="center">
-                                                <p class="card-header type_plan">Golden plan
-                                                    <span class="price_plan">$997</span>
+                                                <p class="card-header">
+                                                    <span class="type_plan">Golden plan</span>
+                                                    <span class="price_plan">$997</span><br>
                                                     <span class="period_price">per month</span>
                                                 </p>
                                                 <ul class="list-pros">
@@ -96,7 +102,7 @@
                                                         <span>0% Commission Form Turnove</span>
                                                     </li>
                                                 </ul>
-                                                <b-button href="#" variant="primary" class="btn_plan">Choose</b-button>
+                                                <b-button href="#" variant="primary" class="btn_plan"  v-bind:to="'/invoices/all'">Choose</b-button>
                                             </b-card>
                                         </b-col>
                                     </b-row>
@@ -111,9 +117,10 @@
                                                     style="max-width: 20rem;"
                                                     class="mb-2 card_tariff_year"
                                                     header-align="center">
-                                                <p class="card-header type_plan">Standart plan
-                                                    <span class="price_plan">$50<span class="period_price">save 15%</span></span>
-                                                    <span class="period_price">per year</span>
+                                                <p class="card-header">
+                                                    <span class="type_plan">Standart plan</span>
+                                                    <span class="price_plan">$50</span><br>
+                                                    <span class="period_price"><span class="period_price">save 15% </span>per year</span>
                                                 </p>
                                                 <ul class="list-pros">
                                                     <li>
@@ -131,8 +138,11 @@
                                                     <li>
                                                         <span>1% Commission Form Turnove</span>
                                                     </li>
+                                                    <li>
+                                                        <span>Additional tax</span>
+                                                    </li>
                                                 </ul>
-                                                <b-button href="#" variant="primary" class="btn_plan">Choose</b-button>
+                                                <b-button href="#" variant="primary" class="btn_plan"  v-bind:to="'/invoices/all'">Choose</b-button>
                                             </b-card>
                                         </b-col>
                                         <b-col>
@@ -142,9 +152,10 @@
                                                     style="max-width: 20rem;"
                                                     class="mb-2 card_tariff_year"
                                                     header-align="center">
-                                                <p class="card-header type_plan">Silver plan
-                                                    <span class="price_plan">$225<span class="period_price">save 20%</span></span>
-                                                    <span class="period_price">per year</span>
+                                                <p class="card-header">
+                                                    <span class="type_plan">Silver plan</span>
+                                                    <span class="price_plan">$225</span><br>
+                                                    <span class="period_price"><span class="period_price">save 20% </span>per year</span>
                                                 </p>
                                                 <ul class="list-pros">
                                                     <li>
@@ -157,7 +168,7 @@
                                                         <span>0.5% Commission Form Turnove</span>
                                                     </li>
                                                 </ul>
-                                                <b-button href="#" variant="primary" class="btn_plan">Choose</b-button>
+                                                <b-button href="#" variant="primary" class="btn_plan"  v-bind:to="'/invoices/all'">Choose</b-button>
                                             </b-card>
                                         </b-col>
                                         <b-col>
@@ -167,9 +178,10 @@
                                                     style="max-width: 20rem;"
                                                     class="mb-2 card_tariff_year"
                                                     header-align="center">
-                                                <p class="card-header type_plan">Golden plan
-                                                    <span class="price_plan">$650<span class="period_price">save 30%</span></span>
-                                                    <span class="period_price">per year</span>
+                                                <p class="card-header">
+                                                    <span class="type_plan">Golden plan</span>
+                                                    <span class="price_plan">$650</span><br>
+                                                    <span class="period_price"><span class="period_price">save 30% </span>per year</span>
                                                 </p>
                                                 <ul class="list-pros">
                                                     <li>
@@ -182,7 +194,7 @@
                                                         <span>0% Commission Form Turnove</span>
                                                     </li>
                                                 </ul>
-                                                <b-button href="#" variant="primary" class="btn_plan">Choose</b-button>
+                                                <b-button href="#" variant="primary" class="btn_plan"  v-bind:to="'/invoices/all'">Choose</b-button>
                                             </b-card>
                                         </b-col>
                                     </b-row>

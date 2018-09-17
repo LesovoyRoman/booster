@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <div class="animated fadeIn">
+        <div class="animated fadeIn" id="giftsList">
             <b-row>
                 <b-col sm="12" md="12">
                     <h2 class="h2">{{ header }}</h2>
@@ -139,6 +139,10 @@
                                             <i class="icon-close"></i>
                                         </b-button>
                                     </template>
+                                    <template slot="delivery" slot-scope="data">
+                                        <div class="clearfix"></div>
+                                        <span class="span-row text-left"><span class="showsTableCards">Delivery:</span> {{ data.item.delivery }}</span>
+                                    </template>
                                 </b-table>
 
                                 <nav>
@@ -195,9 +199,10 @@
                 campaigns: ['Snacks', 'Cheese'],
 
                 gifts: [
-                    { id: 1, photo: '../images/iphone.png', name: 'Iphone 8', points: 10000, inStock: 25, campaign_name: 'Snacks' },
-                    { id: 2, photo: '../images/iphone.png', name: 'Iphone 7', points: 20000, inStock: 50, campaign_name: 'Cheese' }, { id: 3, photo: '../images/iphone.png', name: 'Iphone 8', points: 40000, inStock: 1, campaign_name: 'Snacks' },
-                    { id: 4, photo: '../images/iphone.png', name: 'Iphone 7', points: 50000, inStock: 500, campaign_name: 'Smth' },
+                    { id: 1, photo: '../images/iphone.png', name: 'Iphone 8', points: 10000, inStock: 25, campaign_name: 'Snacks', delivery: 'Any kind' },
+                    { id: 2, photo: '../images/iphone.png', name: 'Iphone 7', points: 20000, inStock: 50, campaign_name: 'Cheese', delivery: 'NewPost' },
+                    { id: 3, photo: '../images/iphone.png', name: 'Iphone 8', points: 40000, inStock: 1, campaign_name: 'Snacks', delivery: 'NewPost' },
+                    { id: 4, photo: '../images/iphone.png', name: 'Iphone 7', points: 50000, inStock: 500, campaign_name: 'Smth', delivery: 'Pickup' },
                 ],
 
                 fields: [
@@ -206,6 +211,7 @@
                     { key: 'points', sortable: true, 'class': 'points_gift' },
                     { key: 'inStock', sortable: true, 'class': 'inStock_gift' },
                     { key: 'campaign_name', sortable: true, 'class': 'campaign_gift' },
+                    { key: 'delivery', sortable: false, 'class': 'table_delivery' },
                     { key: 'change', label: '', 'class': 'table_label_hidden change-gift' },
                     { key: 'delete', label: '', 'class': 'table_label_hidden delete-gift' }
                 ],

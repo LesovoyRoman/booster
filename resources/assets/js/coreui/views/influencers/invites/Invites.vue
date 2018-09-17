@@ -45,7 +45,7 @@
                                     <template
                                             slot="campaign_name"
                                             slot-scope="data">
-                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: false  } }">{{ data.item.campaign_name }}</router-link>
                                     </template>
                                     <template slot="HEAD_status" slot-scope="data">
 
@@ -57,7 +57,7 @@
                                         <span class="showsTableCards">Conditions:</span> {{ data.item.conditions }}
                                     </template>
                                     <template slot="prize" slot-scope="data">
-                                        <span class="showsTableCards">Main gift:</span> <a href="">{{ data.item.prize }}</a>
+                                        <span class="showsTableCards">Main gift:</span> <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: true } }">{{ data.item.prize }}</router-link>
                                     </template>
                                     <template slot="period" slot-scope="data">
                                         <span class="showsTableCards">Period:</span><span class="font500-cards"> {{ data.item.period }}</span>
@@ -72,7 +72,7 @@
                                         </div>
                                         <div v-if="row.item.status === 'participate'">
                                             <span class=""><i class="icon-check"></i>
-                                                Participating
+                                                Accepted
                                             </span>
                                         </div>
                                     </template>
@@ -160,9 +160,34 @@
                     this.invites.splice(item.index, 1);
                 }
             },
-            acceptElement: function (item) {
-                this.invites[item.index].status = 'participate'
+            acceptElement: async function(item) {
+                return this.setParticipate(item)
+                    .then(res => vm.$router.push('/influencer-campaigns'))
+                    .catch(err => console.log(err))
+            },
+            setParticipate: function(item){
+                return new Promise(function(resolve, reject){
+                    if (item){
+                        resolve(vm.invites[item.index].status = 'participate')
+                    } else {
+                        reject(new Error('No item'))
+                    }
+                })
             }
+            // @todo another variant (can be useful)
+            /*acceptElement: async function(item) {
+             try {
+             let status = await this.setParticipate(item)
+             vm.$router.push('/influencer-campaigns')
+             }
+             catch(err) {
+             console.log(err)
+             }
+             },
+             setParticipate(item) {
+             this.invites[item.index].status = 'participate';
+             return true
+             }*/
         },
         created(){
             vm = this;

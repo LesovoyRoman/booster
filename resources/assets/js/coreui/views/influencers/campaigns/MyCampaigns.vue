@@ -46,16 +46,17 @@
                                 <div v-for="(linkItem, index) in row.item.links">
                                     <b-form-group class="groupLinksCampaigns">
                                         <div v-for="(objItem, key) in linkItem" :key="key" class="inlineBlock" style="max-width: 48%">
-                                            <b-form-input v-if="key === 'path'" v-model="row.item.links[index].path" placeholder="Link path"/>
-                                            <b-btn :variant="'primary'" v-if="key === 'path'" @click="index === 0 ? addLink(row.item.links) : removeLink(row.index, index)" class="uppercase float-right font500"><span v-if="index === 0">+</span><span v-if="index !== 0">-</span></b-btn>
-                                            <b-form-input v-if="key === 'gift'" v-model="row.item.links[index].gift" placeholder="Gift"/>
+                                            <b-form-input :disabled="row.item.active === true" v-if="key === 'path'" v-model="row.item.links[index].path" placeholder="Link path"/>
+                                            <b-btn :disabled="row.item.active === true" :variant="'primary'" v-if="key === 'path'" @click="index === 0 ? addLink(row.item.links) : removeLink(row.index, index)" class="uppercase float-right font500"><span v-if="index === 0">+</span><span v-if="index !== 0">-</span></b-btn>
+                                            <b-form-input :disabled="row.item.active === true" v-if="key === 'gift'" v-model="row.item.links[index].gift" placeholder="Gift"/>
                                         </div>
                                     </b-form-group>
                                 </div>
                             </template>
-                            <template
-                                    slot="stop" slot-scope="data">
-                                <b-button variant="primary" class="font500 uppercase">Stop</b-button>
+                            <template slot="active" slot-scope="row">
+                                <b-button size="sm"  @click="row.item.active = !row.item.active" class="custom_btn_change" :variant="'primary'">
+                                    <i :class="row.item.active ? 'fa fa-stop-circle' : 'fa fa-play-circle'"></i>
+                                </b-button>
                             </template>
                             <template slot="change" justified="center" slot-scope="row">
                                 <b-button size="sm" class="custom_btn_change" :variant="'primary'">
@@ -95,17 +96,17 @@
                 totalRows  : 0,
 
                 campaigns: [
-                    { id: 1, campaign_name: 'Snacks', links: [{path: 'https://linkFirst.com', gift: 'First gift'}, {path: 'https://linkSecond.com', gift: 'Second gift'}], },
-                    { id: 2, campaign_name: 'Cheese', links: [{path: 'https://linkCheeseFirst.com', gift: 'First cheese gift'},], },
-                    { id: 3, campaign_name: 'Cheese', links: [{path: 'https://linkCheeseNew.com', gift: 'Iphone'}, {path: 'https://linkCheesesss.com', gift: 'Samsung Note2'}], }
+                    { id: 1, campaign_name: 'Snacks', active: true, links: [{path: 'https://linkFirst.com', gift: 'First gift'}, {path: 'https://linkSecond.com', gift: 'Second gift'}], },
+                    { id: 2, campaign_name: 'Cheese', active: false, links: [{path: 'https://linkCheeseFirst.com', gift: 'First cheese gift'},], },
+                    { id: 3, campaign_name: 'Cheese', active: true, links: [{path: 'https://linkCheeseNew.com', gift: 'Iphone'}, {path: 'https://linkCheesesss.com', gift: 'Samsung Note2'}], }
                 ],
 
                 fields: [
                     { key: 'campaign_name', sortable: true, 'class': 'table_campaign_name' },
                     { key: 'links', sortable: false, 'class': 'table_links' },
-                    { key: 'stop', label: '', 'class': 'table_label_hidden'},
+                    { key: 'active', label: '', 'class': 'table_label_hidden' },
                     { key: 'change', label: '', 'class': 'table_label_hidden' },
-                    { key: 'delete', label: '', 'class': 'table_label_hidden' }
+                    { key: 'delete', label: '', 'class': 'table_label_hidden' },
                 ]
             }
         },

@@ -18,20 +18,23 @@
   .type_plan {
     font-size: 25px;
     color: $black-color;
+    display: block;
+  }
 
     span.price_plan {
-      display: block;
+      //display: block;
       font-size: 35px;
     }
     span.period_price {
-      display: block;
+      //display: block;
       font-size: 16px;
     }
-  }
+
 
   .card_tariff_month, .card_tariff_year {
     min-height: 440px;
     position: relative;
+    height: 100%;
 
     .card-body {
       padding-bottom: 50px;

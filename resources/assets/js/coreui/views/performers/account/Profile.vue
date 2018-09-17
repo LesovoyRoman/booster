@@ -128,7 +128,7 @@
                                             id="fieldset_user_nds"
                                             description=""
                                     >
-                                        <label for="user_nds">NDS tax</label>
+                                        <label for="user_nds">VAT tax</label>
                                         <b-form-input id="user_nds" placeholder="Enter nds tas"  v-model.trim="user.nds"></b-form-input>
                                     </b-form-group>
 

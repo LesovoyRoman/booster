@@ -38,21 +38,30 @@
 
                                 <p class="card-text header_card_simple">Product for campaign</p>
 
-                                <p class="paragraph_simple">{{ campaign.campaign_name }}</p>
+                                <b-row>
+                                    <b-col>
+                                        <p class="paragraph_simple">{{ campaign.campaign_name }}</p>
 
-                                <span class="span-row"><a href="#">https://test.com</a></span>
+                                        <span class="span-row"><a href="#">https://test.com</a></span>
 
-                                <div class="holder-img-profile-campaign">
-                                    <img src="~static/img/iphone.png" alt="">
-                                </div>
+                                        <div class="holder-img-profile-campaign">
+                                            <img src="~static/img/iphone.png" alt="">
+                                        </div>
 
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/ecyF6KStpB8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        <div class="group-info-custom">
+                                            <span class="span-row">Middle price 250 Rub</span>
 
-                                <div class="group-info-custom">
-                                    <span class="span-row font500">Middle price 250 Rub</span>
+                                            <span class="span-row">1 point for 1 product</span>
+                                        </div>
+                                    </b-col>
+                                    <b-col>
 
-                                    <span class="span-row font500">1 point for 1 product</span>
-                                </div>
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/ecyF6KStpB8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+                                    </b-col>
+                                </b-row>
+
+
 
                                 <div class="divider_custom"></div>
 

@@ -56,7 +56,12 @@
                                     <template slot="points" slot-scope="data">
                                         <span class="font500">{{ data.item.points }} points</span>
 
-                                        <b-button v-if="data.item.points > 10000" class="btn float-right btn-secondary uppercase font500">get</b-button>
+                                        <b-button v-if="data.item.points <= points" class="btn float-right btn-secondary uppercase font500">get</b-button>
+                                    </template>
+                                    <div class="clearfix"></div>
+                                    <template slot="delivery" slot-scope="data">
+                                        <div class="clearfix"></div>
+                                        <span class="span-row text-left">Delivery: {{ data.item.delivery }}</span>
                                     </template>
                                 </b-table>
 
@@ -120,7 +125,11 @@
                                     <template slot="points" slot-scope="data">
                                         <span class="font500">{{ data.item.points }} points</span>
 
-                                        <b-button v-if="data.item.points > 10000" class="btn float-right btn-secondary uppercase font500">get</b-button>
+                                        <b-button v-if="data.item.points <= points" class="btn float-right btn-secondary uppercase font500">get</b-button>
+                                    </template>
+                                    <div class="clearfix"></div>
+                                    <template slot="delivery" slot-scope="data">
+                                        <span class="span-row text-left">Delivery: {{ data.item.delivery }}</span>
                                     </template>
                                 </b-table>
 
@@ -184,7 +193,11 @@
                                     <template slot="points" slot-scope="data">
                                         <span class="font500">{{ data.item.points }} points</span>
 
-                                        <b-button v-if="data.item.points < 25000" class="btn float-right btn-secondary uppercase font500">get</b-button>
+                                        <b-button v-if="data.item.points <= points" class="btn float-right btn-secondary uppercase font500">get</b-button>
+                                    </template>
+                                    <template slot="delivery" slot-scope="data">
+                                        <div class="clearfix"></div>
+                                        <span class="span-row text-left">Delivery: {{ data.item.delivery }}</span>
                                     </template>
                                 </b-table>
 
@@ -230,15 +243,17 @@
                 points: 21000,
 
                 gifts: [
-                    { id: 1, photo: '../images/iphone.png', name: 'Iphone 8', points: 10000, campaign_name: 'Snacks' },
-                    { id: 2, photo: '../images/iphone.png', name: 'Iphone 7', points: 20000, campaign_name: 'Cheese' }, { id: 3, photo: '../images/iphone.png', name: 'Iphone 8', points: 40000, campaign_name: 'Snacks' },
-                    { id: 4, photo: '../images/iphone.png', name: 'Iphone 7', points: 50000, campaign_name: 'Smth' },
+                    { id: 1, photo: '../images/iphone.png', name: 'Iphone 8', points: 10000, campaign_name: 'Snacks', delivery: 'NewPost' },
+                    { id: 2, photo: '../images/iphone.png', name: 'Iphone 7', points: 20000, campaign_name: 'Cheese', delivery: 'NewPost' },
+                    { id: 3, photo: '../images/iphone.png', name: 'Iphone 8', points: 40000, campaign_name: 'Snacks', delivery: 'Any kind' },
+                    { id: 4, photo: '../images/iphone.png', name: 'Iphone 7', points: 50000, campaign_name: 'Smth', delivery: 'Pickup' },
                 ],
 
                 fields: [
                     { key: 'name', sortable: true, 'class': 'name_gift' },
                     { key: 'points', sortable: true, 'class': 'points_gift' },
                     { key: 'campaign_name', sortable: true, 'class': 'campaign_gift' },
+                    { key: 'delivery', sortable: false, 'class': '' }
                 ],
             }
         },

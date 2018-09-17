@@ -34,6 +34,12 @@
                                             <option slot="first" :value="null">All influencers</option>
                                         </b-form-select>
                                     </b-input-group-prepend>
+                                    <b-input-group-prepend>
+                                        <b-form-select v-model="directionDate">
+                                            <option slot="first" :value="'desc'">Date: New</option>
+                                            <option :value="'asc'">Date: Old</option>
+                                        </b-form-select>
+                                    </b-input-group-prepend>
                                 </b-input-group>
                             </b-form-group>
 
@@ -114,11 +120,12 @@
                 sortDirection: 'asc',
                 optionsUniqueNames: [],
                 optionsUniqueCampaign_name: [],
+                directionDate: 'desc',
 
                 fields: [
                     { key: 'id', label: '№' },
                     { key: 'name', label: 'Name' },
-                    { key: 'campaign_name', label: 'Campaign' }
+                    { key: 'campaign_name', label: 'Campaign' },
                 ],
 
                 currentPage: 1,
@@ -127,32 +134,32 @@
                 fromNumber : 0,
 
                 tmpAllBonuses: [
-                    { id: 1, name: 'Anton Ptushkin', status: 'accepted', campaign_name: 'Snacks' },
-                    { id: 2, name: 'Kate Pery', status: 'waiting', campaign_name: 'Cheese' },
-                    { id: 3, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
-                    { id: 4, name: 'Yuriy Gagarin', status: 'waiting', campaign_name: 'Snacks' },
-                    { id: 5, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese' },
-                    { id: 6, name: 'Ksenia Sobchak', status: 'declined', campaign_name: 'Cheese' },
-                    { id: 7, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
-                    { id: 8, name: 'Maria Rasputina', status: 'waiting', campaign_name: 'Cheese' },
-                    { id: 9, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
-                    { id: 10, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
-                    { id: 11, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks' },
-                    { id: 12, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese' },
-                    { id: 13, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks' },
-                    { id: 14, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese' },
-                    { id: 15, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Snacks' },
-                    { id: 16, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese' },
-                    { id: 17, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Cheese' },
-                    { id: 18, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese' },
-                    { id: 19, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Cheese' },
-                    { id: 20, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks' },
-                    { id: 21, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks' },
-                    { id: 22, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese' },
-                    { id: 23, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Snacks' },
-                    { id: 24, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese' },
-                    { id: 25, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks' },
-                    { id: 26, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese' }
+                    { id: 1, name: 'Anton Ptushkin', status: 'accepted', campaign_name: 'Snacks', date: new Date('2015-03-25') },
+                    { id: 2, name: 'Kate Pery', status: 'waiting', campaign_name: 'Cheese', date: new Date('2016-03-25') },
+                    { id: 3, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks', date: new Date('2017-03-25') },
+                    { id: 4, name: 'Yuriy Gagarin', status: 'waiting', campaign_name: 'Snacks', date: new Date('2018-03-25') },
+                    { id: 5, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese', date: new Date('2015-03-25') },
+                    { id: 6, name: 'Ksenia Sobchak', status: 'declined', campaign_name: 'Cheese', date: new Date('2015-03-25') },
+                    { id: 7, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks', date: new Date('2019-03-25') },
+                    { id: 8, name: 'Maria Rasputina', status: 'waiting', campaign_name: 'Cheese', date: new Date('2015-03-25') },
+                    { id: 9, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks', date: new Date('2015-03-25') },
+                    { id: 10, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks', date: new Date('2015-03-10') },
+                    { id: 11, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks', date: new Date('2020-03-25') },
+                    { id: 12, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese', date: new Date('2015-03-25') },
+                    { id: 13, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks', date: new Date('2015-05-25') },
+                    { id: 14, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese', date: new Date('2015-03-25') },
+                    { id: 15, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Snacks', date: new Date('2015-07-25') },
+                    { id: 16, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese', date: new Date('2015-03-09') },
+                    { id: 17, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Cheese', date: new Date('2015-09-25') },
+                    { id: 18, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese', date: new Date('2015-03-25') },
+                    { id: 19, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Cheese', date: new Date('2015-03-25') },
+                    { id: 20, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks', date: new Date('2015-12-25') },
+                    { id: 21, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks', date: new Date('2015-03-25') },
+                    { id: 22, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese', date: new Date('2015-03-29') },
+                    { id: 23, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Snacks', date: new Date('2015-03-25') },
+                    { id: 24, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese', date: new Date('2015-03-30') },
+                    { id: 25, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks', date: new Date('2015-03-25') },
+                    { id: 26, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese', date: new Date('2015-03-31') }
                 ],
             }
         },
@@ -161,9 +168,17 @@
         },
         created(){
             this.getOptions();
+            this.filterDate('desc');
         },
         computed: {
 
+        },
+        watch: {
+            directionDate: {
+                handler:function(val,oldVal,changed) {
+                    vm.filterDate(val)
+                }
+            }
         },
         methods: {
             getOptions(){
@@ -175,6 +190,16 @@
                         vm.optionsUniqueCampaign_name.push(item.campaign_name);
                     }
                 });
+            },
+            filterDate(type) {
+                this.tmpAllBonuses.sort(function(a,b) {
+                   if ( type === 'asc' ) {
+                       return a.date.getTime() - b.date.getTime()
+                   } else {
+                       return b.date.getTime() - a.date.getTime()
+                   }
+                })
+                return this.tmpAllBonuses
             },
             filtered (arrays, rule, campaign_name, influencer_name_sort) {
                 if(rule === null && campaign_name === null && influencer_name_sort === null) {

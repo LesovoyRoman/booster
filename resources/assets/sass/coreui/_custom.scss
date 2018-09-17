@@ -11,6 +11,7 @@
 @import "account";
 @import "influencersApp";
 @import "border-radius";
+@import "modal-payment";
 
 body {
   background: $color-bg-body;
@@ -53,6 +54,10 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
 .btn-secondary {
   text-transform: uppercase;
   font-size: 12px;
+}
+
+.custom_btn_change {
+  margin-left: 15px;
 }
 
 .font500 {
@@ -162,6 +167,10 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
 
 .margin-top-30 {
   margin-top: 30px !important;
+}
+
+.margin-top-15 {
+  margin-top: 15px !important;
 }
 
 .colorBlack {

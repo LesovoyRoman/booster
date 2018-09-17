@@ -23,7 +23,7 @@
                                 <span class="span-row font18">Age: <span class="font500">{{ influencer.age }}</span></span>
                                 <span class="span-row font18">Topic: <span class="font500">{{ influencer.type }}</span></span>
                                 <span class="span-row font18">Native language: <span class="font500">{{ influencer.lang }}</span></span>
-                                <span class="span-row font18">Channels: <span v-for="(channel, index) in influencer.channels"><span class="font500">{{ channel }}</span><span v-if="index !== influencer.channels.length - 1">, </span></span></span>
+
                                 <span class="span-row font18">Auditory: <span class="font500">{{ influencer.auditory }}</span></span>
                                 <span class="span-row font18">Influence: <span class="font500">{{ influencer.influence }}%</span></span>
                             </b-col>
@@ -34,10 +34,24 @@
 
                         <b-row>
                             <b-col>
-                                <p class="card-text header_card_simple">Advertisement</p>
+                                <p class="card-text header_card_simple">Channels</p>
 
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/ecyF6KStpB8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/ecyF6KStpB8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
 
+                                <b-row  v-for="(channel, index) in influencer.channels" :key="index">
+                                    <b-col>
+                                        <div class="channel-block">
+                                            <span class="span-row">Channel: <span class="font500">{{ channel }}</span></span>
+                                            <span class="span-row">Topic: Journeys</span>
+                                            <span class="span-row">Link: <a href="#">https://iamlink.com</a></span>
+                                            <span class="span-row">Auditory: 250-500</span>
+                                            <span class="span-row">Auditory-age: 20-30</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="margin-top-15"></div>
+                                    </b-col>
+
+                                </b-row>
 
                             </b-col>
                         </b-row>
