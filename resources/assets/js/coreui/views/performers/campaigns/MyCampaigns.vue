@@ -105,7 +105,7 @@
                                             Inactive
                                         </span>
                                         <span v-if="row.item.active === 'Waiting for gifts'">
-                                            {{ row.item.active }}
+                                            <router-link v-bind:to="'/gifts/create-gift'">{{ row.item.active }}</router-link>
                                         </span>
 
                                     </template>

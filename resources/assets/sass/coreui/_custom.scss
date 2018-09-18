@@ -183,11 +183,20 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
   border-radius: 20px;
 
   a {
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 20px;
 
     .icon-plus {
       margin-right: 4px;
+    }
+  }
+}
+
+.sidebar-minimized .nav-item.addNewCampaign  {
+  a {
+    padding: 10px 0;
+    .icon-plus {
+      width: 47px;
     }
   }
 }

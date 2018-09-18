@@ -54,8 +54,8 @@
                             <template slot="points" slot-scope="data">
                                 {{ data.item.points }}
                             </template>
-                            <template slot="turnover" slot-scope="data">
-                                {{ data.item.turnover }}
+                            <template slot="influence" slot-scope="data">
+                                {{ data.item.influence }}%
                             </template>
                             <template
                                     slot="status"
@@ -68,6 +68,15 @@
                                         <span v-if="data.item.status === 3"> (60%)</span>
                                         <span v-if="data.item.status === 4"> (80%)</span>
                                         <span v-if="data.item.status === 5"> (100%)</span>
+                            </template>
+                            <template slot="active" slot-scope="data">
+                                <span v-if="data.item.active !== 'Waiting for gifts'">{{ data.item.active }}</span>
+                                <span v-if="data.item.active === 'Waiting for gifts'">
+                                    <router-link v-bind:to="'/gifts/create-gift'">{{ data.item.active }}</router-link>
+                                </span>
+                            </template>
+                            <template slot="turnover" slot-scope="data">
+                                {{ data.item.turnover }} Rub
                             </template>
                         </b-table>
                         <nav>
@@ -89,6 +98,8 @@
 </template>
 
 <script>
+    let arrPoints;
+
     export default {
         name: 'ResultsCampaigns',
         data () {
@@ -96,43 +107,44 @@
                 header: 'Campaigns Results',
 
                 campaigns: [
-                    { id: 1, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo',  status: 5, active: 'Active', influencers: 5 },
-                    { id: 2, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000', checkingType: 'Photo & Serial number',  status: 3, active: 'Inactive', influencers: 4 },
-                    { id: 3, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Photo',  status: 4, active: 'Active', influencers: 3 },
-                    { id: 4, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000', checkingType: 'Serial number', status: 4, active: 'Archive', influencers: 2 },
-                    { id: 5, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Serial number',  status: 5, active: 'Active', influencers: 3 },
-                    { id: 6, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo', status: 5, active: 'Active', influencers: 4 },
-                    { id: 7, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000', checkingType: 'Photo',  status: 3, active: 'Inactive', influencers: 10 },
-                    { id: 8, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Serial number',  status: 4, active: 'Active', influencers: 20 },
-                    { id: 9, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000', checkingType: 'Photo & Serial number',  status: 4, active: 'Active', influencers: 3 },
-                    { id: 10, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Photo',  status: 5, active: 'Active', influencers: 5 },
-                    { id: 11, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo',  status: 5, active: 'Archive', influencers: 2 },
-                    { id: 12, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000',  checkingType: 'Serial number', status: 3, active: 'Active', influencers: 7 },
-                    { id: 13, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  checkingType: 'Photo', status: 4, active: 'Inactive', influencers: 9 },
-                    { id: 14, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000',  checkingType: 'Serial number', status: 4, active: 'Active', influencers: 12 },
-                    { id: 15, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Photo',  status: 5, active: 'Active', influencers: 16 },
-                    { id: 16, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo & Serial number',  status: 5, active: 'Waiting for gifts', influencers: 14 },
-                    { id: 17, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000', checkingType: 'Photo & Serial number',  status: 3, active: 'Active', influencers: 13 },
-                    { id: 18, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Photo',  status: 4, active: 'Inactive', influencers: 12 },
-                    { id: 19, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000', checkingType: 'Photo',  status: 4, active: 'Active', influencers: 12 },
-                    { id: 20, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Photo',  status: 5, active: 'Arhive', influencers: 5 },
-                    { id: 21, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Serial number',  status: 5, active: 'Archive', influencers: 8 },
-                    { id: 22, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Photo',  status: 3, active: 'Active', influencers: 11 },
-                    { id: 23, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  checkingType: 'Serial number', status: 4, active: 'Inactive', influencers: 42 },
-                    { id: 24, campaign_name: 'Snacks', points: '60000/35000', middle_price: '500 Rub', turnover: '5500000',  checkingType: 'Photo & Serial number', status: 5, active: 'Active', influencers: 21 },
-                    { id: 25, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000',  checkingType: 'Photo', status: 4, active: 'Archive', influencers: 6 },
+                    { id: 1, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo',  status: 5, active: 'Active', influencers: 5, influence: '' },
+                    { id: 2, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000', checkingType: 'Photo & Serial number',  status: 3, active: 'Inactive', influencers: 4, influence: '' },
+                    { id: 3, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Photo',  status: 4, active: 'Active', influencers: 3, influence: '' },
+                    { id: 4, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000', checkingType: 'Serial number', status: 4, active: 'Archive', influencers: 2, influence: '' },
+                    { id: 5, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Serial number',  status: 5, active: 'Active', influencers: 3, influence: '' },
+                    { id: 6, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo', status: 5, active: 'Active', influencers: 4, influence: '' },
+                    { id: 7, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000', checkingType: 'Photo',  status: 3, active: 'Inactive', influencers: 10, influence: '' },
+                    { id: 8, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Serial number',  status: 4, active: 'Active', influencers: 20, influence: '' },
+                    { id: 9, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000', checkingType: 'Photo & Serial number',  status: 4, active: 'Active', influencers: 3, influence: '' },
+                    { id: 10, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Photo',  status: 5, active: 'Active', influencers: 5, influence: '' },
+                    { id: 11, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo',  status: 5, active: 'Archive', influencers: 2, influence: '' },
+                    { id: 12, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000',  checkingType: 'Serial number', status: 3, active: 'Active', influencers: 7, influence: '' },
+                    { id: 13, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  checkingType: 'Photo', status: 4, active: 'Inactive', influencers: 9, influence: '' },
+                    { id: 14, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000',  checkingType: 'Serial number', status: 4, active: 'Active', influencers: 12, influence: '' },
+                    { id: 15, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Photo',  status: 5, active: 'Active', influencers: 16, influence: '' },
+                    { id: 16, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo & Serial number',  status: 5, active: 'Waiting for gifts', influencers: 14, influence: '' },
+                    { id: 17, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000', checkingType: 'Photo & Serial number',  status: 3, active: 'Active', influencers: 13, influence: '' },
+                    { id: 18, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Photo',  status: 4, active: 'Inactive', influencers: 12, influence: '' },
+                    { id: 19, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000', checkingType: 'Photo',  status: 4, active: 'Active', influencers: 12, influence: '' },
+                    { id: 20, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Photo',  status: 5, active: 'Arhive', influencers: 5, influence: '' },
+                    { id: 21, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Serial number',  status: 5, active: 'Archive', influencers: 8, influence: '' },
+                    { id: 22, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Photo',  status: 3, active: 'Active', influencers: 11, influence: '' },
+                    { id: 23, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  checkingType: 'Serial number', status: 4, active: 'Inactive', influencers: 42, influence: '' },
+                    { id: 24, campaign_name: 'Snacks', points: '60000/35000', middle_price: '500 Rub', turnover: '5500000',  checkingType: 'Photo & Serial number', status: 5, active: 'Active', influencers: 21, influence: '' },
+                    { id: 25, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000',  checkingType: 'Photo', status: 4, active: 'Archive', influencers: 6, influence: '' },
                 ],
 
                 fields: [
                     { key: 'id', label: '№' },
                     { key: 'campaign_name', sortable: true, label: 'Name' },
                     { key: 'middle_price', sortable: true, label: 'Middle price', 'class': 'table_points' },
-                    { key: 'influencers', sortable: true, label: 'Amount of influencers' },
+                    { key: 'influencers', sortable: true, label: 'Influencers' },
                     { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
-                    { key: 'turnover', sortable: true, 'class': 'table_turnoiver table_points' },
+                    { key: 'influence', sortable: true, label: 'Influence', 'class': 'table_influence' },
                     { key: 'checkingType', sortable: true, 'class': 'table_checkingType' },
                     { key: 'status', sortable: true, label: 'Satisfied' },
                     { key: 'active', sortable: true, label: 'Status' },
+                    { key: 'turnover', sortable: true, 'class': 'table_turnoiver table_points' },
                 ],
                 currentPage: 1,
                 perPage    : 10,
@@ -165,7 +177,16 @@
                 // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
+            },
+            countInfluence(){
+                return this.campaigns.forEach(function(item){
+                    arrPoints = item.points.split('/');
+                    item.influence = Math.floor(((arrPoints[1] * 1) / (arrPoints[0] * 1)) * 100);
+                })
             }
         },
+        created(){
+            this.countInfluence();
+        }
     }
 </script>

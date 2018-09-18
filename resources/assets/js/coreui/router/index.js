@@ -126,6 +126,10 @@ import Influencer from '@/views/influencers/Influencer'
 /// admin
 import InfluencersListAdmin from '@/views/admin/influencers/InfluencersAdmin'
 import UsersListAdmin from '@/views/admin/users/Users'
+import InvoicesListAdmin from '@/views/admin/invoices/Invoices'
+import PerformersListAdmin from '@/views/admin/performers/Performers'
+import AssistantsListAdmin from '@/views/admin/assistants/Assistants'
+
 
 Vue.use(Router)
 
@@ -391,6 +395,21 @@ export default new Router({
                     name      : 'UsersAdmin',
                     component : UsersListAdmin
                 },
+                {
+                    path      : '/admin/invoices',
+                    name      : 'InvoicesAdmin',
+                    component : InvoicesListAdmin
+                },
+                {
+                    path      : '/admin/performers',
+                    name      : 'PerformersAdmin',
+                    component : PerformersListAdmin
+                },
+                {
+                    path      : '/admin/assistants',
+                    name      : 'AssistantsAdmin',
+                    component : AssistantsListAdmin
+                }
             ]
         },
 

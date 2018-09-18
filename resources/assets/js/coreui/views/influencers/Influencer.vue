@@ -64,7 +64,7 @@
 
                                 <span v-for="(campaign, index) in influencerThis.campaigns">
 
-                                    <router-link class="font18" :id="id = index" :data="campaignTo = { 'campaign_name': campaign }" :to="{ name: 'Campaign', params: { campaign:campaignTo, id: id } }">{{ campaign }}</router-link> <span v-if="index !== influencerThis.campaigns.length - 1">, </span>
+                                    <router-link class="font18" :id="id = index" :data="campaignTo = { 'campaign_name': campaign }" :to="{ name: 'Campaign', params: { campaign:campaignTo, id: id } }">{{ campaign }}(60%)</router-link> <span v-if="index !== influencerThis.campaigns.length - 1">, </span>
 
                                 </span>
 

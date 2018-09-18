@@ -81,7 +81,7 @@
     let vm = {};
 
     export default {
-        name: 'InvoicesList',
+        name: 'InvoicesAdmin',
         data(){
             return {
                 header: 'List of invoices',

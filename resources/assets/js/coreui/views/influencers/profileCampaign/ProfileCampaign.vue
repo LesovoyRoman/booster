@@ -11,6 +11,7 @@
                         md="12">
                     <b-card>
 
+                        <b-button variant="secondary" class="font500 uppercase float-right" v-bind:to="'/influencer-campaigns'" style="margin: 17px 10px">participate campaign</b-button>
                         <b-tabs pills card>
                             <b-tab title="Info" active>
                                 <p class="card-text header_card_simple">Common information</p>
@@ -110,6 +111,7 @@
                                         :per-page="perPage">
                                     <template slot="name" slot-scope="data">
                                         <div class="photo_gift-block">
+                                            <i class="fa fa-star star_active star_influencer" v-if="data.item.star"></i>
                                             <keep-alive><img :src="data.item.photo" alt="photo_item" class="photo_gift_table"></keep-alive>
                                         </div>
                                         <div class="gift-name-block">
@@ -156,7 +158,7 @@
                     { id: 3, photo: '../images/iphone.png', name: 'Iphone 8', points: 40000, },
                     { id: 4, photo: '../images/iphone.png', name: 'Iphone 7', points: 50000, },
                     { id: 5, photo: '../images/iphone.png', name: 'Iphone 8', points: 345000, },
-                    { id: 6, photo: '../images/iphone.png', name: 'Iphone 7', points: 63000, },
+                    { id: 6, photo: '../images/iphone.png', name: 'Iphone 7', star:true, points: 63000, },
                     { id: 7, photo: '../images/iphone.png', name: 'Iphone 8', points: 70000, },
                     { id: 8, photo: '../images/iphone.png', name: 'Iphone 7', points: 93000, },
                     { id: 9, photo: '../images/iphone.png', name: 'Iphone 8', points: 72000, },

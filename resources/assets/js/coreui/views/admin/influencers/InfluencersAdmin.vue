@@ -205,6 +205,11 @@
             vm = this;
         },
         methods: {
+            filterMedia(val){
+                val ? vm.influencersList = false : vm.influencersList = true;
+                val ? vm.influencersCards = true : vm.influencersCards = false;
+                val ? vm.perPage = 9 : vm.perPage = 10;
+            },
             onFiltered (filteredItems) {
                 // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length

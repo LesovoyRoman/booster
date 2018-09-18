@@ -1,19 +1,17 @@
 export default {
   items: [
     {
+      name : 'Add campaign',
+      url  : '/campaigns/add-new',
+      icon : 'icon-plus',
+      variant: 'primary',
+      'class' : 'addNewCampaign'
+    },
+    {
       name : 'Dashboard',
       url  : '/dashboard',
       icon : 'icon-speedometer',
     },
-
-      {
-          name : 'Add new campaign',
-          url  : '/campaigns/add-new',
-          icon : 'icon-plus',
-          variant: 'primary',
-          'class' : 'addNewCampaign'
-      },
-
     {
       title  : true,
       name   : 'Theme',
@@ -135,13 +133,15 @@ export default {
     },
     {
       url       : '/points',
-      name      : 'Points',
+      //name      : 'Points',
+      name      : 'My campaigns',
       icon      : 'fa fa-trophy'
     },
     {
       /* @todo change url & name */
       url       : '/influencer-campaigns',
-      name      : 'My Campaigns',
+      //name      : 'My Campaigns',
+      name      : 'Manage Campaigns',
       icon      : 'fa fa-calendar-check-o'
     },
     {
@@ -164,13 +164,28 @@ export default {
           children: [
               {
                   url       : '/admin/influencers',
-                  name      : 'InfluencersAdmin',
+                  name      : 'Influencers',
                   icon      : 'fa fa-group'
               },
               {
                   url       : '/admin/users',
-                  name      : 'UsersAdmin',
+                  name      : 'Users',
                   icon      : 'fa fa-address-book'
+              },
+              {
+                  url       : '/admin/performers',
+                  name      : 'Performers',
+                  icon      : 'fa fa-drivers-license'
+              },
+              {
+                  url       : '/admin/assistants',
+                  name      : 'Assistants',
+                  icon      : 'fa fa-handshake-o'
+              },
+              {
+                  url       : '/admin/invoices',
+                  name      : 'Invoices',
+                  icon      : 'fa fa-external-link-square'
               },
           ],
       },

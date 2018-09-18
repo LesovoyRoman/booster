@@ -117,6 +117,22 @@
                                     </b-form-group>
 
                                     <b-form-group
+                                            id="fieldset_company_address"
+                                            description=""
+                                    >
+                                        <label for="user_company_address">Company address</label>
+                                        <b-form-input id="user_company_address" placeholder="Enter company address"  v-model.trim="user.company_address"></b-form-input>
+                                    </b-form-group>
+
+                                    <b-form-group
+                                            id="fieldset_company_id"
+                                            description=""
+                                    >
+                                        <label for="user_company_id">Company ID</label>
+                                        <b-form-input id="user_company_id" placeholder="Enter company ID"  v-model.trim="user.company_id"></b-form-input>
+                                    </b-form-group>
+
+                                    <b-form-group
                                             id="fieldset_user_site"
                                             description=""
                                     >
@@ -168,7 +184,9 @@
                     legal_company : 'Tino corporation',
                     nds : '23557645723954',
                     tariffPlan: 'Silver',
-                    tariffTerm: '2020.12.12'
+                    tariffTerm: '2020.12.12',
+                    company_address: 'st.Sverdlovo 21, Moscow, Russia',
+                    company_id: '320498523',
 
                 },
             }

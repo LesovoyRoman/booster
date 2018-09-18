@@ -50,7 +50,8 @@ $navbar-border: (
     color:                            $main-color
   )
 )  !default;
-$navbar-brand-width:                  155px !default;
+//$navbar-brand-width:                  155px !default;
+$navbar-brand-width:                  200px !default
 $navbar-brand-bg:                     #fff !default; //original
 //$navbar-brand-logo:                   url('~static/img/logo.png') !default;
 $navbar-brand-logo:                   url('~static/img/logo.svg') !default;

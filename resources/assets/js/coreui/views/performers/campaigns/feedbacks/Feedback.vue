@@ -124,14 +124,14 @@
                 influencer_name: null,
 
                 tmpFeedbacks: [
-                    { id: 1, name: 'Olga M.', fromInfluencer: 'Angelika Martynenko', status: 4, date: new Date(1535977561716), text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
-                    { id: 2, name: 'Oleg V.', fromInfluencer: 'Max Gulkin', status: 3, date: new Date(1535877661716), text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
-                    { id: 3, name: 'Maximus', fromInfluencer: 'Angelika Martynenko', status: 4, date: new Date(1535977261716), text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
-                    { id: 4, name: 'Somebody', fromInfluencer: 'Angelika Martynenko', status: 5, date: new Date(1535377661716), text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
-                    { id: 5, name: 'Olga', fromInfluencer: 'Angelika Martynenko', status: 4, date: new Date(1535977661616), text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
-                    { id: 6, name: 'Oleg', fromInfluencer: 'Max Gulkin', status: 3, text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
-                    { id: 7, name: 'Max', fromInfluencer: 'Angelika Martynenko', status: 4, date: new Date(1535977661716), text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
-                    { id: 8, name: 'Maximus', fromInfluencer: 'Maria Rasputina', status: 5, date: new Date(1535977661916), text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
+                    { id: 1, name: 'Olga M.', fromInfluencer: 'Angelika Martynenko', status: 4, date: '2017.10.10', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
+                    { id: 2, name: 'Oleg V.', fromInfluencer: 'Max Gulkin', status: 3, date: '2018.09.09', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
+                    { id: 3, name: 'Maximus', fromInfluencer: 'Angelika Martynenko', status: 4, date: '2019.02.03', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
+                    { id: 4, name: 'Somebody', fromInfluencer: 'Angelika Martynenko', status: 5, date: '2019.03.02', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
+                    { id: 5, name: 'Olga', fromInfluencer: 'Angelika Martynenko', status: 4, date: '2018.10.08', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
+                    { id: 6, name: 'Oleg', fromInfluencer: 'Max Gulkin', status: 3, date: '2017.12.12', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
+                    { id: 7, name: 'Max', fromInfluencer: 'Angelika Martynenko', status: 4, date: '2016.12.12', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
+                    { id: 8, name: 'Maximus', fromInfluencer: 'Maria Rasputina', status: 5, date: '2015.12.31', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, nesciunt vitae! Culpa, explicabo laudantium odio quasi rerum sit soluta vero.'},
                 ],
 
                 fields: [
@@ -140,7 +140,7 @@
                     { key: 'fromInfluencer', sortable: true, labelOption: 'Iinfluencer', label: '', 'class': 'fromInfluencer' },
                     { key: 'status', 'class': 'text-left', sortable: true, labelOption: 'Satisfied', label: '',  },
                     { key: 'text',  labelOption: 'Comment text', label: '', 'class': 'comment_text' },
-                    /*{ key: 'date', labelOption: 'Date', sortable: true, label: '', 'class': 'comment_time'}*/
+                    { key: 'date', labelOption: 'Date', sortable: true, label: '', 'class': 'comment_time'}
                 ],
                 currentPage: 1,
                 perPage    : 4,

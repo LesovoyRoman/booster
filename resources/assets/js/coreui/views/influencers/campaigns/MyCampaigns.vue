@@ -96,14 +96,15 @@
                 totalRows  : 0,
 
                 campaigns: [
-                    { id: 1, campaign_name: 'Snacks', active: true, links: [{path: 'https://linkFirst.com', gift: 'First gift'}, {path: 'https://linkSecond.com', gift: 'Second gift'}], },
-                    { id: 2, campaign_name: 'Cheese', active: false, links: [{path: 'https://linkCheeseFirst.com', gift: 'First cheese gift'},], },
-                    { id: 3, campaign_name: 'Cheese', active: true, links: [{path: 'https://linkCheeseNew.com', gift: 'Iphone'}, {path: 'https://linkCheesesss.com', gift: 'Samsung Note2'}], }
+                    { id: 1, campaign_name: 'Snacks', active: true, links: [{path: 'https://linkFirst.com', gift: 'First gift'}, {path: 'https://linkSecond.com', gift: 'Second gift'}], date: '2017.12.02' },
+                    { id: 2, campaign_name: 'Cheese', active: false, links: [{path: 'https://linkCheeseFirst.com', gift: 'First cheese gift'},], date: '2018.11.09' },
+                    { id: 3, campaign_name: 'Cheese', active: true, links: [{path: 'https://linkCheeseNew.com', gift: 'Iphone'}, {path: 'https://linkCheesesss.com', gift: 'Samsung Note2'}], date: '2019.02.01' }
                 ],
 
                 fields: [
                     { key: 'campaign_name', sortable: true, 'class': 'table_campaign_name' },
                     { key: 'links', sortable: false, 'class': 'table_links' },
+                    { key: 'date', sortable: true, 'class': 'table_date', label: 'Started' },
                     { key: 'active', label: '', 'class': 'table_label_hidden' },
                     { key: 'change', label: '', 'class': 'table_label_hidden' },
                     { key: 'delete', label: '', 'class': 'table_label_hidden' },

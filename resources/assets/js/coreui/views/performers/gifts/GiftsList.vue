@@ -113,6 +113,7 @@
                                     </template>
                                     <template slot="name" slot-scope="data">
                                         <div class="photo_gift-block">
+                                            <!--<i class="fa fa-star star_active star_influencer" v-if="data.item.star"></i>-->
                                             <keep-alive><img :src="data.item.photo" alt="photo_item" class="photo_gift_table"></keep-alive>
                                         </div>
                                         <div class="gift-name-block">
@@ -199,10 +200,10 @@
                 campaigns: ['Snacks', 'Cheese'],
 
                 gifts: [
-                    { id: 1, photo: '../images/iphone.png', name: 'Iphone 8', points: 10000, inStock: 25, campaign_name: 'Snacks', delivery: 'Any kind' },
-                    { id: 2, photo: '../images/iphone.png', name: 'Iphone 7', points: 20000, inStock: 50, campaign_name: 'Cheese', delivery: 'NewPost' },
-                    { id: 3, photo: '../images/iphone.png', name: 'Iphone 8', points: 40000, inStock: 1, campaign_name: 'Snacks', delivery: 'NewPost' },
-                    { id: 4, photo: '../images/iphone.png', name: 'Iphone 7', points: 50000, inStock: 500, campaign_name: 'Smth', delivery: 'Pickup' },
+                    { id: 1, photo: '../images/iphone.png', name: 'Iphone 8', points: 10000, inStock: 25, campaign_name: 'Snacks', delivery: 'Any kind', star: true },
+                    { id: 2, photo: '../images/iphone.png', name: 'Iphone 7', points: 20000, inStock: 50, campaign_name: 'Cheese', delivery: 'NewPost', star: false },
+                    { id: 3, photo: '../images/iphone.png', name: 'Iphone 8', points: 40000, inStock: 1, campaign_name: 'Snacks', delivery: 'NewPost', star: false },
+                    { id: 4, photo: '../images/iphone.png', name: 'Iphone 7', points: 50000, inStock: 500, campaign_name: 'Smth', delivery: 'Pickup', star: false },
                 ],
 
                 fields: [
