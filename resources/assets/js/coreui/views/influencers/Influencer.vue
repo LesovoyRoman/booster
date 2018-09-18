@@ -62,11 +62,33 @@
                             <b-col>
                                 <p class="card-text header_card_simple">Influencer campaigns</p>
 
-                                <span v-for="(campaign, index) in influencerThis.campaigns">
-
-                                    <router-link class="font18" :id="id = index" :data="campaignTo = { 'campaign_name': campaign }" :to="{ name: 'Campaign', params: { campaign:campaignTo, id: id } }">{{ campaign }}(60%)</router-link> <span v-if="index !== influencerThis.campaigns.length - 1">, </span>
-
-                                </span>
+                                <b-row>
+                                    <b-col  v-for="(campaign, index) in influencerThis.campaigns" :key="index"
+                                            sm="6"
+                                            lg="3">
+                                            <div :class="'social-box relative ' + campaign.channel">
+                                                <i :class="'fa fa-' + campaign.channel"/>
+                                                <router-link :id="id = index" :data="campaignTo = { 'campaign_name': campaign.name }" :to="{ name: 'Campaign', params: { campaign: campaignTo, id: id } }" class="link_custom_hidden_influencer">
+                                                    <div class="chart-wrapper ">
+                                                        <social-box-chart-example
+                                                                :data="campaign.influence"
+                                                                height="90"/>
+                                                    </div>
+                                                    <ul>
+                                                        <li>
+                                                            <strong>{{ campaign.name }}</strong>
+                                                            <span>Name</span>
+                                                        </li>
+                                                        <li>
+                                                            <strong>{{ campaign.influenceMiddle }}</strong>
+                                                            <span>Influence</span>
+                                                        </li>
+                                                    </ul>
+                                                </router-link>
+                                            </div>
+                                        <!--/.social-box-->
+                                    </b-col>
+                                </b-row>
 
                             </b-col>
                         </b-row>
@@ -78,24 +100,44 @@
 </template>
 
 <script>
+    let arrPoints = 0;
     let vm = {};
+    import SocialBoxChartExample from './../dashboard/SocialBoxChartExample.vue'
 
     export default {
         props: ['influencer'],
         name: 'Influencer',
+        components: {
+            SocialBoxChartExample,
+        },
         data(){
             return {
                 header: 'Influencer',
 
-                influencerThis: { campaigns: ['Snacks', 'Cheese', 'Sour milk'] }
+                influencerThis: {
+                    campaigns: [
+                        {id: 1, name: 'Snacks', influence: [10, 20, 50, 40, 70, 85, 25, 70], influenceMiddle: 0, channel: 'twitter'},
+                        {id: 2, name: 'Cheese', influence: [10, 60, 50, 55, 45, 65, 45, 90], influenceMiddle: 0, channel: 'vk'},
+                        {id: 3, name: 'Sour milk', influence: [70, 30, 20, 80, 90, 75, 40, 70], influenceMiddle: 0, channel: 'youtube'},
+                        {id: 4, name: 'Pizza', influence: [90, 70, 50, 40, 30, 40, 60, 80], influenceMiddle: 0, channel: 'facebook'},
+                    ]
+                }
             }
         },
         created(){
             vm = this;
-            console.log(this.influencer);
+            this.countInfluence();
         },
         methods: {
-
+            countInfluence(){
+                return this.influencerThis.campaigns.forEach(function(item){
+                    arrPoints = 0;
+                     item.influence.forEach(function(item){
+                         arrPoints =+ item;
+                    });
+                    item.influenceMiddle = Math.floor(arrPoints);
+                })
+            }
         },
         computed: {
             computedInfluencer: function() {

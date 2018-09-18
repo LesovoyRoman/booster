@@ -6,9 +6,9 @@
                 <appNav></appNav>
             </transition>
 
-            <transition name="fade" mode="out-in">
+            <!--<transition name="fade" mode="out-in">
                 <Caside></Caside>
-            </transition>
+            </transition>-->
 
             <!--<transition name="fade" mode="out-in">
                 <keep-alive>-->
@@ -31,7 +31,7 @@
 
 
     import appNav from '../components/partials/nav.vue'
-    import Caside from '../components/partials/aside.vue'
+    /*import Caside from '../components/partials/aside.vue'*/
     import cfooter from '../components/partials/footer.vue'
 
     export default {
@@ -46,7 +46,7 @@
         },
         components: {
             appNav,
-            Caside,
+            /*Caside,*/
             cfooter
         },
         created() {

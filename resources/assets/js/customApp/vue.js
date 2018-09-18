@@ -12,8 +12,9 @@ Vue.use(VueRouter);
 import home from './components/home.vue'
 import login from './components/auth/login.vue'
 import notFound from './components/notFound.vue'
-import registerPerformer from './components/auth/registerPerformer.vue'
-import registerBlogger from './components/auth/registerBlogger.vue'
+//import registerPerformer from './components/auth/registerPerformer.vue'
+//import registerBlogger from './components/auth/registerBlogger.vue'
+import register from './components/auth/register.vue'
 
 const defaultPage = 'login';
 const homePage = 'home';
@@ -25,8 +26,7 @@ let routes = [];
 let vm = {};
 let bgimages_routes = [
     {path: '/login', img: '/images/bglogin1.png'},
-    {path: '/register-performer', img: '/images/bgregister1.png'},
-    {path: '/register-blogger', img: '/images/bgregister1.png'},
+    {path: '/registration', img: '/images/bgregister1.png'},
 ];
 
 function authCheck() {
@@ -50,8 +50,7 @@ function routesAllowToUse() {
         { path: '/', component: home, name: 'home', meta: { nothingImg: true } },
         { path: "*", component: notFound, name: 'notFound', meta: { nothingImg: true } },
         { path: '/login', component: login, name: 'login',  meta: { redirectHome: true } },
-        { path: '/register-performer', component: registerPerformer, name: 'RegisterPerformer', meta: { redirectHome: true } },
-        { path: '/register-blogger', component: registerBlogger, name: 'RegisterBlogger', meta: { redirectHome: true } },
+        { path: '/registration', component: register, name: 'Register', meta: { redirectHome: true } },
 
         /*
          * redirectHome - if authenticated then redirect
@@ -107,7 +106,15 @@ function app() {
                 }
             })
         },
+        mounted() {
+            this.$nextTick(function () {
+                document.getElementById('bg_app').style.height = document.getElementById('app').offsetHeight + 'px';
+            })
+        },
         methods: {
+            changeHeight(){
+                document.getElementById('bg_app').style.height = document.getElementById('app').offsetHeight + 'px';
+            },
             statusAuth (data, redirectTo) {
                 this.authenticated = data;
                 authenticated = data;

@@ -165,6 +165,10 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
   margin: 15px auto 15px 0;
 }
 
+.relative {
+  position: relative !important;
+}
+
 .margin-top-30 {
   margin-top: 30px !important;
 }
@@ -198,5 +202,14 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
     .icon-plus {
       width: 47px;
     }
+  }
+}
+
+
+.link_custom_hidden_influencer {
+  color: black;
+
+  &:hover, &.active, &:active {
+    color: $main-color
   }
 }

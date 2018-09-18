@@ -50,8 +50,9 @@ class LoginController extends Controller
         if($user->user_role == 'admin') {
             return 1111;
         } else {
-            return $this->authenticated($request, $this->guard()->user())
-                ?: redirect()->intended($this->redirectPath());
+           /* return $this->authenticated($request, $this->guard()->user())
+                ?: redirect()->intended($this->redirectPath());*/
+           return 1111;
         }
     }
 

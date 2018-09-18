@@ -5,13 +5,17 @@
             <b-link
                     class="navbar-brand"
                     to="#"/>
-            <button id="btn_call_menu_custom"
+           <!-- <button id="btn_call_menu_custom"
                     class="navbar-toggler aside-menu-toggler d-md-down-none btn-primary"
                     type="button"
                     @click="asideToggle">
                 <span class=""><i class="fa fa-bars fa-1x"></i></span>
-            </button>
+            </button>-->
         </header>
+        <nav class="nav_custom_app">
+            <router-link vairant="secondary" v-bind:to="'/login'">Login</router-link>
+            <router-link vairant="secondary" v-bind:to="'/registration'">Registration</router-link>
+        </nav>
     </div>
 
 </template>
@@ -35,19 +39,19 @@
                         vmThis.$root.updateCrsf();
                     });
             },
-            asideToggle (e) {
+           /* asideToggle (e) {
                 e.preventDefault()
                 document.getElementById('bg_app').classList.toggle('open')
                 document.getElementById('app').classList.toggle('open')
-            },
+            },*/
         },
         created(){
             vm = this;
         },
         watch:{
-            $route (to, from){
+            /*$route (to, from){
                 vm.asideToggle(event);
-            }
+            }*/
         }
     }
 </script>

@@ -3,9 +3,6 @@
         <div v-if="!auth">
             <form action="" v-model="actionURI" id="form_register" enctype="multipart/form-data">
                 <div v-if="step === 1">
-                    <div class="title m-b-md">
-                        Choose language
-                    </div>
                     <div class="form-group">
                         <label class="col-form-label text-md-right">Choose the language</label>
                         <b-form-select  v-model="credentials.chosen_lang" :options="optionsLang" class="mb-3" />
@@ -138,7 +135,7 @@
                     auditoryAgeFrom: null,
                     auditoryAgeTo: null,
                 },
-                actionURI: location.href,
+                actionURI: '/register',
                 auth: this.$root.authenticated,
 
                 optionsTopic: [
@@ -251,5 +248,8 @@
         created () {
             vmThis = this;
         },
+        updated(){
+            this.$root.changeHeight();
+        }
     }
 </script>

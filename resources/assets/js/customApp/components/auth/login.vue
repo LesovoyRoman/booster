@@ -3,9 +3,9 @@
     <div id="login">
         <div v-if="!auth">
             <form action="" id="form_login" v-model="actionURI">
-                <div class="title m-b-md">
+                <!--<div class="title m-b-md">
                     Login
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label for="email" class="col-form-label text-md-right">Email</label>
                     <input type="text" class="form-control" id="email" name="email" v-model="credentials.email">
