@@ -1,6 +1,6 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/custom/js/vue.js": "/custom/js/vue.js",
-    "/custom/css/app.css": "/custom/css/app.css",
-    "/css/app.css": "/css/app.css"
+    "/js/app.js": "/js/app.js?id=8ebb45b686e804f3d481",
+    "/custom/js/vue.js": "/custom/js/vue.js?id=a8388e0d768fd7de52a9",
+    "/custom/css/app.css": "/custom/css/app.css?id=c5cb852915ec45325796",
+    "/css/app.css": "/css/app.css?id=4299a4fad156d4abc135"
 }

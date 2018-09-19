@@ -13,7 +13,7 @@
 
                         <b-form-group>
                             <b-input-group>
-                                <b-form-input v-model="filter" placeholder="Enter performer name / country / city / type"/>
+                                <b-form-input v-model="filter" placeholder="Enter performer name / work position / company ID / etc"/>
                                 <b-input-group-append>
                                     <b-btn :variant="'primary'" :disabled="!filter" @click="filter = ''">Clear</b-btn>
                                 </b-input-group-append>
@@ -40,8 +40,60 @@
 
                                 :current-page="currentPage"
                                 :per-page="perPage">
+                            <template slot="HEAD_performer_checkbox" slot-scope="data" >
+                                <div class="custom-control custom-checkbox">
+                                    <input
+                                            type="checkbox"
+                                            v-model="allSelected"
+                                            :value="true"
+                                            :id="'performer_checkbox'"
+                                            :name="'performer_checkbox'"
+                                            class="custom-control-input">
+                                    <label
+                                            @click="selectAll"
+                                            style="display: block"
+                                            class="custom-control-label"
+                                            :for="'performer_checkbox'"></label>
+                                </div>
+                            </template>
+                            <template slot="performer_checkbox" slot-scope="data">
+                                <div class="custom-control custom-checkbox">
+                                    <input
+                                            type="checkbox"
+                                            :value="data.item.id"
+                                            v-model="performersIds"
+                                            @click="select"
+                                            :id="'performer_checkbox' + data.item.id"
+                                            :name="'performer_checkbox' + data.item.id"
+                                            class="custom-control-input">
+                                    <label
+                                            style="display: block"
+                                            class="custom-control-label"
+                                            :for="'performer_checkbox' + data.item.id"></label>
+                                </div>
+                            </template>
                             <template slot="name" slot-scope="data">
                                 <span>{{ data.item.name }}</span>
+                            </template>
+                            <template slot="info" slot-scope="row">
+                                <span v-for="(item_info, index) in row.item.infoPerformer" :class="index !== 'brand' ? 'span-row spanBorderBottomTable' : 'span-row'">
+                                    <span class="spanKeyTable">{{ index }}:</span> {{ item_info }}
+                                </span>
+                            </template>
+                            <template slot="tariff" slot-scope="row">
+                                <span class="span-row spanBorderBottomTable"><span class="spanKeyTable">Type:</span> {{ row.item.tariff.type }}</span>
+                                <span class="span-row spanBorderBottomTable"><span class="spanKeyTable">From:</span> {{ row.item.tariff.paid }}</span>
+                                    <span class="span-row"><span class="spanKeyTable">To:</span> {{ row.item.tariff.by }}</span>
+                            </template>
+                            <template slot="change" justified="center" slot-scope="row">
+                                <b-button size="sm" class="custom_btn_change" :variant="'primary'">
+                                    <i class="icon-pencil"></i>
+                                </b-button>
+                            </template>
+                            <template slot="delete" justified="center" slot-scope="row">
+                                <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
+                                    <i class="icon-close"></i>
+                                </b-button>
                             </template>
                         </b-table>
 
@@ -81,6 +133,10 @@
                 perPage    : 10,
                 totalRows  : 0,
 
+                selected: [],
+                allSelected: false,
+                performersIds: [],
+
                 sendTo: '',
 
                 performer_modal: {},
@@ -95,20 +151,20 @@
                 sortDirection: 'asc',
 
                 performers: [
-                    {id: 1, name: 'Quentin Tarantino', email: 'email@tarantino.com', work_position: 'Producer', phone: '+9999999999', brand: 'Tarantino films', legal_name_company: 'Tino corporation', company_address: 'st.Sverdlova 21, Moscow, Russia', company_id: '320498523', site: 'https://mysite.com', vat: '23557645723954' },
-                    {id: 1, name: 'Luc Besson', email: 'email@besson.com', work_position: 'Producer', phone: '+9999999999', brand: 'Luc', legal_name_company: 'Luc corporation', company_address: 'st.Sverdlova 21, Moscow, Russia', company_id: '350794533', site: 'https://mysite.com', vat: '12957642723957' },
+                    {id: 1, name: 'Quentin Tarantino', infoPerformer: {email: 'email@tarantino.com', phone: '+9999999999', position: 'Producer', site: 'https://mysite.com', brand: 'Tarantino films',}, tariff: {type: 'Standart', paid: '2018.09.09', by: '2019.09.09'},  legal_name_company: 'Tino corporation', company_address: 'st.Sverdlova 21, Moscow, Russia', company_id: '320498523',  vat: '23557645723954' },
+                    {id: 2, name: 'Luc Besson', infoPerformer: {email: 'email@besson.com', phone: '+9999999999', position: 'Producer', site: 'https://mysite.com', brand: 'Luc',}, tariff: {type: 'Silver', paid: '2018.02.13', by: '2018.05.13'}, legal_name_company: 'Luc corporation', company_address: 'st.Sverdlova 21, Moscow, Russia', company_id: '350794533', vat: '12957642723957' },
                 ],
                 fields: [
+                    { key: 'performer_checkbox', 'class': 'table_label_hidden check-box-performers' },
                     { key: 'name', sortable: false, 'class': 'name_performer' },
-                    { key: 'email', sortable: false, 'class': 'email_performer' },
-                    { key: 'work_position', sortable: false, 'class': 'work_performer' },
-                    { key: 'phone', sortable: false, 'class': 'phone_performer' },
-                    { key: 'brand', sortable: false, 'class': 'brand_performer' },
+                    { key: 'info', sortable: false, 'class': 'info_performer', label: 'Info' },
+                    { key: 'tariff', sortable: false, 'class': 'tariff_performer_admin' },
                     { key: 'legal_name_company', sortable: false, 'class': 'legam_company_performer' },
                     { key: 'company_address', sortable: false, 'class': 'company_address_performer' },
                     { key: 'company_id', sortable: false, 'class': 'company_id_performer' },
-                    { key: 'site', sortable: false, 'class': 'site_performer' },
-                    { key: 'vat', sortable: false, 'class': 'vat_performer' }
+                    { key: 'vat', sortable: false, 'class': 'vat_performer' },
+                    { key: 'change', label: '', 'class': 'table_label_hidden change-performer' },
+                    { key: 'delete', label: '', 'class': 'table_label_hidden delete-performer' }
                 ]
             }
         },
@@ -123,12 +179,17 @@
             },
             selectAll: function() {
                 vm.allSelected = !vm.allSelected;
-                vm.performerIds = [];
+                vm.performersIds = [];
 
                 if (vm.allSelected) {
                     vm.performers.forEach(function(item){
-                        vm.performerIds.push(item.id);
+                        vm.performersIds.push(item.id);
                     })
+                }
+            },
+            removeElement: function (item) {
+                if(confirm("Are you sure?")) {
+                    this.performers.splice(item.index, 1);
                 }
             },
             select: function() {

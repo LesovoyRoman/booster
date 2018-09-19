@@ -55,9 +55,51 @@
 
                                 :current-page="currentPage"
                                 :per-page="perPage">
+                            <template slot="HEAD_user_checkbox" slot-scope="data" >
+                                <div class="custom-control custom-checkbox">
+                                    <input
+                                            type="checkbox"
+                                            v-model="allSelected"
+                                            :value="true"
+                                            :id="'user_checkbox'"
+                                            :name="'user_checkbox'"
+                                            class="custom-control-input">
+                                    <label
+                                            @click="selectAll"
+                                            style="display: block"
+                                            class="custom-control-label"
+                                            :for="'user_checkbox'"></label>
+                                </div>
+                            </template>
+                            <template slot="user_checkbox" slot-scope="data">
+                                <div class="custom-control custom-checkbox">
+                                    <input
+                                            type="checkbox"
+                                            :value="data.item.id"
+                                            v-model="usersIds"
+                                            @click="select"
+                                            :id="'user_checkbox' + data.item.id"
+                                            :name="'user_checkbox' + data.item.id"
+                                            class="custom-control-input">
+                                    <label
+                                            style="display: block"
+                                            class="custom-control-label"
+                                            :for="'user_checkbox' + data.item.id"></label>
+                                </div>
+                            </template>
                             <template slot="name" slot-scope="data">
                                 <div @click="showModal(data.item)"></div>
                                 <span>{{ data.item.name }}</span>
+                            </template>
+                            <template slot="change" justified="center" slot-scope="row">
+                                <b-button size="sm" class="custom_btn_change" :variant="'primary'">
+                                    <i class="icon-pencil"></i>
+                                </b-button>
+                            </template>
+                            <template slot="delete" justified="center" slot-scope="row">
+                                <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
+                                    <i class="icon-close"></i>
+                                </b-button>
                             </template>
                         </b-table>
 
@@ -159,6 +201,10 @@
                 cities: [],
                 user_types: [],
 
+                selected: [],
+                allSelected: false,
+                usersIds: [],
+
                 filter: null,
                 sortBy: null,
                 sortDesc: false,
@@ -170,13 +216,16 @@
                     {id: 3, name: 'Marylin Monroe', birthYear: '1965', email: 'sexxxy@kiss.com', country: 'USA', city: 'New-Your', facebook_id: '5743897450385', campaigns_amount: 0, type: 'user', id_phone: '2355765', model_phone: 'Nokia', },
                 ],
                 fields: [
+                    { key: 'user_checkbox', 'class': 'table_label_hidden check-box-users' },
                     { key: 'name', sortable: true, 'class': 'name_user' },
                     { key: 'birthYear', sortable: true, 'class': 'birthYear_user', },
                     { key: 'email', sortable: true, 'class': 'email_user' },
                     { key: 'country', sortable: true, 'class': 'country_user' },
                     { key: 'city', sortable: true, 'class': 'city_user' },
                     { key: 'facebook_id', sortable: true, 'class': 'facebook_id_user' },
-                    { key: 'campaigns_amount', sortable: true, 'class': 'campaigns_amount_user' }
+                    { key: 'campaigns_amount', sortable: true, 'class': 'campaigns_amount_user' },
+                    { key: 'change', label: '', 'class': 'table_label_hidden change-user' },
+                    { key: 'delete', label: '', 'class': 'table_label_hidden delete-user' }
                 ]
             }
         },
@@ -212,12 +261,17 @@
             },
             selectAll: function() {
                 vm.allSelected = !vm.allSelected;
-                vm.userIds = [];
+                vm.usersIds = [];
 
                 if (vm.allSelected) {
-                    vm.activeTable.forEach(function(item){
-                        vm.userIds.push(item.id);
+                    vm.users.forEach(function(item){
+                        vm.usersIds.push(item.id);
                     })
+                }
+            },
+            removeElement: function (item) {
+                if(confirm("Are you sure?")) {
+                    this.users.splice(item.index, 1);
                 }
             },
             select: function() {

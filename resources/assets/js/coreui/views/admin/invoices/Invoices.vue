@@ -25,7 +25,6 @@
                         </b-row>
 
                         <b-table
-                                :id="giftsCards ? 'table_cards' : ''"
                                 :hover="false"
                                 :striped="false"
                                 :bordered="false"
@@ -43,6 +42,38 @@
 
                                 :current-page="currentPage"
                                 :per-page="perPage">
+                            <template slot="HEAD_invoice_checkbox" slot-scope="data" >
+                                <div class="custom-control custom-checkbox">
+                                    <input
+                                            type="checkbox"
+                                            v-model="allSelected"
+                                            :value="true"
+                                            :id="'invoice_checkbox'"
+                                            :name="'invoice_checkbox'"
+                                            class="custom-control-input">
+                                    <label
+                                            @click="selectAll"
+                                            style="display: block"
+                                            class="custom-control-label"
+                                            :for="'invoice_checkbox'"></label>
+                                </div>
+                            </template>
+                            <template slot="invoice_checkbox" slot-scope="data">
+                                <div class="custom-control custom-checkbox">
+                                    <input
+                                            type="checkbox"
+                                            :value="data.item.id"
+                                            v-model="invoicesIds"
+                                            @click="select"
+                                            :id="'invoice_checkbox' + data.item.id"
+                                            :name="'invoice_checkbox' + data.item.id"
+                                            class="custom-control-input">
+                                    <label
+                                            style="display: block"
+                                            class="custom-control-label"
+                                            :for="'invoice_checkbox' + data.item.id"></label>
+                                </div>
+                            </template>
                             <template slot="tariff_name" slot-scope="data">
                                 <span class="span-row">{{ data.item.tariff_name }}</span>
                             </template>
@@ -55,6 +86,16 @@
                             <template slot="open_bill" slot-scope="data">
                                 <b-button class="" :id="id = data.item.id" :invoiceNumber="invoiceNumber = '#3487-34'" :data="invoice = data.item" v-bind:to="{ name: 'Invoice', params: { invoice:invoice, id: id, invoiceNumber: invoiceNumber } }" :variant="'primary'">
                                     Open bill
+                                </b-button>
+                            </template>
+                            <template slot="change" justified="center" slot-scope="row">
+                                <b-button size="sm" class="custom_btn_change" :variant="'primary'">
+                                    <i class="icon-pencil"></i>
+                                </b-button>
+                            </template>
+                            <template slot="delete" justified="center" slot-scope="row">
+                                <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
+                                    <i class="icon-close"></i>
                                 </b-button>
                             </template>
                         </b-table>
@@ -86,13 +127,13 @@
             return {
                 header: 'List of invoices',
 
-                giftsList: true,
-                giftsCards: false,
-                campaignSelected: null,
-
                 currentPage: 1,
                 perPage    : 10,
                 totalRows  : 0,
+
+                selected: [],
+                allSelected: false,
+                invoicesIds: [],
 
                 filter: null,
                 sortBy: null,
@@ -100,27 +141,31 @@
                 sortDirection: 'asc',
 
                 invoices: [
-                    { id: 1, tariff_name: 'Standart plan', start: '2017.05.21', end: '2017.05.31', status: 'Paid', bill: 5000 },
-                    { id: 2, tariff_name: 'Silver plan', start: '2017.05.22', end: '2017.05.09', status: 'Wait to be paid', bill: 4400 },
-                    { id: 3, tariff_name: 'Gold plan', start: '2017.05.23', end: '2017.05.29', status: 'Paid', bill: 6400 },
-                    { id: 4, tariff_name: 'Standart plan', start: '2017.04.21', end: '2017.03.30', status: 'Paid', bill: 2400 },
-                    { id: 5, tariff_name: 'Standart plan', start: '2017.04.25', end: '2017.02.25', status: 'Paid', bill: 3400 },
-                    { id: 6, tariff_name: 'Gold plan', start: '2016.05.21', end: '2016.05.29', status: 'Wait to be paid', bill: 1400 },
-                    { id: 7, tariff_name: 'Standart plan', start: '2018.05.21', end: '2018.05.31', status: 'Paid', bill: 6700 },
-                    { id: 8, tariff_name: 'Gold plan', start: '2017.03.21', end: '2016.11.30', status: 'Paid', bill: 9800 },
-                    { id: 9, tariff_name: 'Silver plan', start: '2017.11.31', end: '2014.12.31', status: 'Paid', bill: 54500 },
-                    { id: 10, tariff_name: 'Silver plan', start: '2017.05.21', end: '2017.07.18', status: 'Wait to be paid', bill: 3500 },
-                    { id: 11, tariff_name: 'Standart plan', start: '2017.03.11', end: '2015.05.31', status: 'Paid', bill: 5600 },
-                    { id: 12, tariff_name: 'Silver plan', start: '2017.02.25', end: '2017.03.15', status: 'Paid', bill: 8400 },
+                    { id: 1, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Standart plan', start: '2017.05.21', end: '2017.05.31', status: 'Paid', bill: 5000 },
+                    { id: 2, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Silver plan', start: '2017.05.22', end: '2017.05.09', status: 'Wait to be paid', bill: 4400 },
+                    { id: 3, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Gold plan', start: '2017.05.23', end: '2017.05.29', status: 'Paid', bill: 6400 },
+                    { id: 4, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Standart plan', start: '2017.04.21', end: '2017.03.30', status: 'Paid', bill: 2400 },
+                    { id: 5, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Standart plan', start: '2017.04.25', end: '2017.02.25', status: 'Paid', bill: 3400 },
+                    { id: 6, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Gold plan', start: '2016.05.21', end: '2016.05.29', status: 'Wait to be paid', bill: 1400 },
+                    { id: 7, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Standart plan', start: '2018.05.21', end: '2018.05.31', status: 'Paid', bill: 6700 },
+                    { id: 8, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Gold plan', start: '2017.03.21', end: '2016.11.30', status: 'Paid', bill: 9800 },
+                    { id: 9, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Silver plan', start: '2017.11.31', end: '2014.12.31', status: 'Paid', bill: 54500 },
+                    { id: 10, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Silver plan', start: '2017.05.21', end: '2017.07.18', status: 'Wait to be paid', bill: 3500 },
+                    { id: 11, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Standart plan', start: '2017.03.11', end: '2015.05.31', status: 'Paid', bill: 5600 },
+                    { id: 12, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Silver plan', start: '2017.02.25', end: '2017.03.15', status: 'Paid', bill: 8400 },
                 ],
 
                 fields: [
+                    { key: 'invoice_checkbox', 'class': 'table_label_hidden check-box-invoices' },
+                    { key: 'performer_name', sortable: true, 'class': 'table_name_performer' },
                     { key: 'tariff_name', sortable: true, 'class': 'table_tariffs' },
                     { key: 'start', sortable: true, 'class': 'table_start' },
                     { key: 'end', sortable: true, 'class': 'table_end' },
                     { key: 'bill', sortable: true, 'class': 'table_bill' },
                     { key: 'status', sortable: true, 'class': 'table_status' },
-                    { key: 'open_bill', label: '', 'class': 'table_label_hidden open_bill' }
+                    { key: 'open_bill', label: '', 'class': 'table_label_hidden open_bill' },
+                    { key: 'change', label: '', 'class': 'table_label_hidden change-invoice' },
+                    { key: 'delete', label: '', 'class': 'table_label_hidden delete-invoice' }
                 ]
             }
         },
@@ -135,6 +180,24 @@
             },
             getRowCount (items) {
                 return items.length
+            },
+            selectAll: function() {
+                vm.allSelected = !vm.allSelected;
+                vm.invoicesIds = [];
+
+                if (vm.allSelected) {
+                    vm.invoices.forEach(function(item){
+                        vm.invoicesIds.push(item.id);
+                    })
+                }
+            },
+            removeElement: function (item) {
+                if(confirm("Are you sure?")) {
+                    this.invoices.splice(item.index, 1);
+                }
+            },
+            select: function() {
+                vm.allSelected = false;
             },
         }
     }

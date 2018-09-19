@@ -12,10 +12,6 @@
                     <b-card>
 
                         <b-form-group>
-                            <b-button href="#" v-bind:to="'/new-assistant'" variant="primary" class="float-left font500 font12 uppercase">add assistant</b-button>
-                        </b-form-group>
-
-                        <b-form-group>
                             <b-input-group>
                                 <b-form-input v-model="filter" placeholder="Type name campaign or influencer"/>
                                 <b-input-group-append>
@@ -80,6 +76,11 @@
                                     slot-scope="data">
                                 <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, id: id, campaign_name: data.item.campaign } }">{{ data.item.name }}</router-link>
                             </template>
+                            <template slot="performers" slot-scope="row">
+                                <span v-for="(performer, index) in row.item.performers">
+                                    {{ performer }}<span v-if="index !== row.item.performers.length - 1">, </span>
+                                </span>
+                            </template>
                             <template slot="campaigns" slot-scope="row">
                                 <router-link v-for="(campaign, index) in row.item.campaigns" :id="id = row.item.id" :key="index" :data="campaign_name = campaign" :to="{ name: 'Campaign', params: { campaign:campaign, id: index } }">{{ campaign }}<span v-if="index !== row.item.campaigns.length - 1">, </span></router-link>
                             </template>
@@ -129,8 +130,8 @@
                 header: 'Assistants',
 
                 assistants: [
-                    { id: 1, name: 'Joseph Stalin', email: 'josephstalin@rasstrelyat.com', campaigns: ['Pineapple', 'Grape', 'Smth'] },
-                    { id: 2, name: 'Adolf Hitler', email: 'adolf@sexymustache.com', campaigns: ['Snacks', 'Cheese'] },
+                    { id: 1, name: 'Joseph Stalin', email: 'josephstalin@rasstrelyat.com', performers: ['Grigoriy Alexandrovich', 'Somebody Else'],  campaigns: ['Pineapple', 'Grape', 'Smth'] },
+                    { id: 2, name: 'Adolf Hitler', email: 'adolf@sexymustache.com', performers: ['Grigoriy Alexandrovich',], campaigns: ['Snacks', 'Cheese'] },
 
                 ],
 
@@ -139,6 +140,7 @@
                     { key: 'id', label: '№' },
                     { key: 'name', label: 'Name', sortable: true },
                     { key: 'email', sortable: true, label: 'Email'},
+                    { key: 'performers', sortable: true, 'class': 'table_name_performer' },
                     { key: 'campaigns', sortable: false, label: 'Campaigns' },
                     { key: 'new_pass', label: '', 'class': 'table_label_hidden'},
                     { key: 'change', label: '', 'class': 'table_label_hidden' },

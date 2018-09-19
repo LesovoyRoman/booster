@@ -84,6 +84,38 @@
 
                                 :current-page="currentPage"
                                 :per-page="perPage">
+                            <template slot="HEAD_influencer_checkbox" slot-scope="data" >
+                                <div class="custom-control custom-checkbox">
+                                    <input
+                                            type="checkbox"
+                                            v-model="allSelected"
+                                            :value="true"
+                                            :id="'influencer_checkbox'"
+                                            :name="'influencer_checkbox'"
+                                            class="custom-control-input">
+                                    <label
+                                            @click="selectAll"
+                                            style="display: block"
+                                            class="custom-control-label"
+                                            :for="'influencer_checkbox'"></label>
+                                </div>
+                            </template>
+                            <template slot="influencer_checkbox" slot-scope="data">
+                                <div class="custom-control custom-checkbox">
+                                    <input
+                                            type="checkbox"
+                                            :value="data.item.id"
+                                            v-model="influencersIds"
+                                            @click="select"
+                                            :id="'influencer_checkbox' + data.item.id"
+                                            :name="'influencer_checkbox' + data.item.id"
+                                            class="custom-control-input">
+                                    <label
+                                            style="display: block"
+                                            class="custom-control-label"
+                                            :for="'influencer_checkbox' + data.item.id"></label>
+                                </div>
+                            </template>
                             <template slot="name" slot-scope="data">
                                 <div class="photo_influencer-block">
                                     <i style="cursor: pointer" :class="data.item.star ? 'fa fa-star star_influencer star_active' : 'fa fa-star star_influencer'"  @click="data.item.star = !data.item.star"></i>
@@ -170,7 +202,7 @@
 
                 selected: [],
                 allSelected: false,
-                userIds: [],
+                influencersIds: [],
 
                 filter: null,
                 sortBy: null,
@@ -191,13 +223,13 @@
                     { id: 11, photo: '../images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: true, lang: 'English', action: true },
                 ],
                 fields: [
+                    { key: 'influencer_checkbox', 'class': 'table_label_hidden check-box-influencers' },
                     { key: 'name', sortable: true, 'class': 'name_influncer' },
                     { key: 'channels', sortable: false, 'class': 'channels_influencer' },
                     { key: 'auditory', sortable: true, 'class':'auditory_influencer' },
                     { key: 'age', sortable: true, 'class':'auditory_age_influencer' },
                     { key: 'influence', sortable: true, 'class': 'influence_influencer' },
                     { key: 'action', label: '', 'class': 'table_label_hidden'},
-
                 ]
             }
         },
@@ -217,11 +249,11 @@
             },
             selectAll: function() {
                 vm.allSelected = !vm.allSelected;
-                vm.userIds = [];
+                vm.influencersIds = [];
 
                 if (vm.allSelected) {
-                    vm.activeTable.forEach(function(item){
-                        vm.userIds.push(item.id);
+                    vm.influencers.forEach(function(item){
+                        vm.influencersIds.push(item.id);
                     })
                 }
             },
