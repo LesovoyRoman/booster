@@ -38,7 +38,7 @@
 
                                 <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/ecyF6KStpB8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
 
-                                <b-row  v-for="(channel, index) in influencer.channels" :key="index">
+                                <!--<b-row  v-for="(channel, index) in influencer.channels" :key="index">
                                     <b-col>
                                         <div class="channel-block">
                                             <span class="span-row">Channel: <span class="font500">{{ channel }}</span></span>
@@ -50,7 +50,34 @@
                                         </div>
                                         <div class="margin-top-15"></div>
                                     </b-col>
+                                </b-row>-->
 
+                                <b-row>
+                                    <b-col  v-for="(channel, index) in influencer.channels" :key="index"
+                                            sm="6"
+                                            lg="3">
+                                        <div :class="'social-box relative ' + channel">
+                                            <i :class="'fa fa-' + channel"/>
+                                                <a href="https://iamlink.com" target="_blank">
+                                                    <div class="chart-wrapper ">
+                                                        <social-box-chart-example
+                                                                height="90"/>
+                                                    </div>
+                                                </a>
+                                                <ul>
+                                                    <li>
+                                                        <strong :class="'color-' + channel">Topic</strong>
+                                                        <span>Journeys</span>
+                                                    </li>
+                                                    <li>
+                                                        <strong :class="'color-' + channel">Auditory</strong>
+                                                        <span>250-500</span>
+                                                    </li>
+                                                </ul>
+                                            <div class="clearfix"></div>
+                                            <strong :class="'color-' + channel">{{ channel }}</strong>
+                                        </div>
+                                    </b-col>
                                 </b-row>
 
                             </b-col>
@@ -66,24 +93,19 @@
                                     <b-col  v-for="(campaign, index) in influencerThis.campaigns" :key="index"
                                             sm="6"
                                             lg="3">
-                                            <div :class="'social-box relative ' + campaign.channel">
-                                                <i :class="'fa fa-' + campaign.channel"/>
+                                            <div :class="'block_influencer_campaign relative ' + campaign.quality">
+
                                                 <router-link :id="id = index" :data="campaignTo = { 'campaign_name': campaign.name }" :to="{ name: 'Campaign', params: { campaign: campaignTo, id: id } }" class="link_custom_hidden_influencer">
-                                                    <div class="chart-wrapper ">
+                                                    <div class="inner_block_influener_campaign">
+                                                        <div class="card_campaign_influencer_info">
+                                                            <span class="name">{{ campaign.name }}</span>
+                                                            <img src="~static/img/powerful.png" class="icon-influencer-power" alt="">
+                                                            <span class="influence">{{ campaign.influenceMiddle }}%</span>
+                                                        </div>
                                                         <social-box-chart-example
-                                                                :data="campaign.influence"
-                                                                height="90"/>
+                                                               :data="campaign.influence" height="90" class="custom_chart_campaign_influencer">
+                                                        </social-box-chart-example>
                                                     </div>
-                                                    <ul>
-                                                        <li>
-                                                            <strong>{{ campaign.name }}</strong>
-                                                            <span>Name</span>
-                                                        </li>
-                                                        <li>
-                                                            <strong>{{ campaign.influenceMiddle }}</strong>
-                                                            <span>Influence</span>
-                                                        </li>
-                                                    </ul>
                                                 </router-link>
                                             </div>
                                         <!--/.social-box-->
@@ -116,11 +138,11 @@
 
                 influencerThis: {
                     campaigns: [
-                        {id: 1, name: 'Snacks', influence: [10, 20, 50, 40, 70, 85, 25, 70], influenceMiddle: 0, channel: 'twitter'},
-                        {id: 2, name: 'Cheese', influence: [10, 60, 50, 55, 45, 65, 45, 90], influenceMiddle: 0, channel: 'vk'},
-                        {id: 3, name: 'Sour milk', influence: [70, 30, 20, 80, 90, 75, 40, 70], influenceMiddle: 0, channel: 'youtube'},
-                        {id: 4, name: 'Pizza', influence: [90, 70, 50, 40, 30, 40, 60, 80], influenceMiddle: 0, channel: 'facebook'},
-                    ]
+                        {id: 1, name: 'Snacks', influence: [10, 20, 50, 40, 70, 85, 25, 70], influenceMiddle: 0, quality: '', channel: 'twitter'},
+                        {id: 2, name: 'Cheese', influence: [10, 60, 50, 55, 45, 65, 45, 90], influenceMiddle: 0, quality: '', channel: 'vk'},
+                        {id: 3, name: 'Sour milk', influence: [70, 60, 70, 75, 85, 85, 70, 80], influenceMiddle: 0, quality: '', channel: 'youtube'},
+                        {id: 4, name: 'Pizza', influence: [95, 80, 95, 90, 95, 100, 95, 90], influenceMiddle: 0, quality: '', channel: 'facebook'},
+                    ],
                 }
             }
         },
@@ -132,10 +154,17 @@
             countInfluence(){
                 return this.influencerThis.campaigns.forEach(function(item){
                     arrPoints = 0;
-                     item.influence.forEach(function(item){
-                         arrPoints =+ item;
+                    let i = 0;
+                     item.influence.forEach(function(itemInfluence){
+                         arrPoints = arrPoints + itemInfluence;
+                         i++;
                     });
-                    item.influenceMiddle = Math.floor(arrPoints);
+                    item.influenceMiddle = arrPoints;
+                    item.influenceMiddle = Math.floor(item.influenceMiddle / i);
+                    item.influenceMiddle < 50 ? item.quality = 'lowest' : '';
+                    item.influenceMiddle >= 50 && item.influenceMiddle < 70 ? item.quality = 'low' : '';
+                    item.influenceMiddle >= 70 && item.influenceMiddle < 90 ? item.quality = 'high' : '';
+                    item.influenceMiddle >= 90 ? item.quality = 'highest' : '';
                 })
             }
         },

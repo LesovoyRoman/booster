@@ -12,6 +12,7 @@
 @import "influencersApp";
 @import "border-radius";
 @import "modal-payment";
+@import "custom-chart";
 
 body {
   background: $color-bg-body;
@@ -211,5 +212,78 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
 
   &:hover, &.active, &:active {
     color: $main-color
+  }
+}
+
+.link_custom_hidden_influencer:hover, .link_custom_hidden_influencer:active, .link_custom_hidden_influencer:focus {
+  text-decoration: none !important;
+}
+
+.block_influencer_campaign {
+  position: relative;
+  margin: 15px auto;
+
+  &.highest {
+    background: #53c02f;
+    &:hover, &:active {
+      background: rgba(82, 176, 47, 0.95);
+    }
+  }
+  &.high {
+    background: #00acedb3;
+    &:hover, &:active {
+      background: rgba(0, 145, 203, 0.85);
+    }
+  }
+  &.low {
+    background: #ed6200c9;
+    &:hover, &:active {
+      background: rgba(203, 78, 0, 0.96);
+    }
+  }
+  &.lowest {
+    background: #e7261dd9;
+    &:hover, &:active {
+      background: rgba(203, 35, 26, 0.92);
+    }
+  }
+  border-radius: 20px;
+
+  .card_campaign_influencer_info {
+    position: relative;
+    z-index: 3;
+  }
+
+
+  .inner_block_influener_campaign {
+    padding: 15px;
+    text-align: center;
+
+    .icon-influencer-power {
+      width: 60px;
+      margin-right: 10px;
+      display: inline-block;
+      position: relative;
+      z-index: 2;
+    }
+
+    .name {
+      font-size: 26px;
+      text-align: center;
+      display: block;
+      margin-bottom: 10px;
+      line-height: 40px;
+      font-weight: 500;
+    }
+    .influence {
+      font-size: 26px;
+      font-weight: 500;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 60px;
+    }
+    span, a {
+      color: white;
+    }
   }
 }
