@@ -74,14 +74,15 @@
                             </template>
                             <template slot="name" slot-scope="data">
                                 <span>{{ data.item.name }}</span>
+                                <span class="span-row">{{ data.item.infoPerformer.position }}</span>
                             </template>
                             <template slot="info" slot-scope="row">
-                                <span v-for="(item_info, index) in row.item.infoPerformer" :class="index !== 'brand' ? 'span-row spanBorderBottomTable' : 'span-row'">
-                                    <span class="spanKeyTable">{{ index }}:</span> {{ item_info }}
+                                <span v-for="(item_info, index) in row.item.infoPerformer" :class="index !== 'brand' ? 'span-row spanBorderBottomTable' : 'span-row'" v-if="index !== 'position'">
+                                    {{ item_info }}
                                 </span>
                             </template>
                             <template slot="tariff" slot-scope="row">
-                                <span class="span-row spanBorderBottomTable"><span class="spanKeyTable">Type:</span> {{ row.item.tariff.type }}</span>
+                                <span class="span-row spanBorderBottomTable">{{ row.item.tariff.type }}</span>
                                 <span class="span-row spanBorderBottomTable"><span class="spanKeyTable">From:</span> {{ row.item.tariff.paid }}</span>
                                     <span class="span-row"><span class="spanKeyTable">To:</span> {{ row.item.tariff.by }}</span>
                             </template>

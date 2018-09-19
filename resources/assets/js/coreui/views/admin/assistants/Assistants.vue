@@ -71,11 +71,6 @@
                                             :for="'assistant_checkbox' + data.item.id"></label>
                                 </div>
                             </template>
-                            <template
-                                    slot="name"
-                                    slot-scope="data">
-                                <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, id: id, campaign_name: data.item.campaign } }">{{ data.item.name }}</router-link>
-                            </template>
                             <template slot="performers" slot-scope="row">
                                 <span v-for="(performer, index) in row.item.performers">
                                     {{ performer }}<span v-if="index !== row.item.performers.length - 1">, </span>

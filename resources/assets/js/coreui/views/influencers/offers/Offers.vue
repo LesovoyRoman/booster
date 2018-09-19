@@ -100,16 +100,27 @@
                                             </span>
                                         </div>
                                         <div v-if="row.item.status === 'participate'">
-                                            <span class=""><i class="icon-check"></i>
+                                            <span class="statusOfferParticipating"><i class="icon-check"></i>
                                                 Participating
                                             </span>
                                         </div>
                                         <div v-if="row.item.status === 'choose'">
-                                            <b-button variant="primary" class="font500 uppercase" @click="acceptElement(row)">participate</b-button>
-
-                                            <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
-                                                <i class="icon-close"></i>
-                                            </b-button>
+                                            <b-row v-if="offersCards === true">
+                                                <b-col>
+                                                    <b-button variant="primary" class="font500 uppercase" @click="acceptElement(row)">participate</b-button>
+                                                </b-col>
+                                                <b-col>
+                                                    <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
+                                                        <i class="icon-close"></i>
+                                                    </b-button>
+                                                </b-col>
+                                            </b-row>
+                                            <div v-if="offersCards === false">
+                                                <b-button variant="primary" class="font500 uppercase" @click="acceptElement(row)">participate</b-button>
+                                                <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
+                                                    <i class="icon-close"></i>
+                                                </b-button>
+                                            </div>
                                         </div>
                                     </template>
                                 </b-table>

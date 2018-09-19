@@ -473,6 +473,9 @@ table.table td, table th, table tr{
   }
 }
 
+.statusOfferConsider, .statusOfferParticipating {
+  line-height: 28px;
+}
 
 @media screen and (max-width: 996px)  {
   #table_cards {

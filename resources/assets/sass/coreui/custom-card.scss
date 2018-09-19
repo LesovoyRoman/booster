@@ -115,3 +115,11 @@
     margin: auto 10px;
   }
 }
+
+// logo user
+#account .block_logo_user #logo, #account .block_logo_user #label_logo_user {
+  cursor: pointer;
+  &:hover, &:active {
+    background-color: rgba(0, 0, 0, 0.07);
+  }
+}

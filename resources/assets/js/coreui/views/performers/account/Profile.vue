@@ -16,9 +16,9 @@
                             <b-row>
                                 <b-col md="3" lg="3">
                                     <div class="block_logo_user">
-                                        <img src="~static/img/avatars/8.jpg" alt="" id="logo">
+                                        <img src="~static/img/powerful2.png" ref="img_logo_user" alt="" id="logo">
                                         <label for="logo_user" id="label_logo_user"></label>
-                                        <input name="logo_user" hidden id="logo_user" type="file" accept="image/*">
+                                        <input name="logo_user" @change="changeLogo" hidden id="logo_user" type="file" accept="image/*">
                                     </div>
                                 </b-col>
                                 <b-col md="9" lg="9">
@@ -170,6 +170,7 @@
         data() {
             return {
                 header: 'My profile',
+                logo_user: '',
 
                 user: {
                     email: 'email@user.com',
@@ -195,7 +196,9 @@
             vm = this;
         },
         methods: {
-
+            changeLogo(event){
+                console.log(event.target.files[0]);
+            },
         },
     }
 </script>

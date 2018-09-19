@@ -87,6 +87,47 @@
                                 </div>
 
                             </b-tab>
+
+
+                            <b-tab title="Performer">
+                                <b-row>
+                                    <b-col md="6" lg="3">
+                                        <div class="block_logo_user">
+                                            <img src="~static/img/powerful2.png" alt="" id="logo">
+                                        </div>
+                                    </b-col>
+
+                                    <b-col md="6" lg="3">
+                                        <p class="card-text header_card_simple">Common information</p>
+
+                                        <div class="group-info-custom">
+                                            <p class="paragraph_simple">Name</p>
+
+                                            <span class="span-row">Quentin Tarantino</span>
+
+                                            <p class="paragraph_simple">Work position</p>
+                                            <span class="span-row">Producer</span>
+
+                                            <p class="paragraph_simple">Brand</p>
+                                            <span class="span-row">Tarantino films</span>
+
+                                            <p class="paragraph_simple">Name company</p>
+                                            <span class="span-row">OOO Tarantino</span>
+                                        </div>
+
+                                       <b-row>
+                                            <b-col md="3" lg="3">
+
+                                            </b-col>
+                                            <b-col md="3" lg="3">
+
+                                            </b-col>
+                                       </b-row>
+                                    </b-col>
+                                </b-row>
+                            </b-tab>
+
+
                             <b-tab title="Gifts" :active="tabGifts === true ? 'active' : false">
 
                                 <b-table
@@ -124,6 +165,8 @@
                                 </b-table>
 
                             </b-tab>
+
+
                         </b-tabs>
 
                     </b-card>

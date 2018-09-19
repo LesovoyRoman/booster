@@ -13,6 +13,7 @@
 @import "border-radius";
 @import "modal-payment";
 @import "custom-chart";
+@import "custom-dashboards";
 
 body {
   background: $color-bg-body;
@@ -286,4 +287,8 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
       color: white;
     }
   }
+}
+
+.block_logo_user img {
+  max-width: 100%;
 }

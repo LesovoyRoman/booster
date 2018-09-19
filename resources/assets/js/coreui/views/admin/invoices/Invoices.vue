@@ -74,6 +74,9 @@
                                             :for="'invoice_checkbox' + data.item.id"></label>
                                 </div>
                             </template>
+                            <template slot="campaign_name" slot-scope="data">
+                                <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: false  } }">{{ data.item.campaign_name }}</router-link>
+                            </template>
                             <template slot="tariff_name" slot-scope="data">
                                 <span class="span-row">{{ data.item.tariff_name }}</span>
                             </template>
@@ -141,23 +144,24 @@
                 sortDirection: 'asc',
 
                 invoices: [
-                    { id: 1, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Standart plan', start: '2017.05.21', end: '2017.05.31', status: 'Paid', bill: 5000 },
-                    { id: 2, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Silver plan', start: '2017.05.22', end: '2017.05.09', status: 'Wait to be paid', bill: 4400 },
-                    { id: 3, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Gold plan', start: '2017.05.23', end: '2017.05.29', status: 'Paid', bill: 6400 },
-                    { id: 4, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Standart plan', start: '2017.04.21', end: '2017.03.30', status: 'Paid', bill: 2400 },
-                    { id: 5, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Standart plan', start: '2017.04.25', end: '2017.02.25', status: 'Paid', bill: 3400 },
-                    { id: 6, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Gold plan', start: '2016.05.21', end: '2016.05.29', status: 'Wait to be paid', bill: 1400 },
-                    { id: 7, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Standart plan', start: '2018.05.21', end: '2018.05.31', status: 'Paid', bill: 6700 },
-                    { id: 8, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Gold plan', start: '2017.03.21', end: '2016.11.30', status: 'Paid', bill: 9800 },
-                    { id: 9, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Silver plan', start: '2017.11.31', end: '2014.12.31', status: 'Paid', bill: 54500 },
-                    { id: 10, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Silver plan', start: '2017.05.21', end: '2017.07.18', status: 'Wait to be paid', bill: 3500 },
-                    { id: 11, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Standart plan', start: '2017.03.11', end: '2015.05.31', status: 'Paid', bill: 5600 },
-                    { id: 12, performer_name: 'Grigoriy Alexandrovich', tariff_name: 'Silver plan', start: '2017.02.25', end: '2017.03.15', status: 'Paid', bill: 8400 },
+                    { id: 1, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Standart plan', start: '2017.05.21', end: '2017.05.31', status: 'Paid', bill: 5000 },
+                    { id: 2, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Silver plan', start: '2017.05.22', end: '2017.05.09', status: 'Wait to be paid', bill: 4400 },
+                    { id: 3, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Gold plan', start: '2017.05.23', end: '2017.05.29', status: 'Paid', bill: 6400 },
+                    { id: 4, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Standart plan', start: '2017.04.21', end: '2017.03.30', status: 'Paid', bill: 2400 },
+                    { id: 5, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Standart plan', start: '2017.04.25', end: '2017.02.25', status: 'Paid', bill: 3400 },
+                    { id: 6, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Gold plan', start: '2016.05.21', end: '2016.05.29', status: 'Wait to be paid', bill: 1400 },
+                    { id: 7, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Standart plan', start: '2018.05.21', end: '2018.05.31', status: 'Paid', bill: 6700 },
+                    { id: 8, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Gold plan', start: '2017.03.21', end: '2016.11.30', status: 'Paid', bill: 9800 },
+                    { id: 9, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Silver plan', start: '2017.11.31', end: '2014.12.31', status: 'Paid', bill: 54500 },
+                    { id: 10, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Silver plan', start: '2017.05.21', end: '2017.07.18', status: 'Wait to be paid', bill: 3500 },
+                    { id: 11, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Standart plan', start: '2017.03.11', end: '2015.05.31', status: 'Paid', bill: 5600 },
+                    { id: 12, performer_name: 'Grigoriy Alexandrovich', campaign_name: 'Snacks', tariff_name: 'Silver plan', start: '2017.02.25', end: '2017.03.15', status: 'Paid', bill: 8400 },
                 ],
 
                 fields: [
                     { key: 'invoice_checkbox', 'class': 'table_label_hidden check-box-invoices' },
                     { key: 'performer_name', sortable: true, 'class': 'table_name_performer' },
+                    { key: 'campaign_name', sortable: false, 'class': 'table_name_campaign' },
                     { key: 'tariff_name', sortable: true, 'class': 'table_tariffs' },
                     { key: 'start', sortable: true, 'class': 'table_start' },
                     { key: 'end', sortable: true, 'class': 'table_end' },
