@@ -246,7 +246,7 @@
                         total   : { checked: 87495, all: 165746 },
                     },
                     {
-                        type     : { name: 'Sails' },
+                        type     : { name: 'Sales' },
                         month    : { all: 15000, currency : true },
                         year     : { all: 120000, currency : true  },
                         total    : { all: 600000, currency : true  },

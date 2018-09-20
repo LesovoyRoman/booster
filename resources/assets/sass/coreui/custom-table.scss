@@ -202,6 +202,10 @@ table.table td, table th, table tr{
 
 #table_cards {
 
+  .check-box-influencers {
+    display: none;
+  }
+
   .influencer-name-block, .gift-name-block {
     line-height: initial;
   }
@@ -485,6 +489,8 @@ table.table td, table th, table tr{
         margin: 15px 1%;
       }
     }
+
+
   }
 }
 

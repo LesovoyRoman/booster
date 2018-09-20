@@ -42,6 +42,27 @@
     }
   }
 
+  .card-tariff-dashboard {
+    width: 250px;
+    padding: 15px;
+    background: #888a8c21;
+    //height: 200px;
+    max-width: 100%;
+    color: #777372;
+    border-radius: 4px;
+
+    h5,h6,h3, h4, span {
+      color: #4d4948;
+    }
+
+    h5, h6 {
+      margin-bottom: 1px;
+    }
+
+    .heaader_tariff {
+      color: #d44816a1
+    }
+  }
 
   .card-gift-dashboard {
     width: 200px;
