@@ -6,7 +6,7 @@
         <default-dashboard></default-dashboard>
       </b-tab>
 
-      <b-tab title="Admin" active>
+      <b-tab title="Admin">
         <admin-dashboard></admin-dashboard>
       </b-tab>
 
@@ -14,8 +14,8 @@
 
       </b-tab>
 
-      <b-tab title="Influencer">
-
+      <b-tab title="Influencer" active>
+        <influencer-dashboard></influencer-dashboard>
       </b-tab>
 
     </b-tabs>
@@ -28,6 +28,7 @@
 
   import DefaultDashboard from './dashboardsRoles/Default.vue'
   import AdminDashboard from './dashboardsRoles/Admin.vue'
+  import InfluencerDashboard from './dashboardsRoles/Influencer.vue'
 
   export default {
       name: 'Dashboard',
@@ -38,7 +39,8 @@
       },
       components: {
           DefaultDashboard,
-          AdminDashboard
+          AdminDashboard,
+          InfluencerDashboard
       }
   }
 

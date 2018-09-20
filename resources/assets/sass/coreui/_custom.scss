@@ -120,6 +120,10 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
   text-align: center;
 }
 
+.inline-block {
+  display: inline-block !important;
+}
+
 .main {
   position: relative;
   padding-bottom: 50px;

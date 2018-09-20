@@ -22191,6 +22191,70 @@ table tr,
   margin: 15px auto;
 }
 
+#dashboard .list-campaigns-dashboard strong {
+  display: inline-block;
+}
+
+#dashboard .list-campaigns-dashboard .desc {
+  margin-left: 0;
+}
+
+#dashboard .list-campaigns-dashboard .value {
+  right: 0;
+}
+
+#dashboard .gift {
+  text-align: center;
+  margin: 0 auto;
+}
+
+#dashboard .list_custom_scope {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+#dashboard .list_custom_scope li {
+  list-style: none;
+  text-align: center;
+  padding: 0 10px;
+}
+
+#dashboard .card-gift-dashboard {
+  width: 200px;
+  padding: 15px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#dashboard .card-gift-dashboard img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto 15px auto;
+}
+
+@media screen and (max-width: 991px) {
+  #dashboard .list_custom_scope {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+
+  #dashboard .list_custom_scope .text-muted {
+    display: inline-block;
+  }
+}
+
 body {
   background: #f0f0f0;
 }
@@ -22310,6 +22374,10 @@ li {
   height: 19px;
   display: inline-block;
   text-align: center;
+}
+
+.inline-block {
+  display: inline-block !important;
 }
 
 .main {
