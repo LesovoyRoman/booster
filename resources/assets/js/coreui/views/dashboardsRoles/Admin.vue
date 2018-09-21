@@ -4,25 +4,11 @@
 
             <b-col sm="6" lg="3">
                 <Callout variant="primary">
-                    <small class="text-muted">All assistants</small><br>
-                    <strong class="h5">107</strong>
+                    <small class="text-muted">All performers</small><br>
+                    <strong class="h5">79</strong>
                     <div class="chart-wrapper">
                         <callout-chart-example
-                                :data="[78, 81, 80, 45, 34, 12, 40]"
-                                variant="#4875B4"
-                                width="80"
-                                height="30" />
-                    </div>
-                </Callout>
-            </b-col>
-
-            <b-col sm="6" lg="3">
-                <Callout variant="primary">
-                    <small class="text-muted">All users</small><br>
-                    <strong class="h5">9572</strong>
-                    <div class="chart-wrapper">
-                        <callout-chart-example
-                                :data="[35, 43, 56, 49, 68, 78, 80]"
+                                :data="[32, 45, 63, 68, 72, 78, 90]"
                                 variant="#4875B4"
                                 width="80"
                                 height="30" />
@@ -46,11 +32,25 @@
 
             <b-col sm="6" lg="3">
                 <Callout variant="primary">
-                    <small class="text-muted">All performers</small><br>
-                    <strong class="h5">79</strong>
+                    <small class="text-muted">All users</small><br>
+                    <strong class="h5">9572</strong>
                     <div class="chart-wrapper">
                         <callout-chart-example
-                                :data="[32, 45, 63, 68, 72, 78, 90]"
+                                :data="[35, 43, 56, 49, 68, 78, 80]"
+                                variant="#4875B4"
+                                width="80"
+                                height="30" />
+                    </div>
+                </Callout>
+            </b-col>
+
+            <b-col sm="6" lg="3">
+                <Callout variant="primary">
+                    <small class="text-muted">All assistants</small><br>
+                    <strong class="h5">107</strong>
+                    <div class="chart-wrapper">
+                        <callout-chart-example
+                                :data="[78, 81, 80, 45, 34, 12, 40]"
                                 variant="#4875B4"
                                 width="80"
                                 height="30" />
@@ -60,10 +60,11 @@
 
         </b-row>
 
-        <b-card>
-            <b-row>
-                <b-col lg="6" sm="12">
-                    <h4>Auditory</h4>
+
+        <b-row>
+            <b-col lg="6" sm="12">
+                <b-card>
+                <h4>Auditory</h4>
                     <ul class="horizontal-bars type-2">
                         <li>
                             <i class="icon-social-youtube"/>
@@ -114,9 +115,11 @@
                             </div>
                         </li>
                     </ul>
-                </b-col>
+                </b-card>
+            </b-col>
 
-                <b-col lg="6" sm="12">
+            <b-col lg="6" sm="12">
+                <b-card>
                     <h4>Tariffs</h4>
                     <ul class="horizontal-bars type-2">
                         <li>
@@ -153,10 +156,9 @@
                             </div>
                         </li>
                     </ul>
-                </b-col>
-            </b-row>
-        </b-card>
-
+                </b-card>
+            </b-col>
+        </b-row>
 
         <b-row>
             <b-col>
@@ -178,7 +180,7 @@
                                 <small class="text-muted">(Checked)</small>
                             </span>
                             <span>
-                                {{ item.value.all }}<small class="text-muted" v-if="item.value.currency">$</small>
+                                <span v-if="item.value.currency">$</span>{{ item.value.all }}
                                 <small class="text-muted" v-if="!item.value.currency">(All)</small>
                             </span>
                         </div>
@@ -187,7 +189,7 @@
                                 <small class="text-muted">(Checked)</small>
                             </span>
                             <span>
-                                {{ item.value.all }}<small class="text-muted" v-if="item.value.currency">$</small>
+                                <span v-if="item.value.currency">$</span>{{ item.value.all }}
                                 <small class="text-muted" v-if="!item.value.currency">(All)</small>
                             </span>
                         </div>
@@ -196,7 +198,7 @@
                                 <small class="text-muted">(Checked)</small>
                             </span>
                             <span>
-                                {{ item.value.all }}<small class="text-muted" v-if="item.value.currency">$</small>
+                                <span v-if="item.value.currency">$</span>{{ item.value.all }}
                                 <small class="text-muted" v-if="!item.value.currency">(All)</small>
                             </span>
                         </div>
@@ -240,12 +242,6 @@
             return {
                 tableItems: [
                     {
-                        type    : { name: 'Points' },
-                        month   : { checked: 5432, all: 9572 },
-                        year    : { checked: 18596, all: 39704 },
-                        total   : { checked: 87495, all: 165746 },
-                    },
-                    {
                         type     : { name: 'Sales' },
                         month    : { all: 15000, currency : true },
                         year     : { all: 120000, currency : true  },
@@ -269,6 +265,12 @@
                         month   : { all: 100 },
                         year    : { all: 900 },
                         total   : { all: 2750 },
+                    },
+                    {
+                        type    : { name: 'Points' },
+                        month   : { checked: 5432, all: 9572 },
+                        year    : { checked: 18596, all: 39704 },
+                        total   : { checked: 87495, all: 165746 },
                     },
                 ],
                 tableFields: {

@@ -6,6 +6,7 @@
                     <h4 class="heaader_tariff">Tariff</h4>
                     <h5>{{ performer.tariff.type }}</h5>
                     <h6>Until: {{ performer.tariff.until }}</h6>
+                    <h5>1%</h5>
                 </div>
             </b-col>
 
@@ -121,7 +122,7 @@
                                 <small class="text-muted">(Checked)</small>
                             </span>
                             <span>
-                                {{ item.value.all }}<small class="text-muted" v-if="item.value.currency">$</small>
+                                <span v-if="item.value.currency">$</span>{{ item.value.all }}
                                 <small class="text-muted" v-if="!item.value.currency">(All)</small>
                             </span>
                         </div>
@@ -130,7 +131,7 @@
                                 <small class="text-muted">(Checked)</small>
                             </span>
                             <span>
-                                {{ item.value.all }}<small class="text-muted" v-if="item.value.currency">$</small>
+                                <span v-if="item.value.currency">$</span>{{ item.value.all }}
                                 <small class="text-muted" v-if="!item.value.currency">(All)</small>
                             </span>
                         </div>
@@ -139,7 +140,7 @@
                                 <small class="text-muted">(Checked)</small>
                             </span>
                             <span>
-                                {{ item.value.all }}<small class="text-muted" v-if="item.value.currency">$</small>
+                                <span v-if="item.value.currency">$</span>{{ item.value.all }}
                                 <small class="text-muted" v-if="!item.value.currency">(All)</small>
                             </span>
                         </div>
@@ -174,14 +175,14 @@
                         type     : { name: 'Sales' },
                         month    : { all: 15000, currency : true },
                         year     : { all: 120000, currency : true  },
-                        total    : { all: 600000, currency : true  },
+                        total    : { all: 600, currency : true  },
 
                     },
                     {
-                        type    : { name: 'Turnover' },
+                        type    : { name: 'Turnover percentage' },
                         month   : { all: 300000, currency : true  },
                         year    : { all: 1000000, currency : true  },
-                        total   : { all: 7000000, currency : true  },
+                        total   : { all: 7000, currency : true  },
                     },
                 ],
                 tableFields: {

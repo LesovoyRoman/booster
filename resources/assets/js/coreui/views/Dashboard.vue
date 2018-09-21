@@ -2,7 +2,7 @@
   <div class="animated fadeIn" id="dashboard">
     <b-tabs pills>
 
-      <b-tab title="Default" no-body>
+      <b-tab title="Default">
         <default-dashboard></default-dashboard>
       </b-tab>
 
