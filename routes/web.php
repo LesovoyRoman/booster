@@ -14,7 +14,7 @@
 
 Route::get('/{any}', function () {
     return view('appcustom');
-})->where('any', '.*')->middleware('appWay');
+})->where('any', '.*')->middleware('appWay'); // checking role
 
 Route::post('/userrole', 'HomeController@index');
 

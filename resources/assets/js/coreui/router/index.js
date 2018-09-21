@@ -1,3 +1,6 @@
+const role = localStorage.getItem('user_role');
+
+
 import Vue from 'vue'
 import Router from 'vue-router'
 
@@ -123,7 +126,7 @@ import ProfileCampaign from '@/views/influencers/profileCampaign/ProfileCampaign
 
 import Influencer from '@/views/influencers/Influencer'
 
-/// admin
+
 import InfluencersListAdmin from '@/views/admin/influencers/InfluencersAdmin'
 import UsersListAdmin from '@/views/admin/users/Users'
 import InvoicesListAdmin from '@/views/admin/invoices/Invoices'
@@ -148,6 +151,7 @@ export default new Router({
           path     : 'dashboard',
           name     : 'Dashboard',
           component: Dashboard,
+            meta: {dashboard: true}
         },
         {
             path: 'tariffs',
@@ -329,45 +333,55 @@ export default new Router({
                 },
             ],
         },
-          // INFLUENCERS
 
+          // INFLUENCERS
         {
             path: 'offers',
             name: 'Offers',
-            component: Offers
+            component: Offers,
+            meta: { role_influencer: true },
         },
         {
           path: 'invites',
           name: 'Invites',
-          component: Invites
+          component: Invites,
+            meta: { role_influencer: true },
         },
         {
           path: 'points',
           name: 'Points',
-          component: Points
+          component: Points,
+            meta: { role_influencer: true },
         },
         {
           /* @todo change path */
           path: 'influencer-campaigns',
           name: 'CampaignsInfluencer',
-          component: MyCampaignsI
+          component: MyCampaignsI,
+            meta: { role_influencer: true },
         },
         {
           path: 'catalog-gifts',
           name: 'CatalogGifts',
-          component: CatalogGifts
+          component: CatalogGifts,
+            meta: { role_influencer: true },
         },
         {
           path: 'my-gifts',
           name: 'MyGifts',
-          component: MyGifts
+          component: MyGifts,
+            meta: { role_influencer: true },
         },
         {
           path     : 'profile-campaign-id-:id',
           name     : 'ProfileCampaign',
           component: ProfileCampaign,
           props: true,
+            meta: { role_influencer: true },
         },
+
+
+          // ????
         {
           path     : 'influencer-id-:id',
           name     : 'Influencer',
@@ -376,11 +390,11 @@ export default new Router({
         },
 
           /// admin
-
         {
             path     : '/admin/',
             name     : 'Admin',
             redirect : 'admin/users',
+            meta: { role_admin: true },
             component: {
                 render (c) { return c('router-view') },
             },
@@ -388,27 +402,32 @@ export default new Router({
                 {
                     path      : '/admin/influencers',
                     name      : 'InfluencersAdmin',
-                    component : InfluencersListAdmin
+                    component : InfluencersListAdmin,
+                    meta: { role_admin: true },
                 },
                 {
                     path      : '/admin/users',
                     name      : 'UsersAdmin',
-                    component : UsersListAdmin
+                    component : UsersListAdmin,
+                    meta: { role_admin: true },
                 },
                 {
                     path      : '/admin/invoices',
                     name      : 'InvoicesAdmin',
-                    component : InvoicesListAdmin
+                    component : InvoicesListAdmin,
+                    meta: { role_admin: true },
                 },
                 {
                     path      : '/admin/performers',
                     name      : 'PerformersAdmin',
-                    component : PerformersListAdmin
+                    component : PerformersListAdmin,
+                    meta: { role_admin: true },
                 },
                 {
                     path      : '/admin/assistants',
                     name      : 'AssistantsAdmin',
-                    component : AssistantsListAdmin
+                    component : AssistantsListAdmin,
+                    meta: { role_admin: true },
                 }
             ]
         },
@@ -654,3 +673,5 @@ export default new Router({
     },
   ],
 })
+
+

@@ -109,6 +109,10 @@ import SidebarNavLink from './SidebarNavLink'
 import SidebarNavTitle from './SidebarNavTitle'
 import SidebarNavItem from './SidebarNavItem'
 import SidebarNavLabel from './SidebarNavLabel'
+
+let vm = {};
+const user_role = localStorage.getItem('user_role');
+
 export default {
   name : 'Sidebar',
   props: {
@@ -129,6 +133,19 @@ export default {
     SidebarNavTitle,
     SidebarNavItem,
     SidebarNavLabel,
+  },
+  mounted(){
+      vm = this;
+      this.navItems.forEach(function (item, index) {
+          if ("meta" in item) {
+              if('role_admin' in item.meta && user_role !== 'admin'){
+                  vm.navItems.splice(index, 1) // only nav for admin
+              }
+
+              console.log('meta in nav -> ');
+              console.log(item);
+          }
+      })
   },
   methods: {
     handleClick (e) {

@@ -58,9 +58,22 @@
                     },
                     withCredentials: true
                 }).then(function (response) {
-                    if(response.data === 1111) {
+                    console.log('response->');
+                    console.log(response)
+                    if(response.data === 1) {
+                        // admin
+                        window.location.href = '/dashboard';
+                    } else if (response.data === 2) {
+                        // performer
+                        window.location.href = '/dashboard';
+                    }  else if (response.data === 3) {
+                        // influencer
+                        window.location.href = '/dashboard';
+                    }  else if (response.data === 4) {
+                        // assistant
                         window.location.href = '/dashboard';
                     } else {
+                        // user
                         switch (response.status) {
                             case 200:
                                 vmThis.$root.statusAuth(true, '/');
@@ -72,6 +85,7 @@
                     }
                 })
                     .catch(error => {
+                        console.log('error->');
                         console.log(error.response);
                         vmThis.$root.updateCrsf();
                     });

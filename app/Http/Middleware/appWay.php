@@ -19,9 +19,20 @@ class appWay
     public function handle($request, Closure $next)
     {
         if(Auth::id()) {
-            return new Response(view('app'));
+            $user = auth()->user();
+            $user_role = [ 'user_role' => $user->user_role ];
+
+            if ($user->user_role == 'admin'
+                || $user->user_role == 'performer'
+                || $user->user_role == 'influencer'
+                || $user->user_role == 'assistant') {
+                return new Response(view('app', $user_role));
+            } else {
+                return $next($request);
+            }
         } else {
             return $next($request);
         }
+
     }
 }

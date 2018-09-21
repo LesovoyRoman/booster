@@ -1,24 +1,13 @@
 <template>
   <div class="animated fadeIn" id="dashboard">
-    <b-tabs pills>
 
-      <b-tab title="Default">
-        <default-dashboard></default-dashboard>
-      </b-tab>
+        <default-dashboard v-if="user_role === 'default'"></default-dashboard>
 
-      <b-tab title="Admin">
-        <admin-dashboard></admin-dashboard>
-      </b-tab>
+        <admin-dashboard v-if="user_role === 'admin'"></admin-dashboard>
 
-      <b-tab title="Performer" active>
-        <performer-dashboard></performer-dashboard>
-      </b-tab>
+        <performer-dashboard v-if="user_role === 'performer'"></performer-dashboard>
 
-      <b-tab title="Influencer">
-        <influencer-dashboard></influencer-dashboard>
-      </b-tab>
-
-    </b-tabs>
+        <influencer-dashboard v-if="user_role === 'influencer'"></influencer-dashboard>
 
   </div>
 </template>
@@ -35,7 +24,7 @@
       name: 'Dashboard',
       data(){
           return {
-
+              user_role: localStorage.getItem('user_role')
           }
       },
       components: {
@@ -43,6 +32,9 @@
           AdminDashboard,
           InfluencerDashboard,
           PerformerDashboard
+      },
+      created(){
+
       }
   }
 

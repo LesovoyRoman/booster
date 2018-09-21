@@ -161,30 +161,36 @@ export default {
           name    : 'Admin',
           url     : '/admin/',
           icon    : 'fa fa-user-circle-o',
+          meta: { role_admin: true },
           children: [
               {
                   url       : '/admin/influencers',
                   name      : 'Influencers',
-                  icon      : 'fa fa-group'
+                  icon      : 'fa fa-group',
+                  meta: { role_admin: true },
               },
               {
                   url       : '/admin/users',
                   name      : 'Users',
+                  meta: { role_admin: true },
                   icon      : 'fa fa-address-book'
               },
               {
                   url       : '/admin/performers',
                   name      : 'Performers',
+                  meta: { role_admin: true },
                   icon      : 'fa fa-drivers-license'
               },
               {
                   url       : '/admin/assistants',
                   name      : 'Assistants',
+                  meta: { role_admin: true },
                   icon      : 'fa fa-handshake-o'
               },
               {
                   url       : '/admin/invoices',
                   name      : 'Invoices',
+                  meta: { role_admin: true },
                   icon      : 'fa fa-external-link-square'
               },
           ],

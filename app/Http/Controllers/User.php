@@ -15,8 +15,9 @@ class User extends Controller
 
     public function authCheck()
     {
+        $user = auth()->user();
         if (Auth::user()) {
-            return 200;
+            return $user->user_role;
         } else {
             return 500;
         }

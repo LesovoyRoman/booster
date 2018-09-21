@@ -96,7 +96,7 @@
 
     export default {
         props: ['influencer', 'campaign_name'],
-        name: 'Influencerbonuses',
+        name: 'InfluencerBonuses',
         data () {
             return {
                 header: 'Bonuses of',
