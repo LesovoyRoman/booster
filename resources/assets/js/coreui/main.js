@@ -19,8 +19,10 @@ Vue.use(BootstrapVue)
 Vue.use(Notifications)
 Vue.use(Sweetalert)
 
+
 console.log('router user role -> ' + role_meta)
 
+getRole();
 router.beforeEach((to, from, next) => {
     if (to.meta.role_admin && role_meta !== 'admin') {
         next({ name: 'dashboard' })
@@ -49,19 +51,21 @@ function getRole() {
     ).then(response => {
         if(response.data === 500) {
           // notRegistered
+            document.querySelector('meta[name="user_role"]').setAttribute('content', '0'); // setting user
         } else {
-          console.log('user_role ' + response.data)
-          localStorage.setItem('user_role', response.data);
+            console.log('user_role ' + response.data)
+            document.querySelector('meta[name="user_role"]').setAttribute('content', response.data); // setting user
+            localStorage.setItem('user_role', response.data);
         }
     })
     .catch(error => {
         localStorage.setItem('user_role', false);
+        document.querySelector('meta[name="user_role"]').setAttribute('content', '0'); // setting user
 
         // @todo break app!
     });
-
 }
-getRole();
+
 
 window.Vue = new Vue({
   el        : '#app',

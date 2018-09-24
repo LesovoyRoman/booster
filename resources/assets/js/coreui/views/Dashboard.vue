@@ -1,7 +1,7 @@
 <template>
   <div class="animated fadeIn" id="dashboard">
 
-        <default-dashboard v-if="user_role === 'default'"></default-dashboard>
+        <!--<default-dashboard v-if="user_role === 'default'"></default-dashboard>-->
 
         <admin-dashboard v-if="user_role === 'admin'"></admin-dashboard>
 
@@ -15,7 +15,7 @@
 <script>
   let vm = {};
 
-  import DefaultDashboard from './dashboardsRoles/Default.vue'
+  /*import DefaultDashboard from './dashboardsRoles/Default.vue'*/
   import AdminDashboard from './dashboardsRoles/Admin.vue'
   import InfluencerDashboard from './dashboardsRoles/Influencer.vue'
   import PerformerDashboard from './dashboardsRoles/Performer.vue'
@@ -28,7 +28,7 @@
           }
       },
       components: {
-          DefaultDashboard,
+          /*DefaultDashboard,*/
           AdminDashboard,
           InfluencerDashboard,
           PerformerDashboard

@@ -111,7 +111,6 @@ import SidebarNavItem from './SidebarNavItem'
 import SidebarNavLabel from './SidebarNavLabel'
 
 let vm = {};
-const user_role = localStorage.getItem('user_role');
 
 export default {
   name : 'Sidebar',
@@ -121,6 +120,11 @@ export default {
       required: true,
       default : () => [],
     },
+  },
+  data(){
+    return {
+        user_role: localStorage.getItem('user_role')
+    }
   },
   components: {
     SidebarFooter,
@@ -136,9 +140,10 @@ export default {
   },
   mounted(){
       vm = this;
+      console.log('role sidebar -> ' + vm.user_role)
       this.navItems.forEach(function (item, index) {
           if ("meta" in item) {
-              if('role_admin' in item.meta && user_role !== 'admin'){
+              if('role_admin' in item.meta && vm.user_role !== 'admin'){
                   vm.navItems.splice(index, 1) // only nav for admin
               }
 

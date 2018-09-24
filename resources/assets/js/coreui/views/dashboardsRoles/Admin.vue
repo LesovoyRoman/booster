@@ -62,6 +62,38 @@
 
 
         <b-row>
+            <b-col>
+                <h4>All points</h4>
+                <div class="chart-wrapper">
+                    <b-button-toolbar
+                            class="float-right"
+                            aria-label="Toolbar with buttons group">
+                        <b-form-radio-group
+                                class="mr-3"
+                                id="radiosBtn"
+                                buttons
+                                button-variant="outline-secondary"
+                                v-model="selected"
+                                name="radiosBtn">
+                            <b-form-radio
+                                    class="mx-0"
+                                    value="days">Days</b-form-radio>
+                            <b-form-radio
+                                    class="mx-0"
+                                    value="months">Months</b-form-radio>
+                            <b-form-radio
+                                    class="mx-0"
+                                    value="years">Years</b-form-radio>
+                        </b-form-radio-group>
+                    </b-button-toolbar>
+                    <main-chart :options="options" style="height:300px;margin-top:10px; margin-bottom: 30px;"
+                                height="300"></main-chart>
+                </div>
+            </b-col>
+        </b-row>
+
+
+        <b-row>
             <b-col lg="6" sm="12">
                 <b-card>
                 <h4>Auditory</h4>
@@ -217,9 +249,17 @@
     import { Callout } from '../../components'
     import CalloutChartExample from './../dashboard/CalloutChartExample'
     import CardLine3ChartExample from './../dashboard/CardLine3ChartExample'
+    import MainChart from './../charts/CustomMain.vue'
 
     export default {
         name: 'AdminDashboard',
+        watch: {
+            selected: function() {
+                this.selected === 'months' ? this.options = this.options2 : this.options
+                this.selected === 'days' ? this.options = this.options1 : this.options
+                this.selected === 'years' ? this.options = this.options3 : this.options
+            }
+        },
         methods: {
             flag (value) {
                 return `flag-icon flag-icon-${value}`
@@ -240,6 +280,32 @@
         },
         data(){
             return {
+                selected: 'days',
+
+                options: {
+                    label: 'Days',
+                    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                    datas: [3002, 7006, 3005, 6000, 3002, 6005, 1002, 8700, 4500, 1003, 6700, 4500, 8700, 3004, 2300, 6000, 3200, 6500, 1200, 8700, 2003, 9600, 11002, 4500, 7300, 9009, 4300, 2500]
+                },
+
+                options1: {
+                    label: 'Days',
+                    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                    datas: [3002, 7006, 3005, 6000, 3002, 6005, 1002, 8700, 4500, 1003, 6700, 4500, 8700, 3004, 2300, 6000, 3200, 6500, 1200, 8700, 2003, 9600, 11002, 4500, 7300, 9009, 4300, 2500]
+                },
+
+                options2: {
+                    label: 'Months',
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    datas: [350000, 600000, 320000, 650000, 120000, 870000, 450000, 130000, 670000, 450000, 870000, 340000, 230000]
+                },
+
+                options3: {
+                    label: 'Years',
+                    labels: ['2015', '2016', '2017', '2018', '2019'],
+                    datas: [250000000, 450000000, 300000000, 800000000, 900000000]
+                },
+
                 tableItems: [
                     {
                         type     : { name: 'Sales' },
@@ -293,6 +359,7 @@
             Callout,
             CardLine3ChartExample,
             CalloutChartExample,
+            MainChart,
         },
     }
 </script>

@@ -20,61 +20,79 @@
     export default {
         extends: Line,
         props  : ['height', 'options'],
+        data(){
+          return {
+              max: 0,
+          }
+        },
         methods: {
             createChart(){
-
-                this.renderChart({
-                    labels  : vm.options.labels,
-                    datasets: [
-                        {
-                            label                    : vm.options.label,
-                            backgroundColor          : convertHex(brandInfo, 10),
-                            borderColor              : brandInfo,
-                            pointHoverBackgroundColor: '#fff',
-                            borderWidth              : 2,
-                            data                     : vm.options.datas,
-                        },
-                        {
-                            label                    : vm.options.labelAdd,
-                            backgroundColor          : convertHex(brandInfo, 25),
-                            borderColor              : brandInfo,
-                            pointHoverBackgroundColor: '#fff',
-                            borderWidth              : 2,
-                            data                     : vm.options.datasAdd,
-                        },
-                    ],
-                }, {
-                    maintainAspectRatio: false,
-                    legend             : {
-                        display: false,
-                    },
-                    scales: {
-                        xAxes: [{
-                            gridLines: {
-                                drawOnChartArea: false,
+                vm.max = 0;
+                new Promise (function (resolve, reject) {
+                    vm.options.datas.forEach(function (item) {
+                        vm.max < item ? vm.max = item : vm.max
+                    });
+                    console.log(vm.max)
+                    resolve();
+                }).then(chart => {
+                    this.renderChart({
+                        labels  : vm.options.labels,
+                        datasets: [
+                            {
+                                label                    : vm.options.label,
+                                backgroundColor          : convertHex(brandInfo, 10),
+                                borderColor              : brandInfo,
+                                pointHoverBackgroundColor: '#fff',
+                                borderWidth              : 2,
+                                data                     : vm.options.datas,
                             },
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero  : true,
-                                maxTicksLimit: 5,
-                                stepSize     : Math.ceil(250 / 5),
-                                max          : 250,
+                            {
+                                label                    : vm.options.labelAdd,
+                                backgroundColor          : convertHex(brandInfo, 25),
+                                borderColor              : brandInfo,
+                                pointHoverBackgroundColor: '#fff',
+                                borderWidth              : 2,
+                                data                     : vm.options.datasAdd,
                             },
-                            gridLines: {
-                                display: true,
-                            },
-                        }],
-                    },
-                    elements: {
-                        point: {
-                            radius          : 0,
-                            hitRadius       : 10,
-                            hoverRadius     : 4,
-                            hoverBorderWidth: 3,
+                        ],
+                    }, {
+                        maintainAspectRatio: false,
+                        legend             : {
+                            display: false,
                         },
-                    },
+                        scales: {
+                            xAxes: [{
+                                gridLines: {
+                                    drawOnChartArea: false,
+                                },
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero  : true,
+                                    maxTicksLimit: 5,
+                                    stepSize     : Math.ceil(vm.max / 5),
+                                    max          : vm.max,
+                                },
+                                gridLines: {
+                                    display: true,
+                                },
+                            }],
+                        },
+                        elements: {
+                            point: {
+                                radius          : 0,
+                                hitRadius       : 10,
+                                hoverRadius     : 4,
+                                hoverBorderWidth: 3,
+                            },
+                        },
+                    })
+                }).catch(err => {
+                    console.log(err.message)
                 })
+
+
+
             }
         },
         mounted () {
