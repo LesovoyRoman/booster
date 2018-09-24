@@ -84,11 +84,6 @@
                         }
                     }
                 })
-                    .catch(error => {
-                        console.log('error->');
-                        console.log(error.response);
-                        vmThis.$root.updateCrsf();
-                    });
             },
         },
         created () {

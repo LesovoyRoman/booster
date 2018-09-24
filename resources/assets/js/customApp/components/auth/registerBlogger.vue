@@ -204,7 +204,8 @@
                     name: this.credentials.name,
                     email: this.credentials.email,
                     password: this.credentials.password,
-                    password_confirmation: this.credentials.password_confirmation
+                    password_confirmation: this.credentials.password_confirmation,
+                    user_role: 'influencer'
                 };
                 axios.post(this.actionURI, dataCredentials, {
                     headers: {
@@ -214,19 +215,21 @@
                     },
                     withCredentials: true
                 }).then(function (response) {
+                    console.log(response)
                     switch(response.status) {
                         case 200:
                             vmThis.$root.statusAuth(false, '/login');
+                            window.location.href = '/dashboard';
                             break;
 
                         default:
                             break
                     }
-                })
+                })/*
                     .catch(error => {
                         console.log(error.response);
                         vmThis.$root.updateCrsf();
-                    });
+                    });*/
 
             },
             prevStep() {

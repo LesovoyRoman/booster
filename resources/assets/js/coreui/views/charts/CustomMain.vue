@@ -32,7 +32,6 @@
                     vm.options.datas.forEach(function (item) {
                         vm.max < item ? vm.max = item : vm.max
                     });
-                    console.log(vm.max)
                     resolve();
                 }).then(chart => {
                     this.renderChart({

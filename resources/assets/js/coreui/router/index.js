@@ -156,17 +156,20 @@ export default new Router({
         {
             path: 'tariffs',
             name: 'Tariff Plan',
-            component: TariffPlan
+            component: TariffPlan,
+            meta: { role_performer: true },
         },
         {
             path: 'assistants',
             name: 'Assistants',
-            component: AssistantsList
+            component: AssistantsList,
+            meta: { role_performer: true },
         },
         {
               path     : 'gifts',
               name     : 'Gifts',
               redirect: '/gifts/all-gifts',
+              meta: { role_performer: true },
               component: {
                   render (c) {
                       return c('router-view')
@@ -176,17 +179,20 @@ export default new Router({
                   {
                       path      : 'all-gifts',
                       name      : 'GiftsList',
-                      component : GiftsList
+                      component : GiftsList,
+                      meta: { role_performer: true },
                   },
                   {
                       path      : 'create-gift',
                       name      : 'CreateGift',
-                      component : CreateGift
+                      component : CreateGift,
+                      meta: { role_performer: true },
                   },
                   {
                       path      : 'ordered-gifts',
                       name      : 'OrderedGifts',
-                      component : OrderedGifts
+                      component : OrderedGifts,
+                      meta: { role_performer: true },
                   }
               ],
         },
@@ -194,6 +200,7 @@ export default new Router({
             path: 'invoices',
             name: 'Invoices',
             redirect: '/invoices/all',
+            meta: { role_performer: true },
             component: {
                 render (c) {
                     return c('router-view')
@@ -203,25 +210,29 @@ export default new Router({
                 {
                     path: '/invoices/all',
                     name: 'InvoicesList',
-                    component: InvoicesList
+                    component: InvoicesList,
+                    meta: { role_performer: true },
                 },
                 {
                     path: 'invoices/invoice-id-:id',
                     name: 'Invoice',
                     component: Invoice,
-                    props: true
+                    props: true,
+                    meta: { role_performer: true },
                 }
             ]
         },
         {
             path: 'influencers',
             name: 'Influencers',
-            component: InfluencersList
+            component: InfluencersList,
+            meta: { role_performer: true },
         },
         {
             path: 'new-assistant',
             name: 'CreateAssistant',
-            component: CreateAssistant
+            component: CreateAssistant,
+            meta: { role_performer: true },
         },
         {
             path: 'account',
@@ -234,23 +245,25 @@ export default new Router({
             },
             children: [
                 {
-                    path      : 'profile',
+                    path      : '/account/profile',
                     name      : 'Profile',
                     //component : ProfileP // performer
-                    component : ProfileI // influencer
-                }
+                    component : ProfileI, // influencer
+                    meta: { role_influencer: true },
+                },
+                {
+                    path      : '/account/profile',
+                    name      : 'Profile',
+                    component : ProfileP, // performer
+                    meta: { role_performer: true },
+                },
             ]
         },
-          // tmp
-          {
-              path      : '/profile-performer',
-              name      : 'Profile',
-              component : ProfileP // performer
-          },
         {
             path: 'campaigns',
             redirect: '/campaigns/my-campaigns',
             name: 'Campaigns',
+            meta: { role_performer: true },
             component: {
                 render (c) {
                     return c('router-view')
@@ -261,11 +274,13 @@ export default new Router({
                     path     : 'checking-bonuses',
                     name     : 'CheckingBonuses',
                     component: CheckingBonuses,
+                    meta: { role_performer: true },
                 },
                 {
                   path       : 'add-new',
                   name       : 'AddNewCampaign',
-                  component  : NewCompany
+                  component  : NewCompany,
+                  meta: { role_performer: true },
                 },
                 {
                     path     : 'feedbacks',
@@ -281,12 +296,14 @@ export default new Router({
                             path     : 'feedback-:id',
                             name     : 'Feedback',
                             component: Feedback,
+                            meta: { role_performer: true },
                             props: true,
                         },
                         {
                             path     : 'all-feedbacks',
                             name     : 'AllFeedbacks',
                             component: AllFeedbacks,
+                            meta: { role_performer: true },
                         },
                     ]
                 },
@@ -294,23 +311,27 @@ export default new Router({
                     path     : 'influencer-:id-bonuses',
                     name     : 'InfluencerBonuses',
                     component: InfluencerBonuses,
+                    meta: { role_performer: true },
                     props: true,
                 },
                 {
                     path     : 'my-campaigns',
                     name     : 'MyCampaigns',
                     component: MyCampaigns,
+                    meta: { role_performer: true },
                 },
                 {
                     path     : 'campaign-id-:id',
                     name     : 'Campaign',
                     component: Campaign,
+                    meta: { role_performer: true },
                     props: true,
                 },
                 {
                     path     : 'results',
                     name     : 'Results',
                     redirect: '/campaigns/results/results-campaigns',
+                    meta: { role_performer: true },
                     component: {
                         render (c) {
                             return c('router-view')
@@ -322,12 +343,14 @@ export default new Router({
                             name     : 'ResultsCampaigns',
                             component: ResultsCampaigns,
                             props: true,
+                            meta: { role_performer: true },
                         },
                         {
                             path     : 'result',
                             name     : 'ResultCampaign',
                             component: ResultCampign,
                             props: true,
+                            meta: { role_performer: true },
                         },
                     ]
                 },
@@ -387,6 +410,7 @@ export default new Router({
           name     : 'Influencer',
           component: Influencer,
           props: true,
+            meta: { role_performer: true },
         },
 
           /// admin

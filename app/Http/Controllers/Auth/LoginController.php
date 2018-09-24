@@ -46,18 +46,22 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        $user = auth()->user();
-        if($user->user_role == 'admin') {
-            return 1;
-        } else if($user->user_role == 'performer') {
-           return 2;
-        } else if($user->user_role == 'influencer') {
-            return 3;
-        } else if($user->user_role == 'assistant') {
-            return 4;
+        if(auth()->user()) {
+            $user = auth()->user();
+            $this->authenticated($request, $this->guard()->user());
+            if($user->user_role == 'admin') {
+                return 1;
+            } else if($user->user_role == 'performer') {
+                return 2;
+            } else if($user->user_role == 'influencer') {
+                return 3;
+            } else if($user->user_role == 'assistant') {
+                return 4;
+            }
         } else {
-            return 5;
+            return $this->sendFailedLoginResponse($request);
         }
+
     }
 
 }

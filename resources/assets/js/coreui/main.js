@@ -20,12 +20,20 @@ Vue.use(Notifications)
 Vue.use(Sweetalert)
 
 
-console.log('router user role -> ' + role_meta)
+//console.log('router user role -> ' + role_meta)
 
 getRole();
 router.beforeEach((to, from, next) => {
-    if (to.meta.role_admin && role_meta !== 'admin') {
-        next({ name: 'dashboard' })
+    const role_influencer = to.matched.some(record => record.meta.role_influencer)
+    const role_admin = to.matched.some(record => record.meta.role_admin)
+    const role_performer = to.matched.some(record => record.meta.role_performer)
+
+    if (role_admin && role_meta !== 'admin') {
+        next('dashboard')
+    } else if (role_influencer && role_meta !== 'influencer') {
+        next('dashboard')
+    } else if (role_performer && role_meta !== 'performer') {
+        next('dashboard')
     } else {
         next();
     }

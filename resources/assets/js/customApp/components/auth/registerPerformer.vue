@@ -136,7 +136,8 @@
                     name: this.credentials.name,
                     email: this.credentials.email,
                     password: this.credentials.password,
-                    password_confirmation: this.credentials.password_confirmation
+                    password_confirmation: this.credentials.password_confirmation,
+                    user_role: 'performer'
                 };
                 axios.post(this.actionURI, dataCredentials, {
                     headers: {
@@ -149,6 +150,7 @@
                     switch(response.status) {
                         case 200:
                             vmThis.$root.statusAuth(false, '/login');
+                            window.location.href = '/dashboard';
                             break;
 
                         default:

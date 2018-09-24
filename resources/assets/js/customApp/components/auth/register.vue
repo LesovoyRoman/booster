@@ -7,8 +7,8 @@
             </b-col>
         </b-row>
 
-        <blogger v-if="selectedRole === 'blogger'"></blogger>
-        <performer v-if="selectedRole === 'performer'"></performer>
+        <blogger v-if="selectedRole === 2"></blogger>
+        <performer v-if="selectedRole === 1"></performer>
     </div>
 </template>
 
@@ -21,10 +21,10 @@
         name: 'Registration',
         data(){
             return {
-                selectedRole: 'blogger',
+                selectedRole: 2,
                 optionsRoles: [
-                    {text: 'Blogger', value: 'blogger'},
-                    {text: 'Performer', value: 'performer'},
+                    {text: 'Blogger', value: 2},
+                    {text: 'Performer', value: 1},
                 ]
             }
         },

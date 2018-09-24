@@ -5,7 +5,7 @@
     <nav class="sidebar-nav">
       <div slot="header"/>
       <ul class="nav">
-        <template v-for="(item, index) in navItems">
+        <template v-for="(item, index) in items_role">
           <template v-if="item.title">
             <SidebarNavTitle
               :key="index"
@@ -123,7 +123,8 @@ export default {
   },
   data(){
     return {
-        user_role: localStorage.getItem('user_role')
+        user_role: localStorage.getItem('user_role'),
+        items_role: [],
     }
   },
   components: {
@@ -138,19 +139,34 @@ export default {
     SidebarNavItem,
     SidebarNavLabel,
   },
-  mounted(){
+  created(){
       vm = this;
-      console.log('role sidebar -> ' + vm.user_role)
-      this.navItems.forEach(function (item, index) {
+      const role_admin = 'role_admin';
+      const role_performer = 'role_performer';
+      const role_influencer = 'role_influencer';
+
+      //console.log('role sidebar -> ' + vm.user_role)
+
+      vm.navItems.forEach(function (item, index) {
+
           if ("meta" in item) {
-              if('role_admin' in item.meta && vm.user_role !== 'admin'){
-                  vm.navItems.splice(index, 1) // only nav for admin
+
+              if(item.meta.role_admin === true && vm.user_role === 'admin'){
+                  //console.log('admin ' + item.name)
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // only nav for admin
+              }
+              if (item.meta.role_performer === true && vm.user_role === 'performer'){
+                  //console.log('performer ' + item.name)
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // only nav for admin
+              }
+              if (item.meta.role_influencer === true && vm.user_role === 'influencer'){
+                  //console.log('influencer ' + item.name)
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // only nav for admin
               }
 
-              console.log('meta in nav -> ');
-              console.log(item);
           }
       })
+      //console.log(vm.items_role)
   },
   methods: {
     handleClick (e) {
