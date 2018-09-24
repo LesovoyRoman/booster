@@ -44,6 +44,7 @@ class CreateUsersTable extends Migration
             $table->boolean('star')->nullable();
             $table->integer('auditory')->nullable();
             $table->integer('all_checked_products')->nullable();
+            $table->integer('influence')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
