@@ -22,9 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('surname')->nullable();
             $table->string('father_name')->nullable();
             $table->string('phone')->nullable();
-            $table->string('country')->nullable();
-            $table->string('city')->nullable();
-            $table->string('	home_place')->nullable();
             $table->string('chosen_lang')->nullable();
             $table->string('work_position')->nullable();
             $table->string('site_link')->nullable();
@@ -34,7 +31,6 @@ class CreateUsersTable extends Migration
             $table->string('company_address')->nullable();
             $table->integer('company_id')->nullable();
             $table->integer('vat')->nullable();
-            $table->integer('tariff_plan_id')->nullable();
             $table->integer('secret_codes_amount')->nullable();
             $table->string('description')->nullable();
             $table->string('photo_path')->nullable();

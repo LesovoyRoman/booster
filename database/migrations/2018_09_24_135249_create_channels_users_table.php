@@ -15,8 +15,6 @@ class CreateChannelsUsersTable extends Migration
     {
         Schema::create('channels_users', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('userId')->references('id')->on('channels')->onDelete('cascade')->onUpdate('cascade');
             $table->string('link')->nullable();
             $table->string('topic')->nullable();
             $table->integer('auditory')->nullable();
