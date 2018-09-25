@@ -14,10 +14,10 @@ class UpdateSecretCodesProductsTable extends Migration
     public function up()
     {
         Schema::table('secret_codes_products', function (Blueprint $table) {
-            $table->integer('campaign_id')->unsigned()->after('id');
+            $table->integer('campaign_id')->unsigned()->nullable()->after('id');
             $table->foreign('campaign_id')->references('id')->on('campaigns')
                 ->onDelete('cascade')
-                ->onUpdate('cascade')->nullable();
+                ->onUpdate('cascade');
         });
     }
 

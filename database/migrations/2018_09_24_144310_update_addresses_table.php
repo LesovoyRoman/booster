@@ -14,7 +14,7 @@ class UpdateAddressesTable extends Migration
     public function up()
     {
         Schema::table('tariff_plan', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned()->after('id');
+            $table->integer('user_id')->unsigned()->nullable()->after('id');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

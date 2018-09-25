@@ -14,11 +14,11 @@ class UpdateChannelsUsersTable extends Migration
     public function up()
     {
         Schema::table('channels_users', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned()->after('id');
+            $table->integer('user_id')->unsigned()->nullable()->after('id');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->integer('channel_id')->unsigned()->after('id');
+            $table->integer('channel_id')->unsigned()->nullable()->after('id');
             $table->foreign('channel_id')->references('id')->on('channels')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

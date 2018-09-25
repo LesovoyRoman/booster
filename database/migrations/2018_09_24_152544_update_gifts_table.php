@@ -14,18 +14,18 @@ class UpdateGiftsTable extends Migration
     public function up()
     {
         Schema::table('gifts', function (Blueprint $table) {
-            $table->integer('user_from_id')->unsigned()->after('id');
+            $table->integer('user_from_id')->unsigned()->nullable()->after('id');
             $table->foreign('user_from_id')->references('id')->on('users')
                 ->onDelete('cascade')
-                ->onUpdate('cascade')->nullable();
-            $table->integer('user_from_to')->unsigned()->after('id');
+                ->onUpdate('cascade');
+            $table->integer('user_from_to')->unsigned()->nullable()->after('id');
             $table->foreign('user_from_to')->references('id')->on('users')
                 ->onDelete('cascade')
-                ->onUpdate('cascade')->nullable();
-            $table->integer('campaign_id')->unsigned()->after('id');
+                ->onUpdate('cascade');
+            $table->integer('campaign_id')->unsigned()->nullable()->after('id');
             $table->foreign('campaign_id')->references('id')->on('campaigns')
                 ->onDelete('cascade')
-                ->onUpdate('cascade')->nullable();
+                ->onUpdate('cascade');
         });
     }
 

@@ -14,14 +14,14 @@ class UpdateCampaignCountriesTable extends Migration
     public function up()
     {
         Schema::table('campaign_countries', function (Blueprint $table) {
-            $table->integer('campaign_id')->unsigned()->after('id');
+            $table->integer('campaign_id')->unsigned()->nullable()->after('id');
             $table->foreign('campaign_id')->references('id')->on('campaigns')
                 ->onDelete('cascade')
-                ->onUpdate('cascade')->nullable();
-            $table->integer('country_id')->unsigned()->after('id');
+                ->onUpdate('cascade');
+            $table->integer('country_id')->unsigned()->nullable()->after('id');
             $table->foreign('country_id')->references('id')->on('countries')
                 ->onDelete('cascade')
-                ->onUpdate('cascade')->nullable();
+                ->onUpdate('cascade');
         });
     }
 

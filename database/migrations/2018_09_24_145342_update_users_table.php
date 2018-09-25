@@ -14,10 +14,10 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('tariff_plan_id')->unsigned()->after('id');
+            $table->integer('tariff_plan_id')->unsigned()->after('id')->nullable();
             $table->foreign('tariff_plan_id')->references('id')->on('tariff_plan')
                 ->onDelete('cascade')
-                ->onUpdate('cascade')->nullable();
+                ->onUpdate('cascade');
         });
     }
 

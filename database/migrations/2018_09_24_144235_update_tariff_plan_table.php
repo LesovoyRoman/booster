@@ -14,7 +14,7 @@ class UpdateTariffPlanTable extends Migration
     public function up()
     {
         Schema::table('tariff_plan', function (Blueprint $table) {
-            $table->integer('tariff_id')->unsigned()->after('id');
+            $table->integer('tariff_id')->unsigned()->nullable()->after('id');
             $table->foreign('tariff_id')->references('id')->on('tariffs')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

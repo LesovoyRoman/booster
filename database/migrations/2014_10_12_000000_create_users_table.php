@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('work_position')->nullable();
             $table->string('site_link')->nullable();
             $table->string('brand')->nullable();
-            $table->string('	company')->nullable();
+            $table->string('company')->nullable();
             $table->string('legal_company_name')->nullable();
             $table->string('company_address')->nullable();
             $table->integer('company_id')->nullable();
