@@ -246,14 +246,13 @@ export default new Router({
             children: [
                 {
                     path      : '/account/profile',
-                    name      : 'Profile',
-                    //component : ProfileP // performer
+                    name      : 'ProfileI',
                     component : ProfileI, // influencer
                     meta: { role_influencer: true },
                 },
                 {
                     path      : '/account/profile',
-                    name      : 'Profile',
+                    name      : 'ProfileP',
                     component : ProfileP, // performer
                     meta: { role_performer: true },
                 },
