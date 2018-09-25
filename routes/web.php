@@ -16,7 +16,11 @@ Route::get('/{any}', function () {
     return view('appcustom');
 })->where('any', '.*')->middleware('appWay'); // checking role
 
-Route::post('/userrole', 'HomeController@index');
+Route::post('/getAllCampaigns', 'Campaign\CampaignController@getAllCampaigns')->middleware('isPerformer');
+
+Route::post('/createNewCampaign', 'Campaign\CampaignController@addCampaign')->middleware('isPerformer');
+
+Route::post('/getAllUsers', 'HomeController@getAllUsers');
 
 Route::get('/sessionSetCsrf', 'SetCsrf@setCsrf');
 

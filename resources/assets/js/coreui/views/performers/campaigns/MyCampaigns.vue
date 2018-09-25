@@ -5,7 +5,9 @@
                 <b-col sm="12" md="12">
                     <h2 class="h2">{{ header }}</h2>
 
-                    <b-card>
+                    <loading v-if="loading" style="position: fixed; left: 50%; top: 50%"></loading>
+
+                    <b-card v-if="!loading">
                         <b-tabs pills card>
                             <b-tab title="Active" active>
 
@@ -199,9 +201,9 @@
                                         </div>
                                     </template>
                                     <template
-                                            slot="campaign_name"
+                                            slot="name"
                                             slot-scope="data">
-                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.name }}</router-link>
                                     </template>
                                     <template
                                             slot="status"
@@ -244,6 +246,8 @@
 </template>
 
 <script>
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
+
     let vm = {};
     const shuffleArray = (array) => {
         /*for (let i = array.length - 1; i > 0; i--) {
@@ -257,8 +261,24 @@
 
     export default {
         name: 'MyCampaigns',
+        components: {
+            Loading
+        },
+        created(){
+            vm = this;
+            this.loading = true;
+            axios.post('/getAllCampaigns', this.new_campaign).then(response => {
+                this.loading = false;
+                //console.log(JSON.parse(response.data.campaigns))
+                this.activeTable = JSON.parse(response.data.campaigns);
+            }).catch( err => {
+                this.loading = false;
+                console.log(err.message)
+            })
+        },
         data: () => {
             return {
+                loading: false,
                 header: 'My campaigns',
                 activeTable: [
                     { id: 1, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: true, change: '' },
@@ -317,10 +337,10 @@
                 fields: [
                     { key: 'campaing_checkbox', 'class': 'table_label_hidden' },
                     { key: 'id', label: '№' },
-                    { key: 'campaign_name', sortable: true, label: 'Name' },
+                    { key: 'name', sortable: true, label: 'Name' },
                     { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
-                    { key: 'check_type', sortable: true, label: 'Checking' },
-                    { key: 'start', sortable: true, label: 'Start Date' },
+                    { key: 'checking_type', sortable: true, label: 'Checking' },
+                    { key: 'created_at', sortable: true, label: 'Start Date' },
                     { key: 'finish', sortable: true, label: 'Finish Date' },
                     { key: 'status', sortable: true, label: 'Satisfied' },
                     { key: 'active', sortable: true, label: 'Status' },
@@ -377,8 +397,5 @@
                 vm.allSelected = false;
             }
         },
-        created() {
-            vm = this;
-        }
     }
 </script>
