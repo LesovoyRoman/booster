@@ -100,9 +100,9 @@
                                             </div>
                                             <b-form-select dark :disabled="new_campaign.allCities" v-model="new_campaign.city">
                                                 <option :value="null">Choose from list</option>
-                                                <option :value="'Kharkov'">Ukraine</option>
-                                                <option :value="'Moscow'">Russia</option>
-                                                <option :value="'Los Santos'">USA</option>
+                                                <option :value="'Kharkov'">Kharkov</option>
+                                                <option :value="'Moscow'">Moscow</option>
+                                                <option :value="'Los Santos'">Los Santos</option>
                                             </b-form-select>
                                         </b-form-group>
                                     </b-col>
@@ -145,6 +145,18 @@
 
                                 </b-col>
                             </b-row>
+
+                            <b-row>
+                                <b-col>
+                                    <b-form-group
+                                            id="fieldset_campaign_products_in_stock"
+                                            description="">
+                                        <label for="campaign_products_in_stock">Enter products in stock<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter products in stock'">?</i></label>
+                                        <b-form-input type="number" id="campaign_products_in_stock" placeholder="100" v-model.trim="new_campaign.products_in_stock"></b-form-input>
+                                    </b-form-group>
+                                </b-col>
+                            </b-row>
+
 
                             <b-row>
                                 <b-col md="6" lg="6" sm="12" xs="12">
@@ -240,8 +252,7 @@
                                         <router-link v-bind:to="'/gifts/create-gift'">Don't forget to create a gift for the campaign</router-link>
 
                                         <b-button
-                                                type="submit"
-                                                class="font500 float-right uppercase"
+                                                class="font500 float-right uppercase" @click="createNewCampaign"
                                                 variant="primary">Submit</b-button>
                                     </b-form-group>
                                 </b-col>
@@ -271,6 +282,7 @@
                     campaignEnd: 'date',
                     campaign_end_points: 0,
 
+                    products_in_stock: 0,
                     product_name: '',
                     link_youtube: '',
                     file: {},
@@ -288,6 +300,17 @@
         },
         created() {
 
+        },
+        methods: {
+            createNewCampaign(){
+                console.log(this.new_campaign);
+                //return;
+                axios.post('/createNewCampaign', this.new_campaign).then(response => {
+                    console.log(response.data)
+                }).catch( err => {
+                    console.log(err.message)
+                })
+            }
         },
         computed: {
             state () {

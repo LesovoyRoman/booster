@@ -232,6 +232,12 @@
         created() {
             vm = this;
             vm.getOptions();
+            axios.post('/getAllUsers').then(response => {
+                console.log('got from Redis')
+                console.log(JSON.parse(response.data.users))
+            }).catch( err => {
+                console.log(err.message)
+            })
         },
         methods: {
             getOptions(){

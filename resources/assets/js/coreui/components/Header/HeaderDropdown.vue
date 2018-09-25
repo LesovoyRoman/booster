@@ -34,7 +34,7 @@
       class="text-center">
       <strong>Settings</strong>
     </b-dropdown-header>
-    <b-dropdown-item v-bind:to="'/account/profile'">
+    <b-dropdown-item :to="{ name: pathProfile }">
     <i class="fa fa-user"/> Profile</b-dropdown-item>
     <b-dropdown-item v-bind:to="'/account/settings'">
     <i class="fa fa-wrench"/> Settings</b-dropdown-item>
@@ -59,6 +59,8 @@ export default {
   data: () => {
     return {
       itemsCount: 42,
+      role: '',
+      pathProfile: '',
     }
   },
   methods: {
@@ -75,6 +77,11 @@ export default {
                   console.log('logout error-> ', error.response);
               });
       },
+  },
+  created(){
+      this.role = localStorage.getItem('user_role');
+      this.role === 'performer' ? this.pathProfile = 'ProfileP' : this.pathProfile;
+      this.role === 'influencer' ? this.pathProfile = 'ProfileI' : this.pathProfile;
   }
 }
 

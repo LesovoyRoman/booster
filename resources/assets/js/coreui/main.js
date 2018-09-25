@@ -30,9 +30,9 @@ router.beforeEach((to, from, next) => {
 
     if (role_admin && role_meta !== 'admin') {
         next('dashboard')
-    } else if (role_influencer && role_meta !== 'influencer') {
+    } else if (role_influencer && role_meta !== 'influencer' && role_meta !== 'admin') {
         next('dashboard')
-    } else if (role_performer && role_meta !== 'performer') {
+    } else if (role_performer && role_meta !== 'performer' && role_meta !== 'admin') {
         next('dashboard')
     } else {
         next();

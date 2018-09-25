@@ -12,6 +12,7 @@ export default {
       name : 'Dashboard',
       url  : '/dashboard',
       icon : 'icon-speedometer',
+      meta: { dashboard: true }
     },
     {
       title  : true,
@@ -77,11 +78,6 @@ export default {
                   meta: { role_performer: true },
               },
           ]
-    },
-    {
-        name  : 'Profile Performer',
-        url   : '/profile-performer',
-        icon  : 'fa fa-user-circle',
     },
     {
       name    : 'Tariffs',

@@ -150,6 +150,10 @@ export default {
       vm.navItems.forEach(function (item, index) {
 
           if ("meta" in item) {
+              if(item.meta.dashboard === true) {
+                  console.log(item.meta)
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // dashboards
+              }
 
               if(item.meta.role_admin === true && vm.user_role === 'admin'){
                   //console.log('admin ' + item.name)
