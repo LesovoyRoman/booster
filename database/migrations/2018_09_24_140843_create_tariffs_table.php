@@ -22,6 +22,7 @@ class CreateTariffsTable extends Migration
             $table->boolean('send_invites')->nullable();
             $table->boolean('catalog_influencers')->nullable();
             $table->boolean('stars')->nullable();
+            $table->integer('economy')->nullable();
             $table->timestamps();
         });
     }

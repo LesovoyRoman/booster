@@ -19,6 +19,7 @@ class CreateAddressesTable extends Migration
             $table->string('city')->nullable();
             $table->string('street')->nullable();
             $table->string('home_address')->nullable();
+            $table->string('zip_code')->nullable();
             $table->timestamps();
         });
     }

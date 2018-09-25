@@ -23,7 +23,7 @@ class CreateCampaignsTable extends Migration
             $table->float('product_price')->nullable();
             $table->float('product_boost_price')->nullable();
             $table->string('youtube_link')->nullable();
-            $table->enum('currency', ['RUB', 'USD', 'EUR'])->nullable();
+            $table->enum('currency', ['RUB', 'USD', 'UAH', 'EUR'])->nullable();
             $table->string('photo_path')->nullable();
             $table->integer('points')->nullable();
             $table->text('conditions')->nullable();
@@ -33,6 +33,8 @@ class CreateCampaignsTable extends Migration
             $table->integer('satisfied')->nullable();
             $table->integer('points_checked')->nullable();
             $table->integer('participants')->nullable();
+            $table->timestamp('end_campaign')->nullable();
+            $table->integer('end_points')->nullable();
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('user_role', ['admin', 'performer', 'influencer', 'assistant'])->nullable();
             $table->string('surname')->nullable();
-            $table->string('father_name')->nullable();
+            $table->timestamp('birth_date')->nullable();
             $table->string('phone')->nullable();
             $table->string('chosen_lang')->nullable();
             $table->string('work_position')->nullable();
@@ -41,6 +41,7 @@ class CreateUsersTable extends Migration
             $table->integer('auditory')->nullable();
             $table->integer('all_checked_products')->nullable();
             $table->integer('influence')->nullable();
+            $table->string('smartphone_type')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
