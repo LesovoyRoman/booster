@@ -84,7 +84,7 @@ class GiftController extends Controller
                 'code'                  => null,
                 'is_main'               => 0,
                 'instructions'          => $data['instructions'],
-                'in_stock'              => $data['inStock'],
+                'in_stock'              => $data['in_stock'],
                 'user_from_id'          => Auth::id()
             ]);
 
