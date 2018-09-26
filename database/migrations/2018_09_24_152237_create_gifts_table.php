@@ -26,6 +26,8 @@ class CreateGiftsTable extends Migration
             $table->integer('amazon_id')->nullable();
             $table->string('code')->nullable();
             $table->boolean('is_main')->nullable();
+            $table->integer('in_stock')->nullable();
+            $table->text('instructions')->nullable();
             $table->timestamps();
         });
     }

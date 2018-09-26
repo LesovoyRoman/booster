@@ -18,6 +18,7 @@ class CreateCampaignsTable extends Migration
             $table->string('name')->nullable();
             $table->string('company')->nullable();
             $table->string('type')->nullable();
+            $table->integer('id_owner')->nullable();
             $table->integer('products_in_stock')->nullable();
             $table->string('product_name')->nullable();
             $table->float('product_price')->nullable();

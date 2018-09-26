@@ -18,8 +18,8 @@ class UpdateGiftsTable extends Migration
             $table->foreign('user_from_id')->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->integer('user_from_to')->unsigned()->nullable()->after('id');
-            $table->foreign('user_from_to')->references('id')->on('users')
+            $table->integer('user_to_id')->unsigned()->nullable()->after('id');
+            $table->foreign('user_to_id')->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->integer('campaign_id')->unsigned()->nullable()->after('id');
