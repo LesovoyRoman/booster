@@ -16,9 +16,15 @@ Route::get('/{any}', function () {
     return view('appcustom');
 })->where('any', '.*')->middleware('appWay'); // checking role
 
-Route::post('/getAllCampaigns', 'Campaign\CampaignController@getAllCampaigns')->middleware('isPerformer');
+Route::group(['middleware' => 'isPerformer'], function (){
+    // Campaigns
+    Route::post('/getAllCampaigns', 'Campaign\CampaignController@getAllCampaigns');
+    Route::post('/createNewCampaign', 'Campaign\CampaignController@addCampaign');
 
-Route::post('/createNewCampaign', 'Campaign\CampaignController@addCampaign')->middleware('isPerformer');
+    // Gifts
+    Route::post('/getAllGifts', 'Gift\GiftController@getAllGifts');
+    Route::post('/createNewGift', 'Gift\GiftController@addGift');
+});
 
 Route::post('/getAllUsers', 'HomeController@getAllUsers');
 

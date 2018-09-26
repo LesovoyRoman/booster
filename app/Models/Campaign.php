@@ -32,4 +32,9 @@ class Campaign extends Model
         'country',
         'city'
     ];
+
+    public function gifts()
+    {
+        return $this->hasMany('App\Models\Gift');
+    }
 }
