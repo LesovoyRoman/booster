@@ -183,9 +183,9 @@
                                     <b-row>
                                         <b-col>
                                             <b-form-group
-                                                    id="fieldset_gift_inStock">
-                                                <label for="gift_inStock">In stock</label>
-                                                <b-form-input type="number" v-model="newGift.inStock" id="gift_inStock"/>
+                                                    id="fieldset_gift_in_stock">
+                                                <label for="gift_in_stock">In stock</label>
+                                                <b-form-input type="number" v-model="newGift.in_stock" id="gift_in_stock"/>
                                             </b-form-group>
                                         </b-col>
                                     </b-row>
@@ -464,7 +464,7 @@
                     price_product: 1,
                     points_oneProduct: 1,
                     price_boost: 1,
-                    inStock: 0,
+                    in_stock: 0,
                     gift_amazonId: 0,
                     amount_products: 1,
                     file: {},
