@@ -27,6 +27,8 @@ class CreateCampaignsTable extends Migration
             $table->string('photo_path')->nullable();
             $table->integer('points')->nullable();
             $table->text('conditions')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
             $table->text('instructions')->nullable();
             $table->string('checking_type')->nullable();
             $table->string('status')->nullable();

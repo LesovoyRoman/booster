@@ -269,8 +269,14 @@
             this.loading = true;
             axios.post('/getAllCampaigns', this.new_campaign).then(response => {
                 this.loading = false;
-                //console.log(JSON.parse(response.data.campaigns))
-                this.activeTable = JSON.parse(response.data.campaigns);
+                if(response.data.campaigns.length !== 0) {
+                    this.activeTable = JSON.parse(response.data.campaigns);
+                } else {
+                    axios.post('/getAllCampaigns', this.new_campaign).then(response => {
+                        this.activeTable = JSON.parse(response.data.campaigns);
+                    });
+                }
+
             }).catch( err => {
                 this.loading = false;
                 console.log(err.message)

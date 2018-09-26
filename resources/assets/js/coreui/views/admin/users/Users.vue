@@ -234,6 +234,7 @@
             vm.getOptions();
             axios.post('/getAllUsers').then(response => {
                 console.log('got from Redis')
+                //console.log(response.data)
                 console.log(JSON.parse(response.data.users))
             }).catch( err => {
                 console.log(err.message)

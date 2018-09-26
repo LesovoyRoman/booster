@@ -36,9 +36,9 @@
 
                             <b-row>
                                 <b-col>
-                                <b-form-group id="fieldset_campaignEnd">
-                                    <label for="campaignEnd">Ending of campaign<i class="custom_tooltip_label" v-b-tooltip.hover title="'Ending of campaign'">?</i></label>
-                                    <b-form-select dark v-model="new_campaign.campaignEnd">
+                                <b-form-group id="fieldset_end_campaign">
+                                    <label for="end_campaign">Ending of campaign<i class="custom_tooltip_label" v-b-tooltip.hover title="'Ending of campaign'">?</i></label>
+                                    <b-form-select dark v-model="new_campaign.end_type">
                                         <option :value="'date'">Date</option>
                                         <option :value="'points'">Points</option>
                                     </b-form-select>
@@ -46,15 +46,15 @@
                                 </b-col>
 
                                 <b-col>
-                                    <b-form-group v-show="new_campaign.campaignEnd == 'date'">
+                                    <b-form-group v-show="new_campaign.end_type == 'date'">
                                     <label>Date</label>
-                                    <b-form-input
+                                    <b-form-input v-model="new_campaign.end_campaign"
                                             type="date"
                                             id="date"/>
                                     </b-form-group>
-                                    <b-form-group v-show="new_campaign.campaignEnd == 'points'">
+                                    <b-form-group v-show="new_campaign.end_type == 'points'">
                                         <label>Points</label>
-                                        <b-form-input id="campaign_end_points" v-model.trim="new_campaign.campaign_end_points"></b-form-input>
+                                        <b-form-input id="end_points" min="100" v-model.trim="new_campaign.end_points"></b-form-input>
                                     </b-form-group>
                                 </b-col>
                             </b-row>
@@ -279,8 +279,9 @@
                     city: null,
                     allCountries: false,
                     allCities: false,
-                    campaignEnd: 'date',
-                    campaign_end_points: 0,
+                    end_campaign: null,
+                    end_points: 100,
+                    end_type: 'points',
 
                     products_in_stock: 0,
                     product_name: '',
@@ -306,9 +307,13 @@
                 console.log(this.new_campaign);
                 //return;
                 axios.post('/createNewCampaign', this.new_campaign).then(response => {
-                    console.log(response.data)
-                }).catch( err => {
-                    console.log(err.message)
+                    if(response.data.errors) {
+                        console.log(response.data.errors)
+                    } else {
+                        console.log(response.data.response)
+                    }
+                }).catch(err => {
+                    console.log(err);
                 })
             }
         },
