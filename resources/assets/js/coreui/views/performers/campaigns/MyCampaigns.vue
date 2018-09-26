@@ -224,14 +224,16 @@
                                     </template>
                                 </b-table>
                                 <nav>
-                                    <b-pagination
+                                   <!-- <b-pagination
                                             :total-rows="getRowCount(archiveTable)"
                                             :per-page="perPage"
                                             align="center"
                                             v-model="currentPage"
                                             prev-text="Prev"
                                             next-text="Next"
-                                            hide-goto-end-buttons/>
+                                            hide-goto-end-buttons/>-->
+
+                                    <!-- @todo fix problem with perPage (it's overwrites prev.value) (should use another variable) & currentPage -->
                                 </nav>
 
                             </b-tab>
@@ -269,14 +271,16 @@
             this.loading = true;
             axios.post('/getAllCampaigns', this.new_campaign).then(response => {
                 this.loading = false;
-                if(response.data.campaigns.length !== 0) {
-                    this.activeTable = JSON.parse(response.data.campaigns);
+                if(response.data.campaigns instanceof Array) {
+                    // from DB
+                    console.log('campaigns DB');
+                    this.activeTable = response.data.campaigns
                 } else {
-                    axios.post('/getAllCampaigns', this.new_campaign).then(response => {
-                        this.activeTable = JSON.parse(response.data.campaigns);
-                    });
+                    // from Redis
+                    console.log('campaigns Redis');
+                    this.activeTable = JSON.parse(response.data.campaigns);
                 }
-
+                //console.log(response.data.campaigns);
             }).catch( err => {
                 this.loading = false;
                 console.log(err.message)
@@ -286,33 +290,7 @@
             return {
                 loading: false,
                 header: 'My campaigns',
-                activeTable: [
-                    { id: 1, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: true, change: '' },
-                    { id: 2, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, active: false, change: '' },
-                    { id: 3, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Waiting for gifts', change: '' },
-                    { id: 4, campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: false, change: '' },
-                    { id: 5, campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: false, change: '' },
-                    { id: 6, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: true, change: '' },
-                    { id: 7, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, active: 'Waiting for gifts', change: '' },
-                    { id: 8, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: true, change: '' },
-                    { id: 9, campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: true, change: '' },
-                    { id: 10, campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: false, change: '' },
-                    { id: 11, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: 'Waiting for gifts', change: '' },
-                    { id: 12, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, active: true, change: '' },
-                    { id: 13, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: false, change: '' },
-                    { id: 14, campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Waiting for gifts', change: '' },
-                    { id: 15, campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: true, change: '' },
-                    { id: 16, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo', start: '20/08/2018', finish: '31/12/2018', status: 5, active: true, change: '' },
-                    { id: 17, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, active: false, change: '' },
-                    { id: 18, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: true, change: '' },
-                    { id: 19, campaign_name: 'Snacks', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: true, change: '' },
-                    { id: 20, campaign_name: 'Snacks', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: true, change: '' },
-                    { id: 21, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: 'Waiting for gifts', change: '' },
-                    { id: 22, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, active: true, change: '' },
-                    { id: 23, campaign_name: 'Snacks', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: true, change: '' },
-                    { id: 24, campaign_name: 'Snacks', points: '60000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: false, change: '' },
-                    { id: 25, campaign_name: 'Snacks', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: true, change: '' },
-                ],
+                activeTable: [],
                 archiveTable: shuffleArray([
                     { id: 1, active: 'Archive', campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, change: '' },
                     { id: 2, active: 'Archive', campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, change: '' },

@@ -13,15 +13,16 @@
                         <b-tabs pills card>
                             <b-tab title="Manually
 " active>
-                                <form action="">
+                                <form action="" @submit.prevent>
 
                                     <p class="card-text header_card_simple">Campaign</p>
                                     <b-row>
                                         <b-col>
                                             <b-form-group>
                                                 <label>Choose campaign<i class="custom_tooltip_label" v-b-tooltip.hover title="'Choose campaign'">?</i></label>
-                                                <b-form-select dark v-model="newGift.current_campaign" :options="campaigns">
+                                                <b-form-select dark v-model="newGift.current_campaign">
                                                     <option :value="null" disabled>Choose the campaign</option>
+                                                    <option v-for="(campaign, index) in campaigns" :value="campaign.id">{{ campaign.name }}</option>
                                                 </b-form-select>
                                             </b-form-group>
                                         </b-col>
@@ -136,7 +137,7 @@
                                                     <b-form-group
                                                             id="fieldset_gift_points_oneProduct">
                                                         <label for="gift_points_oneProduct">Points for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price for 1 product'">?</i></label>
-                                                        <b-form-input disabled min="1" type="number" @change="formulaCalculate('standart')" v-model="newGift.points_oneProduct" id="amount_points_oneProduct"/>
+                                                        <b-form-input disabled type="number" @change="formulaCalculate('standart')" v-model="newGift.points_oneProduct" id="amount_points_oneProduct"/>
                                                     </b-form-group>
                                                 </b-col>
                                             </b-row>
@@ -217,6 +218,7 @@
                                         <b-col>
                                             <b-form-group>
                                                 <b-button
+                                                        @click="createGift"
                                                         type="submit"
                                                         class="font500 float-right uppercase"
                                                         variant="primary">Add</b-button>
@@ -229,7 +231,7 @@
                             </b-tab>
                             <b-tab title="Via Amazon">
 
-                                <form action="">
+                                <form action="" @submit.prevent>
 
                                     <p class="card-text header_card_simple">Campaign</p>
                                     <b-row>
@@ -370,7 +372,7 @@
                                                     <b-form-group
                                                             id="fieldset_gift_points_oneProduct">
                                                         <label for="gift_points_oneProduct">Points for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price for 1 product'">?</i></label>
-                                                        <b-form-input min="1" disabled type="number" @change="formulaCalculate('standart')" v-model="newGift.points_oneProduct" id="amount_points_oneProduct"/>
+                                                        <b-form-input disabled type="number" @change="formulaCalculate('standart')" v-model="newGift.points_oneProduct" id="amount_points_oneProduct"/>
                                                     </b-form-group>
                                                 </b-col>
                                             </b-row>
@@ -427,6 +429,7 @@
                                         <b-col>
                                             <b-form-group>
                                                 <b-button
+                                                        @click="createGift"
                                                         type="submit"
                                                         class="font500 float-right uppercase"
                                                         variant="primary">Add</b-button>
@@ -468,7 +471,8 @@
                     price_gift_currency: 'RUB',
                     price_product_currency: 'RUB',
                     price_boost_currency: 'RUB',
-                    current_campaign: null
+                    current_campaign: null,
+                    instructions: '',
                 },
 
                 last_boost_currency: 1,
@@ -481,7 +485,7 @@
                 eur_val: 0,
                 usd_val: 0,
 
-                campaigns: ['Snacks', 'Cheese']
+                campaigns: [{name: 'Milk', id: 13}, {name: 'Chocolate', id: 14}]
             }
         },
         created(){
@@ -506,6 +510,20 @@
         methods: {
             formulaCalculate(type){
                 vm.type = type;
+            },
+            createGift(){
+                console.log(this.newGift);
+                //return;
+                axios.post('/createNewGift', this.newGift).then(response => {
+                    if(response.data.errors) {
+                        console.log(response.data.errors)
+                    } else {
+                        console.log(response)
+                        console.log(response.data.response)
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
             }
         },
         computed: {

@@ -6,7 +6,11 @@
                     <h2 class="h2">{{ header }}</h2>
                 </b-col>
 
-                <b-col
+                <b-col v-if="loading">
+                    <loading v-if="loading" style="position: fixed; left: 50%; top: 50%"></loading>
+                </b-col>
+
+                <b-col  v-if="!loading"
                         sm="12"
                         md="12">
                     <b-card>
@@ -124,11 +128,11 @@
                                     <template slot="points" slot-scope="data">
                                         {{ data.item.points }} <span class="showsTableCards">points</span>
                                     </template>
-                                    <template slot="inStock" slot-scope="data">
-                                        <span class="showsTableCards">In stock:</span> {{ data.item.inStock }}
+                                    <template slot="in_stock" slot-scope="data">
+                                        <span class="showsTableCards">In stock:</span> {{ data.item.in_stock }}
                                     </template>
-                                    <template slot="campaign_name" slot-scope="data">
-                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                    <template slot="campaign" slot-scope="data">
+                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.name }}</router-link>
                                     </template>
                                     <template slot="change" justified="center" slot-scope="row">
                                         <b-button size="sm" class="custom_btn_change" :variant="'primary'">
@@ -172,13 +176,18 @@
 </template>
 
 <script>
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
     let vm = {};
 
     export default {
         name: 'GiftsList',
+        components: {
+            Loading
+        },
         data(){
             return {
                 header: 'Gifts list',
+                loading: false,
                 
                 giftsList: true,
                 giftsCards: false,
@@ -199,19 +208,14 @@
 
                 campaigns: ['Snacks', 'Cheese'],
 
-                gifts: [
-                    { id: 1, photo: '../images/iphone.png', name: 'Iphone 8', points: 10000, inStock: 25, campaign_name: 'Snacks', delivery: 'Any kind', star: true },
-                    { id: 2, photo: '../images/iphone.png', name: 'Iphone 7', points: 20000, inStock: 50, campaign_name: 'Cheese', delivery: 'NewPost', star: false },
-                    { id: 3, photo: '../images/iphone.png', name: 'Iphone 8', points: 40000, inStock: 1, campaign_name: 'Snacks', delivery: 'NewPost', star: false },
-                    { id: 4, photo: '../images/iphone.png', name: 'Iphone 7', points: 50000, inStock: 500, campaign_name: 'Smth', delivery: 'Pickup', star: false },
-                ],
+                gifts: [],
 
                 fields: [
                     { key: 'gift_checkbox', 'class': 'table_label_hidden check-box-gifts' },
                     { key: 'name', sortable: true, 'class': 'name_gift' },
                     { key: 'points', sortable: true, 'class': 'points_gift' },
-                    { key: 'inStock', sortable: true, 'class': 'inStock_gift' },
-                    { key: 'campaign_name', sortable: true, 'class': 'campaign_gift' },
+                    { key: 'in_stock', sortable: true, 'class': 'in_stock_gift' },
+                    { key: 'campaign', sortable: false, 'class': 'campaign_gift' },
                     { key: 'delivery', sortable: false, 'class': 'table_delivery' },
                     { key: 'change', label: '', 'class': 'table_label_hidden change-gift' },
                     { key: 'delete', label: '', 'class': 'table_label_hidden delete-gift' }
@@ -220,6 +224,23 @@
         },
         created(){
             vm = this;
+            this.loading = true;
+            axios.post('/getAllGifts').then(response => {
+                this.loading = false;
+                //console.log(response)
+                if(response.data.gifts instanceof Array) {
+                    // from DB
+                    console.log('gifts DB');
+                    this.gifts = response.data.gifts
+                } else {
+                    // from Redis
+                    console.log('gifts Redis');
+                    this.gifts = JSON.parse(response.data.gifts);
+                }
+            }).catch( err => {
+                this.loading = false;
+                console.log(err.message)
+            })
         },
         computed: {
             sortOptions () {
