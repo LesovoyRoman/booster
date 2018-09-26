@@ -1,17 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Campaign extends Model
 {
-    protected $guarded = [];
 
     protected $fillable = [
         'name',
         'company',
         'type',
+        'id_owner',
         'products_in_stock',
         'product_name',
         'product_price',
