@@ -78,7 +78,7 @@
                             <template
                                     slot="name"
                                     slot-scope="data">
-                                <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, id: id, campaign_name: data.item.campaign } }">{{ data.item.name }}</router-link>
+                                <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, idInfluencer: id, campaign_name: data.item.campaign } }">{{ data.item.name }}</router-link>
                             </template>
                             <template slot="campaigns" slot-scope="row">
                                 <router-link v-for="(campaign, index) in row.item.campaigns" :id="id = row.item.id" :key="index" :data="campaign_name = campaign" :to="{ name: 'Campaign', params: { campaign:campaign, id: index } }">{{ campaign }}<span v-if="index !== row.item.campaigns.length - 1">, </span></router-link>

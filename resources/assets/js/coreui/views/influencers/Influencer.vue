@@ -127,7 +127,7 @@
     import SocialBoxChartExample from './../dashboard/SocialBoxChartExample.vue'
 
     export default {
-        props: ['influencer'],
+        props: ['influencer', 'idInfluencer'],
         name: 'Influencer',
         components: {
             SocialBoxChartExample,
@@ -170,7 +170,7 @@
         },
         computed: {
             computedInfluencer: function() {
-                if(typeof this.influencer === 'undefined') {
+                if(typeof this.idInfluencer === 'undefined') {
                     vm.$router.go(-1)
                 }
             },

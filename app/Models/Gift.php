@@ -30,4 +30,9 @@ class Gift extends Model
     {
         return $this->belongsTo('App\Models\Campaign');
     }
+
+    public function images()
+    {
+        return $this->hasMany('App\Models\Image', 'gift_id', 'id');
+    }
 }

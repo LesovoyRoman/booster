@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="user_role" content="{{ $user_role }}">
+    <meta name="public_img_path" content="{{ asset('storage') }}">
 
     <title>Laravel</title>
 

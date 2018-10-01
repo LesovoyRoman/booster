@@ -3,6 +3,7 @@
 
 let role_meta = document.querySelector('meta[name="user_role"]').getAttribute('content'); // setting user
 localStorage.setItem('user_role', role_meta);
+const storage_path = document.querySelector('meta[name="public_img_path"]').getAttribute('content');
 
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
@@ -85,7 +86,7 @@ window.Vue = new Vue({
   },
   data(){
     return {
-
+        storage_path: storage_path
     }
   }
 })

@@ -43,14 +43,14 @@
 
                                     <b-row>
                                         <b-col>
-                                            <b-form-group id="fieldset_mainGift">
+                                            <b-form-group id="fieldset_is_main">
                                                 <div class="custom-control custom-checkbox">
                                                     <input
                                                             type="checkbox"
                                                             id="customCheckboxMainGift"
                                                             name="customCheckboxMainGift"
                                                             class="custom-control-input"
-                                                            v-model="newGift.mainGift"
+                                                            v-model="newGift.is_main"
                                                             :value="true">
                                                     <label
                                                             class="custom-control-label"
@@ -176,10 +176,6 @@
 
                                     <div class="divider_custom"></div>
 
-
-
-
-
                                     <b-row>
                                         <b-col>
                                             <b-form-group
@@ -194,7 +190,7 @@
                                         <b-col>
                                             <b-form-group id="fieldset_photoGift">
                                                 <label for="photoProduct">Photo of gift<i class="custom_tooltip_label" v-b-tooltip.hover title="'Photo of gift'">?</i></label>
-                                                <b-form-file v-model="newGift.file" accept="image/*" placeholder="Choose an image..."></b-form-file>
+                                                <b-form-file v-model="newGift.file" id="logoGift" accept="image/*" placeholder="Choose an image..."></b-form-file>
                                             </b-form-group>
 
                                         </b-col>
@@ -271,14 +267,14 @@
 
                                     <b-row>
                                         <b-col>
-                                            <b-form-group id="fieldset_mainGift">
+                                            <b-form-group id="fieldset_is_main">
                                                 <div class="custom-control custom-checkbox">
                                                     <input
                                                             type="checkbox"
                                                             id="customCheckboxMainGift"
                                                             name="customCheckboxMainGift"
                                                             class="custom-control-input"
-                                                            v-model="newGift.mainGift"
+                                                            v-model="newGift.is_main"
                                                             :value="true">
                                                     <label
                                                             class="custom-control-label"
@@ -455,10 +451,11 @@
         data(){
             return {
                 header: 'Create gift',
+                loading: false,
 
                 newGift: {
                     name: '',
-                    mainGift: null,
+                    is_main: null,
                     points: 1,
                     price: 1,
                     price_product: 1,
@@ -485,11 +482,30 @@
                 eur_val: 0,
                 usd_val: 0,
 
-                campaigns: [{name: 'Milk', id: 13}, {name: 'Chocolate', id: 14}]
+                campaigns: [],
+                dataRequst: {fields: ['id', 'name']}
             }
         },
         created(){
             vm = this;
+            this.loading = true;
+            axios.post('/getAllCampaigns', vm.dataRequst).then(response => {
+                this.loading = false;
+                if(response.data.campaigns instanceof Array) {
+                    // from DB
+                    console.log('campaigns id, name from DB');
+                    this.campaigns = response.data.campaigns
+                } else {
+                    // from Redis
+                    console.log('campaigns id, name from Redis');
+                    this.campaigns = JSON.parse(response.data.campaigns);
+                }
+                //console.log(response.data.campaigns);
+            }).catch( err => {
+                this.loading = false;
+                this.loading = false;
+                console.log(err.message)
+            })
         },
         beforeCreate(){
             $.ajax({
@@ -513,11 +529,32 @@
             },
             createGift(){
                 console.log(this.newGift);
+                let formData = new FormData();
+                for (let gift_data in this.newGift) {
+                    if(gift_data == 'file'){
+                        formData.append('file', document.getElementById('logoGift').files[0]);
+                    } else {
+                        formData.append(gift_data, this.newGift[gift_data]);
+                    }
+                }
+                //formData.append('data', this.newGift);
                 //return;
-                axios.post('/createNewGift', this.newGift).then(response => {
+                axios.post('/createNewGift', formData).then(response => {
                     if(response.data.errors) {
+                        let strErrors = '';
+                        let count = 0;
+                        for(let val in response.data.errors){
+                            count++;
+                            strErrors += '\n' + count + ') ' + response.data.errors[val];
+                        }
+                        alert('There are some problems with fields, fix them, please:' + strErrors)
                         console.log(response.data.errors)
                     } else {
+                        if(response.data.response !== undefined) {
+                            if(confirm('You have created Gift, do you want to go to list of gifts?')) {
+                                vm.$router.push('/gifts/all-gifts')
+                            }
+                        }
                         console.log(response)
                         console.log(response.data.response)
                     }

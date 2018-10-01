@@ -11,13 +11,13 @@
                             <b-row>
                                 <b-col>
                                     <b-form-group
-                                            id="fieldset_campaign_name"
+                                            id="fieldset_name"
                                             description=""
                                             :invalid-feedback="invalidFeedback"
                                             :valid-feedback="validFeedback"
                                             :state="state">
-                                        <label for="campaign_name">Enter campaign name<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter campaign name'">?</i></label>
-                                        <b-form-input id="campaign_name" placeholder="Enter name of campaign" :state="state" v-model.trim="new_campaign.campaign_name"></b-form-input>
+                                        <label for="name">Enter campaign name<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter campaign name'">?</i></label>
+                                        <b-form-input id="name" placeholder="Enter name of campaign" :state="state" v-model.trim="new_campaign.name"></b-form-input>
                                     </b-form-group>
                                 </b-col>
                             </b-row>
@@ -127,11 +127,11 @@
                             <b-row>
                                 <b-col>
                                     <b-form-group
-                                            id="fieldset_campaign_link_youtube"
+                                            id="fieldset_campaign_youtube_link"
                                             description=""
                                             :state="state">
-                                        <label for="campaign_link_youtube">Enter YouTube link<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter YouTube link'">?</i></label>
-                                        <b-form-input id="campaign_link_youtube" placeholder="Enter YouTube link" :state="state" v-model.trim="new_campaign.link_youtube"></b-form-input>
+                                        <label for="campaign_youtube_link">Enter YouTube link<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter YouTube link'">?</i></label>
+                                        <b-form-input id="campaign_youtube_link" placeholder="Enter YouTube link" :state="state" v-model.trim="new_campaign.youtube_link"></b-form-input>
                                     </b-form-group>
                                 </b-col>
                             </b-row>
@@ -140,7 +140,7 @@
                                 <b-col>
                                     <b-form-group id="fieldset_photoProduct">
                                         <label for="photoProduct">Photo of product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Photo of product'">?</i></label>
-                                        <b-form-file v-model="new_campaign.file" accept="image/*" placeholder="Choose an image..."></b-form-file>
+                                        <b-form-file id="logoCampaign" v-model="new_campaign.file" accept="image/*" placeholder="Choose an image..."></b-form-file>
                                     </b-form-group>
 
                                 </b-col>
@@ -266,6 +266,8 @@
 </template>
 
 <script>
+    let vm = {};
+
     export default {
         name: 'AddNewCampaign',
         data() {
@@ -273,7 +275,7 @@
                 header: 'Create new campaign',
 
                 new_campaign: {
-                    campaign_name: '',
+                    name: '',
                     campaign_id: '',
                     country: null,
                     city: null,
@@ -285,11 +287,11 @@
 
                     products_in_stock: 0,
                     product_name: '',
-                    link_youtube: '',
+                    youtube_link: '',
                     file: {},
                     product_price: 0.00,
                     currency: 'RUB',
-                    product_points: 0,
+                    //product_points: 0,
 
                     checking_type: 'Serial number',
                     conditions: '',
@@ -300,16 +302,39 @@
             }
         },
         created() {
-
+            vm = this;
         },
         methods: {
             createNewCampaign(){
                 console.log(this.new_campaign);
+                let formData = new FormData();
+                for (let campaign_data in this.new_campaign) {
+                    if(campaign_data == 'file'){
+                        formData.append('file', document.getElementById('logoCampaign').files[0]);
+                    } else {
+                        formData.append(campaign_data, this.new_campaign[campaign_data]);
+                    }
+                }
+                //formData.append('data', this.new_campaign);
                 //return;
-                axios.post('/createNewCampaign', this.new_campaign).then(response => {
+                axios.post('/createNewCampaign', formData).then(response => {
+                    console.log(response);
                     if(response.data.errors) {
+                        let strErrors = '';
+                        let count = 0;
+                        for(let val in response.data.errors){
+                            count++;
+                            strErrors += '\n' + count + ') ' + response.data.errors[val];
+                        }
+                        alert('There are some problems with fields, fix them, please:' + strErrors)
                         console.log(response.data.errors)
                     } else {
+                        if(response.data.response !== undefined) {
+                            if(confirm('You have created Campaign, do you want to go to list of your campaigns?')) {
+                                vm.$router.push('/campaigns/my-campaigns')
+                            }
+                        }
+                        console.log(response)
                         console.log(response.data.response)
                     }
                 }).catch(err => {
@@ -319,12 +344,12 @@
         },
         computed: {
             state () {
-               // return this.new_campaign.campaign_name.length >= 4 ? true : false
+               // return this.new_campaign.name.length >= 4 ? true : false
             },
             invalidFeedback () {
-                if (this.new_campaign.campaign_name.length > 4) {
+                if (this.new_campaign.name.length > 4) {
                     return ''
-                } else if (this.new_campaign.campaign_name.length > 0) {
+                } else if (this.new_campaign.name.length > 0) {
                     return 'Enter at least 4 characters'
                 } else {
                     return 'Please enter something'

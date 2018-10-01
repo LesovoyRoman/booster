@@ -79,7 +79,7 @@
                             </template>
                             <template slot="fromInfluencer" slot-scope="data">
                                 From influencer:
-                                <router-link :id="id = data.item.id" :name="data.item.name = data.item.fromInfluencer" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, id: id, campaign_name: campaign_name } }">{{ data.item.fromInfluencer }}</router-link>
+                                <router-link :id="id = data.item.id" :name="data.item.name = data.item.fromInfluencer" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, idInfluencer: id, campaign_name: campaign_name } }">{{ data.item.fromInfluencer }}</router-link>
                             </template>
                             <template
                                     slot="status"

@@ -83,6 +83,14 @@
                                             slot-scope="data">
                                         <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
                                     </template>
+                                    <template slot="end_campaign" slot-scope="data">
+                                        <div v-if="data.item.end_campaign !== null && data.item.end_campaign !== '2000-01-01 00:00:00'">
+                                            {{ data.item.end_campaign }}
+                                        </div>
+                                        <div v-else>
+                                            {{ data.item.end_points }} points
+                                        </div>
+                                    </template>
                                     <template
                                             slot="status"
                                             slot-scope="data" justified="center">
@@ -112,7 +120,7 @@
 
                                     </template>
                                     <template slot="change" justified="center" slot-scope="row">
-                                        <b-button size="sm" class="custom_btn_change" :variant="'primary'">
+                                        <b-button size="sm" :to="{ name: 'UpdateCampaign', params: { idCampaign:row.item.id }}" class="custom_btn_change" :variant="'primary'">
                                             <i class="icon-pencil"></i>
                                         </b-button>
                                     </template>
@@ -218,7 +226,7 @@
                                         <span v-if="data.item.status === 5"> (100%)</span>
                                     </template>
                                     <template slot="change" justified="center" slot-scope="row">
-                                        <b-button size="sm" class="custom_btn_change" :variant="'primary'">
+                                        <b-button size="sm" :to="{ name: 'UpdateCampaign', params: { idCampaign:row.item.id }}" class="custom_btn_change" :variant="'primary'">
                                             <i class="icon-pencil"></i>
                                         </b-button>
                                     </template>
@@ -251,15 +259,6 @@
     import Loading from 'vue-loading-spinner/src/components/Circle8'
 
     let vm = {};
-    const shuffleArray = (array) => {
-        /*for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1))
-            const temp = array[i]
-            array[i] = array[j]
-            array[j] = temp
-        }*/
-        return array
-    }
 
     export default {
         name: 'MyCampaigns',
@@ -291,33 +290,7 @@
                 loading: false,
                 header: 'My campaigns',
                 activeTable: [],
-                archiveTable: shuffleArray([
-                    { id: 1, active: 'Archive', campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, change: '' },
-                    { id: 2, active: 'Archive', campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, change: '' },
-                    { id: 3, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Archive', change: '' },
-                    { id: 4, campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Archive', change: '' },
-                    { id: 5, campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: 'Archive', change: '' },
-                    { id: 6, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: 'Archive', change: '' },
-                    { id: 7, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, active: 'Archive', change: '' },
-                    { id: 8, campaign_name: 'Cheese', points: '80000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Archive', change: '' },
-                    { id: 9, campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Archive', change: '' },
-                    { id: 10, campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: 'Archive', change: '' },
-                    { id: 11, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: 'Archive', change: '' },
-                    { id: 12, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, active: 'Archive', change: '' },
-                    { id: 13, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Archive', change: '' },
-                    { id: 14, campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Archive', change: '' },
-                    { id: 15, campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: 'Archive', change: '' },
-                    { id: 16, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo', start: '20/08/2018', finish: '31/12/2018', status: 5, active: 'Archive', change: '' },
-                    { id: 17, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, active: 'Archive', change: '' },
-                    { id: 18, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Archive', change: '' },
-                    { id: 19, campaign_name: 'Cheese', points: '60000/50000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Archive', change: '' },
-                    { id: 20, campaign_name: 'Cheese', points: '50000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: 'Archive', change: '' },
-                    { id: 21, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: 'Archive', change: '' },
-                    { id: 22, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 3, active: 'Archive', change: '' },
-                    { id: 23, campaign_name: 'Cheese', points: '70000/30000', check_type: 'Serial number',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Archive', change: '' },
-                    { id: 24, campaign_name: 'Cheese', points: '60000/35000', check_type: 'Photo & number',  start: '20/08/2018', finish: '31/12/2018',  status: 5, active: 'Archive', change: '' },
-                    { id: 25, campaign_name: 'Cheese', points: '40000/30000', check_type: 'Photo',  start: '20/08/2018', finish: '31/12/2018',  status: 4, active: 'Archive', change: '' },
-                ]),
+                archiveTable: [],
                 fields: [
                     { key: 'campaing_checkbox', 'class': 'table_label_hidden' },
                     { key: 'id', label: '№' },
@@ -325,10 +298,10 @@
                     { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
                     { key: 'checking_type', sortable: true, label: 'Checking' },
                     { key: 'created_at', sortable: true, label: 'Start Date' },
-                    { key: 'finish', sortable: true, label: 'Finish Date' },
+                    { key: 'end_campaign', label: 'Finish', sortable: true },
                     { key: 'status', sortable: true, label: 'Satisfied' },
                     { key: 'active', sortable: true, label: 'Status' },
-                    { key: 'change', 'class': 'text-center table_label_hidden' }
+                    { key: 'change', 'class': 'text-center table_label_hidden change-campaign' },
                 ],
                 checkbox_group: {},
                 currentPage: 1,

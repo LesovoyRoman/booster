@@ -61,6 +61,8 @@ import Register from '@/views/pages/Register'
 // Campaigns
 import MyCampaigns from '@/views/performers/campaigns/MyCampaigns'
 import Campaign from '@/views/performers/campaigns/Campaign'
+import NewCompany from '@/views/performers/campaigns/CreateNewCampaign'
+import UpdateCampaign from '@/views/performers/campaigns/UpdateCampaign'
 
 // Results
 import ResultsCampaigns from '@/views/performers/campaigns/results/ResultsCampaigns'
@@ -73,8 +75,6 @@ import Feedback from '@/views/performers/campaigns/feedbacks/Feedback'
 // Bonuses
 import InfluencerBonuses from '@/views/performers/campaigns/bonuses/InfluencerBonuses'
 import CheckingBonuses from '@/views/performers/campaigns/bonuses/CheckingBonuses'
-
-import NewCompany from '@/views/performers/campaigns/CreateNewCampaign'
 
 // Tariffs
 import TariffPlan from '@/views/performers/rates/Tariff'
@@ -90,6 +90,7 @@ import InfluencersList from '@/views/performers/influencers/Influencers'
 import CreateGift from '@/views/performers/gifts/CreateGift'
 import GiftsList from '@/views/performers/gifts/GiftsList'
 import OrderedGifts from '@/views/performers/gifts/OrderedGifts'
+import UpdateGift from '@/views/performers/gifts/UpdateGift'
 
 // Account
 import ProfileP from '@/views/performers/account/Profile'
@@ -193,6 +194,13 @@ export default new Router({
                       name      : 'OrderedGifts',
                       component : OrderedGifts,
                       meta: { role_performer: true },
+                  },
+                  {
+                      path      : 'update-gift-:idGift',
+                      name      : 'UpdateGift',
+                      component : UpdateGift,
+                      props     : true,
+                      meta: { role_performer: true }
                   }
               ],
         },
@@ -276,12 +284,6 @@ export default new Router({
                     meta: { role_performer: true },
                 },
                 {
-                  path       : 'add-new',
-                  name       : 'AddNewCampaign',
-                  component  : NewCompany,
-                  meta: { role_performer: true },
-                },
-                {
                     path     : 'feedbacks',
                     name     : 'Feedbacks',
                     redirect: '/campaigns/feedbacks/all-feedbacks',
@@ -318,6 +320,19 @@ export default new Router({
                     name     : 'MyCampaigns',
                     component: MyCampaigns,
                     meta: { role_performer: true },
+                },
+                {
+                    path       : 'add-new',
+                    name       : 'AddNewCampaign',
+                    component  : NewCompany,
+                    meta: { role_performer: true },
+                },
+                {
+                    path       : 'update-campaign-:idCampaign',
+                    name       : 'UpdateCampaign',
+                    component  : UpdateCampaign,
+                    props      : true,
+                    meta: { role_performer: true }
                 },
                 {
                     path     : 'campaign-id-:id',
@@ -401,11 +416,8 @@ export default new Router({
           props: true,
             meta: { role_influencer: true },
         },
-
-
-          // ????
         {
-          path     : 'influencer-id-:id',
+          path     : 'influencer-:idInfluencer',
           name     : 'Influencer',
           component: Influencer,
           props: true,

@@ -118,7 +118,7 @@
                                     <template slot="name" slot-scope="data">
                                         <div class="photo_gift-block">
                                             <!--<i class="fa fa-star star_active star_influencer" v-if="data.item.star"></i>-->
-                                            <keep-alive><img :src="data.item.photo" alt="photo_item" class="photo_gift_table"></keep-alive>
+                                            <keep-alive><img v-if="data.item.images.length !== 0" :src="storage_path + '/' + data.item.images[0].image_path" alt="photo_item" class="photo_gift_table"></keep-alive>
                                         </div>
                                         <div class="gift-name-block">
                                           {{ data.item.name }}
@@ -135,12 +135,12 @@
                                         <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.name }}</router-link>
                                     </template>
                                     <template slot="change" justified="center" slot-scope="row">
-                                        <b-button size="sm" class="custom_btn_change" :variant="'primary'">
+                                        <b-button size="sm" :to="{ name: 'UpdateGift', params: { idGift:row.item.id }}" class="custom_btn_change" :variant="'primary'">
                                             <i class="icon-pencil"></i>
                                         </b-button>
                                     </template>
                                     <template slot="delete" justified="center" slot-scope="row">
-                                        <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
+                                        <b-button size="sm" @click="removeElement(row, row.item.id)" class="custom_btn_change" :variant="'primary'">
                                             <i class="icon-close"></i>
                                         </b-button>
                                     </template>
@@ -197,6 +197,8 @@
                 perPage    : 10,
                 totalRows  : 0,
 
+                storage_path: '',
+
                 selected: [],
                 allSelected: false,
                 giftsIds: [],
@@ -218,14 +220,16 @@
                     { key: 'campaign', sortable: false, 'class': 'campaign_gift' },
                     { key: 'delivery', sortable: false, 'class': 'table_delivery' },
                     { key: 'change', label: '', 'class': 'table_label_hidden change-gift' },
-                    { key: 'delete', label: '', 'class': 'table_label_hidden delete-gift' }
+                    { key: 'delete', label: '', 'class': 'table_label_hidden delete-gift' },
                 ],
             }
         },
         created(){
+            this.storage_path = this.$root.storage_path;
             vm = this;
             this.loading = true;
             axios.post('/getAllGifts').then(response => {
+                console.log(response);
                 this.loading = false;
                 //console.log(response)
                 if(response.data.gifts instanceof Array) {
@@ -236,6 +240,7 @@
                     // from Redis
                     console.log('gifts Redis');
                     this.gifts = JSON.parse(response.data.gifts);
+                    //console.log(this.gifts[0].images[0].image_path)
                 }
             }).catch( err => {
                 this.loading = false;
@@ -272,9 +277,22 @@
                     })
                 }
             },
-            removeElement: function (item) {
+            removeElement: function (item, id) {
                 if(confirm("Are you sure?")) {
-                    this.gifts.splice(item.index, 1);
+                    vm.loading = true;
+                    axios.post('/deleteGift', {
+                        id: id,
+                    }).then(response => {
+                        vm.loading = false;
+                        if(response.status === 200) {
+                            this.gifts.splice(item.index, 1);
+                        } else {
+                            alert(response.message)
+                        }
+                    }).catch(err => {
+                        vm.loading = false;
+                        console.log(err);
+                    });
                 }
             },
             select: function() {
