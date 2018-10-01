@@ -187,6 +187,7 @@ export default new Router({
                       path      : 'create-gift',
                       name      : 'CreateGift',
                       component : CreateGift,
+                      props: true,
                       meta: { role_performer: true },
                   },
                   {

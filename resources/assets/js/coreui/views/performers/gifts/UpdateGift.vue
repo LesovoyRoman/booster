@@ -189,7 +189,7 @@
                         let count = 0;
                         for(let val in response.data.errors){
                             count++;
-                            strErrors += '\n' + count + ') ' + response.data.errors[val];
+                            strErrors += '<span>' + count + ') ' + response.data.errors[val] + '</span> ' + '<br>';
                         }
                         vm.$swal( 'There are some problems:', strErrors, 'error')
                     }

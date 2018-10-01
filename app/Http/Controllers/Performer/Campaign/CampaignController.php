@@ -159,7 +159,7 @@ class CampaignController extends Controller
 
                 $this->updateRedisAndGetCampaigns();
 
-                return response()->json(['response' => $create]);
+                return response()->json(['response' => $create, 'idCampaign' => $newCampaignId]);
             }
         } catch (\Exception $e) {
             return response()->json(['exception' => $e->getMessage()]);
@@ -193,7 +193,7 @@ class CampaignController extends Controller
 
                 $this->updateRedisAndGetCampaigns();
 
-                return response()->json(['response' => $image], 200);
+                return response()->json(['response' => $image,  'idCampaign' => $campaign_id], 200);
             } catch (\Exception $e) {
                 return response()->json(['exception' => $e->getMessage()]);
             }

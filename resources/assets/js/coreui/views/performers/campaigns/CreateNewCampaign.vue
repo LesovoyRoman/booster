@@ -4,7 +4,9 @@
             <b-row>
                 <b-col sm="12" md="12">
                     <h2 class="h2">{{ header }}</h2>
-                    <b-card>
+
+                    <!-- CAMPAIGN -->
+                    <b-card v-if="currentStep === 1">
                         <form action="">
                             <p class="card-text header_card_simple">Common information</p>
 
@@ -267,6 +269,7 @@
                             </b-row>
                         </form>
                     </b-card>
+
                 </b-col>
             </b-row>
         </div>
@@ -281,6 +284,7 @@
         data() {
             return {
                 header: 'Create new campaign',
+                currentStep: 1,
 
                 urlImage: null,
                 new_campaign: {
@@ -305,8 +309,6 @@
                     checking_type: 'Serial number',
                     conditions: '',
                     instructions: ''
-
-
                 }
             }
         },
@@ -328,8 +330,7 @@
                         formData.append(campaign_data, this.new_campaign[campaign_data]);
                     }
                 }
-                //formData.append('data', this.new_campaign);
-                //return;
+
                 axios.post('/createNewCampaign', formData).then(response => {
                     console.log(response);
                     if(response.data.errors) {
@@ -337,13 +338,27 @@
                         let count = 0;
                         for(let val in response.data.errors){
                             count++;
-                            strErrors += '\n' + count + ') ' + response.data.errors[val];
+                            strErrors += '<span>' + count + ') ' + response.data.errors[val] + '</span> ' + '<br>';
                         }
                         vm.$swal( 'There are some problems:', strErrors, 'error')
                         console.log(response.data.errors)
                     } else {
                         if(response.status === 200) {
-                            vm.$swal( 'Congratulates:', 'You have created campaign!', 'success')
+                            vm.$swal({
+                                title: 'Congratulates:',
+                                html: `
+                                <div id="steps_create_campaign">
+                                    <ul class="steps">
+                                        <li class="success">Step 1. Create Campaign</li>
+                                        <li>Step 2. Create Gift</li>
+                                    </ul>
+                                </div>`,
+                                type: 'success',
+                                confirmButtonText: 'Continue!'
+                            }).then(() => {
+                                //alert(response.data.idCampaign)
+                                vm.$router.push({name: 'CreateGift', params: {idCampaign: response.data.idCampaign}})
+                            })
                         }
                         console.log(response)
                         console.log(response.data.response)

@@ -21264,6 +21264,7 @@ h2 {
 
 .swal2-popup .swal2-title {
   font-size: 24px !important;
+  text-align: left;
 }
 
 .swal2-popup #swal2-content {
@@ -22292,6 +22293,79 @@ table tr,
 
   #dashboard .list_custom_scope .text-muted {
     display: inline-block;
+  }
+}
+
+#steps_create_campaign {
+  margin-top: 30px;
+}
+
+#steps_create_campaign ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  position: relative;
+  padding-left: 0;
+}
+
+#steps_create_campaign ul:before {
+  content: '';
+  position: absolute;
+  height: 4px;
+  width: 50%;
+  top: 50%;
+  margin-top: 12px;
+  left: calc(25% + 10px);
+  background-color: rgba(43, 39, 39, 0.15);
+  z-index: 8;
+}
+
+#steps_create_campaign ul.success:before {
+  background-color: rgba(82, 176, 47, 0.9);
+}
+
+#steps_create_campaign li {
+  position: relative;
+  height: 70px;
+  list-style: none;
+  font-size: 16px;
+}
+
+#steps_create_campaign li:before {
+  margin-left: -20px;
+  left: 50%;
+  position: absolute;
+  content: '';
+  width: 40px;
+  height: 40px;
+  top: 30px;
+  z-index: 10;
+  border-radius: 50%;
+  background-color: #d2cccc;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+}
+
+#steps_create_campaign li.success:before {
+  background-color: #52b02f;
+  background-image: url(/images/success.png?f5f982045690096e3f34bece398bc6f7);
+}
+
+@media screen and (max-width: 500px) {
+  #steps_create_campaign li {
+    height: 85px;
+  }
+
+  #steps_create_campaign li:before {
+    top: 45px;
+  }
+
+  #steps_create_campaign ul:before {
+    margin-top: 18px;
   }
 }
 

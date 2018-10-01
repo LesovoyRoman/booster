@@ -16,11 +16,11 @@
                                 <form action="" @submit.prevent>
 
                                     <p class="card-text header_card_simple">Campaign</p>
-                                    <b-row>
+                                    <b-row v-if="!idCampaign">
                                         <b-col>
                                             <b-form-group>
                                                 <label>Choose campaign<i class="custom_tooltip_label" v-b-tooltip.hover title="'Choose campaign'">?</i></label>
-                                                <b-form-select dark v-model="newGift.current_campaign">
+                                                <b-form-select v-if="!idCampaign" dark v-model="newGift.current_campaign">
                                                     <option :value="null" disabled>Choose the campaign</option>
                                                     <option v-for="(campaign, index) in campaigns" :value="campaign.id">{{ campaign.name }}</option>
                                                 </b-form-select>
@@ -41,7 +41,7 @@
                                         </b-col>
                                     </b-row>
 
-                                    <b-row>
+                                    <b-row v-if="!idCampaign">
                                         <b-col>
                                             <b-form-group id="fieldset_is_main">
                                                 <div class="custom-control custom-checkbox">
@@ -252,12 +252,13 @@
                                 <form action="" @submit.prevent>
 
                                     <p class="card-text header_card_simple">Campaign</p>
-                                    <b-row>
+                                    <b-row v-if="!idCampaign">
                                         <b-col>
                                             <b-form-group>
                                                 <label>Choose campaign<i class="custom_tooltip_label" v-b-tooltip.hover title="'Choose campaign'">?</i></label>
-                                                <b-form-select dark v-model="newGift.current_campaign" :options="campaigns">
+                                                <b-form-select v-if="!idCampaign" dark v-model="newGift.current_campaign">
                                                     <option :value="null" disabled>Choose the campaign</option>
+                                                    <option v-for="(campaign, index) in campaigns" :value="campaign.id">{{ campaign.name }}</option>
                                                 </b-form-select>
                                             </b-form-group>
                                         </b-col>
@@ -287,7 +288,7 @@
                                         </b-col>
                                     </b-row>
 
-                                    <b-row>
+                                    <b-row v-if="!idCampaign">
                                         <b-col>
                                             <b-form-group id="fieldset_is_main">
                                                 <div class="custom-control custom-checkbox">
@@ -470,6 +471,7 @@
 
     export default {
         name: 'CreateGift',
+        props: ['idCampaign'],
         data(){
             return {
                 header: 'Create gift',
@@ -510,6 +512,11 @@
             }
         },
         created(){
+            if(this.idCampaign) {
+                this.newGift.current_campaign = this.idCampaign;
+                this.is_main = true;
+                console.log('gift' + this.newGift.current_campaign)
+            }
             vm = this;
             this.loading = true;
             axios.post('/getAllCampaigns', vm.dataRequst).then(response => {
@@ -572,13 +579,14 @@
                         let count = 0;
                         for(let val in response.data.errors){
                             count++;
-                            strErrors += '\n' + count + ') ' + response.data.errors[val];
+                            strErrors += '<span>' + count + ') ' + response.data.errors[val] + '</span> ' + '<br>';
                         }
                         vm.$swal( 'There are some problems:', strErrors, 'error')
                         console.log(response.data.errors)
                     } else {
                         if(response.status === 200) {
                             vm.$swal( 'Congratulates:', 'You have created gift!', 'success')
+                            vm.currentStep++;
                         }
                         console.log(response)
                         console.log(response.data.response)
