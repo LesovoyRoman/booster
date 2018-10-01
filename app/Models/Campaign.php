@@ -37,4 +37,9 @@ class Campaign extends Model
     {
         return $this->hasMany('App\Models\Gift');
     }
+
+    public function image()
+    {
+        return $this->hasOne('App\Models\Image', 'campaign_id', 'id');
+    }
 }

@@ -28,7 +28,7 @@ class GiftController extends Controller
     protected function getGift(Request $request)
     {
         try {
-            $gift = Gift::where('id', '=', $request['id'])->get();
+            $gift = Gift::with('Images')->where('id', '=', $request['id'])->get();
 
             return response()->json([
                 'gift' => $gift,

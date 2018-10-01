@@ -52,36 +52,53 @@
                             <div class="divider_custom"></div>
 
                             <b-row>
-                                <b-col>
-                                    <b-form-group
-                                            id="fieldset_gift_in_stock">
-                                        <label for="gift_in_stock">In stock</label>
-                                        <b-form-input type="number" v-model="gift.in_stock" id="gift_in_stock"/>
-                                    </b-form-group>
+                                <b-col md="6" lg="6" xs="12" sm="12">
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group
+                                                    id="fieldset_gift_in_stock">
+                                                <label for="gift_in_stock">In stock</label>
+                                                <b-form-input type="number" v-model="gift.in_stock" id="gift_in_stock"/>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group>
+                                                <label for="gift_instructions">Instruction<i class="custom_tooltip_label" v-b-tooltip.hover title="'Instructions'">?</i></label>
+                                                <b-form-textarea id="campaign_instructions"
+                                                                 v-model="gift.instructions"
+                                                                 placeholder="Enter instruction how to get a gift"
+                                                                 :rows="5"
+                                                                 :max-rows="50">
+                                                </b-form-textarea>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
                                 </b-col>
-                            </b-row>
 
-                            <b-row>
-                                <b-col>
-                                    <b-form-group id="fieldset_photoGift">
-                                        <label for="photoProduct">Photo of gift<i class="custom_tooltip_label" v-b-tooltip.hover title="'Photo of gift'">?</i></label>
-                                        <b-form-file v-model="gift.file" id="logoGift" accept="image/*" placeholder="Choose an image..."></b-form-file>
-                                    </b-form-group>
 
-                                </b-col>
-                            </b-row>
+                                <b-col md="6" lg="6" xs="12" sm="12">
 
-                            <b-row>
-                                <b-col>
-                                    <b-form-group>
-                                        <label for="gift_instructions">Instruction<i class="custom_tooltip_label" v-b-tooltip.hover title="'Instructions'">?</i></label>
-                                        <b-form-textarea id="campaign_instructions"
-                                                         v-model="gift.instructions"
-                                                         placeholder="Enter instruction how to get a gift"
-                                                         :rows="5"
-                                                         :max-rows="50">
-                                        </b-form-textarea>
-                                    </b-form-group>
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group id="fieldset_photoGift">
+                                                <label for="photoProduct">Photo of gift<i class="custom_tooltip_label" v-b-tooltip.hover title="'Photo of gift'">?</i></label>
+                                                <b-form-file @change="onFileChange" v-model="gift.file" id="logoGift" accept="image/*" placeholder="Choose an image..."></b-form-file>
+                                            </b-form-group>
+
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group>
+                                                <div id="renderedImageBlock"><img v-if="urlImage" :src="urlImage"></div>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
                                 </b-col>
                             </b-row>
 
@@ -120,6 +137,8 @@
             return {
                 header: 'Update gift',
                 loading: false,
+                urlImage: '',
+                storage_path: '',
 
                 gift: {
                     name: '',
@@ -145,6 +164,10 @@
             },
         },
         methods: {
+            onFileChange(e) {
+                const file = e.target.files[0];
+                this.urlImage = URL.createObjectURL(file);
+            },
             updateGift(){
                 let formData = new FormData();
                 for (let gift_data in this.gift) {
@@ -159,7 +182,7 @@
                     console.log(response)
                     this.loading = false;
                     if(response.status === 200) {
-                        alert('Yoy have successfully updated gift!');
+                        vm.$swal( 'Congratulates:', 'You have updated gift!', 'success')
                     }
                     if(response.data.errors) {
                         let strErrors = '';
@@ -168,7 +191,7 @@
                             count++;
                             strErrors += '\n' + count + ') ' + response.data.errors[val];
                         }
-                        alert('There are some problems with fields, fix them, please:' + strErrors)
+                        vm.$swal( 'There are some problems:', strErrors, 'error')
                     }
                 }).catch(err => {
                     this.loading = false;
@@ -179,13 +202,18 @@
         created(){
             vm = this;
             this.loading = true;
+            this.storage_path = this.$root.storage_path;
             axios.post('/getGiftById', {
                 id: this.idGift,
             }).then(response => {
-                //console.log(response.data.gift)
+                console.log(response.data.gift)
                 this.loading = false;
                 if(response.status === 200) {
                     vm.gift = response.data.gift[0];
+
+                    if(response.data.gift[0].images[0] !== null) {
+                        vm.urlImage = this.storage_path + '/' + response.data.gift[0].images[0].image_path;
+                    }
                 }
             }).catch(err => {
                 this.loading = false;

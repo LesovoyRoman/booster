@@ -108,45 +108,79 @@
                             <p class="card-text header_card_simple">Product for campaign</p>
 
                             <b-row>
-                                <b-col>
-                                    <b-form-group
-                                            id="fieldset_campaign_product_name"
-                                            description="">
-                                        <label for="campaign_product_name">Enter your product name<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter your product name'">?</i></label>
-                                        <b-form-input id="campaign_product_name" placeholder="Enter product name" v-model.trim="campaign.product_name"></b-form-input>
-                                    </b-form-group>
+                                <b-col md="6" lg="6" sm="12" xs="12">
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group
+                                                    id="fieldset_campaign_product_name"
+                                                    description=""
+                                                    >
+                                                <label for="campaign_product_name">Enter your product name<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter your product name'">?</i></label>
+                                                <b-form-input id="campaign_product_name" placeholder="Enter product name"  v-model.trim="campaign.product_name"></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group
+                                                    id="fieldset_campaign_youtube_link"
+                                                    description=""
+                                                    >
+                                                <label for="campaign_youtube_link">Enter YouTube link<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter YouTube link'">?</i></label>
+                                                <b-form-input id="campaign_youtube_link" placeholder="Enter YouTube link"  v-model.trim="campaign.youtube_link"></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group
+                                                    id="fieldset_campaign_products_in_stock"
+                                                    description="">
+                                                <label for="campaign_products_in_stock">Enter products in stock<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter products in stock'">?</i></label>
+                                                <b-form-input type="number" id="campaign_products_in_stock" placeholder="100" v-model.trim="campaign.products_in_stock"></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-row>
+                                                    <b-col>
+                                                        <label for="productPrice">Middle price<i class="custom_tooltip_label" v-b-tooltip.hover title="'Middle price'">?</i></label>
+                                                        <b-form-input id="productPrice" type="number" v-model="campaign.product_price"/>
+                                                    </b-col>
+                                                    <b-col>
+                                                        <label for="campaign_currency">Currency</label>
+                                                        <b-form-select id="campaign_currency" dark v-model="campaign.currency">
+                                                            <option :value="'RUB'">RUB</option>
+                                                            <option :value="'UAH'">UAH</option>
+                                                        </b-form-select>
+                                                    </b-col>
+                                                </b-row>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
                                 </b-col>
-                            </b-row>
+                                <b-col md="6" lg="6" sm="12" xs="12">
+                                    <b-row>
+                                        <b-col>
+                                            <b-form-group id="fieldset_photoProduct">
+                                                <label for="photoProduct">Photo of product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Photo of product'">?</i></label>
+                                                <b-form-file @change="onFileChange" id="logoCampaign" v-model="campaign.file" accept="image/*" placeholder="Choose an image..."></b-form-file>
+                                            </b-form-group>
 
-                            <b-row>
-                                <b-col>
-                                    <b-form-group
-                                            id="fieldset_campaign_youtube_link"
-                                            description="">
-                                        <label for="campaign_youtube_link">Enter YouTube link<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter YouTube link'">?</i></label>
-                                        <b-form-input id="campaign_youtube_link" placeholder="Enter YouTube link" v-model.trim="campaign.youtube_link"></b-form-input>
-                                    </b-form-group>
-                                </b-col>
-                            </b-row>
-
-                            <b-row>
-                                <b-col>
-                                    <b-form-group id="fieldset_photoProduct">
-                                        <label for="photoProduct">Photo of product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Photo of product'">?</i></label>
-                                        <b-form-file id="logoCampaign" v-model="campaign.file" accept="image/*" placeholder="Choose an image..."></b-form-file>
-                                    </b-form-group>
-
-                                </b-col>
-                            </b-row>
-
-                            <b-row>
-                                <b-col>
-                                    <b-form-group
-                                            id="fieldset_campaign_products_in_stock"
-                                            description="">
-                                        <label for="campaign_products_in_stock">Enter products in stock<i class="custom_tooltip_label" v-b-tooltip.hover title="'Enter products in stock'">?</i></label>
-                                        <b-form-input type="number" id="campaign_products_in_stock" placeholder="100" v-model.trim="campaign.products_in_stock"></b-form-input>
-                                    </b-form-group>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row>
+                                        <b-col>
+                                            <div id="renderedImageBlock"><img v-if="urlImage" :src="urlImage"></div>
+                                        </b-col>
+                                    </b-row>
                                 </b-col>
                             </b-row>
 
@@ -231,17 +265,21 @@
             Loading
         },
         created(){
+            this.storage_path = this.$root.storage_path;
             vm = this;
             this.loading = true;
             axios.post('/getCampaignById', {
                 id: this.idCampaign,
             }).then(response => {
-                console.log(response.data.campaign);
+                //console.log(response.data.campaign);
                 this.loading = false;
                 if(response.status === 200) {
                     vm.campaign = response.data.campaign[0];
+                    if(response.data.campaign[0].image !== null) {
+                        vm.urlImage = this.storage_path + '/' + response.data.campaign[0].image.image_path;
+                    }
                     if(response.data.campaign[0].end_campaign === '2000-01-01 00:00:00' ||
-                        response.data.campaign[0].end_campaign == 'null') {
+                        response.data.campaign[0].end_campaign == 'null' || response.data.campaign[0].end_campaign == null) {
                         vm.campaign.end_type = 'points'
                     } else {
                         vm.campaign.end_type = 'date'
@@ -261,8 +299,10 @@
         },
         data(){
             return {
+                storage_path: '',
                 header: 'Update campaign',
                 loading: false,
+                urlImage: null,
 
                 campaign: {
 
@@ -279,14 +319,13 @@
                     product_name: '',
                     youtube_link: '',
                     file: {},
+                    currency: 'RUB',
                     product_price: 0.00,
                     product_points: 0,
                     conditions: '',
                     instructions: ''
 
                 },
-
-
             }
         },
         computed: {
@@ -297,6 +336,10 @@
             },
         },
         methods: {
+            onFileChange(e) {
+                const file = e.target.files[0];
+                this.urlImage = URL.createObjectURL(file);
+            },
             updateCampaign(){
                 this.loading = true;
                 let formData = new FormData();
@@ -312,7 +355,16 @@
                     console.log(response);
                     this.loading = false;
                     if(response.status === 200) {
-                        alert('Yoy have successfully updated campaign!');
+                        vm.$swal( 'Congratulates:', 'You have created campaign!', 'success')
+                    }
+                    if(response.data.errors) {
+                        let strErrors = '';
+                        let count = 0;
+                        for(let val in response.data.errors){
+                            count++;
+                            strErrors += '\n' + count + ') ' + response.data.errors[val];
+                        }
+                        vm.$swal( 'There are some problems:', strErrors, 'error')
                     }
                 }).catch(err => {
                     this.loading = false;

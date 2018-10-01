@@ -46,7 +46,7 @@ class CampaignController extends Controller
     protected function getCampaign(Request $request)
     {
         try {
-            $campaign = Campaign::where('id', '=', $request['id'])->get();
+            $campaign = Campaign::with('Image')->where('id', '=', $request['id'])->get();
 
             return response()->json([
                 'campaign' => $campaign,
@@ -229,6 +229,8 @@ class CampaignController extends Controller
                 $campaign->photo_path = request('photo_path');
                 $campaign->conditions = request('conditions');
                 $campaign->instructions = request('instructions');
+                $campaign->product_price = request('product_price');
+                $campaign->currency = request('currency');
                 $campaign->points = 0;
 
                 $campaign->save();
