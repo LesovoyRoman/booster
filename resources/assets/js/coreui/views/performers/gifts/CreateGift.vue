@@ -3,10 +3,14 @@
         <div class="animated fadeIn">
             <b-row>
                 <b-col sm="12" md="12">
-                    <h2 class="h2">{{ header }}</h2>
+                    <h2 class="h2" id="createGiftHeader">{{ header }}</h2>
                 </b-col>
 
-                <b-col
+                <b-col v-if="loading">
+                    <loading v-if="loading" style="position: fixed; left: 50%; margin-left: -20px; top: 50%"></loading>
+                </b-col>
+
+                <b-col  v-if="!loading"
                         sm="12"
                         md="12">
                     <b-card>
@@ -73,17 +77,28 @@
 
                                             <b-row>
                                                 <b-col>
+                                                    <b-form-group>
+                                                        <label>Currency</label>
+                                                        <b-input-group>
+                                                            <b-form-select dark v-model="newGift.currency" :options="currencies"></b-form-select>
+                                                        </b-input-group>
+                                                    </b-form-group>
+                                                </b-col>
+                                            </b-row>
+
+                                            <b-row>
+                                                <b-col>
                                                     <b-form-group
                                                             id="fieldset_gift_price">
                                                         <label for="gift_price">Price of gift<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of gift (counts as RUB)'">?</i></label>
                                                         <b-input-group>
 
-                                                            <b-input-group-prepend>
-                                                                <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price" :data="priceGiftCurrency" id="amount_price"/>
-                                                            </b-input-group-prepend>
+                                                            <b-input-group>
+                                                                <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price"  id="amount_price"/>
+                                                            </b-input-group>
 
 
-                                                            <b-form-select dark v-model="newGift.price_gift_currency" :options="currencies"></b-form-select>
+
 
                                                         </b-input-group>
                                                     </b-form-group>
@@ -97,11 +112,10 @@
                                                         <label for="gift_price_product">Price for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of product (counts as RUB)'">?</i></label>
 
                                                         <b-input-group>
-                                                            <b-input-group-prepend>
-                                                                <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price_product" :data="priceProductCurrency" id="amount_price_product"/>
-                                                            </b-input-group-prepend>
+                                                            <b-input-group>
+                                                                <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price_product" id="amount_price_product"/>
+                                                            </b-input-group>
 
-                                                            <b-form-select dark v-model="newGift.price_product_currency" :options="currencies"></b-form-select>
 
                                                         </b-input-group>
                                                     </b-form-group>
@@ -114,16 +128,28 @@
                                                             id="fieldset_gift_price_boost">
                                                         <label for="gift_price_boost">Price of boosting for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of boosting (counts as RUB)'">?</i></label>
 
-                                                        <b-input-group>
-                                                            <b-input-group-prepend>
-                                                                <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price_boost" :data="priceBoostCurrency" id="amount_price_boost"/>
-                                                            </b-input-group-prepend>
+                                                        <b-row>
+                                                            <b-col>
+                                                                <b-input-group>
+                                                                    <b-input-group>
+                                                                        <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price_boost" id="amount_price_boost"/>
+                                                                    </b-input-group>
+                                                                </b-input-group>
+                                                            </b-col>
+                                                            <b-col>
+                                                                <b-input-group>
 
-                                                            <b-form-select dark @change="formulaCalculate('standart')" v-model="newGift.price_boost_currency" :options="currencies">
-                                                                <option :value="'%'">% of product</option>
-                                                            </b-form-select>
+                                                                    <b-input-group>
+                                                                        <b-form-select dark @change="formulaCalculate('standart')" v-model="newGift.type_boosting">
+                                                                            <option :value="newGift.currency">{{ newGift.currency }}</option>
+                                                                            <option :value="'%'">% of product</option>
+                                                                        </b-form-select>
+                                                                    </b-input-group>
 
-                                                        </b-input-group>
+                                                                </b-input-group>
+                                                            </b-col>
+                                                        </b-row>
+
                                                     </b-form-group>
                                                 </b-col>
                                             </b-row>
@@ -136,7 +162,7 @@
                                                 <b-col>
                                                     <b-form-group
                                                             id="fieldset_gift_points_oneProduct">
-                                                        <label for="gift_points_oneProduct">Points for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price for 1 product'">?</i></label>
+                                                        <label for="gift_points_oneProduct">Points for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Points for 1 product'">?</i></label>
                                                         <b-form-input disabled type="number" @change="formulaCalculate('standart')" v-model="newGift.points_oneProduct" id="amount_points_oneProduct"/>
                                                     </b-form-group>
                                                 </b-col>
@@ -234,7 +260,8 @@
                                             <b-form-group>
                                                 <b-button
                                                         @click="createGift"
-                                                        type="submit"
+                                                        @submit.prevent
+                                                        type="button"
                                                         class="font500 float-right uppercase"
                                                         variant="primary">Add</b-button>
                                             </b-form-group>
@@ -332,12 +359,9 @@
                                                         <label for="gift_price">Price of gift<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of gift (counts as RUB)'">?</i></label>
                                                         <b-input-group>
 
-                                                            <b-input-group-prepend>
-                                                                <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price" :data="priceGiftCurrency" id="amount_price"/>
-                                                            </b-input-group-prepend>
-
-
-                                                                <b-form-select dark v-model="newGift.price_gift_currency" :options="currencies"></b-form-select>
+                                                            <b-input-group>
+                                                                <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price" id="amount_price"/>
+                                                            </b-input-group>
 
                                                         </b-input-group>
                                                     </b-form-group>
@@ -351,11 +375,10 @@
                                                         <label for="gift_price_product">Price for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of product (counts as RUB)'">?</i></label>
 
                                                         <b-input-group>
-                                                            <b-input-group-prepend>
-                                                                <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price_product" :data="priceProductCurrency" id="amount_price_product"/>
-                                                            </b-input-group-prepend>
+                                                            <b-input-group>
+                                                                <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price_product"  id="amount_price_product"/>
+                                                            </b-input-group>
 
-                                                            <b-form-select dark v-model="newGift.price_product_currency" :options="currencies"></b-form-select>
 
                                                         </b-input-group>
                                                     </b-form-group>
@@ -368,16 +391,28 @@
                                                             id="fieldset_gift_price_boost">
                                                         <label for="gift_price_boost">Price of boosting for 1 product<i class="custom_tooltip_label" v-b-tooltip.hover title="'Price of boosting (counts as RUB)'">?</i></label>
 
-                                                        <b-input-group>
-                                                            <b-input-group-prepend>
-                                                                <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price_boost" :data="priceBoostCurrency" id="amount_price_boost"/>
-                                                            </b-input-group-prepend>
+                                                        <b-row>
+                                                            <b-col>
+                                                                <b-input-group>
+                                                                    <b-input-group>
+                                                                        <b-form-input min="1" @change="formulaCalculate('standart')" type="number" v-model="newGift.price_boost" id="amount_price_boost"/>
+                                                                    </b-input-group>
+                                                                </b-input-group>
+                                                            </b-col>
+                                                            <b-col>
+                                                                <b-input-group>
 
-                                                            <b-form-select dark @change="formulaCalculate('standart')" v-model="newGift.price_boost_currency" :options="currencies">
-                                                                <option :value="'%'">% of product</option>
-                                                            </b-form-select>
+                                                                    <b-input-group>
+                                                                        <b-form-select dark @change="formulaCalculate('standart')" v-model="newGift.type_boosting">
+                                                                            <option :value="newGift.currency">{{ newGift.currency }}</option>
+                                                                            <option :value="'%'">% of product</option>
+                                                                        </b-form-select>
+                                                                    </b-input-group>
 
-                                                        </b-input-group>
+                                                                </b-input-group>
+                                                            </b-col>
+                                                        </b-row>
+
                                                     </b-form-group>
                                                 </b-col>
                                             </b-row>
@@ -467,11 +502,15 @@
 </template>
 
 <script>
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
     let vm = {};
 
     export default {
         name: 'CreateGift',
         props: ['idCampaign'],
+        components: {
+            Loading
+        },
         data(){
             return {
                 header: 'Create gift',
@@ -490,16 +529,11 @@
                     gift_amazonId: 0,
                     amount_products: 1,
                     file: {},
-                    price_gift_currency: 'RUB',
-                    price_product_currency: 'RUB',
-                    price_boost_currency: 'RUB',
+                    type_boosting: 'RUB',
                     current_campaign: null,
                     instructions: '',
+                    currency: 'RUB',
                 },
-
-                last_boost_currency: 1,
-                last_product_currency: 1,
-                last_gift_currency: 1,
 
                 type: 'standart',
 
@@ -515,7 +549,7 @@
             if(this.idCampaign) {
                 this.newGift.current_campaign = this.idCampaign;
                 this.newGift.is_main = 1;
-                console.log('gift' + this.newGift.current_campaign)
+                //console.log('gift' + this.newGift.current_campaign)
             }
             vm = this;
             this.loading = true;
@@ -561,8 +595,11 @@
             formulaCalculate(type){
                 vm.type = type;
             },
+            scrollToTop(){
+                return window.scrollTo(0,0)
+            },
             createGift(){
-                console.log(this.newGift);
+                //console.log(this.newGift);
                 let formData = new FormData();
                 for (let gift_data in this.newGift) {
                     if(gift_data == 'file'){
@@ -571,9 +608,9 @@
                         formData.append(gift_data, this.newGift[gift_data]);
                     }
                 }
-                //formData.append('data', this.newGift);
-                //return;
+                this.loading = true;
                 axios.post('/createNewGift', formData).then(response => {
+                    this.loading = false;
                     if(response.data.errors) {
                         let strErrors = '';
                         let count = 0;
@@ -596,10 +633,35 @@
                                     </ul>
                                 </div>`,
                                     type: 'success',
-                                    confirmButtonText: 'Check your new campaign!'
-                                }).then(() => {
-                                    //alert(response.data.idCampaign)
-                                    vm.$router.push({name: 'MyCampaigns'})
+                                    confirmButtonText: 'Add more',
+                                    showCancelButton: true,
+                                    cancelButtonText: 'To campaigns',
+                                }).then((result) => {
+                                    if(result.value) {
+                                        vm.newGift = {
+                                            name: '',
+                                            points: 1,
+                                            price: 1,
+                                            is_main: 0,
+                                            price_product: 1,
+                                            points_oneProduct: 1,
+                                            price_boost: 1,
+                                            in_stock: 0,
+                                            gift_amazonId: 0,
+                                            amount_products: 1,
+                                            file: {},
+                                            type_boosting: 'RUB',
+                                            instructions: '',
+                                            currency: 'RUB',
+                                            current_campaign: vm.idCampaign
+                                        };
+                                    } else if (result.dismiss === vm.$swal.DismissReason.cancel) {
+                                        vm.$router.push({name: 'MyCampaigns'})
+                                    }
+                                }).then(function () {
+                                    setTimeout(function () {
+                                        vm.scrollToTop()
+                                    }, 500)
                                 })
                             } else {
                                 vm.$swal({
@@ -612,11 +674,12 @@
                                 })
                             }
 
+                        } else if (response.status === 206){
+                            console.log(response.data.errors)
                         }
-                        console.log(response)
-                        console.log(response.data.response)
                     }
                 }).catch(err => {
+                    this.loading = false;
                     console.log(err);
                 })
             }
@@ -624,7 +687,7 @@
         computed: {
             amountProducts(){
                 vm.type !== 'manually' ?
-                    vm.newGift.price_boost_currency !== '%' ?
+                    vm.newGift.type_boosting !== '%' ?
                         vm.newGift.amount_products = Math.ceil(vm.newGift.price / vm.newGift.price_boost)
                         : vm.newGift.amount_products = Math.ceil(vm.newGift.price / ((vm.newGift.price_product  / 100) * vm.newGift.price_boost))
                     : vm.newGift.amount_products = Math.ceil(vm.newGift.points / vm.newGift.points_oneProduct)
@@ -632,42 +695,6 @@
             amountPoints(){
                 vm.newGift.points = Math.ceil(vm.newGift.amount_products * vm.newGift.points_oneProduct)
             },
-            priceProductCurrency(){
-                vm.newGift.price_product = Math.round(vm.newGift.price_product / vm.last_product_currency )
-                vm.last_product_currency = 1;
-
-                if (vm.newGift.price_product_currency === 'EUR') {
-                    vm.newGift.price_product = Math.ceil(vm.newGift.price_product * vm.eur_val)
-                    vm.last_product_currency = vm.eur_val;
-                } else if (vm.newGift.price_product_currency === 'USD') {
-                    vm.newGift.price_product = Math.ceil(vm.newGift.price_product * vm.usd_val)
-                    vm.last_product_currency = vm.usd_val;
-                }
-            },
-            priceBoostCurrency(){
-                vm.newGift.price_boost = Math.round(vm.newGift.price_boost / vm.last_boost_currency )
-                vm.last_boost_currency = 1;
-
-                if (vm.newGift.price_boost_currency === 'EUR') {
-                    vm.newGift.price_boost = Math.ceil(vm.newGift.price_boost * vm.eur_val)
-                    vm.last_boost_currency = vm.eur_val;
-                } else if (vm.newGift.price_boost_currency === 'USD') {
-                    vm.newGift.price_boost = Math.ceil(vm.newGift.price_boost * vm.usd_val)
-                    vm.last_boost_currency = vm.usd_val;
-                }
-            },
-            priceGiftCurrency (){
-                vm.newGift.price = Math.round(vm.newGift.price / vm.last_gift_currency )
-                vm.last_gift_currency = 1;
-
-                if (vm.newGift.price_gift_currency === 'EUR') {
-                    vm.newGift.price = Math.ceil(vm.newGift.price * vm.eur_val)
-                    vm.last_gift_currency = vm.eur_val
-                } else if (vm.newGift.price_gift_currency === 'USD') {
-                    vm.newGift.price = Math.ceil(vm.newGift.price * vm.usd_val)
-                    vm.last_gift_currency = vm.usd_val
-                }
-            }
         }
     }
 </script>

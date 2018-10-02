@@ -92,32 +92,31 @@
                                         </div>
                                     </template>
                                     <template
-                                            slot="status"
+                                            slot="satisfied"
                                             slot-scope="data" justified="center">
-                                        <span :variant="getBadge(data.item.status)">
+                                        <div v-if="data.item.satisfied">
+                                             <span :variant="getBadge(data.item.status)">
                                             <i v-for="k in data.item.status" class="star_active fa fa-star"></i>
                                             <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
                                             <i v-if="data.item.status === 4" class="fa fa-star"></i>
                                         </span>
-                                        <span v-if="data.item.status === 3"> (60%)</span>
-                                        <span v-if="data.item.status === 4"> (80%)</span>
-                                        <span v-if="data.item.status === 5"> (100%)</span>
+                                            <span v-if="data.item.status === 3"> (60%)</span>
+                                            <span v-if="data.item.status === 4"> (80%)</span>
+                                            <span v-if="data.item.status === 5"> (100%)</span>
+                                        </div>
+                                        <div v-else>
+                                            <i v-for="n in 5" class="fa fa-star"></i>
+                                            <span> (0%)</span>
+                                        </div>
                                     </template>
-                                    <template slot="active" slot-scope="row">
-                                        <b-button size="sm" v-if="row.item.active !== 'Waiting for gifts'"  @click="row.item.active = !row.item.active" class="custom_btn_change" style="margin-right: 15px; margin-left: 0;" :variant="'primary'">
-                                            <i :class="row.item.active ? 'fa fa-stop-circle' : 'fa fa-play-circle'"></i>
+                                    <template slot="status" slot-scope="row">
+                                        <b-button size="sm" v-if="row.item.status !== 'created'" @click="changeStatusCampaign(row.item.id, row.item.status).then(function(response){ row.item.status = response; }).catch(function(err){})" class="custom_btn_change" style="margin-right: 15px; margin-left: 0;" :variant="'primary'">
+                                            <i :class="row.item.status === 'activated' ? 'fa fa-stop-circle' : 'fa fa-play-circle'"></i>
                                         </b-button>
 
-                                        <span v-if="row.item.active === true">
-                                            Active
+                                        <span v-if="row.item.status === 'created'">
+                                            <router-link v-bind:to="'/gifts/create-gift'">Needed to create gift</router-link>
                                         </span>
-                                        <span v-if="row.item.active === false">
-                                            Inactive
-                                        </span>
-                                        <span v-if="row.item.active === 'Waiting for gifts'">
-                                            <router-link v-bind:to="'/gifts/create-gift'">{{ row.item.active }}</router-link>
-                                        </span>
-
                                     </template>
                                     <template slot="change" justified="center" slot-scope="row">
                                         <b-button size="sm" :to="{ name: 'UpdateCampaign', params: { idCampaign:row.item.id }}" class="custom_btn_change" :variant="'primary'">
@@ -299,8 +298,8 @@
                     { key: 'checking_type', sortable: true, label: 'Checking' },
                     { key: 'created_at', sortable: true, label: 'Start Date' },
                     { key: 'end_campaign', label: 'Finish', sortable: true },
-                    { key: 'status', sortable: true, label: 'Satisfied' },
-                    { key: 'active', sortable: true, label: 'Status' },
+                    { key: 'satisfied', sortable: true, label: 'Satisfied' },
+                    { key: 'status', sortable: true, label: 'Status' },
                     { key: 'change', 'class': 'text-center table_label_hidden change-campaign' },
                 ],
                 checkbox_group: {},
@@ -327,6 +326,33 @@
             },
         },
         methods: {
+            changeStatusCampaign(id, statusItem){
+                this.loading = true;
+                return axios.post('/changeStatusCampaign', {
+                    id_campaign: id,
+                }).then(response => {
+                    this.loading = false;
+                    if(response.status === 200) {
+                        vm.$notify({
+                            type:  'success',
+                            title: 'Changed successfully!',
+                            text : response.data.statusChanged,
+                        })
+                        return response.data.statusChanged;
+                    }
+                    if (response.status === 206) {
+                        vm.$notify({
+                            type:  'danger',
+                            title: 'Error',
+                            text : response.data.response,
+                        })
+                        return statusItem
+                    }
+                }).catch(err => {
+                    reject(err)
+                    this.loading = false;
+                })
+            },
             getBadge (status) {
                 return status === 5 ? 'success'
                         : status === 4 ? 'warning'

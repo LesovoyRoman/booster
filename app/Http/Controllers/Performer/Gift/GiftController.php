@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Image;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Helpers\StringHelper;
+use App\Models\Campaign;
 
 class GiftController extends Controller
 {
@@ -61,11 +62,11 @@ class GiftController extends Controller
                 'points'                    => 'required',
                 'price'                     => 'required|integer|min:1',
                 'in_stock'                  => 'required|min:1|integer',
-                'price_gift_currency'       => 'string|required|max:50',
-                'price_product_currency'    => 'string|required|max:50',
-                'price_boost_currency'      => 'string|required|max:50',
                 'current_campaign'          => 'integer',
+                'currency'                  => 'max:50',
                 'instructions'              => 'max:4000',
+                'type_boosting'             => 'max:50',
+                'price_boost'               => 'min:1|integer',
             ]);
 
             if ($validator->fails()) {
@@ -92,17 +93,29 @@ class GiftController extends Controller
                 'amazon'                => null,
                 'amazon_id'             => null,
                 'code'                  => null,
-                'is_main'               => $data['is_main'] ? 1 : 0,
+                'is_main'               => $data['is_main'] == true ? 1 : 0,
                 'instructions'          => $data['instructions'],
                 'in_stock'              => $data['in_stock'],
-                'user_from_id'          => Auth::id()
+                'user_from_id'          => Auth::id(),
+                'currency'              => $data['currency'],
+                'type_boosting'         => $data['type_boosting'],
+                'price_boost'           => $data['price_boost'],
             ]);
 
+            if($data['is_main'] == true) {
+                $campaign = Campaign::where('id', '=', $data['current_campaign'])->first();
+                if($campaign->status == 'created') {
+                    $campaign->status = 'activated';
+                    $campaign->save();
+                }
+            }
+
             // @todo make const
-            $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/gifts_logos/gift_' . $data['name']);
             $campaign_id = $data['current_campaign'];
             $newGiftId = DB::table('gifts')->max('id');
+
             if(isset($file) && $file !== 'undefined') {
+                $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/gifts_logos/gift_' . $data['name']);
                 return $this->storeImgTo($file, $to, $campaign_id, $newGiftId);
             } else {
                 $this->updateRedisAndGetGifts();
@@ -110,7 +123,7 @@ class GiftController extends Controller
                 return response()->json(['response' => $create]);
             }
         } catch (\Exception $e) {
-            return response()->json(['exception' => $e->getMessage()]);
+            return response()->json(['errors' => $e->getMessage()], 206);
         }
     }
 
@@ -154,7 +167,13 @@ class GiftController extends Controller
     {
         try {
             $gift = Gift::where('id', '=', $request['id'])->first();
-            $gift->delete();
+            if($gift->status != 'ordered' && $gift->status != 'sent') {
+                $gift->delete();
+            } else {
+                return response()->json([
+                    'errors' => 'Gift can not be deleted! (' . $gift->status . ')'
+                ], 206);
+            }
 
             $this->updateRedisAndGetGifts();
 
@@ -187,15 +206,25 @@ class GiftController extends Controller
 
             $gift->name = request('name');
             $gift->in_stock = request('in_stock');
-            $gift->is_main = request('is_main');
+            request('is_main') == true ? $gift->is_main = 1 : $gift->is_main = 0;
             $gift->instructions = request('instructions');
-            $gift->save();
 
-            $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/gifts_logos/gift_' . request('name'));
+            if($gift->is_main === 1) {
+                $campaign = Campaign::where('id', '=', $gift->campaign_id)->first();
+                if($campaign->status == 'created') {
+                    $campaign->status = 'activated';
+                    $campaign->save();
+                }
+            }
+
             $giftId = $request['id'];
             $campaignId = $gift->campaign_id;
 
+            $gift->save();
+
             if(isset($file) && $file !== 'undefined') {
+                $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/gifts_logos/gift_' . request('name'));
+
                 // @todo change it (now allows only one picture for gift) - looks image by id_gift !!!
 
                 $image = Image::where('gift_id', '=', $giftId)->orderBy('updated_at', 'desc')->first();
@@ -208,6 +237,7 @@ class GiftController extends Controller
 
                 return response()->json(['image' => $image, 'response' => 'Gift updated successfully'], 200);
             } else {
+
                 $this->updateRedisAndGetGifts();
 
                 return response()->json(['response' => 'Gift updated successfully'], 200);

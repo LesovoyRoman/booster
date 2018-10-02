@@ -24,6 +24,9 @@ class Gift extends Model
         'price_product',
         'instructions',
         'in_stock',
+        'type_boosting',
+        'price_boost',
+        'currency',
     ];
 
     public function campaign()

@@ -292,9 +292,12 @@
                         vm.campaign.allCountries = true;
                     }
                 }
+                if (response.status === 206){
+                    console.log(response.data.errors)
+                }
             }).catch(err => {
                 this.loading = false;
-                console.log(err.message)
+                //console.log(err.message)
             })
         },
         data(){
@@ -356,6 +359,9 @@
                     this.loading = false;
                     if(response.status === 200) {
                         vm.$swal( 'Congratulates:', 'You have created campaign!', 'success')
+                    }
+                    if (response.status === 206){
+                        alert(response.data.exception)
                     }
                     if(response.data.errors) {
                         let strErrors = '';

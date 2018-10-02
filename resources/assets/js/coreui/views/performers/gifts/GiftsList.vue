@@ -132,7 +132,7 @@
                                         <span class="showsTableCards">In stock:</span> {{ data.item.in_stock }}
                                     </template>
                                     <template slot="campaign" slot-scope="data">
-                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.name }}</router-link>
+                                        <router-link :id="id = data.item.campaign_id" :data="campaign = data.item.campaign" :to="{ name: 'Campaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign.name }}</router-link>
                                     </template>
                                     <template slot="change" justified="center" slot-scope="row">
                                         <b-button size="sm" :to="{ name: 'UpdateGift', params: { idGift:row.item.id }}" class="custom_btn_change" :variant="'primary'">
@@ -240,7 +240,7 @@
                     // from Redis
                     console.log('gifts Redis');
                     this.gifts = JSON.parse(response.data.gifts);
-                    //console.log(this.gifts[0].images[0].image_path)
+                    //console.log(this.gifts)
                 }
             }).catch( err => {
                 this.loading = false;
@@ -287,7 +287,11 @@
                         if(response.status === 200) {
                             this.gifts.splice(item.index, 1);
                         } else {
-                            alert(response.message)
+                            //console.log(response)
+                            vm.$swal({
+                                type: 'info',
+                                title: response.data.message,
+                            });
                         }
                     }).catch(err => {
                         vm.loading = false;

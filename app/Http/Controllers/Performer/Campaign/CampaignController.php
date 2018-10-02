@@ -147,17 +147,18 @@ class CampaignController extends Controller
                 'checking_type'     => $data['checking_type'],
                 'end_points'        => $data['end_points'],
                 'end_campaign'      => $data['end_campaign'],
-                'id_owner'          => Auth::id()
+                'id_owner'          => Auth::id(),
+                'status'            => 'created'
             ]);
 
-            $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/campaigns_logos/campaign_' . $data['name']);
             $newCampaignId = DB::table('campaigns')->max('id');
 
             if(isset($file) && $file !== 'undefined') {
+                $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/campaigns_logos/campaign_' . $data['name']);
                 if(!$create->errors) {
                     return $this->storeImgTo($file, $to, $newCampaignId);
                 } else {
-                    return response()->json(['response' => $create], 206);
+                    return response()->json(['errors' => $create], 206);
                 }
             } else {
 
@@ -207,6 +208,37 @@ class CampaignController extends Controller
 
     }
 
+
+    protected function changeStatusCampaign(Request $request)
+    {
+        $id_campaign = request('id_campaign');
+        $campaign = Campaign::where('id', '=', $id_campaign)->first();
+
+        if($campaign->status === 'activated') {
+            try {
+                $campaign->status = 'stopped';
+                $campaign->save();
+                $this->updateRedisAndGetCampaigns();
+
+                return response()->json(['response' => 'Status changed to stopped!', 'statusChanged' => 'stopped'], 200);
+            } catch (\Exception $e) {
+                return response()->json(['exception' => $e->getMessage()], 111);
+            }
+        } else  if($campaign->status === 'stopped') {
+            try {
+                $campaign->status = 'activated';
+                $campaign->save();
+                $this->updateRedisAndGetCampaigns();
+
+                return response()->json(['response' => 'Status changed to activated!', 'statusChanged' => 'activated'], 200);
+            } catch (\Exception $e) {
+                return response()->json(['exception' => $e->getMessage()], 111);
+            }
+        } else {
+            return response()->json(['response' => 'Status can not be changed!'], 206);
+        }
+    }
+
     protected function updateCampaign(Request $request)
     {
         try {
@@ -215,7 +247,6 @@ class CampaignController extends Controller
             $request->file ? $file = $request->file : $file = null;
             $type = 'update';
 
-            echo $this->validator($request->all(), $file, $type);
             if(!$this->validator($request->all(), $file, $type)) {
 
             } else {
@@ -239,10 +270,10 @@ class CampaignController extends Controller
 
                 $campaign->save();
 
-                $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/campaigns_logos/campaign_' . request('name'));
                 $campaignId = $request['id'];
 
                 if(isset($file) && $file !== 'undefined') {
+                    $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/campaigns_logos/campaign_' . request('name'));
                     // @todo change it (now allows only one picture for campaign) - looks image by id_campaign !!!
 
                     $image = Image::where('campaign_id', '=', $campaignId)->orderBy('updated_at', 'desc')->first();

@@ -13,6 +13,7 @@ Route::group(['middleware' => 'isPerformer'], function (){
     Route::post('/createNewCampaign', 'Performer\Campaign\CampaignController@addCampaign');
     Route::post('/getCampaignById', 'Performer\Campaign\CampaignController@getCampaign');
     Route::post('/updateCampaign', 'Performer\Campaign\CampaignController@updateCampaign');
+    Route::post('/changeStatusCampaign', 'Performer\Campaign\CampaignController@changeStatusCampaign');
 
     // Gifts
     Route::post('/getAllGifts', 'Performer\Gift\GiftController@getAllGifts');

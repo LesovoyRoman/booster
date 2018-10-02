@@ -5,8 +5,12 @@
                 <b-col sm="12" md="12">
                     <h2 class="h2">{{ header }}</h2>
 
+                    <b-col v-if="loading">
+                        <loading v-if="loading" style="position: fixed; left: 50%; margin-left: -20px; top: 50%"></loading>
+                    </b-col>
+
                     <!-- CAMPAIGN -->
-                    <b-card v-if="currentStep === 1">
+                    <b-card v-if="!loading">
                         <form action="">
                             <p class="card-text header_card_simple">Common information</p>
 
@@ -279,14 +283,18 @@
 </template>
 
 <script>
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
     let vm = {};
 
     export default {
         name: 'AddNewCampaign',
+        components: {
+            Loading
+        },
         data() {
             return {
                 header: 'Create new campaign',
-                currentStep: 1,
+                loading: false,
 
                 urlImage: null,
                 new_campaign: {
@@ -333,7 +341,9 @@
                     }
                 }
 
+                this.loading = true;
                 axios.post('/createNewCampaign', formData).then(response => {
+                    this.loading = false;
                     console.log(response);
                     if(response.data.errors) {
                         let strErrors = '';
@@ -362,10 +372,14 @@
                                 vm.$router.push({name: 'CreateGift', params: {idCampaign: response.data.idCampaign}})
                             })
                         }
+                        else if (response.status === 206){
+                            console.log(response.data.errors)
+                        }
                         console.log(response)
-                        console.log(response.data.response)
+                        //console.log(response.data.response)
                     }
                 }).catch(err => {
+                    this.loading = false;
                     console.log(err);
                 })
             }

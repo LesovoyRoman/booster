@@ -184,6 +184,9 @@
                     if(response.status === 200) {
                         vm.$swal( 'Congratulates:', 'You have updated gift!', 'success')
                     }
+                    if(response.status === 206) {
+                        console.log(response.data.errors)
+                    }
                     if(response.data.errors) {
                         let strErrors = '';
                         let count = 0;
