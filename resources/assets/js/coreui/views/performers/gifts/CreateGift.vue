@@ -51,7 +51,7 @@
                                                             name="customCheckboxMainGift"
                                                             class="custom-control-input"
                                                             v-model="newGift.is_main"
-                                                            :value="true">
+                                                            :value="1">
                                                     <label
                                                             class="custom-control-label"
                                                             for="customCheckboxMainGift">Sign as main<i class="custom_tooltip_label" v-b-tooltip.hover title="'Sign as main'">?</i></label>
@@ -480,7 +480,7 @@
 
                 newGift: {
                     name: '',
-                    is_main: null,
+                    is_main: 0,
                     points: 1,
                     price: 1,
                     price_product: 1,
@@ -514,7 +514,7 @@
         created(){
             if(this.idCampaign) {
                 this.newGift.current_campaign = this.idCampaign;
-                this.is_main = true;
+                this.newGift.is_main = 1;
                 console.log('gift' + this.newGift.current_campaign)
             }
             vm = this;
@@ -585,8 +585,33 @@
                         console.log(response.data.errors)
                     } else {
                         if(response.status === 200) {
-                            vm.$swal( 'Congratulates:', 'You have created gift!', 'success')
-                            vm.currentStep++;
+                            if(this.idCampaign) {
+                                vm.$swal({
+                                    title: 'Congratulates, you made it:',
+                                    html: `
+                                <div id="steps_create_campaign">
+                                    <ul class="steps success">
+                                        <li class="success">Step 1. Create Campaign</li>
+                                        <li class="success">Step 2. Create Gift</li>
+                                    </ul>
+                                </div>`,
+                                    type: 'success',
+                                    confirmButtonText: 'Check your new campaign!'
+                                }).then(() => {
+                                    //alert(response.data.idCampaign)
+                                    vm.$router.push({name: 'MyCampaigns'})
+                                })
+                            } else {
+                                vm.$swal({
+                                    title: 'Congratules:',
+                                    text: 'You have created gift!',
+                                    type: 'success',
+                                    confirmButtonText: 'To gifts!'
+                                }).then(() => {
+                                    vm.$router.push({name: 'GiftsList'})
+                                })
+                            }
+
                         }
                         console.log(response)
                         console.log(response.data.response)

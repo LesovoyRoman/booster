@@ -7,7 +7,7 @@
                 </b-col>
 
                 <b-col v-if="loading">
-                    <loading v-if="loading" style="position: fixed; left: 50%; top: 50%"></loading>
+                    <loading v-if="loading" style="position: fixed; left: 50%; margin-left: -20px; top: 50%"></loading>
                 </b-col>
 
                 <b-col  v-if="!loading"

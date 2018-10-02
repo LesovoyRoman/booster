@@ -58,7 +58,6 @@ class GiftController extends Controller
         } else {
             $validator = Validator::make($data, [
                 'name'                      => 'required|string|max:255',
-                'mainGift'                  => '',
                 'points'                    => 'required',
                 'price'                     => 'required|integer|min:1',
                 'in_stock'                  => 'required|min:1|integer',
@@ -93,7 +92,7 @@ class GiftController extends Controller
                 'amazon'                => null,
                 'amazon_id'             => null,
                 'code'                  => null,
-                'is_main'               => $data['is_main'],
+                'is_main'               => $data['is_main'] ? 1 : 0,
                 'instructions'          => $data['instructions'],
                 'in_stock'              => $data['in_stock'],
                 'user_from_id'          => Auth::id()

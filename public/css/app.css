@@ -22710,6 +22710,14 @@ li {
   max-height: 100%;
 }
 
+@media screen and (max-width: 760px) {
+  .btn {
+    float: none;
+    display: block;
+    margin: 5px auto;
+  }
+}
+
 .vue-notification.warning {
   background: #ffb648;
   border-left-color: #f48a06;

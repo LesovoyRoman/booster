@@ -154,7 +154,11 @@ class CampaignController extends Controller
             $newCampaignId = DB::table('campaigns')->max('id');
 
             if(isset($file) && $file !== 'undefined') {
-                return $this->storeImgTo($file, $to, $newCampaignId);
+                if(!$create->errors) {
+                    return $this->storeImgTo($file, $to, $newCampaignId);
+                } else {
+                    return response()->json(['response' => $create], 206);
+                }
             } else {
 
                 $this->updateRedisAndGetCampaigns();

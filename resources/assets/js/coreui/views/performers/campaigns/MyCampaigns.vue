@@ -5,7 +5,7 @@
                 <b-col sm="12" md="12">
                     <h2 class="h2">{{ header }}</h2>
 
-                    <loading v-if="loading" style="position: fixed; left: 50%; top: 50%"></loading>
+                    <loading v-if="loading" style="position: fixed; margin-left: -20px; left: 50%; top: 50%"></loading>
 
                     <b-card v-if="!loading">
                         <b-tabs pills card>

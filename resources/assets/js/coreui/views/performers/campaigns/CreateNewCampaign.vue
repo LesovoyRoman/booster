@@ -35,7 +35,7 @@
                         </b-row>-->
 
                             <b-row>
-                                <b-col>
+                                <b-col  md="6" lg="6" sm="12" xs="12">
                                 <b-form-group id="fieldset_end_campaign">
                                     <label for="end_campaign">Ending of campaign<i class="custom_tooltip_label" v-b-tooltip.hover title="'Ending of campaign'">?</i></label>
                                     <b-form-select dark v-model="new_campaign.end_type">
@@ -45,7 +45,7 @@
                                     </b-form-group>
                                 </b-col>
 
-                                <b-col>
+                                <b-col  md="6" lg="6" sm="12" xs="12">
                                     <b-form-group v-show="new_campaign.end_type == 'date'">
                                     <label>Date</label>
                                     <b-form-input v-model="new_campaign.end_campaign"
@@ -60,7 +60,7 @@
                             </b-row>
 
                             <b-row>
-                                    <b-col>
+                                    <b-col  md="6" lg="6" sm="12" xs="12">
                                         <b-form-group id="fieldset_campaignCountry">
                                             <label for="campaignCountry">Country of Campaign<i class="custom_tooltip_label" v-b-tooltip.hover title="'Country of Campaign'">?</i></label>
                                             <div class="custom-control custom-checkbox">
@@ -83,7 +83,7 @@
                                             </b-form-select>
                                         </b-form-group>
                                     </b-col>
-                                    <b-col>
+                                    <b-col  md="6" lg="6" sm="12" xs="12">
                                         <b-form-group id="fieldset_campaignCity">
                                             <label for="campaignCity">City of Campaign</label>
                                             <div class="custom-control custom-checkbox">
@@ -137,7 +137,7 @@
                                     </b-row>
 
                                     <b-row>
-                                        <b-col>
+                                        <b-col sm="12" xs="12">
                                             <b-form-group
                                                     id="fieldset_campaign_products_in_stock"
                                                     description="">
@@ -149,14 +149,14 @@
 
 
                                     <b-row>
-                                        <b-col>
+                                        <b-col sm="12" xs="12">
                                             <b-form-group>
                                                 <b-row>
-                                                    <b-col>
+                                                    <b-col md="6" sm="12" xs="12">
                                                         <label for="productPrice">Middle price<i class="custom_tooltip_label" v-b-tooltip.hover title="'Middle price'">?</i></label>
                                                         <b-form-input id="productPrice" type="number" v-model="new_campaign.product_price"/>
                                                     </b-col>
-                                                    <b-col>
+                                                    <b-col md="6" sm="12" xs="12">
                                                         <label for="campaign_currency">Currency</label>
                                                         <b-form-select id="campaign_currency" dark v-model="new_campaign.currency">
                                                             <option :value="'RUB'">RUB</option>
@@ -206,7 +206,7 @@
                                 <b-col>
                                     <b-form-group id="fieldset_checkingType">
                                         <b-row>
-                                            <b-col>
+                                            <b-col md="6" sm="12" xs="12">
                                                 <label for="checkingType">Checking type<i class="custom_tooltip_label" v-b-tooltip.hover title="'Checking type'">?</i></label>
                                             </b-col>
                                         </b-row>
@@ -217,9 +217,11 @@
                                                     <option :value="'Photo'">Photo</option>
                                                 </b-form-select>
                                             </b-col>
-                                            <b-col v-show="new_campaign.checking_type == 'Serial number'">
-                                                <b-button :variant="'secondary'" class="uppercase font500 float-left btn-custom-create-campaign">generate</b-button>
-                                                <b-button :variant="'secondary'" class="uppercase font500 float-right btn-custom-create-campaign">import</b-button>
+                                            <b-col md="6" sm="12" xs="12" v-show="new_campaign.checking_type == 'Serial number'">
+                                                <b-form-group>
+                                                    <b-button :variant="'secondary'" class="uppercase font500 float-left btn-custom-create-campaign">generate</b-button>
+                                                    <b-button :variant="'secondary'" class="uppercase font500 float-right btn-custom-create-campaign">import</b-button>
+                                                </b-form-group>
                                             </b-col>
                                         </b-row>
 
@@ -259,7 +261,7 @@
                             <b-row>
                                 <b-col>
                                     <b-form-group>
-                                        <router-link v-bind:to="'/gifts/create-gift'">Don't forget to create a gift for the campaign</router-link>
+                                      <!--  <router-link v-bind:to="'/gifts/create-gift'">Don't forget to create a gift for the campaign</router-link>-->
 
                                         <b-button
                                                 class="font500 float-right uppercase" @click="createNewCampaign"
