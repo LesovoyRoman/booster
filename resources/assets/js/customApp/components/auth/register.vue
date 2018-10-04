@@ -7,8 +7,10 @@
             </b-col>
         </b-row>
 
-        <blogger v-if="selectedRole === 2"></blogger>
-        <performer v-if="selectedRole === 1"></performer>
+        <keep-alive>
+            <blogger v-if="selectedRole === 2"></blogger>
+            <performer v-if="selectedRole === 1"></performer>
+        </keep-alive>
     </div>
 </template>
 

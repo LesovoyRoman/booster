@@ -8,6 +8,8 @@ import appBase from './vue/app.vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
+import Sweetalert from 'vue-sweetalert2'
+Vue.use(Sweetalert)
 
 import home from './components/home.vue'
 import login from './components/auth/login.vue'

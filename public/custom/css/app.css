@@ -114,6 +114,11 @@ input,
   border-radius: 4px;
 }
 
+.swal2-popup #swal2-content {
+  padding: 0 40px;
+  text-align: left !important;
+}
+
 #app,
 #bg_app {
   min-height: 100vh;
@@ -145,7 +150,7 @@ input,
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  z-index: 1111;
+  z-index: 600;
   -webkit-transition: all 0.4s ease;
   transition: all 0.4s ease;
 }

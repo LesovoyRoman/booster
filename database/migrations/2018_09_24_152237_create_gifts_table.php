@@ -20,7 +20,7 @@ class CreateGiftsTable extends Migration
             $table->integer('points')->nullable();
             $table->float('price')->nullable();
             $table->text('delivery')->nullable();
-            $table->enum('currency', ['RUB', 'USD', 'UAH', 'EUR'])->nullable();
+            $table->enum('currency', config('enums.currency'))->nullable();
             $table->string('type_boosting')->nullable();
             $table->string('price_boost')->nullable();
             $table->string('status')->nullable();

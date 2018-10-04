@@ -1,7 +1,7 @@
 <template>
-    <footer class="footer-custom">
+    <!--<footer class="footer-custom">
         <span class="text-footer-custom">Copyright © 2018. All right reserved.</span>
-    </footer>
+    </footer>-->
 </template>
 
 <script>

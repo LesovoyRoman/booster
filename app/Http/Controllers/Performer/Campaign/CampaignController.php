@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Performer\Campaign;
 
+use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
@@ -156,7 +157,11 @@ class CampaignController extends Controller
             if(isset($file) && $file !== 'undefined') {
                 $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/campaigns_logos/campaign_' . $data['name']);
                 if(!$create->errors) {
-                    return $this->storeImgTo($file, $to, $newCampaignId);
+                    ImageController::storeImg($file, $to, $newCampaignId);
+
+                    $this->updateRedisAndGetCampaigns();
+
+                    return response()->json(['campaign' => $create, 'idCampaign' => $newCampaignId, 'response' => 'Campaign created successfully'], 200);
                 } else {
                     return response()->json(['errors' => $create], 206);
                 }
@@ -169,43 +174,6 @@ class CampaignController extends Controller
         } catch (\Exception $e) {
             return response()->json(['exception' => $e->getMessage()]);
         }
-    }
-
-    protected function storeImgTo($file, $to = 'logos', $campaign_id = null, $type = 'create', $image = null)
-    {
-        if($file !== null) {
-            try {
-                $path = $file->store($to);
-
-                if($type == 'create'){
-                    $image = Image::create([
-                        'user_id'       => Auth::id(),
-                        'campaign_id'   => $campaign_id,
-                        'gift_id'       => null,
-                        'is_avatar'     => 0,
-                        'is_logo'       => 1,
-                        'image_path'    => substr($path, 6),
-                        'type'          => 'image_campaign'
-                    ]);
-                } else {
-                    // save image (update)
-                    if($image !== null) {
-                        $image->image_path = substr($path, 6);
-
-                        $image->save();
-                    }
-                }
-
-                $this->updateRedisAndGetCampaigns();
-
-                return response()->json(['response' => $image,  'idCampaign' => $campaign_id], 200);
-            } catch (\Exception $e) {
-                return response()->json(['exception' => $e->getMessage()]);
-            }
-        } else {
-            return response()->json('Error, no file.');
-        }
-
     }
 
 
@@ -224,7 +192,7 @@ class CampaignController extends Controller
             } catch (\Exception $e) {
                 return response()->json(['exception' => $e->getMessage()], 111);
             }
-        } else  if($campaign->status === 'stopped') {
+        } else if($campaign->status === 'stopped') {
             try {
                 $campaign->status = 'activated';
                 $campaign->save();
@@ -282,9 +250,11 @@ class CampaignController extends Controller
                         $type = 'create';
                     }
 
-                    $image = $this->storeImgTo($file, $to, $campaignId, $type, $image);
+                    $update_image = ImageController::storeImg($file, $to, $campaignId, null, $type, $image);
 
-                    return response()->json(['image' => $image, 'response' => 'Campaign updated successfully'], 200);
+                    $this->updateRedisAndGetCampaigns();
+
+                    return response()->json(['campaign' => $campaign, 'image' => $update_image, 'response' => 'Campaign updated successfully'], 200);
                 } else {
                     $this->updateRedisAndGetCampaigns();
 

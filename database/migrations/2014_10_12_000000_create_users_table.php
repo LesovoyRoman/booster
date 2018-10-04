@@ -18,11 +18,11 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('user_role', ['admin', 'performer', 'influencer', 'assistant'])->nullable();
+            $table->enum('user_role', config('enums.roles'))->nullable();
             $table->string('surname')->nullable();
             $table->timestamp('birth_date')->nullable();
             $table->string('phone')->nullable();
-            $table->string('chosen_lang')->nullable();
+            $table->enum('chosen_lang', config('enums.languages'))->nullable();
             $table->string('work_position')->nullable();
             $table->string('site_link')->nullable();
             $table->string('brand')->nullable();

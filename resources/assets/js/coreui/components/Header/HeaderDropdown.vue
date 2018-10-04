@@ -8,7 +8,7 @@
         class="img-avatar"
         alt="admin@bootstrapmaster.com">
     </template>
-    <b-dropdown-header
+    <!--<b-dropdown-header
       tag="div"
       class="text-center">
       <strong>Account</strong>
@@ -28,7 +28,7 @@
     <b-dropdown-item>
       <i class="fa fa-comments"/> Comments
       <b-badge variant="warning">{{ itemsCount }}</b-badge>
-    </b-dropdown-item>
+    </b-dropdown-item>-->
     <b-dropdown-header
       tag="div"
       class="text-center">
@@ -38,7 +38,7 @@
     <i class="fa fa-user"/> Profile</b-dropdown-item>
     <b-dropdown-item v-bind:to="'/account/settings'">
     <i class="fa fa-wrench"/> Settings</b-dropdown-item>
-    <b-dropdown-item>
+    <!--<b-dropdown-item>
       <i class="fa fa-usd"/> Payments
       <b-badge variant="secondary">{{ itemsCount }}</b-badge>
     </b-dropdown-item>
@@ -47,9 +47,10 @@
       <b-badge variant="primary">{{ itemsCount }}</b-badge>
     </b-dropdown-item>
     <b-dropdown-item>
-    <i class="fa fa-shield"/> Lock Account</b-dropdown-item>
-    <b-dropdown-item>
-      <a @click="logout()" href="" onclick="event.preventDefault();"><i  class="icon-logout"></i>Logout</a>
+      <i class="fa fa-shield"/> Lock Account
+    </b-dropdown-item>-->
+    <b-dropdown-item  @click="logout()" onclick="event.preventDefault();">
+      <i  class="icon-logout"></i> Logout
     </b-dropdown-item>
   </b-nav-item-dropdown>
 </template>

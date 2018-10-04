@@ -5,7 +5,7 @@
                 <div v-if="step === 1">
                     <div class="form-group">
                         <label class="col-form-label text-md-right">Choose the language</label>
-                        <b-form-select  v-model="credentials.chosen_lang" :options="optionsLang" class="mb-3" />
+                        <b-form-select  v-model="credentials.chosen_lang" :options="optionsLang" class="mb-3"></b-form-select>
                     </div>
                     <div class="form-group">
                         <button type="submit" onclick="event.preventDefault()" class="btn btn-primary float-right" @click="nextStep">next</button>
@@ -42,10 +42,20 @@
                     <div class="title m-b-md">
                         Register. Step 2
                     </div>
-                    <div class="form-group">
-                        <label for="name" class="col-form-label text-md-right">FPN</label>
-                        <input type="text" placeholder="Type your family, patronymic and name" class="form-control" id="name" name="name" v-model="credentials.name">
-                    </div>
+                    <b-row>
+                        <b-col xs="12" sm="12" lg="6" md="6">
+                            <b-form-group>
+                                <label for="name" class="col-form-label text-md-right">Name</label>
+                                <input type="text" placeholder="Type your name" class="form-control" id="name" name="name" v-model="credentials.name">
+                            </b-form-group>
+                        </b-col>
+                        <b-col xs="12" sm="12" lg="6" md="6">
+                            <b-form-group>
+                                <label for="surname" class="col-form-label text-md-right">Surname</label>
+                                <input type="text" placeholder="Type your surname" class="form-control" id="surname" name="surname" v-model="credentials.surname">
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
                     <div class="form-group">
                         <label for="phone" class="col-form-label text-md-right">Phone</label>
                         <input type="text" placeholder="Type your phone" class="form-control" id="phone" name="phone" v-model="credentials.phone">
@@ -120,6 +130,7 @@
                 step: 1,
                 credentials: {
                     name: '', //
+                    surname: '',
                     email: '', //
                     password: '', //
                     password_confirmation: '', //
@@ -171,14 +182,11 @@
                 ],
 
                 optionsChannels: [
-                    { value: null, text: 'Please select an option' },
-                    { value: 'youtube', text: 'YouTube' },
+
                 ],
 
                 optionsLang: [
-                    { value: null, text: 'Please select an option' },
-                    { value: 'eng', text: 'English' },
-                    { value: 'rus', text: 'Russian' },
+
                 ],
 
                 optionsAuditory: [
@@ -202,10 +210,21 @@
             registerData: function () {
                 let dataCredentials = {
                     name: this.credentials.name,
+                    surname: this.credentials.surname,
+                    chosen_lang: this.credentials.chosen_lang,
                     email: this.credentials.email,
                     password: this.credentials.password,
                     password_confirmation: this.credentials.password_confirmation,
-                    user_role: 'influencer'
+                    user_role: 'influencer',
+                    brand: this.credentials.brand, //
+                    topic: this.credentials.topic, //
+                    linkChannel: this.credentials.linkChannel, //
+                    influenceChannel: this.credentials.influenceChannel, //
+                    phone: this.credentials.phone, //
+                    sizeAuditory: this.credentials.sizeAuditory,
+                    //avatar: this.credentials.influenceChannel,
+                    auditoryAgeFrom: this.credentials.auditoryAgeFrom,
+                    auditoryAgeTo: this.credentials.auditoryAgeTo,
                 };
                 axios.post(this.actionURI, dataCredentials, {
                     headers: {
@@ -215,21 +234,26 @@
                     },
                     withCredentials: true
                 }).then(function (response) {
-                    console.log(response)
+                    //console.log(response);
                     switch(response.status) {
                         case 200:
                             vmThis.$root.statusAuth(false, '/login');
                             window.location.href = '/dashboard';
                             break;
 
+                        case 206:
+                            let strErrors = '';
+                            let count = 0;
+                            for(let val in response.data.errors){
+                                count++;
+                                strErrors += '<span>' + count + ') ' + response.data.errors[val] + '</span> ' + '<br>';
+                            }
+                            vmThis.$swal( 'There are some problems:', strErrors, 'error')
+                            break;
                         default:
                             break
                     }
-                })/*
-                    .catch(error => {
-                        console.log(error.response);
-                        vmThis.$root.updateCrsf();
-                    });*/
+                })
 
             },
             prevStep() {
@@ -248,8 +272,12 @@
                 }
             },
         },
-        created () {
+        created() {
             vmThis = this;
+            axios.post('/getConfigEnums').then(response => {
+                this.optionsChannels = response.data.enums.channels;
+                this.optionsLang = response.data.enums.languages;
+            })
         },
         updated(){
             this.$root.changeHeight();

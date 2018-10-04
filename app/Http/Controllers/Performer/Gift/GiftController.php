@@ -9,6 +9,7 @@ use App\Models\Gift;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Image;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Helpers\StringHelper;
 use App\Models\Campaign;
@@ -17,7 +18,7 @@ class GiftController extends Controller
 {
     public function getAllGifts()
     {
-        if ($gifts = Redis::get('gifts.all')) {
+        if ($gifts = Redis::get('gifts.all_userId_' . Auth::id())) {
             return response()->json(['gifts' => $gifts]);
         }
 
@@ -116,7 +117,12 @@ class GiftController extends Controller
 
             if(isset($file) && $file !== 'undefined') {
                 $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/gifts_logos/gift_' . $data['name']);
-                return $this->storeImgTo($file, $to, $campaign_id, $newGiftId);
+
+
+                ImageController::storeImg($file, $to, $campaign_id = null, $newGiftId);
+                $this->updateRedisAndGetGifts();
+
+                return response()->json(['gift' => $create, 'response' => 'Gift created successfully'], 200);
             } else {
                 $this->updateRedisAndGetGifts();
 
@@ -127,41 +133,6 @@ class GiftController extends Controller
         }
     }
 
-    protected function storeImgTo($file, $to = 'logos', $campaign_id = null, $gift_id, $type = 'create', $image = null)
-    {
-        if($file !== null) {
-            try {
-                $path = $file->store($to);
-
-                if($type == 'create') {
-                    $image = Image::create([
-                        'user_id' => Auth::id(),
-                        'campaign_id' => $campaign_id,
-                        'gift_id' => $gift_id,
-                        'is_avatar' => 0,
-                        'is_logo' => 1,
-                        'image_path' => substr($path, 6),
-                        'type' => 'image_gift'
-                    ]);
-                } else {
-                    // save image (update)
-                    if($image !== null) {
-                        $image->image_path = substr($path, 6);
-
-                        $image->save();
-                    }
-                }
-
-                $this->updateRedisAndGetGifts();
-
-                return response()->json(['response' => $image], 200);
-            } catch (\Exception $e) {
-                return response()->json(['exception' => $e->getMessage()]);
-            }
-        } else {
-            return response()->json('Error, no file.');
-        }
-    }
 
     protected function deleteGift(Request $request)
     {
@@ -233,9 +204,11 @@ class GiftController extends Controller
                     $type = 'create';
                 }
 
-                $image = $this->storeImgTo($file, $to, $campaignId, $giftId, $type, $image);
+                ImageController::storeImg($file, $to, $campaignId = null, $giftId, $type, $image);
 
-                return response()->json(['image' => $image, 'response' => 'Gift updated successfully'], 200);
+                $this->updateRedisAndGetGifts();
+
+                return response()->json(['gift' => $gift, 'response' => 'Gift updated successfully'], 200);
             } else {
 
                 $this->updateRedisAndGetGifts();
@@ -256,7 +229,7 @@ class GiftController extends Controller
         })->get();
 
         // store data for 1 hour
-        Redis::setex('gifts.all', 60 * 60 * 1, $gifts);
+        Redis::setex('gifts.all_userId_' . Auth::id(), 60 * 60 * 1, $gifts);
 
         return $gifts;
     }

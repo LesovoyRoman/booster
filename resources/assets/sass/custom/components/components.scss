@@ -75,3 +75,8 @@
 select, textarea, .btn, input, .card, .custom-select, .nav-pills .nav-item a, .custom-control-label::after, .custom-control-label::before, .card input.form-control, .form-group input {
   border-radius: 4px;
 }
+
+.swal2-popup #swal2-content {
+  padding: 0 40px;
+  text-align: left !important;
+}

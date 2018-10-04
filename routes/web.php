@@ -6,6 +6,10 @@ Route::get('/{any}', function () {
     return view('appcustom');
 })->where('any', '.*')->middleware('appWay'); // checking role
 
+// Configs
+Route::post('/getConfigEnums', 'Helpers\ConfigSender@returnConfigEnumsJson');
+
+
 // Performer
 Route::group(['middleware' => 'isPerformer'], function (){
     // Campaigns

@@ -42,13 +42,24 @@
                     <div class="title m-b-md">
                         Register. Step 2
                     </div>
+                    <b-row>
+                        <b-col xs="12" sm="12" lg="6" md="6">
+                            <b-form-group>
+                                <label for="name" class="col-form-label text-md-right">Name</label>
+                                <input type="text" placeholder="Type your name" class="form-control" id="name" name="name" v-model="credentials.name">
+                            </b-form-group>
+                        </b-col>
+                        <b-col xs="12" sm="12" lg="6" md="6">
+                            <b-form-group>
+                                <label for="surname" class="col-form-label text-md-right">Surname</label>
+                                <input type="text" placeholder="Type your surname" class="form-control" id="surname" name="surname" v-model="credentials.surname">
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
                     <div class="form-group">
-                        <label for="name" class="col-form-label text-md-right">FPN</label>
-                        <input type="text" placeholder="Type your family, patronymic and name" class="form-control" id="name" name="name" v-model="credentials.name">
-                    </div>
-                    <div class="form-group">
-                        <label for="workplace" class="col-form-label text-md-right">Working place</label>
-                        <input type="text" placeholder="Type your working place" class="form-control" id="workplace" name="workplace" v-model="credentials.workplace">
+                        <label for="work_position" class="col-form-label text-md-right">Working place</label>
+                        <input type="text" placeholder="Type your working place" class="form-control" id="work_position" name="work_position" v-model="credentials.work_position">
                     </div>
                     <div class="form-group">
                         <label for="phone" class="col-form-label text-md-right">Phone</label>
@@ -71,12 +82,12 @@
                         <input type="text" placeholder="Type your brand" class="form-control" id="brand" name="brand" v-model="credentials.brand">
                     </div>
                     <div class="form-group">
-                        <label for="site" class="col-form-label text-md-right">Your site</label>
-                        <input type="text" placeholder="Type your site" class="form-control" id="site" name="site" v-model="credentials.site">
+                        <label for="site_link" class="col-form-label text-md-right">Your site</label>
+                        <input type="text" placeholder="Type your site" class="form-control" id="site_link" name="site_link" v-model="credentials.site_link">
                     </div>
                     <div class="form-group">
-                        <label for="company_name" class="col-form-label text-md-right">Company name</label>
-                        <input type="text" placeholder="Type your company name" class="form-control" id="company_name" name="company_name" v-model="credentials.company_name">
+                        <label for="company" class="col-form-label text-md-right">Company name</label>
+                        <input type="text" placeholder="Type your company name" class="form-control" id="company" name="company" v-model="credentials.company">
                     </div>
                     <div class="form-group">
                         <button type="submit" onclick="event.preventDefault()" class="btn btn-primary float-left" @click="prevStep">prev</button>
@@ -106,21 +117,17 @@
                     password_confirmation: '',
                     chosen_lang: null,
                     brand: '',
-                    company_name: '',
-                    site: '',
-                    workplace: '',
+                    company: '',
+                    site_link: '',
+                    work_position: '',
                     phone: '',
+                    surname: '',
                     role: 'performer',
-
                 },
                 actionURI: '/register',
                 auth: this.$root.authenticated,
 
-                optionsLang: [
-                    { value: null, text: 'Please select an option' },
-                    { value: 'eng', text: 'English' },
-                    { value: 'rus', text: 'Russian' },
-                ],
+                optionsLang: [],
 
                 picturesBg: [
                     { path: '/images/bgregister1.png'},
@@ -134,11 +141,19 @@
             registerData: function () {
                 let dataCredentials = {
                     name: this.credentials.name,
+                    surname: this.credentials.surname,
                     email: this.credentials.email,
                     password: this.credentials.password,
                     password_confirmation: this.credentials.password_confirmation,
-                    user_role: 'performer'
+                    user_role: 'performer',
+                    phone: this.credentials.phone,
+                    work_position: this.credentials.work_position,
+                    chosen_lang: this.credentials.chosen_lang,
+                    company: this.credentials.company,
+                    site_link: this.credentials.site_link,
+                    brand: this.credentials.brand,
                 };
+                //console.log(dataCredentials);
                 axios.post(this.actionURI, dataCredentials, {
                     headers: {
                         "Access-Control-Allow-Origin": "*",
@@ -153,14 +168,19 @@
                             window.location.href = '/dashboard';
                             break;
 
+                        case 206:
+                            let strErrors = '';
+                            let count = 0;
+                            for(let val in response.data.errors){
+                                count++;
+                                strErrors += '<span>' + count + ') ' + response.data.errors[val] + '</span> ' + '<br>';
+                            }
+                            vmThis.$swal( 'There are some problems:', strErrors, 'error')
+                            break;
                         default:
                             break
                     }
                 })
-                    .catch(error => {
-                        console.log(error.response);
-                        vmThis.$root.updateCrsf();
-                    });
 
             },
             prevStep() {
@@ -181,6 +201,9 @@
         },
         created () {
             vmThis = this;
+            axios.post('/getConfigEnums').then(response => {
+                this.optionsLang = response.data.enums.languages;
+            })
         },
         updated(){
             this.$root.changeHeight();
