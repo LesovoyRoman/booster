@@ -8,6 +8,7 @@ vendor
 .vagrant
 public/js/
 public/css/
+public/custom/
 Homestead.json
 Homestead.yaml
 npm-debug.log
