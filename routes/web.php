@@ -10,31 +10,54 @@ Route::get('/{any}', function () {
 Route::post('/getConfigEnums', 'Helpers\ConfigSender@returnConfigEnumsJson');
 
 
+// For each role
+Route::group(['middleware' => 'roleExists'], function () {
+    // Campaign
+    Route::post('/getAllCampaigns', 'Common\Campaign\CampaignController@getAllCampaigns');
+    Route::post('/getCampaignById', 'Common\Campaign\CampaignController@getCampaign');
+
+    // Gift
+    Route::post('/getAllGifts', 'Common\Gift\GiftController@getAllGifts');
+    Route::post('/getGiftById', 'Common\Gift\GiftController@getGift');
+
+    // User
+    Route::post('/currentUserChangePass', 'Common\User\UserController@changePass');
+    Route::post('/currentUserChangeEmail', 'Common\User\UserController@changeEmail');
+    Route::post('/currentUserChangeAvatar', 'Common\User\UserController@userChangeAvatar');
+});
+
+
 // Performer
 Route::group(['middleware' => 'isPerformer'], function (){
     // Campaigns
-    Route::post('/getAllCampaigns', 'Performer\Campaign\CampaignController@getAllCampaigns');
     Route::post('/createNewCampaign', 'Performer\Campaign\CampaignController@addCampaign');
-    Route::post('/getCampaignById', 'Performer\Campaign\CampaignController@getCampaign');
     Route::post('/updateCampaign', 'Performer\Campaign\CampaignController@updateCampaign');
     Route::post('/changeStatusCampaign', 'Performer\Campaign\CampaignController@changeStatusCampaign');
 
     // Gifts
-    Route::post('/getAllGifts', 'Performer\Gift\GiftController@getAllGifts');
     Route::post('/createNewGift', 'Performer\Gift\GiftController@addGift');
     Route::post('/deleteGift', 'Performer\Gift\GiftController@deleteGift');
-    Route::post('/getGiftById', 'Performer\Gift\GiftController@getGift');
     Route::post('/updateGift', 'Performer\Gift\GiftController@updateGift');
+
+    // User
+    Route::post('/currentPerformerGetData', 'Performer\PerformerController@getCurrentPerformer');
+    Route::post('/currentPerformerSetData', 'Performer\PerformerController@updatePerformer');
 });
 
-// tmp route, will be rebuilt
+// Influencer
+Route::group(['middleware' => ''], function (){
+
+});
+
+// @todo tmp route, will be rebuilt
 Route::post('/getAllUsers', 'HomeController@getAllUsers');
 
 // getting Crsf
 Route::get('/sessionSetCsrf', 'SetCsrf@setCsrf');
 
 // check if authenticated
-Route::post('/authCheck', 'User@authCheck');
+Route::post('/authCheck', 'Common\User\UserController@authCheck');
+
 
 Auth::routes();
 

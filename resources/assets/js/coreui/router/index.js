@@ -257,12 +257,14 @@ export default new Router({
                     path      : '/account/profile',
                     name      : 'ProfileI',
                     component : ProfileI, // influencer
+                    props: true,
                     meta: { role_influencer: true },
                 },
                 {
                     path      : '/account/profile',
                     name      : 'ProfileP',
                     component : ProfileP, // performer
+                    props: true,
                     meta: { role_performer: true },
                 },
             ]

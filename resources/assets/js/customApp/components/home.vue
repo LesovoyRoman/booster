@@ -28,7 +28,7 @@
         },
         created() {
             auth = this.$root.authenticated;
-            this.getUserRole();
+            //this.getUserRole();
 
         },
         data() {
@@ -38,7 +38,7 @@
             }
         },
         methods: {
-            getUserRole() {
+            /*getUserRole() {
                 if(auth) {
                     return axios.post('/userrole', {})
                         .then(response => {
@@ -51,7 +51,7 @@
                             this.$root.updateCrsf();
                         });
                 }
-            },
+            },*/
         },
     }
 </script>

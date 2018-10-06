@@ -4,58 +4,17 @@ namespace App\Http\Controllers\Performer\Campaign;
 
 use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Common\Campaign\CampaignController as CommonCampaignController;
 use App\Models\Campaign;
-use Illuminate\Support\Facades\Redis;
+use App\Http\Controllers\Common\Redis\RedisController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Image;
 use App\Http\Controllers\Helpers\StringHelper;
 
-class CampaignController extends Controller
+class CampaignController extends CommonCampaignController
 {
-
-    public function getAllCampaigns(Request $request)
-    {
-        $data = $request->all();
-        if(isset($data['fields']) && $data['fields'] !== null) { // gets only chosen fields
-
-
-            $fields = $data['fields'];
-
-            if ($campaigns = Redis::get('campaigns_id_name.all_userId_' . Auth::id())) {
-                return response()->json(['campaigns' => $campaigns ]);
-            }
-
-            $campaigns = $this->updateRedisAndGetCampaigns($fields);
-
-            return response()->json(['campaigns' => $campaigns]);
-
-        } else { // gets all fields
-
-            if ($campaigns = Redis::get('campaigns.all_userId_' . Auth::id())) {
-                return response()->json(['campaigns' => $campaigns ]);
-            }
-
-            $campaigns = $this->updateRedisAndGetCampaigns();
-
-            return response()->json(['campaigns' => $campaigns]);
-        }
-    }
-
-    protected function getCampaign(Request $request)
-    {
-        try {
-            $campaign = Campaign::with('Image')->where('id', '=', $request['id'])->get();
-
-            return response()->json([
-                'campaign' => $campaign,
-            ], 200);
-        }  catch (\Exception $e) {
-            return response()->json(['exception' => $e->getMessage()]);
-        }
-    }
 
     protected function addCampaign(Request $request)
     {
@@ -130,7 +89,7 @@ class CampaignController extends Controller
         $data['allCountries'] == 'true' ? $data['country'] = 'all' : $data['city'];
 
         try {
-            $create = Campaign::create([
+            $campaign = Campaign::create([
                 'name'              => $data['name'],
                 'company'           => null,
                 'type'              => null,
@@ -156,20 +115,20 @@ class CampaignController extends Controller
 
             if(isset($file) && $file !== 'undefined') {
                 $to = StringHelper::translit('public/performers/user_id_' . Auth::id() . '/campaigns_logos/campaign_' . $data['name']);
-                if(!$create->errors) {
+                if(!$campaign->errors) {
                     ImageController::storeImg($file, $to, $newCampaignId);
 
-                    $this->updateRedisAndGetCampaigns();
+                    RedisController::updateCampaign($campaign);
 
-                    return response()->json(['campaign' => $create, 'idCampaign' => $newCampaignId, 'response' => 'Campaign created successfully'], 200);
+                    return response()->json(['campaign' => $campaign, 'idCampaign' => $newCampaignId, 'response' => 'Campaign created successfully'], 200);
                 } else {
-                    return response()->json(['errors' => $create], 206);
+                    return response()->json(['errors' => $campaign], 206);
                 }
             } else {
 
-                $this->updateRedisAndGetCampaigns();
+                RedisController::updateCampaign($campaign);
 
-                return response()->json(['response' => $create, 'idCampaign' => $newCampaignId]);
+                return response()->json(['response' => $campaign, 'idCampaign' => $newCampaignId]);
             }
         } catch (\Exception $e) {
             return response()->json(['exception' => $e->getMessage()]);
@@ -180,13 +139,16 @@ class CampaignController extends Controller
     protected function changeStatusCampaign(Request $request)
     {
         $id_campaign = request('id_campaign');
-        $campaign = Campaign::where('id', '=', $id_campaign)->first();
+
+        $campaign = Campaign::with('Image')->where('id', '=', $id_campaign)->first();
+        //$campaign = RedisController::getAndSetCampaign($id_campaign);
 
         if($campaign->status === 'activated') {
             try {
                 $campaign->status = 'stopped';
                 $campaign->save();
-                $this->updateRedisAndGetCampaigns();
+
+                RedisController::updateCampaign($campaign);
 
                 return response()->json(['response' => 'Status changed to stopped!', 'statusChanged' => 'stopped'], 200);
             } catch (\Exception $e) {
@@ -196,7 +158,8 @@ class CampaignController extends Controller
             try {
                 $campaign->status = 'activated';
                 $campaign->save();
-                $this->updateRedisAndGetCampaigns();
+
+                RedisController::updateCampaign($campaign);
 
                 return response()->json(['response' => 'Status changed to activated!', 'statusChanged' => 'activated'], 200);
             } catch (\Exception $e) {
@@ -210,7 +173,9 @@ class CampaignController extends Controller
     protected function updateCampaign(Request $request)
     {
         try {
-            $campaign = Campaign::where('id', '=', $request['id'])->first();
+
+            //$campaign = RedisController::getAndSetCampaign($request['id']);
+            $campaign = Campaign::with('Image')->where('id', '=', $request['id'])->first();
 
             $request->file ? $file = $request->file : $file = null;
             $type = 'update';
@@ -220,6 +185,7 @@ class CampaignController extends Controller
             } else {
 
                 $campaign->name = request('name');
+
                 request('allCities') ? $campaign->city = 'all' : $campaign->city = request('city');
                 request('allCountries') ? $campaign->country = 'all' : $campaign->country = request('country');
                 $campaign->end_campaign = request('end_campaign');
@@ -234,7 +200,7 @@ class CampaignController extends Controller
                 $campaign->instructions = request('instructions');
                 $campaign->product_price = request('product_price');
                 $campaign->currency = request('currency');
-                $campaign->points = 0;
+                $campaign->points = $campaign->points ? $campaign->points : 0;
 
                 $campaign->save();
 
@@ -250,13 +216,14 @@ class CampaignController extends Controller
                         $type = 'create';
                     }
 
-                    $update_image = ImageController::storeImg($file, $to, $campaignId, null, $type, $image);
+                    $update_image = ImageController::storeImg($file, $to, $campaignId, null, $type, $image, true);
 
-                    $this->updateRedisAndGetCampaigns();
+                    RedisController::updateCampaign($campaign);
 
                     return response()->json(['campaign' => $campaign, 'image' => $update_image, 'response' => 'Campaign updated successfully'], 200);
                 } else {
-                    $this->updateRedisAndGetCampaigns();
+
+                    RedisController::updateCampaign($campaign);
 
                     return response()->json(['response' => 'Campaign updated successfully'], 200);
                 }
@@ -267,29 +234,5 @@ class CampaignController extends Controller
         }
     }
 
-    protected function updateRedisAndGetCampaigns($fields = null)
-    {
-        if($fields == null) {
-            $campaigns = Campaign::where(function ($query) {
-                $query->where('campaigns.id_owner', '=', Auth::id());
-            })->get();
-        } else {
-            $campaigns = Campaign::where(function ($query) {
-                $query->where('campaigns.id_owner', '=', Auth::id());
-            })->get($fields);
-        }
-
-        $campaignsIdName = [];
-        foreach ($campaigns as $campaign){
-            array_push($campaignsIdName, ['id' => $campaign->id, 'name' => $campaign->name]);
-        }
-
-        // store data id,name for 24 hours
-        Redis::setex('campaigns_id_name.all_userId_' . Auth::id(), 60 * 60 * 24, json_encode($campaignsIdName));
-
-        // store all data campaigns for 24 hours
-        Redis::setex('campaigns.all_userId_' . Auth::id(), 60 * 60 * 24, $campaigns);
-
-        return $campaigns;
-    }
+    
 }

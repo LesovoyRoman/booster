@@ -34,8 +34,15 @@ let bgimages_routes = [
 function authCheck() {
     axios.post('/authCheck',
     ).then(response => {
-        authenticated = response.data === 200;
-        localStorage.setItem('authenticated', true);
+        if(response.data.auth === true)
+        {
+            authenticated = true
+            localStorage.setItem('authenticated', true);
+        } else {
+            authenticated = false
+            localStorage.setItem('authenticated', false);
+        }
+        console.log(response.data.auth);
         routesAllowToUse(authenticated);
     })
         .catch(error => {

@@ -5,7 +5,9 @@
                 <b-col sm="12" md="12">
                     <h2 class="h2">{{ header }}</h2>
 
-                    <b-card>
+                    <loading v-if="loading" style="position: fixed; margin-left: -20px; left: 50%; top: 50%"></loading>
+
+                    <b-card v-if="!loading">
 
                         <b-form-group>
                             <b-input-group>
@@ -44,30 +46,30 @@
                                 :current-page="currentPage"
                                 :per-page="perPage">
                             <template
-                                    slot="campaign_name"
+                                    slot="name"
                                     slot-scope="data">
-                                <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ResultCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ResultCampaign', params: { campaign:campaign, id: id } }">{{ data.item.name }}</router-link>
                             </template>
                             <template slot="influencers" slot-scope="data">
                                 {{ data.item.influencers }}
                             </template>
                             <template slot="points" slot-scope="data">
-                                {{ data.item.points }}
+                                {{ data.item.points }} / {{ data.item.points_checked }}
                             </template>
                             <template slot="influence" slot-scope="data">
                                 {{ data.item.influence }}%
                             </template>
                             <template
-                                    slot="status"
+                                    slot="satisfied"
                                     slot-scope="data" justified="center">
-                                        <span :variant="getBadge(data.item.status)">
-                                            <i v-for="k in data.item.status" class="star_active fa fa-star"></i>
-                                            <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
-                                            <i v-if="data.item.status === 4" class="fa fa-star"></i>
+                                        <span :variant="getBadge(data.item.satisfied)">
+                                            <i v-for="k in data.item.satisfied" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 2" v-if="data.item.satisfied === 3" class="fa fa-star"></i>
+                                            <i v-if="data.item.satisfied === 4" class="fa fa-star"></i>
                                         </span>
-                                        <span v-if="data.item.status === 3"> (60%)</span>
-                                        <span v-if="data.item.status === 4"> (80%)</span>
-                                        <span v-if="data.item.status === 5"> (100%)</span>
+                                        <span v-if="data.item.satisfied === 3"> (60%)</span>
+                                        <span v-if="data.item.satisfied === 4"> (80%)</span>
+                                        <span v-if="data.item.satisfied === 5"> (100%)</span>
                             </template>
                             <template slot="active" slot-scope="data">
                                 <span v-if="data.item.active !== 'Waiting for gifts'">{{ data.item.active }}</span>
@@ -98,52 +100,32 @@
 </template>
 
 <script>
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
+    let vm = {};
     let arrPoints;
 
     export default {
         name: 'ResultsCampaigns',
+        components: {
+            Loading
+        },
         data () {
             return {
                 header: 'Campaigns Results',
+                loading: false,
 
-                campaigns: [
-                    { id: 1, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo',  status: 5, active: 'Active', influencers: 5, influence: '' },
-                    { id: 2, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000', checkingType: 'Photo & Serial number',  status: 3, active: 'Inactive', influencers: 4, influence: '' },
-                    { id: 3, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Photo',  status: 4, active: 'Active', influencers: 3, influence: '' },
-                    { id: 4, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000', checkingType: 'Serial number', status: 4, active: 'Archive', influencers: 2, influence: '' },
-                    { id: 5, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Serial number',  status: 5, active: 'Active', influencers: 3, influence: '' },
-                    { id: 6, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo', status: 5, active: 'Active', influencers: 4, influence: '' },
-                    { id: 7, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000', checkingType: 'Photo',  status: 3, active: 'Inactive', influencers: 10, influence: '' },
-                    { id: 8, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Serial number',  status: 4, active: 'Active', influencers: 20, influence: '' },
-                    { id: 9, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000', checkingType: 'Photo & Serial number',  status: 4, active: 'Active', influencers: 3, influence: '' },
-                    { id: 10, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Photo',  status: 5, active: 'Active', influencers: 5, influence: '' },
-                    { id: 11, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo',  status: 5, active: 'Archive', influencers: 2, influence: '' },
-                    { id: 12, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000',  checkingType: 'Serial number', status: 3, active: 'Active', influencers: 7, influence: '' },
-                    { id: 13, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  checkingType: 'Photo', status: 4, active: 'Inactive', influencers: 9, influence: '' },
-                    { id: 14, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000',  checkingType: 'Serial number', status: 4, active: 'Active', influencers: 12, influence: '' },
-                    { id: 15, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Photo',  status: 5, active: 'Active', influencers: 16, influence: '' },
-                    { id: 16, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Photo & Serial number',  status: 5, active: 'Waiting for gifts', influencers: 14, influence: '' },
-                    { id: 17, campaign_name: 'Snacks', points: '70000/30000', middle_price: '500 Rub', turnover: '4500000', checkingType: 'Photo & Serial number',  status: 3, active: 'Active', influencers: 13, influence: '' },
-                    { id: 18, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Photo',  status: 4, active: 'Inactive', influencers: 12, influence: '' },
-                    { id: 19, campaign_name: 'Snacks', points: '60000/50000', middle_price: '250 Rub', turnover: '7500000', checkingType: 'Photo',  status: 4, active: 'Active', influencers: 12, influence: '' },
-                    { id: 20, campaign_name: 'Snacks', points: '50000/35000', middle_price: '500 Rub', turnover: '5500000', checkingType: 'Photo',  status: 5, active: 'Arhive', influencers: 5, influence: '' },
-                    { id: 21, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000', checkingType: 'Serial number',  status: 5, active: 'Archive', influencers: 8, influence: '' },
-                    { id: 22, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000', checkingType: 'Photo',  status: 3, active: 'Active', influencers: 11, influence: '' },
-                    { id: 23, campaign_name: 'Snacks', points: '70000/30000', middle_price: '375 Rub', turnover: '4500000',  checkingType: 'Serial number', status: 4, active: 'Inactive', influencers: 42, influence: '' },
-                    { id: 24, campaign_name: 'Snacks', points: '60000/35000', middle_price: '500 Rub', turnover: '5500000',  checkingType: 'Photo & Serial number', status: 5, active: 'Active', influencers: 21, influence: '' },
-                    { id: 25, campaign_name: 'Snacks', points: '40000/30000', middle_price: '250 Rub', turnover: '4500000',  checkingType: 'Photo', status: 4, active: 'Archive', influencers: 6, influence: '' },
-                ],
+                campaigns: [],
 
                 fields: [
                     { key: 'id', label: '№' },
-                    { key: 'campaign_name', sortable: true, label: 'Name' },
-                    { key: 'middle_price', sortable: true, label: 'Middle price', 'class': 'table_points' },
+                    { key: 'name', sortable: true, label: 'Name' },
+                    { key: 'product_price', sortable: true, label: 'Middle price', 'class': 'table_points' },
                     { key: 'influencers', sortable: true, label: 'Influencers' },
                     { key: 'points', sortable: true, label: 'Points', 'class': 'table_points'  },
                     { key: 'influence', sortable: true, label: 'Influence', 'class': 'table_influence' },
-                    { key: 'checkingType', sortable: true, 'class': 'table_checkingType' },
-                    { key: 'status', sortable: true, label: 'Satisfied' },
-                    { key: 'active', sortable: true, label: 'Status' },
+                    { key: 'checking_type', sortable: true, 'class': 'table_checkingType' },
+                    { key: 'satisfied', sortable: true, label: 'Satisfied' },
+                    { key: 'status', sortable: true, label: 'Status' },
                     { key: 'turnover', sortable: true, 'class': 'table_turnoiver table_points' },
                 ],
                 currentPage: 1,
@@ -165,10 +147,10 @@
             }
         },
         methods: {
-            getBadge (status) {
-                return status === 5 ? 'success'
-                    : status === 4 ? 'warning'
-                        : status === 3 ? 'danger' : 'primary'
+            getBadge (satisfied) {
+                return satisfied === 5 ? 'success'
+                    : satisfied === 4 ? 'warning'
+                        : satisfied === 3 ? 'danger' : 'primary'
             },
             getRowCount (items) {
                 return items.length
@@ -178,15 +160,33 @@
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
             },
-            countInfluence(){
+            countInfo(){
                 return this.campaigns.forEach(function(item){
-                    arrPoints = item.points.split('/');
-                    item.influence = Math.floor(((arrPoints[1] * 1) / (arrPoints[0] * 1)) * 100);
+                    item.influence = Math.floor(((item.points_checked) / (item.points * 1)) * 100);
+                    item.turnover = Math.floor(item.points_checked * item.product_price);
                 })
-            }
+            },
         },
         created(){
-            this.countInfluence();
+            vm = this;
+            this.loading = true;
+            axios.post('/getAllCampaigns', this.new_campaign).then(response => {
+                this.loading = false;
+                if(response.data.campaigns instanceof Array) {
+                    // from DB
+                    console.log('campaigns DB');
+                    this.campaigns = response.data.campaigns
+                } else {
+                    // from Redis
+                    console.log('campaigns Redis');
+                    this.campaigns = JSON.parse(response.data.campaigns);
+                }
+                this.countInfo();
+                console.log(JSON.parse(response.data.campaigns));
+            }).catch( err => {
+                this.loading = false;
+                console.log(err.message)
+            })
         }
     }
 </script>

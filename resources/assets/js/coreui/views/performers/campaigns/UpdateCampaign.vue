@@ -271,24 +271,37 @@
             axios.post('/getCampaignById', {
                 id: this.idCampaign,
             }).then(response => {
-                //console.log(response.data.campaign);
                 this.loading = false;
                 if(response.status === 200) {
-                    vm.campaign = response.data.campaign[0];
-                    if(response.data.campaign[0].image !== null) {
-                        vm.urlImage = this.storage_path + '/' + response.data.campaign[0].image.image_path;
+                    let response_data = {};
+                    if(typeof response.data.campaign[0] !== 'undefined'){
+                        response_data = response.data.campaign[0];
+                    } else {
+                        response_data = response.data.campaign;
                     }
-                    if(response.data.campaign[0].end_campaign === '2000-01-01 00:00:00' ||
-                        response.data.campaign[0].end_campaign == 'null' || response.data.campaign[0].end_campaign == null) {
+                    vm.campaign = response_data;
+                    //console.log(vm.campaign);
+                    if(response_data.image !== null) {
+                        let image;
+                        try {
+                            image = JSON.parse(response_data.image)
+                            //console.log(image)
+                        } catch (e){
+                            image = response_data.image
+                        }
+                        vm.urlImage = this.storage_path + '/' + image.image_path;
+                    }
+                    if(response_data.end_campaign === '2000-01-01 00:00:00' ||
+                        response_data.end_campaign == 'null' || response_data.end_campaign == null) {
                         vm.campaign.end_type = 'points'
                     } else {
                         vm.campaign.end_type = 'date'
-                        vm.campaign.end_campaign = response.data.campaign[0].end_campaign.substring(0, 10) // substr need to be cut cuz' input uses only y.m.d (not the particular time)
+                        vm.campaign.end_campaign = response_data.end_campaign.substring(0, 10) // substr need to be cut cuz' input uses only y.m.d (not the particular time)
                     }
-                    if(response.data.campaign[0].city === 'all') {
+                    if(response_data.city === 'all') {
                         vm.campaign.allCities = true;
                     }
-                    if(response.data.campaign[0].country === 'all') {
+                    if(response_data.country === 'all') {
                         vm.campaign.allCountries = true;
                     }
                 }
@@ -309,7 +322,7 @@
 
                 campaign: {
 
-                    name: '',
+                    name: null,
                     campaign_id: '',
                     country: null,
                     city: null,
@@ -358,7 +371,7 @@
                     console.log(response);
                     this.loading = false;
                     if(response.status === 200) {
-                        vm.$swal( 'Congratulates:', 'You have created campaign!', 'success')
+                        vm.$swal( 'Congratulates:', 'You have updated campaign!', 'success')
                     }
                     if (response.status === 206){
                         alert(response.data.exception)

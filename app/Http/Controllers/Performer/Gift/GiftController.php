@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Performer\Gift;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redis;
 use App\Models\Gift;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -13,32 +11,12 @@ use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Helpers\StringHelper;
 use App\Models\Campaign;
+use App\Http\Controllers\Common\Gift\GiftController as CommonGiftController;
+use App\Http\Controllers\Common\Redis\RedisController;
 
-class GiftController extends Controller
+class GiftController extends CommonGiftController
 {
-    public function getAllGifts()
-    {
-        if ($gifts = Redis::get('gifts.all_userId_' . Auth::id())) {
-            return response()->json(['gifts' => $gifts]);
-        }
 
-        $gifts = $this->updateRedisAndGetGifts();
-
-        return response()->json(['gifts' => $gifts]);
-    }
-
-    protected function getGift(Request $request)
-    {
-        try {
-            $gift = Gift::with('Images')->where('id', '=', $request['id'])->get();
-
-            return response()->json([
-                'gift' => $gift,
-            ], 200);
-        }  catch (\Exception $e) {
-            return response()->json(['exception' => $e->getMessage()]);
-        }
-    }
 
     protected function addGift(Request $request)
     {
@@ -120,11 +98,11 @@ class GiftController extends Controller
 
 
                 ImageController::storeImg($file, $to, $campaign_id = null, $newGiftId);
-                $this->updateRedisAndGetGifts();
+                RedisController::updateRedisAndGetGifts();
 
                 return response()->json(['gift' => $create, 'response' => 'Gift created successfully'], 200);
             } else {
-                $this->updateRedisAndGetGifts();
+                RedisController::updateRedisAndGetGifts();
 
                 return response()->json(['response' => $create]);
             }
@@ -146,7 +124,7 @@ class GiftController extends Controller
                 ], 206);
             }
 
-            $this->updateRedisAndGetGifts();
+            RedisController::updateRedisAndGetGifts();
 
             return response()->json([
                 'message' => 'Gift deleted successfully!'
@@ -154,7 +132,6 @@ class GiftController extends Controller
         } catch (\Exception $e) {
             return response()->json(['exception' => $e->getMessage()], 111);
         }
-
     }
 
     protected function updateGift(Request $request)
@@ -206,12 +183,12 @@ class GiftController extends Controller
 
                 ImageController::storeImg($file, $to, $campaignId = null, $giftId, $type, $image);
 
-                $this->updateRedisAndGetGifts();
+                RedisController::updateRedisAndGetGifts();
 
                 return response()->json(['gift' => $gift, 'response' => 'Gift updated successfully'], 200);
             } else {
 
-                $this->updateRedisAndGetGifts();
+                RedisController::updateRedisAndGetGifts();
 
                 return response()->json(['response' => 'Gift updated successfully'], 200);
             }
@@ -220,17 +197,5 @@ class GiftController extends Controller
         }
     }
 
-    protected function updateRedisAndGetGifts()
-    {
-        $gifts = Gift::with(array('Campaign' => function($query){
-            $query->select('campaigns.id','campaigns.name');
-        }))->with('Images')->where(function ($query){
-            $query->where('user_from_id', '=', Auth::id());
-        })->get();
 
-        // store data for 1 hour
-        Redis::setex('gifts.all_userId_' . Auth::id(), 60 * 60 * 1, $gifts);
-
-        return $gifts;
-    }
 }

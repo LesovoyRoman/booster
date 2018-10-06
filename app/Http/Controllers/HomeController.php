@@ -21,6 +21,7 @@ class HomeController extends Controller
 
     public function getAllUsers()
     {
+        // @todo temporary method!
         if ($users = Redis::get('users.all')) {
             return response()->json([ 'users' => $users ]);
         }
