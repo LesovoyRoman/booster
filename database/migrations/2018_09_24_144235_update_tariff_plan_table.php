@@ -18,6 +18,10 @@ class UpdateTariffPlanTable extends Migration
             $table->foreign('tariff_id')->references('id')->on('tariffs')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->integer('user_id')->unsigned()->nullable()->after('id');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

@@ -15,6 +15,7 @@
                         <form action="" @submit.prevent>
                             <p class="card-text header_card_simple">Common information</p>
 
+
                             <b-row>
                                 <b-col md="3" lg="3">
                                     <div class="block_logo_user">
@@ -35,12 +36,12 @@
                                                 <b-form-input id="user_email" placeholder="Enter email"  v-model.trim="user.email"></b-form-input>
                                             </b-form-group>
 
-                                            <b-col>
+                                            <div>
                                                 <b-button
                                                         class="font500 float-right uppercase" @click="changeEmail"
                                                         variant="primary">save</b-button>
                                                 <div class="clearfix"></div>
-                                            </b-col>
+                                            </div>
                                         </b-tab>
                                         <b-tab title="Password">
 
@@ -68,12 +69,12 @@
                                                 <b-form-input id="user_pass_confirmation" type="password" placeholder="Enter password confirmation"  v-model.trim="user.password_confirmation"></b-form-input>
                                             </b-form-group>
 
-                                            <b-col>
+                                            <div>
                                                 <b-button
                                                         class="font500 float-right uppercase" @click="changePass"
                                                         variant="primary">save</b-button>
                                                 <div class="clearfix"></div>
-                                            </b-col>
+                                            </div>
                                         </b-tab>
 
                                     </b-tabs>
@@ -205,12 +206,13 @@
 
 <script>
     import Loading from 'vue-loading-spinner/src/components/Circle8'
-    let vm = {};
 
     const emailValid = (email) => {
         const emailRegex = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
         return emailRegex.test(email);
     }
+
+    let vm = {};
 
     export default {
         name: 'Profile',
@@ -244,7 +246,9 @@
                     email: '',
                     old_password: '',
                     new_password: '',
+                    file: {},
                     password_confirmation: '',
+
                     name : '',
                     surname: '',
                     work_position : '',
@@ -258,15 +262,14 @@
                     tariffTerm: '2020.12.12',
                     company_address: '',
                     company_id: 0,
-                    file: {},
                 },
             }
         },
         created(){
-            this.storage_path = this.$root.storage_path;
-            this.urlImage = this.storage_path + '/' + 'images/noimage.jpg';
             vm = this;
             this.loading = true;
+            this.urlImage = this.storage_path + '/' + 'images/noimage.jpg';
+            this.storage_path = this.$root.storage_path;
             axios.post('/currentPerformerGetData').then(response => {
                 this.loading = false;
                 //console.log(response.data.user);
@@ -287,6 +290,24 @@
             })
         },
         methods: {
+            changeEmail(event){
+                if(!emailValid(vm.user.email)) {
+                    vm.$swal( 'There are some problems:', vm.error_email, 'error')
+                } else {
+                    vm.sendAxiosRequest({email: vm.user.email}, '/currentUserChangeEmail')
+                }
+            },
+            changePass(event){
+                if(vm.validatorData('password') === 0) {
+                    let data = {
+                        old_password: vm.user.old_password,
+                        new_password: vm.user.new_password,
+                        password_confirmation: vm.user.password_confirmation
+                    };
+
+                    vm.sendAxiosRequest(data, '/currentUserChangePass');
+                }
+            },
             changeLogo(event){
                 const file = event.target.files[0];
                 let formData = new FormData();
@@ -332,25 +353,6 @@
                     vm.sendAxiosRequest(data, '/currentPerformerSetData');
                 }
             },
-            changeEmail(event){
-                if(!emailValid(vm.user.email)) {
-                    vm.$swal( 'There are some problems:', vm.error_email, 'error')
-                } else {
-                    vm.sendAxiosRequest({email: vm.user.email}, '/currentUserChangeEmail')
-                }
-            },
-            changePass(event){
-                if(vm.validatorData('password') === 0) {
-                    let data = {
-                        old_password: vm.user.old_password,
-                        new_password: vm.user.new_password,
-                        password_confirmation: vm.user.password_confirmation
-                    };
-
-                    vm.sendAxiosRequest(data, '/currentUserChangePass');
-                }
-            },
-
             sendAxiosRequest(data, url) {
                 this.loading = true;
                 axios.post(url, data).then(response => {
@@ -369,20 +371,9 @@
                     }
                 })
             },
-
             validatorData(url){
                 vm.errors = [];
-                if(url === 'password'){
-                    if(vm.user.old_password.length < 8) {
-                        vm.errors.push(vm.error_old_pass)
-                    }
-                    if(vm.user.new_password.length < 8) {
-                        vm.errors.push(vm.error_pass_new)
-                    }
-                    if(vm.user.password_confirmation !== vm.user.new_password) {
-                        vm.errors.push(vm.error_pass_confirmation)
-                    }
-                } else if (url === 'data') {
+                if (url === 'data') {
                     if(vm.user.name.length < 1) {
                         vm.errors.push(vm.error_name)
                     }
@@ -402,6 +393,19 @@
                         vm.errors.push(vm.error_company)
                     }
                 }
+
+                if(url === 'password'){
+                    if(vm.user.old_password.length < 8) {
+                        vm.errors.push(vm.error_old_pass)
+                    }
+                    if(vm.user.new_password.length < 8) {
+                        vm.errors.push(vm.error_pass_new)
+                    }
+                    if(vm.user.password_confirmation !== vm.user.new_password) {
+                        vm.errors.push(vm.error_pass_confirmation)
+                    }
+                }
+
 
                 if(vm.errors.length !== 0){
                     let count = 0;

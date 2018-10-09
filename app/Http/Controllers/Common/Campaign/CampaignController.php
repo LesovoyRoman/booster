@@ -13,6 +13,7 @@ class CampaignController extends Controller
 {
     public function getAllCampaigns(Request $request)
     {
+        $amountCampaigns = Campaign::count();
         $data = $request->all();
         if(isset($data['fields']) && $data['fields'] !== null) {
             $fields = $data['fields'];
@@ -25,7 +26,8 @@ class CampaignController extends Controller
             }
 
             // @todo check it
-            if (sizeof($campaigns ) > 0) {
+
+            if ( $amountCampaigns === sizeof($campaigns)) {
                 $campaignsOnlyFields = static::getOnlyFieldsCampaigns($fields, (object)$campaigns);
                 $response = static::campaignsIfPerformer($campaignsOnlyFields);
 
@@ -45,7 +47,7 @@ class CampaignController extends Controller
                 array_push($campaigns, $stored);
             }
 
-            if (sizeof($campaigns ) > 0) {
+            if ( $amountCampaigns === sizeof($campaigns)) {
                 $response = static::campaignsIfPerformer((object)$campaigns);
 
                 return response()->json(['campaigns' => $response, 'Redis' => true]);

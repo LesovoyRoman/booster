@@ -15,14 +15,13 @@ class CreateChannelsTable extends Migration
     {
         Schema::create('channels', function (Blueprint $table) {
             $table->increments('id');
-            //$table->string('name')->nullable();
             $table->enum('name', config('enums.channels'))->nullable();
             $table->string('link')->nullable();
             $table->string('topic')->nullable();
-            $table->integer('auditory')->nullable();
-            $table->integer('auditory_age_from')->nullable();
-            $table->integer('auditory_age_to')->nullable();
-            $table->integer('influence')->nullable();
+            $table->integer('auditory')->default(10)->nullable();
+            $table->integer('auditory_age_from')->default(10)->nullable();
+            $table->integer('auditory_age_to')->default(20)->nullable();
+            $table->integer('influence')->default(0)->nullable();
             $table->timestamps();
         });
     }

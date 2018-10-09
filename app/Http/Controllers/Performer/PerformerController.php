@@ -15,7 +15,7 @@ class PerformerController extends UserController
 {
     protected function getCurrentPerformer()
     {
-        $user = Performer::find('1');
+        $user = Performer::find(Auth::id());
         return response()->json(['user' => $user]);
     }
 

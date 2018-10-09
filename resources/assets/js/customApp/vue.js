@@ -105,10 +105,14 @@ function app() {
             return {
                 authenticated: authenticated,
                 vmThis: this,
+                configEnums: {},
             }
         },
         created() {
             vm = this;
+            axios.post('/getConfigEnums').then(response => {
+                this.configEnums = response.data.enums;
+            })
             bgimages_routes.forEach(function (item) {
                 if(item.path === vm.$route.path) {
                     vm.changeBg(item.img);

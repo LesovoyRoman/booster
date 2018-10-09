@@ -13,7 +13,7 @@ class UpdateAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::table('tariff_plan', function (Blueprint $table) {
+        Schema::table('addresses', function (Blueprint $table) {
             $table->integer('user_id')->unsigned()->nullable()->after('id');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')
@@ -28,6 +28,6 @@ class UpdateAddressesTable extends Migration
      */
     public function down()
     {
-
+        //
     }
 }

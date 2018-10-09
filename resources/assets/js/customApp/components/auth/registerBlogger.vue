@@ -5,7 +5,7 @@
                 <div v-if="step === 1">
                     <div class="form-group">
                         <label class="col-form-label text-md-right">Choose the language</label>
-                        <b-form-select  v-model="credentials.chosen_lang" :options="optionsLang" class="mb-3"></b-form-select>
+                        <b-form-select  v-model="credentials.chosen_lang" :options="languages" class="mb-3"></b-form-select>
                     </div>
                     <div class="form-group">
                         <button type="submit" onclick="event.preventDefault()" class="btn btn-primary float-right" @click="nextStep">next</button>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label text-md-right">Topic</label>
-                        <b-form-select  v-model="credentials.topic" :options="optionsTopic" class="mb-3" />
+                        <b-form-select  v-model="credentials.topic" :options="topics" class="mb-3" />
                     </div>
                     <div class="form-group">
                         <button type="submit" onclick="event.preventDefault()" class="btn btn-primary float-left" @click="prevStep">prev</button>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label text-md-right">Influence Channel</label>
-                        <b-form-select  v-model="credentials.influenceChannel" :options="optionsChannels" class="mb-3" />
+                        <b-form-select  v-model="credentials.influenceChannel" :options="channels" class="mb-3" />
                     </div>
                     <div class="form-group" v-if="credentials.influenceChannel !== null">
                         <label for="linkChannel" class="col-form-label text-md-right">Channel link</label>
@@ -95,13 +95,13 @@
                     </div>
                     <div class="form-group" v-if="credentials.influenceChannel !== null">
                         <label class="col-form-label text-md-right">Size of auditory</label>
-                        <b-form-select  v-model="credentials.sizeAuditory" :options="optionsAuditory" class="mb-3" />
+                        <b-form-select  v-model="credentials.auditory" :options="auditories" class="mb-3" />
                     </div>
                     <div class="form-group" v-if="credentials.influenceChannel !== null">
                         <label class="col-form-label text-md-right">Age of auditory</label>
                         <b-row>
-                            <b-col><b-form-select  v-model="credentials.auditoryAgeFrom" :options="optionsAuditoryAgeFrom" class="mb-3" /></b-col>
-                            <b-col><b-form-select  v-model="credentials.auditoryAgeTo" :options="optionsAuditoryAgeTo" class="mb-3" /></b-col>
+                            <b-col><b-form-select  v-model="credentials.auditory_age_from" :options="auditories_age_from" class="mb-3" /></b-col>
+                            <b-col><b-form-select  v-model="credentials.auditory_age_to" :options="auditories_age_to" class="mb-3" /></b-col>
                         </b-row>
                     </div>
 
@@ -141,61 +141,36 @@
                     influenceChannel: null, //
                     phone: '', //
                     role: 'blogger', //
-                    sizeAuditory: 1,
+                    auditory: 1,
                     avatar: '',
-                    auditoryAgeFrom: null,
-                    auditoryAgeTo: null,
+                    auditory_age_from: null,
+                    auditory_age_to: null,
                 },
                 actionURI: '/register',
                 auth: this.$root.authenticated,
 
-                optionsTopic: [
-                    { value: null, text: 'Please select an option' },
-                    { value: 'games', text: 'Games' },
-                    { value: 'adventure', text: 'Adventure' },
+                topics: [
+                    
                 ],
 
-                optionsAuditoryAgeFrom: [
-                    { value: null, text: 'From' },
-                    { value: '10', text: '10' },
-                    { value: '15', text: '15' },
-                    { value: '15', text: '15' },
-                    { value: '20', text: '20' },
-                    { value: '25', text: '25' },
-                    { value: '30', text: '30' },
-                    { value: '35', text: '35' },
-                    { value: '40', text: '40' },
+                auditories_age_from: [
+                   
                 ],
 
-                optionsAuditoryAgeTo: [
-                    { value: null, text: 'To' },
-                    { value: '20', text: '20' },
-                    { value: '30', text: '30' },
-                    { value: '40', text: '40' },
-                    { value: '20', text: '20' },
-                    { value: '25', text: '25' },
-                    { value: '30', text: '30' },
-                    { value: '35', text: '35' },
-                    { value: '40', text: '40' },
-                    { value: '50', text: '50' },
-                    { value: '60', text: '60' },
+                auditories_age_to: [
+                    
                 ],
 
-                optionsChannels: [
+                channels: [
 
                 ],
 
-                optionsLang: [
+                languages: [
 
                 ],
 
-                optionsAuditory: [
-                    { value: 1, text: '10-50 people' },
-                    { value: 2, text: '50-500 people' },
-                    { value: 3, text: '500-1000 people' },
-                    { value: 4, text: '1000-4000 people' },
-                    { value: 5, text: '4000-10000 people' },
-                    { value: 6, text: '10000-50000 people' },
+                auditories: [
+                    
                 ],
 
                 picturesBg: [
@@ -221,10 +196,10 @@
                     linkChannel: this.credentials.linkChannel, //
                     influenceChannel: this.credentials.influenceChannel, //
                     phone: this.credentials.phone, //
-                    sizeAuditory: this.credentials.sizeAuditory,
+                    auditory: this.credentials.auditory,
                     //avatar: this.credentials.influenceChannel,
-                    auditoryAgeFrom: this.credentials.auditoryAgeFrom,
-                    auditoryAgeTo: this.credentials.auditoryAgeTo,
+                    auditory_age_from: this.credentials.auditory_age_from,
+                    auditory_age_to: this.credentials.auditory_age_to,
                 };
                 axios.post(this.actionURI, dataCredentials, {
                     headers: {
@@ -274,9 +249,17 @@
         },
         created() {
             vmThis = this;
+            this.channels = this.$root.configEnums.channels;
+            this.languages = this.$root.configEnums.languages;
+            this.auditories = this.$root.configEnums.auditories;
+            this.auditories_age_to = this.$root.configEnums.auditories_age_to;
+            this.auditories_age_from = this.$root.configEnums.auditories_age_from;
+            this.topics = this.$root.configEnums.topics;
+            
             axios.post('/getConfigEnums').then(response => {
-                this.optionsChannels = response.data.enums.channels;
-                this.optionsLang = response.data.enums.languages;
+                this.channels = response.data.enums.channels;
+                this.languages = response.data.enums.languages;
+                this.auditories = response.data.enums.languages
             })
         },
         updated(){

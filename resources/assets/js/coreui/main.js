@@ -86,7 +86,14 @@ window.Vue = new Vue({
   },
   data(){
     return {
-        storage_path: storage_path
+        storage_path: storage_path,
+        configEnums: {},
     }
-  }
+  },
+    created(){
+      axios.post('/getConfigEnums').then(response => {
+          this.configEnums = response.data.enums;
+          console.log(this.configEnums);
+      })
+    },
 })

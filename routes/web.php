@@ -45,8 +45,10 @@ Route::group(['middleware' => 'isPerformer'], function (){
 });
 
 // Influencer
-Route::group(['middleware' => ''], function (){
-
+Route::group(['middleware' => 'isInfluencer'], function (){
+    //User
+    Route::post('/currentInfluencerGetData', 'Influencer\InfluencerController@getCurrentInfluencer');
+    Route::post('/currentInfluencerSetData', 'Influencer\InfluencerController@updateInfluencer');
 });
 
 // @todo tmp route, will be rebuilt

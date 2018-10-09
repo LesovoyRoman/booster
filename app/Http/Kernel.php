@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'role'  => \App\Http\Middleware\Role::class,
         'appWay' => \App\Http\Middleware\appWay::class,
         'isPerformer' => \App\Http\Middleware\isPerformer::class,
+        'isInfluencer' => \App\Http\Middleware\isInfluencer::class,
         'roleExists' => \App\Http\Middleware\roleExists::class,
     ];
 }
