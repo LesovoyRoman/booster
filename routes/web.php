@@ -59,6 +59,7 @@ Route::get('/sessionSetCsrf', 'SetCsrf@setCsrf');
 
 // check if authenticated
 Route::post('/authCheck', 'Common\User\UserController@authCheck');
+Route::post('/roleCheck', 'Common\User\UserController@getRole');
 
 
 Auth::routes();

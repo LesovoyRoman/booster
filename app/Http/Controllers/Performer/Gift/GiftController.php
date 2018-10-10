@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Helpers\StringHelper;
 use App\Models\Campaign;
 use App\Http\Controllers\Common\Gift\GiftController as CommonGiftController;
-use App\Http\Controllers\Common\Redis\RedisController;
 
 class GiftController extends CommonGiftController
 {
@@ -98,11 +97,9 @@ class GiftController extends CommonGiftController
 
 
                 ImageController::storeImg($file, $to, $campaign_id = null, $newGiftId);
-                RedisController::updateRedisAndGetGifts();
 
                 return response()->json(['gift' => $create, 'response' => 'Gift created successfully'], 200);
             } else {
-                RedisController::updateRedisAndGetGifts();
 
                 return response()->json(['response' => $create]);
             }
@@ -123,8 +120,6 @@ class GiftController extends CommonGiftController
                     'errors' => 'Gift can not be deleted! (' . $gift->status . ')'
                 ], 206);
             }
-
-            RedisController::updateRedisAndGetGifts();
 
             return response()->json([
                 'message' => 'Gift deleted successfully!'
@@ -183,12 +178,8 @@ class GiftController extends CommonGiftController
 
                 ImageController::storeImg($file, $to, $campaignId = null, $giftId, $type, $image);
 
-                RedisController::updateRedisAndGetGifts();
-
                 return response()->json(['gift' => $gift, 'response' => 'Gift updated successfully'], 200);
             } else {
-
-                RedisController::updateRedisAndGetGifts();
 
                 return response()->json(['response' => 'Gift updated successfully'], 200);
             }

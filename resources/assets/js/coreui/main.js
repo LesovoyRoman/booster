@@ -56,15 +56,15 @@ Vue.component('b-datepicker', {
 })
 
 function getRole() {
-    axios.post('/authCheck',
+    axios.post('/roleCheck',
     ).then(response => {
         if(response.data === 500) {
           // notRegistered
             document.querySelector('meta[name="user_role"]').setAttribute('content', '0'); // setting user
         } else {
-            console.log('user_role ' + response.data)
-            document.querySelector('meta[name="user_role"]').setAttribute('content', response.data); // setting user
-            localStorage.setItem('user_role', response.data);
+            console.log('user_role ' + response.data.role)
+            document.querySelector('meta[name="user_role"]').setAttribute('content', response.data.role); // setting user
+            localStorage.setItem('user_role', response.data.role);
         }
     })
     .catch(error => {
@@ -93,7 +93,7 @@ window.Vue = new Vue({
     created(){
       axios.post('/getConfigEnums').then(response => {
           this.configEnums = response.data.enums;
-          console.log(this.configEnums);
+          //console.log(this.configEnums);
       })
     },
 })

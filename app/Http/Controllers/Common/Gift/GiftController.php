@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Common\Gift;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redis;
-use App\Http\Controllers\Common\Redis\RedisController;
 use App\Models\Gift;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,11 +11,11 @@ class GiftController extends Controller
 {
     public function getAllGifts()
     {
-        if ($gifts = Redis::get('gifts.all_userId_' . Auth::id())) {
-            return response()->json(['gifts' => $gifts]);
-        }
-
-        $gifts = RedisController::updateRedisAndGetGifts();
+        $gifts = Gift::with(array('Campaign' => function($query){
+            $query->select('campaigns.id','campaigns.name');
+        }))->with('Images')->where(function ($query){
+            $query->where('user_from_id', '=', Auth::id());
+        })->get();
 
         return response()->json(['gifts' => $gifts]);
     }

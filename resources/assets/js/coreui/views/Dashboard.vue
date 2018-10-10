@@ -34,7 +34,10 @@
           PerformerDashboard
       },
       created(){
-
+          this.user_role = localStorage.getItem('user_role')
+      },
+      mounted(){
+          console.log(this.user_role)
       }
   }
 

@@ -79,6 +79,17 @@ class UserController extends Controller
         }
     }
 
+    public function getRole()
+    {
+        if (Auth::user()) {
+            $user = auth()->user();
+            $role = $user->user_role;
+            return response()->json(['role' => $role]);
+        } else {
+            return response()->json(['auth' => false]);
+        }
+    }
+
     public function user_email_rule(array $data)
     {
         $messages = [

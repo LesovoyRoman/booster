@@ -6,7 +6,6 @@ use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Common\Campaign\CampaignController as CommonCampaignController;
 use App\Models\Campaign;
-use App\Http\Controllers\Common\Redis\RedisController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -118,15 +117,11 @@ class CampaignController extends CommonCampaignController
                 if(!$campaign->errors) {
                     ImageController::storeImg($file, $to, $newCampaignId);
 
-                    RedisController::updateCampaign($campaign);
-
                     return response()->json(['campaign' => $campaign, 'idCampaign' => $newCampaignId, 'response' => 'Campaign created successfully'], 200);
                 } else {
                     return response()->json(['errors' => $campaign], 206);
                 }
             } else {
-
-                RedisController::updateCampaign($campaign);
 
                 return response()->json(['response' => $campaign, 'idCampaign' => $newCampaignId]);
             }
@@ -141,14 +136,11 @@ class CampaignController extends CommonCampaignController
         $id_campaign = request('id_campaign');
 
         $campaign = Campaign::with('Image')->where('id', '=', $id_campaign)->first();
-        //$campaign = RedisController::getAndSetCampaign($id_campaign);
 
         if($campaign->status === 'activated') {
             try {
                 $campaign->status = 'stopped';
                 $campaign->save();
-
-                RedisController::updateCampaign($campaign);
 
                 return response()->json(['response' => 'Status changed to stopped!', 'statusChanged' => 'stopped'], 200);
             } catch (\Exception $e) {
@@ -158,8 +150,6 @@ class CampaignController extends CommonCampaignController
             try {
                 $campaign->status = 'activated';
                 $campaign->save();
-
-                RedisController::updateCampaign($campaign);
 
                 return response()->json(['response' => 'Status changed to activated!', 'statusChanged' => 'activated'], 200);
             } catch (\Exception $e) {
@@ -174,7 +164,6 @@ class CampaignController extends CommonCampaignController
     {
         try {
 
-            //$campaign = RedisController::getAndSetCampaign($request['id']);
             $campaign = Campaign::with('Image')->where('id', '=', $request['id'])->first();
 
             $request->file ? $file = $request->file : $file = null;
@@ -218,12 +207,8 @@ class CampaignController extends CommonCampaignController
 
                     $update_image = ImageController::storeImg($file, $to, $campaignId, null, $type, $image, true);
 
-                    RedisController::updateCampaign($campaign);
-
                     return response()->json(['campaign' => $campaign, 'image' => $update_image, 'response' => 'Campaign updated successfully'], 200);
                 } else {
-
-                    RedisController::updateCampaign($campaign);
 
                     return response()->json(['response' => 'Campaign updated successfully'], 200);
                 }

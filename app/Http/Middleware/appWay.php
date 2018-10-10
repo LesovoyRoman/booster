@@ -20,13 +20,13 @@ class appWay
     {
         if(Auth::id()) {
             $user = auth()->user();
-            $user_role = [ 'user_role' => $user->user_role ];
+            $role = $user->user_role;
 
             if ($user->user_role == 'admin'
                 || $user->user_role == 'performer'
                 || $user->user_role == 'influencer'
                 || $user->user_role == 'assistant') {
-                return new Response(view('app', $user_role));
+                return new Response(view('app', [ 'user_role' => $role ]));
             } else {
                 return $next($request);
             }

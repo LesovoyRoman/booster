@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Gift extends Model
+class Gift extends ModelBase
 {
     protected $fillable = [
         'campaign_id',

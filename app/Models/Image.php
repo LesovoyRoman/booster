@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Image extends Model
+class Image extends ModelBase
 {
     protected $fillable = [
         'user_id',
@@ -15,7 +13,6 @@ class Image extends Model
         'image_path',
         'type'
     ];
-
 
     public function user()
     {

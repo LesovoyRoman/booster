@@ -5,56 +5,26 @@ namespace App\Http\Controllers\Common\Campaign;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
-use Illuminate\Support\Facades\Redis;
-use App\Http\Controllers\Common\Redis\RedisController;
 use Illuminate\Support\Facades\Auth;
 
 class CampaignController extends Controller
 {
     public function getAllCampaigns(Request $request)
     {
-        $amountCampaigns = Campaign::count();
         $data = $request->all();
-        if(isset($data['fields']) && $data['fields'] !== null) {
+
+        if(isset($data['fields']) && $data['fields'] !== null) { // only get fields
             $fields = $data['fields'];
+            $campaignsOnlyFields = static::getOnlyFieldsCampaigns($fields);
+            $response = static::campaignsIfPerformer((object)$campaignsOnlyFields);
 
-            $keys = Redis::keys('campaign:*');
-            $campaigns = [];
-            foreach ($keys as $key) {
-                $stored = Redis::hgetall($key);
-                array_push($campaigns, $stored);
-            }
+            return response()->json(['campaigns' => $response]);
 
-            // @todo check it
-
-            if ( $amountCampaigns === sizeof($campaigns)) {
-                $campaignsOnlyFields = static::getOnlyFieldsCampaigns($fields, (object)$campaigns);
-                $response = static::campaignsIfPerformer($campaignsOnlyFields);
-
-                return response()->json(['campaigns' => $response, 'Redis' => true]);
-            } else {
-                $campaigns = RedisController::updateRedisAndGetCampaigns($fields);
-                $response = static::campaignsIfPerformer((object)$campaigns);
-
-                return response()->json(['campaigns' => $response, 'DB' => true]);
-            }
         } else { // gets all fields
+            $campaigns = Campaign::all();
+            $response = static::campaignsIfPerformer((object)$campaigns);
 
-            $keys = Redis::keys('campaign:*');
-            $campaigns = [];
-            foreach ($keys as $key) {
-                $stored = Redis::hgetall($key);
-                array_push($campaigns, $stored);
-            }
-
-            if ( $amountCampaigns === sizeof($campaigns)) {
-                $response = static::campaignsIfPerformer((object)$campaigns);
-
-                return response()->json(['campaigns' => $response, 'Redis' => true]);
-            }
-            $campaigns = RedisController::updateRedisAndGetCampaigns();
-
-            return response()->json(['campaigns' => $campaigns]);
+            return response()->json(['campaigns' => $response]);
         }
     }
 
@@ -70,17 +40,10 @@ class CampaignController extends Controller
     }
     
     
-    public static function getOnlyFieldsCampaigns($fields, $campaigns)
+    public static function getOnlyFieldsCampaigns($fields)
     {
-        $campaigns_fields = [];
-        $campaign_fields = [];
-        foreach ($campaigns as $campaign){
-            foreach ($fields as $field){
-                array_push($campaign_fields, $campaign[$field]);
-            }
-            array_push($campaigns_fields, [$campaign->id => $campaign_fields]);
-        }
-        return $campaigns_fields;
+        $campaignsFields = Campaign::get($fields);
+        return $campaignsFields;
     }
 
 
@@ -99,8 +62,7 @@ class CampaignController extends Controller
     protected function getCampaign(Request $request)
     {
         try {
-            //$campaign = Campaign::with('Image')->where('id', '=', $request['id'])->get();
-            $campaign = RedisController::getAndSetCampaign($request['id']);
+            $campaign = Campaign::with('Image')->where('id', '=', $request['id'])->get();
 
             return response()->json([
                 'campaign' => $campaign,

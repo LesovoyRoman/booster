@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Channel extends Model
+class Channel extends ModelBase
 {
     protected $fillable = [
         'name',

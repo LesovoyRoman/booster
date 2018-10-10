@@ -149,10 +149,10 @@ export default new Router({
       component: Full,
       children : [
         {
-          path     : 'dashboard',
-          name     : 'Dashboard',
-          component: Dashboard,
-            meta: {dashboard: true}
+            path: 'dashboard',
+            name: 'Dashboard',
+            component: Dashboard,
+            //meta: {dashboard: true}
         },
         {
             path: 'tariffs',

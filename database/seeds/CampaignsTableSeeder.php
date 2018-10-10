@@ -14,6 +14,6 @@ class CampaignsTableSeeder extends Seeder
     {
         DB::table('campaigns')->delete();
 
-        factory(\App\Models\Campaign::class, 10)->create();
+        factory(\App\Models\Campaign::class, 1000)->create();
     }
 }
