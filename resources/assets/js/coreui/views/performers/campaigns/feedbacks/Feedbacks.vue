@@ -4,8 +4,14 @@
             <b-row>
                 <b-col sm="12" md="12">
                     <h2 class="h2">{{ header }}</h2>
-                    <b-card>
+                </b-col>
 
+                <b-col v-if="loading">
+                    <loading v-if="loading" style="position: fixed; left: 50%; margin-left: -20px; top: 50%"></loading>
+                </b-col>
+
+                <b-col v-if="!loading">
+                    <b-card>
                         <b-form-group>
                             <b-input-group>
                                 <b-input-group-prepend>
@@ -43,21 +49,24 @@
                                 :current-page="currentPage"
                                 :per-page="perPage">
                             <template
-                                    slot="campaign_name"
+                                    slot="name"
                                     slot-scope="data">
-                                <router-link :id="id = data.item.id" :data="feedback = data.item" :to="{ name: 'Feedback', params: { feedback: feedback, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                <router-link :id="id = data.item.id" :data="feedback = data.item" :to="{ name: 'Feedback', params: { feedback: feedback, id: id } }">{{ data.item.name }}</router-link>
+                            </template>
+                            <template slot="points" slot-scope="data">
+                                {{ data.item.points }} / {{ data.item.points_checked }}
                             </template>
                             <template
-                                    slot="status"
+                                    slot="satisfied"
                                     slot-scope="data" justified="center">
-                                        <span :variant="getBadge(data.item.status)">
-                                            <i v-for="k in data.item.status" class="star_active fa fa-star"></i>
-                                            <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
-                                            <i v-if="data.item.status === 4" class="fa fa-star"></i>
+                                        <span :variant="getBadge(data.item.satisfied)">
+                                            <i v-for="k in 5" v-if="data.item.satisfied >= 75" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 4" v-if="data.item.satisfied > 60 && data.item.satisfied < 75" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 3" v-if="data.item.satisfied <= 60" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 1" v-if="data.item.satisfied > 60 && data.item.satisfied < 75" class="fa fa-star"></i>
+                                            <i v-for="k in 2" v-if="data.item.satisfied <= 60" class="fa fa-star"></i>
                                         </span>
-                                <span v-if="data.item.status === 3"> (60%)</span>
-                                <span v-if="data.item.status === 4"> (80%)</span>
-                                <span v-if="data.item.status === 5"> (100%)</span>
+                                <span v-if="data.item.satisfied"> {{ data.item.satisfied }}%</span>
                             </template>
                         </b-table>
                         <nav>
@@ -79,63 +88,28 @@
 </template>
 
 <script>
-    const shuffleArray = (array) => {
-        /*for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1))
-            const temp = array[i]
-            array[i] = array[j]
-            array[j] = temp
-        }*/
-        return array
-    }
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
+    let vm = {};
 
     export default {
         name: 'Feedbacks',
+        components: {
+            Loading
+        },
         data () {
             return {
                 header: 'Feedbacks',
+                loading: false,
 
-                feedbacks: shuffleArray([
-                    { id: 1, campaign_name: 'Snacks', participants: '100', points: '30000', status: 5 },
-                    { id: 2, campaign_name: 'Snacks', participants: '200', points: '40000',  status: 5 },
-                    { id: 3, campaign_name: 'Snacks', participants: '300', points: '50000',  status: 5 },
-                    { id: 4, campaign_name: 'Snacks', participants: '500', points: '60000',  status: 5 },
-                    { id: 5, campaign_name: 'Snacks', participants: '1000', points: '70000',  status: 5 },
-                    { id: 6, campaign_name: 'Snacks', participants: '100', points: '80000',  status: 5 },
-                    { id: 7, campaign_name: 'Snacks', participants: '200', points: '90000',  status: 5 },
-                    { id: 8, campaign_name: 'Snacks', participants: '300', points: '100000',  status: 5 },
-                    { id: 9, campaign_name: 'Snacks', participants: '500', points: '31000',  status: 5 },
-                    { id: 10, campaign_name: 'Snacks', participants: '100', points: '41000',  status: 5 },
-                    { id: 11, campaign_name: 'Snacks', participants: '200', points: '51000',  status: 5 },
-                    { id: 12, campaign_name: 'Snacks', participants: '300', points: '52000',  status: 4 },
-                    { id: 13, campaign_name: 'Snacks', participants: '500', points: '61000',  status: 5 },
-                    { id: 14, campaign_name: 'Snacks', participants: '1000', points: '62000',  status: 5 },
-                    { id: 15, campaign_name: 'Snacks', participants: '100', points: '71000',  status: 5 },
-                    { id: 16, campaign_name: 'Snacks', participants: '200', points: '78000',  status: 5 },
-                    { id: 17, campaign_name: 'Snacks', participants: '300', points: '89000',  status: 5 },
-                    { id: 18, campaign_name: 'Snacks', participants: '500', points: '81000',  status: 5 },
-                    { id: 19, campaign_name: 'Snacks', participants: '1000', points: '86000',  status: 4 },
-                    { id: 20, campaign_name: 'Snacks', participants: '100', points: '95000',  status: 5 },
-                    { id: 21, campaign_name: 'Snacks', participants: '200', points: '59000',  status: 5 },
-                    { id: 22, campaign_name: 'Snacks', participants: '300', points: '91000',  status: 5 },
-                    { id: 23, campaign_name: 'Snacks', participants: '500', points: '20000',  status: 5 },
-                    { id: 24, campaign_name: 'Snacks', participants: '100', points: '22000',  status: 3 },
-                    { id: 25, campaign_name: 'Snacks', participants: '200', points: '67000',  status: 5 },
-                    { id: 26, campaign_name: 'Snacks', participants: '300', points: '38000',  status: 3 },
-                    { id: 27, campaign_name: 'Snacks', participants: '500', points: '92000',  status: 5 },
-                    { id: 28, campaign_name: 'Snacks', participants: '1000', points: '45000',  status: 5 },
-                    { id: 29, campaign_name: 'Snacks', participants: '100', points: '71000',  status: 5 },
-                    { id: 30, campaign_name: 'Snacks', participants: '200', points: '83000',  status: 5 },
-                    { id: 31, campaign_name: 'Snacks', participants: '300', points: '75000',  status: 5 },
-                    { id: 32, campaign_name: 'Snacks', participants: '500', points: '94000',  status: 5 },
-                    { id: 33, campaign_name: 'Snacks', participants: '1000', points: '2000',  status: 5 },
-                ]),
+                feedbacks: [
+                    { id: 1, name: 'Snacks', participants: '100', points: '30000', satisfied: 5 },
+                ],
                 fields: [
                     { key: 'id', label: '№' },
-                    { key: 'campaign_name', sortable: true, label: 'Name' },
+                    { key: 'name', sortable: true, label: 'Name' },
                     { key: 'participants',  sortable: true, label: 'Participants' },
                     { key: 'points', sortable: true, label: 'Points', 'class': 'table_points' },
-                    { key: 'status', 'class': 'text-center', sortable: true, label: 'Satisfied' },
+                    { key: 'satisfied', 'class': 'text-center', sortable: true, label: 'Satisfied' },
                 ],
                 currentPage: 1,
                 perPage    : 10,
@@ -146,6 +120,7 @@
                 sortDesc: false,
                 sortDirection: 'asc',
 
+                dataRequst: {fields: ['id', 'name', 'participants', 'points', 'points_checked', 'satisfied']}
             }
         },
         computed: {
@@ -157,10 +132,10 @@
             }
         },
         methods: {
-            getBadge (status) {
-                return status === '5' ? 'success'
-                    : status === '4' ? 'warning'
-                        : status === '3' ? 'danger' : 'primary'
+            getBadge (satisfied) {
+                return satisfied >= 75 ? 'success'
+                    : satisfied > 60 && satisfied < 75 ? 'warning'
+                        : satisfied <= 60 ? 'danger' : 'primary'
             },
             getRowCount (items) {
                 return items.length
@@ -170,6 +145,25 @@
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
             }
+        },
+        created(){
+            vm = this;
+            this.loading = true;
+            axios.post('/getAllCampaigns', vm.dataRequst).then(response => {
+                this.loading = false;
+                if(response.data.campaigns instanceof Array) {
+                    // from DB
+                    this.feedbacks = response.data.campaigns
+                } else {
+                    // from Redis
+                    this.feedbacks = JSON.parse(response.data.campaigns);
+                }
+                //console.log(response.data.campaigns);
+            }).catch( err => {
+                this.loading = false;
+                this.loading = false;
+                console.log(err.message)
+            })
         },
     }
 </script>

@@ -27,6 +27,7 @@ $factory->define(\App\Models\Campaign::class, function (Faker $faker) {
         'end_points'        => $faker->numberBetween(100000, 2000000),
         'end_campaign'      => '2000-01-01 00:00:00',
         'id_owner'          => 1,
+        'satisfied'         => $faker->numberBetween(0, 100),
         'status'            => $faker->randomElement(array('activated','created', 'stopped'))
     ];
 });

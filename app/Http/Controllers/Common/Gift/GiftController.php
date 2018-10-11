@@ -17,7 +17,30 @@ class GiftController extends Controller
             $query->where('user_from_id', '=', Auth::id());
         })->get();
 
-        return response()->json(['gifts' => $gifts]);
+        $response = static::giftsIfPerformer((object)$gifts);
+
+        return response()->json(['gifts' => $response]);
+    }
+
+    public static function giftsIfPerformer($gifts)
+    {
+        $user = auth()->user();
+        if ($user->user_role === 'performer') {
+            return static::giftsOwner($gifts, Auth::id());
+        } else {
+            return $gifts;
+        }
+    }
+
+    public static function giftsOwner($gifts, $id)
+    {
+        $giftsUser = [];
+        foreach ($gifts as $gift){
+            if($gift['user_from_id'] == $id){
+                array_push($giftsUser, $gift);
+            }
+        }
+        return $giftsUser;
     }
 
     public function getGift(Request $request)

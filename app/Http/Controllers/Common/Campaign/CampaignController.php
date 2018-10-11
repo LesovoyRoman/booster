@@ -42,6 +42,10 @@ class CampaignController extends Controller
     
     public static function getOnlyFieldsCampaigns($fields)
     {
+        // added field id_owner for searching
+        $field_id_owner = 'id_owner';
+        array_push($fields, $field_id_owner);
+
         $campaignsFields = Campaign::get($fields);
         return $campaignsFields;
     }

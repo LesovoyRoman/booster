@@ -129,6 +129,26 @@ class GiftController extends CommonGiftController
         }
     }
 
+    protected function changeStatusGift(Request $request)
+    {
+        $id_gift = request('id_gift');
+        $status_to_change = request('new_status');
+
+        $gift = Gift::where('id', '=', $id_gift)->first();
+        try {
+            if($gift->status !== $status_to_change){
+                $gift->status = $status_to_change;
+                $gift->save();
+
+                return response()->json(['response' => 'Status changed to ' . $status_to_change, 'new_status' => $status_to_change], 200);
+            } else {
+                return response()->json(['response' => 'Status gift already ' . $status_to_change], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['exception' => $e->getMessage()], 111);
+        }
+    }
+
     protected function updateGift(Request $request)
     {
         try {

@@ -118,7 +118,10 @@
                                     <template slot="name" slot-scope="data">
                                         <div class="photo_gift-block">
                                             <!--<i class="fa fa-star star_active star_influencer" v-if="data.item.star"></i>-->
-                                            <keep-alive><img v-if="data.item.images.length !== 0" :src="storage_path + '/' + data.item.images[0].image_path" alt="photo_item" class="photo_gift_table"></keep-alive>
+                                            <keep-alive>
+                                                <img v-if="data.item.images.length !== 0" :src="storage_path + '/' + data.item.images[0].image_path" alt="photo" class="photo_gift_table">
+                                                <img v-if="data.item.images.length === 0" :src="storage_path + '/' + noimage" alt="photo" class="photo_gift_table">
+                                            </keep-alive>
                                         </div>
                                         <div class="gift-name-block">
                                           {{ data.item.name }}
@@ -198,6 +201,7 @@
                 totalRows  : 0,
 
                 storage_path: '',
+                noimage: 'images/noimage.jpg',
 
                 selected: [],
                 allSelected: false,
@@ -229,18 +233,10 @@
             vm = this;
             this.loading = true;
             axios.post('/getAllGifts').then(response => {
-                console.log(response);
                 this.loading = false;
                 //console.log(response)
                 if(response.data.gifts instanceof Array) {
-                    // from DB
-                    console.log('gifts DB');
                     this.gifts = response.data.gifts
-                } else {
-                    // from Redis
-                    console.log('gifts Redis');
-                    this.gifts = JSON.parse(response.data.gifts);
-                    //console.log(this.gifts)
                 }
             }).catch( err => {
                 this.loading = false;
