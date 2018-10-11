@@ -63,13 +63,13 @@
                                     slot="satisfied"
                                     slot-scope="data" justified="center">
                                         <span :variant="getBadge(data.item.satisfied)">
-                                            <i v-for="k in data.item.satisfied" class="star_active fa fa-star"></i>
-                                            <i v-for="k in 2" v-if="data.item.satisfied === 3" class="fa fa-star"></i>
-                                            <i v-if="data.item.satisfied === 4" class="fa fa-star"></i>
+                                            <i v-for="k in 5" v-if="data.item.satisfied >= 75" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 4" v-if="data.item.satisfied > 60 && data.item.satisfied < 75" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 3" v-if="data.item.satisfied <= 60" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 1" v-if="data.item.satisfied > 60 && data.item.satisfied < 75" class="fa fa-star"></i>
+                                            <i v-for="k in 2" v-if="data.item.satisfied <= 60" class="fa fa-star"></i>
                                         </span>
-                                        <span v-if="data.item.satisfied === 3"> (60%)</span>
-                                        <span v-if="data.item.satisfied === 4"> (80%)</span>
-                                        <span v-if="data.item.satisfied === 5"> (100%)</span>
+                                <span v-if="data.item.satisfied"> {{ data.item.satisfied }}%</span>
                             </template>
                             <template slot="active" slot-scope="data">
                                 <span v-if="data.item.active !== 'Waiting for gifts'">{{ data.item.active }}</span>
@@ -148,9 +148,9 @@
         },
         methods: {
             getBadge (satisfied) {
-                return satisfied === 5 ? 'success'
-                    : satisfied === 4 ? 'warning'
-                        : satisfied === 3 ? 'danger' : 'primary'
+                return satisfied >= 75 ? 'success'
+                    : satisfied > 60 && satisfied < 75 ? 'warning'
+                        : satisfied <= 60 ? 'danger' : 'primary'
             },
             getRowCount (items) {
                 return items.length

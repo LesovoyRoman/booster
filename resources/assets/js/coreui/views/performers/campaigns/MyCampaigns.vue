@@ -94,20 +94,14 @@
                                     <template
                                             slot="satisfied"
                                             slot-scope="data" justified="center">
-                                        <div v-if="data.item.satisfied">
-                                             <span :variant="getBadge(data.item.status)">
-                                            <i v-for="k in data.item.status" class="star_active fa fa-star"></i>
-                                            <i v-for="k in 2" v-if="data.item.status === 3" class="fa fa-star"></i>
-                                            <i v-if="data.item.status === 4" class="fa fa-star"></i>
+                                        <span :variant="getBadge(data.item.satisfied)">
+                                            <i v-for="k in 5" v-if="data.item.satisfied >= 75" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 4" v-if="data.item.satisfied > 60 && data.item.satisfied < 75" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 3" v-if="data.item.satisfied <= 60" class="star_active fa fa-star"></i>
+                                            <i v-for="k in 1" v-if="data.item.satisfied > 60 && data.item.satisfied < 75" class="fa fa-star"></i>
+                                            <i v-for="k in 2" v-if="data.item.satisfied <= 60" class="fa fa-star"></i>
                                         </span>
-                                            <span v-if="data.item.status === 3"> (60%)</span>
-                                            <span v-if="data.item.status === 4"> (80%)</span>
-                                            <span v-if="data.item.status === 5"> (100%)</span>
-                                        </div>
-                                        <div v-else>
-                                            <i v-for="n in 5" class="fa fa-star"></i>
-                                            <span> (0%)</span>
-                                        </div>
+                                        <span v-if="data.item.satisfied"> {{ data.item.satisfied }}%</span>
                                     </template>
                                     <template slot="status" slot-scope="row">
                                         <b-button size="sm" v-if="row.item.status !== 'created'" @click="changeStatusCampaign(row.item.id, row.item.status).then(function(response){ row.item.status = response; }).catch(function(err){})" class="custom_btn_change" style="margin-right: 15px; margin-left: 0;" :variant="'primary'">
@@ -353,10 +347,10 @@
                     this.loading = false;
                 })
             },
-            getBadge (status) {
-                return status === 5 ? 'success'
-                        : status === 4 ? 'warning'
-                            : status === 3 ? 'danger' : 'primary'
+            getBadge (satisfied) {
+                return satisfied >= 75 ? 'success'
+                    : satisfied > 60 && satisfied < 75 ? 'warning'
+                        : satisfied <= 60 ? 'danger' : 'primary'
             },
             getRowCount (items) {
                 return items.length
