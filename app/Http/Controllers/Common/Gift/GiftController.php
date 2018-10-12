@@ -14,8 +14,8 @@ class GiftController extends Controller
         $gifts = Gift::with(array('Campaign' => function($query){
             $query->select('campaigns.id','campaigns.name');
         }))->with('Images')->where(function ($query){
-            $query->where('user_from_id', '=', Auth::id());
-        })->get();
+            $query->select('gift_id', 'campaign_id', 'id', 'is_logo', 'is_avatar', 'image_path');
+        })->where('user_from_id', '=', Auth::id())->get();
 
         $response = static::giftsIfPerformer((object)$gifts);
 

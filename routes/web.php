@@ -50,6 +50,10 @@ Route::group(['middleware' => 'isInfluencer'], function (){
     //User
     Route::post('/currentInfluencerGetData', 'Influencer\InfluencerController@getCurrentInfluencer');
     Route::post('/currentInfluencerSetData', 'Influencer\InfluencerController@updateInfluencer');
+
+    // Campaign
+    Route::post('/acceptCampaign', 'Influencer\Campaign\CampaignController@acceptCampaign');
+    Route::post('/declineCampaign', 'Influencer\Campaign\CampaignController@declineCampaign');
 });
 
 // @todo tmp route, will be rebuilt

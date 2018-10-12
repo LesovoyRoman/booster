@@ -11,6 +11,7 @@ class CampaignController extends Controller
 {
     public function getAllCampaigns(Request $request)
     {
+        $user = auth()->user();
         $data = $request->all();
 
         if(isset($data['fields']) && $data['fields'] !== null) { // only get fields
@@ -21,10 +22,32 @@ class CampaignController extends Controller
             return response()->json(['campaigns' => $response]);
 
         } else { // gets all fields
-            $campaigns = Campaign::all();
+            if($user->user_role !== 'influencer'){
+                $campaigns = Campaign::all();
+            } else {
+                $campaigns = Campaign::leftJoin('campaign_user', function($join) {
+                        $join->on('campaign_user.campaign_id', '=', 'campaigns.id');
+                        $join->where('campaign_user.user_id', '=', Auth::id());
+                    })
+                    ->with(array('gifts' => function($query){
+                        $query->select('name', 'campaign_id', 'id', 'is_main');
+                        $query->where('is_main', '=', 1);
+                    }))
+                    ->select('campaigns.name',
+                        'campaigns.id',
+                        'campaigns.product_price',
+                        'campaigns.conditions',
+                        'campaigns.end_campaign',
+                        'campaigns.end_points',
+                        'campaign_user.user_id as campaign_user_id',
+                        'campaign_user.status as campaign_user_status')
+                    ->where('campaigns.status', '=', 'activated')
+                    ->get();
+            }
+
             $response = static::campaignsIfPerformer((object)$campaigns);
 
-            return response()->json(['campaigns' => $response]);
+            return response()->json(['campaigns' => $response, 'user_id' => Auth::id()]);
         }
     }
 

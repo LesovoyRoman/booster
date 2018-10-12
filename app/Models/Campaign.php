@@ -32,6 +32,12 @@ class Campaign extends ModelBase
         'city'
     ];
 
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'campaign_user', 'campaign_id', 'user_id')
+            ->withPivot('status');
+    }
+
     public function gifts()
     {
         return $this->hasMany('App\Models\Gift');

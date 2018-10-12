@@ -32,6 +32,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function campaigns()
+    {
+        return $this->belongsToMany('App\Models\Campaign', 'campaign_user', 'user_id', 'campaign_id')
+            ->withPivot('status');
+    }
+
     public function address()
     {
         return $this->hasOne('App\Models\Address', 'user_id', 'id');
