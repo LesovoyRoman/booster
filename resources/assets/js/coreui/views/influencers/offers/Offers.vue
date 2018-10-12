@@ -73,7 +73,7 @@
                                         :sort-direction="sortDirection"
                                         @filtered="onFiltered"
 
-                                        :current-page="currentPage"
+                                        :current-page="currentPageAll"
                                         :per-page="perPage">
                                     <template
                                             slot="campaign_name"
@@ -132,7 +132,7 @@
                                             :total-rows="getRowCount(offers)"
                                             :per-page="perPage"
                                             align="center"
-                                            v-model="currentPage"
+                                            v-model="currentPageAll"
                                             prev-text="Prev"
                                             next-text="Next"
                                             hide-goto-end-buttons/>
@@ -169,7 +169,7 @@
                                         :sort-direction="sortDirection"
                                         @filtered="onFiltered"
 
-                                        :current-page="currentPage"
+                                        :current-page="currentPageMy"
                                         :per-page="perPage">
                                     <template
                                             slot="campaign_name"
@@ -228,7 +228,7 @@
                                             :total-rows="getRowCount(my_offers)"
                                             :per-page="perPage"
                                             align="center"
-                                            v-model="currentPage"
+                                            v-model="currentPageMy"
                                             prev-text="Prev"
                                             next-text="Next"
                                             hide-goto-end-buttons/>
@@ -267,7 +267,8 @@
                 sortDesc: false,
                 sortDirection: 'asc',
 
-                currentPage: 1,
+                currentPageAll: 1,
+                currentPageMy: 1,
                 perPage    : 10,
                 totalRows  : 0,
 
@@ -290,7 +291,8 @@
         methods: {
             onFiltered (filteredItems) {
                 this.totalRows = filteredItems.length
-                this.currentPage = 1
+                this.currentPageAll = 1;
+                this.currentPageMy = 1;
             },
             getRowCount (items) {
                 return items.length

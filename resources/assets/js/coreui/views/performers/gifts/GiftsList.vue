@@ -81,7 +81,7 @@
                                         :sort-direction="sortDirection"
                                         @filtered="onFiltered"
 
-                                        :current-page="currentPage"
+                                        :current-page="currentPageActive"
                                         :per-page="perPage">
                                     <template slot="HEAD_gift_checkbox" slot-scope="data" >
                                         <div class="custom-control custom-checkbox">
@@ -158,7 +158,7 @@
                                             :total-rows="getRowCount(gifts, campaignSelected)"
                                             :per-page="perPage"
                                             align="center"
-                                            v-model="currentPage"
+                                            v-model="currentPageActive"
                                             prev-text="Prev"
                                             next-text="Next"
                                             hide-goto-end-buttons/>
@@ -196,7 +196,9 @@
                 giftsCards: false,
                 campaignSelected: null,
 
-                currentPage: 1,
+                currentPageActive: 1,
+                currentPageArchive: 1,
+
                 perPage    : 10,
                 totalRows  : 0,
 
@@ -260,7 +262,8 @@
             onFiltered (filteredItems) {
                 // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
-                this.currentPage = 1
+                this.currentPageActive = 1;
+                this.currentPageArchive = 1;
             },
             selectAll: function() {
                 vm.allSelected = !vm.allSelected;

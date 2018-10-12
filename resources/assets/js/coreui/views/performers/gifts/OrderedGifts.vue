@@ -41,7 +41,7 @@
                                         :sort-direction="sortDirection"
                                         @filtered="onFiltered"
 
-                                        :current-page="currentPage"
+                                        :current-page="currentPageAll"
                                         :per-page="perPage">
                                     <template slot="name" slot-scope="data">
                                         <div class="photo_gift-block">
@@ -71,7 +71,7 @@
                                             :total-rows="getRowCount(gifts)"
                                             :per-page="perPage"
                                             align="center"
-                                            v-model="currentPage"
+                                            v-model="currentPageAll"
                                             prev-text="Prev"
                                             next-text="Next"
                                             hide-goto-end-buttons/>
@@ -104,7 +104,7 @@
                                         :sort-desc="true"
                                         @filtered="onFiltered"
 
-                                        :current-page="currentPage"
+                                        :current-page="currentPageNew"
                                         :per-page="perPage">
                                     <template slot="name" slot-scope="data">
                                         <div class="photo_gift-block">
@@ -134,7 +134,7 @@
                                             :total-rows="getRowCount(gifts)"
                                             :per-page="perPage"
                                             align="center"
-                                            v-model="currentPage"
+                                            v-model="currentPageNew"
                                             prev-text="Prev"
                                             next-text="Next"
                                             hide-goto-end-buttons/>
@@ -167,7 +167,7 @@
                                         :sort-direction="sortDirection"
                                         @filtered="onFiltered"
 
-                                        :current-page="currentPage"
+                                        :current-page="currentPageSent"
                                         :per-page="perPage">
                                     <template slot="name" slot-scope="data">
                                         <div class="photo_gift-block">
@@ -190,7 +190,7 @@
                                             :total-rows="sortGiftsLength('sent')"
                                             :per-page="perPage"
                                             align="center"
-                                            v-model="currentPage"
+                                            v-model="currentPageSent"
                                             prev-text="Prev"
                                             next-text="Next"
                                             hide-goto-end-buttons/>
@@ -223,7 +223,7 @@
                                         :sort-direction="sortDirection"
                                         @filtered="onFiltered"
 
-                                        :current-page="currentPage"
+                                        :current-page="currentPageOrdered"
                                         :per-page="perPage">
                                     <template slot="name" slot-scope="data">
                                         <div class="photo_gift-block">
@@ -246,7 +246,7 @@
                                             :total-rows="sortGiftsLength('ordered')"
                                             :per-page="perPage"
                                             align="center"
-                                            v-model="currentPage"
+                                            v-model="currentPageOrdered"
                                             prev-text="Prev"
                                             next-text="Next"
                                             hide-goto-end-buttons/>
@@ -278,7 +278,12 @@
                 storage_path: '',
                 noimage: 'images/noimage.jpg',
 
-                currentPage: 1,
+                currentPageAll: 1,
+                currentPageNew: 1,
+                currentPageSent: 1,
+                currentPageOrdered: 1,
+
+
                 perPage    : 10,
                 totalRows  : 0,
 
@@ -354,7 +359,11 @@
             onFiltered (filteredItems) {
                 // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
-                this.currentPage = 1
+
+                this.currentPageAll = 1;
+                this.currentPageNew = 1;
+                this.currentPageSent = 1;
+                this.currentPageOrdered = 1;
             },
             sortGifts(type){
                 return this.gifts

@@ -44,7 +44,7 @@
                                         :sort-direction="sortDirection"
                                         @filtered="onFiltered"
 
-                                        :current-page="currentPage"
+                                        :current-page="currentPageActive"
                                         :per-page="perPage">
                                     <template slot="HEAD_campaing_checkbox" slot-scope="data" >
                                         <div class="custom-control custom-checkbox">
@@ -122,7 +122,7 @@
                                     <b-pagination
                                             :total-rows="getRowCount(activeTable)"
                                             :per-page="perPage"
-                                            v-model="currentPage"
+                                            v-model="currentPageActive"
                                             prev-text="Prev"
                                             align="center"
                                             next-text="Next"
@@ -194,7 +194,10 @@
                     { key: 'change', 'class': 'text-center table_label_hidden change-campaign' },
                 ],
                 checkbox_group: {},
-                currentPage: 1,
+                
+                currentPageActive: 1,
+                currentPageArchive: 1,
+                
                 perPage    : 10,
                 totalRows  : 0,
 
@@ -255,7 +258,8 @@
             onFiltered (filteredItems) {
                 // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
-                this.currentPage = 1
+                this.currentPageActive = 1;
+                this.currentPageArchive = 1;
             },
             selectAll: function() {
                 vm.allSelected = !vm.allSelected;
