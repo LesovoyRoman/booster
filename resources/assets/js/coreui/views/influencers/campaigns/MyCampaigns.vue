@@ -45,7 +45,7 @@
                             <template slot="links" slot-scope="row">
                                 <div v-for="(linkItem, index) in row.item.links">
                                     <b-form-group class="groupLinksCampaigns">
-                                        <div v-for="(objItem, key) in linkItem" :key="key" class="inlineBlock" style="max-width: 48%">
+                                        <div v-for="(objItem, key) in linkItem" :key="key" class="inlineBlock">
                                             <b-form-input :disabled="row.item.active === true" v-if="key === 'path'" v-model="row.item.links[index].path" placeholder="Link path"/>
                                             <b-btn :disabled="row.item.active === true" :variant="'primary'" v-if="key === 'path'" @click="index === 0 ? addLink(row.item.links) : removeLink(row.index, index)" class="uppercase float-right font500"><span v-if="index === 0">+</span><span v-if="index !== 0">-</span></b-btn>
                                             <b-form-input :disabled="row.item.active === true" v-if="key === 'gift'" v-model="row.item.links[index].gift" placeholder="Gift"/>
