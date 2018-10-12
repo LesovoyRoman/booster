@@ -38,6 +38,11 @@ class Campaign extends ModelBase
             ->withPivot('status');
     }
 
+    public function campaign_influencer_points()
+    {
+        return $this->belongsToMany('App\Models\User', 'campaign_influencer_points', 'campaign_id', 'user_id')->withPivot('all_points', 'checked_points', 'status');
+    }
+
     public function gifts()
     {
         return $this->hasMany('App\Models\Gift');

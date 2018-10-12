@@ -140,7 +140,99 @@
 
                             </b-tab>
                             <b-tab title="My">
+                                <b-form-group>
+                                    <b-input-group>
+                                        <b-form-input v-model="filter" placeholder="Type word"/>
+                                        <b-input-group-append>
+                                            <b-btn :variant="'primary'" :disabled="!filter" @click="filter = ''">Clear</b-btn>
+                                        </b-input-group-append>
+                                    </b-input-group>
+                                </b-form-group>
 
+                                <span class="span-row font500">Total offers: {{ offers.length }}</span>
+
+                                <b-table
+                                        :id="offersCards ? 'table_cards' : ''"
+                                        :hover="false"
+                                        :striped="false"
+                                        :bordered="false"
+                                        :small="true"
+                                        :fixed="false"
+                                        responsive="sm"
+                                        :items="my_offers"
+                                        :fields="fields"
+                                        class="table_offers"
+
+                                        :filter="filter"
+                                        :sort-by.sync="sortBy"
+                                        :sort-desc.sync="sortDesc"
+                                        :sort-direction="sortDirection"
+                                        @filtered="onFiltered"
+
+                                        :current-page="currentPage"
+                                        :per-page="perPage">
+                                    <template
+                                            slot="campaign_name"
+                                            slot-scope="data">
+                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: false  } }">{{ data.item.name }}</router-link>
+                                    </template>
+                                    <template slot="HEAD_status_user" slot-scope="data">
+
+                                    </template>
+                                    <template slot="product_price" slot-scope="data">
+                                        <span class="showsTableCards">Price:</span> {{ data.item.product_price }}
+                                    </template>
+                                    <template slot="conditions" slot-scope="data">
+                                        <span class="showsTableCards">Conditions:</span> {{ data.item.conditions }}
+                                    </template>
+                                    <template slot="gift" slot-scope="data">
+                                        <span class="showsTableCards">Main gift:</span> <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: true } }">{{ data.item.gift }}</router-link>
+                                    </template>
+                                    <template slot="end_campaign" slot-scope="data">
+                                        <span class="showsTableCards">Period:</span><span class="font500-cards"> {{ data.item.end_campaign }}<br>or <strong>{{ data.item.end_points }}</strong> points</span>
+                                    </template>
+                                    <template slot="campaign_user_status" slot-scope="row">
+                                        <div v-if="row.item.campaign_user_status === 'accepted'">
+                                            <span class="statusOfferConsider"><i class="icon-check"></i>
+                                                Joined
+                                            </span>
+                                        </div>
+                                        <div v-if="row.item.campaign_user_status === 'declined'">
+                                            <span class="statusOfferParticipating">
+                                                Declined
+                                            </span>
+                                        </div>
+                                        <div v-if="!row.item.campaign_user_status">
+                                            <b-row v-if="offersCards === true">
+                                                <b-col>
+                                                    <b-button variant="primary" class="font500 uppercase" @click="changeStatusCampaign(row, '/acceptCampaign').then(function(response){ row.item.campaign_user_status = response})">join</b-button>
+                                                </b-col>
+                                                <b-col>
+                                                    <b-button size="sm" @click="changeStatusCampaign(row, '/declineCampaign').then(function(response){ row.item.campaign_user_status = response});" class="custom_btn_change" :variant="'primary'">
+                                                        <i class="icon-close"></i>
+                                                    </b-button>
+                                                </b-col>
+                                            </b-row>
+                                            <div v-if="offersCards === false">
+                                                <b-button variant="primary" class="font500 uppercase" @click="changeStatusCampaign(row, '/acceptCampaign').then(function(response){ row.item.campaign_user_status = response})">join</b-button>
+                                                <b-button size="sm" @click="changeStatusCampaign(row, '/declineCampaign').then(function(response){ row.item.campaign_user_status = response});" class="custom_btn_change" :variant="'primary'">
+                                                    <i class="icon-close"></i>
+                                                </b-button>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </b-table>
+
+                                <nav>
+                                    <b-pagination
+                                            :total-rows="getRowCount(my_offers)"
+                                            :per-page="perPage"
+                                            align="center"
+                                            v-model="currentPage"
+                                            prev-text="Prev"
+                                            next-text="Next"
+                                            hide-goto-end-buttons/>
+                                </nav>
                             </b-tab>
                             <b-tab title="Archive">
 
@@ -179,9 +271,8 @@
                 perPage    : 10,
                 totalRows  : 0,
 
-                offers: [
-                    { id: 1, campaign_name: 'Cheese', product_price: '250 Rub', conditions: '1 pack - 1 point', gift: 'Smartphone Samsung Note2', end_campaign: '15.01 - 30.01', status_user: 'considering' },
-                ],
+                my_offers: [],
+                offers: [],
 
                 fields: [
                     { key: 'campaign_name', sortable: true, 'class': 'table_campaign_name' },
@@ -221,6 +312,7 @@
                                     type:  response.data.response,
                                     title: 'Campaign ' + response.data.status_campaign + '!',
                                 })
+                                vm.my_offers.push(row);
                                 return response.data.status_campaign
                              }
                              if(response.data.error){
@@ -262,7 +354,9 @@
                     this.offers.forEach(function(item){
                         if(item.gifts[0])
                         item.gift = item.gifts[0].name;
-                        //item.gift_id = item.gifts[0].id;
+                        if(item.campaign_user_id === response.data.user_id) {
+                            vm.my_offers.push(item);
+                        }
                     })
                 }
             }).catch( err => {

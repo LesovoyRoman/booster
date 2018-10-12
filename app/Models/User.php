@@ -32,6 +32,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function campaign_influencer_points()
+    {
+        return $this->belongsToMany('App\Models\Campaign', 'campaign_influencer_points', 'user_id', 'campaign_id')
+            ->withPivot('all_points', 'checked_points', 'status');
+    }
+
     public function campaigns()
     {
         return $this->belongsToMany('App\Models\Campaign', 'campaign_user', 'user_id', 'campaign_id')

@@ -6,7 +6,9 @@
                     <h2 class="h2">{{ header }}</h2>
                 </b-col>
 
-                <b-col
+                <loading v-if="loading" style="position: fixed; margin-left: -20px; left: 50%; top: 50%"></loading>
+
+                <b-col  v-if="!loading"
                         sm="12"
                         md="12">
                     <b-card>
@@ -40,9 +42,12 @@
                                 :current-page="currentPage"
                                 :per-page="perPage">
                             <template
-                                    slot="campaign_name"
+                                    slot="name"
                                     slot-scope="data">
-                                <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id } }">{{ data.item.name }}</router-link>
+                            </template>
+                            <template slot="points" slot-scope="data">
+                                {{ data.item.all_points }} \ {{ data.item.checked_points }}
                             </template>
                         </b-table>
 
@@ -67,11 +72,17 @@
 <script>
     let vm = {};
 
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
+
     export default {
         name: 'Points',
+        components: {
+            Loading
+        },
         data() {
             return {
                 header: 'My points',
+                loading: false,
 
                 filter: null,
                 sortBy: null,
@@ -82,29 +93,11 @@
                 perPage    : 10,
                 totalRows  : 0,
 
-                points: [
-                    {id: 1, campaign_name: 'Snacks', manufacturer: 'Danone', points: '60000/45000', min_gift: '2020', max_gift: '1500' },
-                    {id: 2, campaign_name: 'Cheese', manufacturer: 'Danissimo', points: '50000/40000', min_gift: '3800', max_gift: '1200' },
-                    {id: 3, campaign_name: 'Snacks', manufacturer: 'Danone', points: '40000/45000', min_gift: '2600', max_gift: '1500' },
-                    {id: 4, campaign_name: 'Cheese', manufacturer: 'Danissimo', points: '70000/40000', min_gift: '3300', max_gift: '1200' },
-                    {id: 5, campaign_name: 'Snacks', manufacturer: 'Danone', points: '80000/45000', min_gift: '2000', max_gift: '1500' },
-                    {id: 6, campaign_name: 'Cheese', manufacturer: 'Danissimo', points: '50000/40000', min_gift: '3100', max_gift: '1200' },
-                    {id: 7, campaign_name: 'Snacks', manufacturer: 'Danone', points: '60000/35000', min_gift: '200', max_gift: '1700' },
-                    {id: 8, campaign_name: 'Cheese', manufacturer: 'Danissimo', points: '50000/40000', min_gift: '3400', max_gift: '1200' },
-                    {id: 9, campaign_name: 'Snacks', manufacturer: 'Danone', points: '60000/55000', min_gift: '2700', max_gift: '1500' },
-                    {id: 10, campaign_name: 'Cheese', manufacturer: 'Danissimo', points: '90000/40000', min_gift: '300', max_gift: '1300' },
-                    {id: 11, campaign_name: 'Snacks', manufacturer: 'Danone', points: '60000/75000', min_gift: '2040', max_gift: '1500' },
-                    {id: 12, campaign_name: 'Cheese', manufacturer: 'Danissimo', points: '50000/40000', min_gift: '3600', max_gift: '15600' },
-                    {id: 13, campaign_name: 'Snacks', manufacturer: 'Danone', points: '60000/45000', min_gift: '200', max_gift: '1500' },
-                    {id: 14, campaign_name: 'Cheese', manufacturer: 'Danissimo', points: '40000/40000', min_gift: '3800', max_gift: '100' },
-                    {id: 15, campaign_name: 'Snacks', manufacturer: 'Danone', points: '60000/40000', min_gift: '2040', max_gift: '1500' },
-                    {id: 16, campaign_name: 'Cheese', manufacturer: 'Danissimo', points: '20000/40000', min_gift: '300', max_gift: '1500' },
-
-                ],
+                points: [],
 
                 fields: [
-                    { key: 'campaign_name', sortable: true, 'class': 'table_campaign_name' },
-                    { key: 'manufacturer', sortable: false, 'class': 'table_manufacturer' },
+                    { key: 'name', sortable: true, 'class': 'table_campaign_name' },
+                    { key: 'company', label: 'Manufacturer', sortable: false, 'class': 'table_manufacturer' },
                     { key: 'points', sortable: true, 'class': 'table_points' },
                     { key: 'min_gift', sortable: true, 'class': 'table_min_gift' },
                     { key: 'max_gift', sortable: true, 'class': 'table_max_gift' }
@@ -113,6 +106,21 @@
         },
         created() {
             vm = this;
+            this.loading = true;
+            axios.post('/influencerCampaignPoints').then(response => {
+                this.loading = false;
+                //console.log(response.data.campaigns);
+                //return;
+                if (response.data.campaigns instanceof Array) {
+                    this.points = response.data.campaigns
+                }
+                if(response.data.errors){
+                    vm.$swal( 'Unfortunately:', response.data.errors, 'error')
+                }
+            }).catch( err => {
+                this.loading = false;
+                console.log(err.message)
+            })
         },
         methods: {
             onFiltered (filteredItems) {

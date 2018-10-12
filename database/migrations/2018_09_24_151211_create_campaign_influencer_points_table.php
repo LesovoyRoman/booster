@@ -16,6 +16,7 @@ class CreateCampaignInfluencerPointsTable extends Migration
         Schema::create('campaign_influencer_points', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('all_points')->nullable();
+            $table->integer('checked_points')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });
