@@ -7,5 +7,5 @@ use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 abstract class ModelBase extends Model
 {
-    //use Cachable;
+    use Cachable;
 }
