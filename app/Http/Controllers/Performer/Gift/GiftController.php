@@ -122,7 +122,7 @@ class GiftController extends CommonGiftController
             }
 
             return response()->json([
-                'message' => 'Gift deleted successfully!'
+                'response' => 'Gift deleted successfully!'
             ], 200);
         } catch (\Exception $e) {
             return response()->json(['exception' => $e->getMessage()], 111);

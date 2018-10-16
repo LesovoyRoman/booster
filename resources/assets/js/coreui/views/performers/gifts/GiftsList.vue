@@ -285,11 +285,14 @@
                         vm.loading = false;
                         if(response.status === 200) {
                             this.gifts.splice(item.index, 1);
+                            vm.$notify({
+                                type:  'info',
+                                title: response.data.response,
+                            })
                         } else {
-                            //console.log(response)
                             vm.$swal({
-                                type: 'info',
-                                title: response.data.message,
+                                type: 'error',
+                                title: response.data.errors,
                             });
                         }
                     }).catch(err => {
