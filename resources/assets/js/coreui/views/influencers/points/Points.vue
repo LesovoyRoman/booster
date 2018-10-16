@@ -109,8 +109,6 @@
             this.loading = true;
             axios.post('/influencerCampaignPoints').then(response => {
                 this.loading = false;
-                //console.log(response.data.campaigns);
-                //return;
                 if (response.data.campaigns instanceof Array) {
                     this.points = response.data.campaigns
                 }

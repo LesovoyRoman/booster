@@ -6,10 +6,43 @@
                     <h2 class="h2">{{ header }}</h2>
                 </b-col>
 
-                <b-col
+                <b-col v-if="loading">
+                    <loading v-if="loading" style="position: fixed; left: 50%; margin-left: -20px; top: 50%"></loading>
+                </b-col>
+
+                <b-col  v-if="!loading"
                         sm="12"
                         md="12">
                     <b-card>
+
+                        <b-input-group-append class="pull-right typeRenderGifts">
+                            <div class="">
+                                <input
+                                        type="checkbox"
+                                        id="customCheckboxInfluencersList"
+                                        name="customCheckboxCountry"
+                                        class="custom-control-input"
+                                        v-model="invitesList"
+                                        v-on:change="filterMedia(false)">
+                                <label
+                                        style="display: block"
+                                        class="control-type-grid control-type-grid-list"
+                                        for="customCheckboxInfluencersList"></label>
+                            </div>
+                            <div class="">
+                                <input
+                                        type="checkbox"
+                                        id="customCheckboxInfluencersCards"
+                                        name="customCheckboxCountry"
+                                        class="custom-control-input"
+                                        v-on:change="filterMedia(true)"
+                                        v-model="invitesCards">
+                                <label
+                                        style="display: block"
+                                        class="control-type-grid control-type-grid-cards"
+                                        for="customCheckboxInfluencersCards"></label>
+                            </div>
+                        </b-input-group-append>
 
                         <b-tabs pills card>
                             <b-tab title="All" active>
@@ -45,35 +78,57 @@
                                     <template
                                             slot="campaign_name"
                                             slot-scope="data">
-                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: false  } }">{{ data.item.campaign_name }}</router-link>
+                                        <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: false  } }">{{ data.item.name }}</router-link>
                                     </template>
                                     <template slot="HEAD_status" slot-scope="data">
 
                                     </template>
-                                    <template slot="price" slot-scope="data">
-                                        <span class="showsTableCards">Price:</span> {{ data.item.price }}
+                                    <template slot="product_price" slot-scope="data">
+                                        <span class="showsTableCards">Price:</span> {{ data.item.product_price }}
                                     </template>
                                     <template slot="conditions" slot-scope="data">
                                         <span class="showsTableCards">Conditions:</span> {{ data.item.conditions }}
                                     </template>
-                                    <template slot="prize" slot-scope="data">
-                                        <span class="showsTableCards">Main gift:</span> <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: true } }">{{ data.item.prize }}</router-link>
+                                    <template slot="gift" slot-scope="data">
+                                        <span class="showsTableCards">Main gift:</span> <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: true } }">{{ data.item.gift }}</router-link>
                                     </template>
-                                    <template slot="period" slot-scope="data">
-                                        <span class="showsTableCards">Period:</span><span class="font500-cards"> {{ data.item.period }}</span>
+                                    <template slot="end_campaign" slot-scope="data">
+                                        <span class="showsTableCards">Campaign ends:</span>
+                                        <span class="font500-cards">
+                                            <span v-if="data.item.end_campaign !== '2000-01-01 00:00:00'">{{ data.item.end_campaign }}</span>
+                                            <span v-if="data.item.end_campaign === '2000-01-01 00:00:00'"><strong>{{ data.item.end_points }}</strong> points</span>
+                                        </span>
                                     </template>
-                                    <template slot="status" slot-scope="row">
-                                        <div v-if="row.item.status === 'waiting'">
-                                            <b-button variant="primary" class="font500 uppercase" @click="acceptElement(row)">accept</b-button>
-
-                                            <b-button size="sm" @click="removeElement(row)" class="custom_btn_change" :variant="'primary'">
-                                                <i class="icon-close"></i>
-                                            </b-button>
-                                        </div>
-                                        <div v-if="row.item.status === 'participate'">
-                                            <span class=""><i class="icon-check"></i>
-                                                Accepted
+                                    <template slot="invite_influencer_status" slot-scope="row">
+                                        <div v-if="row.item.pivot.status === 'invited_accepted'">
+                                            <span class="statusOfferConsider"><i class="icon-check"></i>
+                                                Joined
                                             </span>
+                                        </div>
+                                        <div v-if="row.item.pivot.status === 'invited_declined'">
+                                            <span class="statusOfferParticipating">
+                                                Declined
+                                            </span>
+                                        </div>
+                                        <div v-if="row.item.pivot.status === 'invited'">
+                                            <div v-if="invitesCards === true" style="margin-top: 15px">
+                                                <b-row>
+                                                    <b-col md="8">
+                                                        <b-button variant="primary" class="font500 uppercase" @click="changeStatusInvite(row, '/acceptInvite').then(function(response){ row.item.pivot.status = response})">join</b-button>
+                                                    </b-col>
+                                                    <b-col md="4">
+                                                        <b-button size="sm" @click="changeStatusInvite(row, '/declineInvite').then(function(response){ row.item.pivot.status = response });" class="custom_btn_change" :variant="'primary'">
+                                                            <i class="icon-close"></i>
+                                                        </b-button>
+                                                    </b-col>
+                                                </b-row>
+                                            </div>
+                                            <div v-if="invitesCards === false">
+                                                <b-button variant="primary" class="font500 uppercase" @click="changeStatusInvite(row, '/acceptInvite').then(function(response){ row.item.pivot.status = response})">join</b-button>
+                                                <b-button size="sm" @click="changeStatusInvite(row, '/declineInvite').then(function(response){ row.item.pivot.status = response });" class="custom_btn_change" :variant="'primary'">
+                                                    <i class="icon-close"></i>
+                                                </b-button>
+                                            </div>
                                         </div>
                                     </template>
                                 </b-table>
@@ -90,9 +145,6 @@
                                 </nav>
 
                             </b-tab>
-                            <b-tab title="My">
-
-                            </b-tab>
                             <b-tab title="Archive">
 
                             </b-tab>
@@ -106,13 +158,18 @@
 </template>
 
 <script>
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
     let vm = {};
 
     export default {
         name: 'Invites',
+        components: {
+            Loading
+        },
         data(){
             return {
                 header: 'Invites',
+                loading: false,
 
                 filter: null,
                 sortBy: null,
@@ -123,19 +180,15 @@
                 perPage    : 10,
                 totalRows  : 0,
 
-                invites: [
-                    { id: 1, campaign_name: 'Cheese', price: '250 Rub', conditions: '1 pack - 1 point', prize: 'Smartphone Samsung Note2', period: '15.01 - 30.01', status: 'waiting' },
-                    { id: 2, campaign_name: 'Snacks', price: '500 Rub', conditions: '3 pack - 5 points', prize: 'Smartphone Samsung Note2', period: '12.01 - 28.01', status: 'participate' },
-                    { id: 3, campaign_name: 'Snacks', price: '1000 Rub', conditions: '5 pack - 10 points', prize: 'Smartphone Samsung Note2', period: '05.01 - 28.01', status: 'waiting' },
-                ],
+                invites: [],
 
                 fields: [
                     { key: 'campaign_name', sortable: true, 'class': 'table_campaign_name' },
-                    { key: 'price', sortable: true, 'class': 'table_price' },
+                    { key: 'product_price', sortable: true, 'class': 'table_product_price' },
                     { key: 'conditions', sortable: false, 'class': 'table_conditions' },
-                    { key: 'prize', sortable: false, 'class': 'table_prize' },
-                    { key: 'period', sortable: true, 'class': 'table_period'  },
-                    { key: 'status', sortable: true, 'class': 'table_label_hidden table_status' },
+                    { key: 'gift', label: 'Main gift', sortable: false, 'class': 'table_prize' },
+                    { key: 'end_campaign', sortable: true, 'class': 'table_end_campaign'  },
+                    { key: 'invite_influencer_status', sortable: true, 'class': 'table_label_hidden table_status_user' },
                 ],
 
                 invitesList: true,
@@ -160,6 +213,36 @@
                     this.invites.splice(item.index, 1);
                 }
             },
+            changeStatusInvite(row, url) {
+                if (confirm("Are you sure?")) {
+                    this.loading = true;
+                    let campaign_id = row.item.campaign_id;
+                    return axios.post(url, {campaign_id: campaign_id})
+                        .then(response => {
+                            this.loading = false;
+                            if(response.data.status_invite){
+                                vm.$notify({
+                                    type:  response.data.response,
+                                    title: 'Invite ' + response.data.status_invite + '!',
+                                })
+                                return response.data.status_invite
+                            }
+                            if(response.data.error){
+                                vm.$notify({
+                                    type:  response.data.response,
+                                    title: 'Error',
+                                    text: response.data.error,
+                                })
+                                return row.item.pivot.status
+                            }
+                        }).catch(err => {
+                            this.loading = false;
+
+                        })
+                } else {
+                    return row.item.pivot.status
+                }
+            },
             acceptElement: async function(item) {
                 return this.setParticipate(item)
                     .then(res => vm.$router.push('/influencer-campaigns'))
@@ -174,23 +257,30 @@
                     }
                 })
             }
-            // @todo another variant (can be useful)
-            /*acceptElement: async function(item) {
-             try {
-             let status = await this.setParticipate(item)
-             vm.$router.push('/influencer-campaigns')
-             }
-             catch(err) {
-             console.log(err)
-             }
-             },
-             setParticipate(item) {
-             this.invites[item.index].status = 'participate';
-             return true
-             }*/
         },
         created(){
+            this.storage_path = this.$root.storage_path;
             vm = this;
+            this.loading = true;
+            axios.post('/influencerInvites').then(response => {
+                this.loading = false;
+                console.log(response.data.campaigns)
+                if (response.data.campaigns instanceof Array) {
+                    this.invites = response.data.campaigns
+                    this.invites.forEach(function(item){
+                        if(item.gifts[0]) {
+                            item.gift = item.gifts[0].name;
+                            item.gift_id = item.gifts[0].id;
+                        }
+                    })
+                }
+                if(response.data.errors){
+                    vm.$swal( 'Unfortunately:', response.data.errors, 'error')
+                }
+            }).catch( err => {
+                this.loading = false;
+                console.log(err.message)
+            })
         }
     }
 </script>

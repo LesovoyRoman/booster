@@ -354,10 +354,22 @@ table.table td, table th, table tr{
 
 
 // offers
-.table_offers {
+.table_offers, .table_invites {
   td.table_conditions {
     font-weight: 500;
     color: black;
+  }
+}
+
+#table_cards {
+  .custom_btn_change {
+    float: right;
+    margin-top: 6px;
+  }
+  .statusOfferConsider, .statusOfferParticipating {
+    font-size: 16px;
+    padding-top: 15px;
+    float: right;
   }
 }
 

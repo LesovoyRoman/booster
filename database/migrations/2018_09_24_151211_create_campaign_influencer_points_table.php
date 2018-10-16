@@ -17,7 +17,7 @@ class CreateCampaignInfluencerPointsTable extends Migration
             $table->increments('id');
             $table->integer('all_points')->nullable();
             $table->integer('checked_points')->nullable();
-            $table->string('status')->nullable();
+            $table->enum('status', config('enums.influencer_campaign_status'))->nullable()->default('accepted');
             $table->timestamps();
         });
     }

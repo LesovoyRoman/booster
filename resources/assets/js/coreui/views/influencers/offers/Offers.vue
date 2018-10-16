@@ -93,7 +93,11 @@
                                         <span class="showsTableCards">Main gift:</span> <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: true } }">{{ data.item.gift }}</router-link>
                                     </template>
                                     <template slot="end_campaign" slot-scope="data">
-                                        <span class="showsTableCards">Period:</span><span class="font500-cards"> {{ data.item.end_campaign }}<br>or <strong>{{ data.item.end_points }}</strong> points</span>
+                                        <span class="showsTableCards">Campaign ends:</span>
+                                        <span class="font500-cards">
+                                            <span v-if="data.item.end_campaign !== '2000-01-01 00:00:00'">{{ data.item.end_campaign }}</span>
+                                            <span v-if="data.item.end_campaign === '2000-01-01 00:00:00'"><strong>{{ data.item.end_points }}</strong> points</span>
+                                        </span>
                                     </template>
                                     <template slot="campaign_user_status" slot-scope="row">
                                         <div v-if="row.item.campaign_user_status === 'accepted'">
@@ -107,16 +111,18 @@
                                             </span>
                                         </div>
                                         <div v-if="!row.item.campaign_user_status">
-                                            <b-row v-if="offersCards === true">
-                                                <b-col>
-                                                    <b-button variant="primary" class="font500 uppercase" @click="changeStatusCampaign(row, '/acceptCampaign').then(function(response){ row.item.campaign_user_status = response})">join</b-button>
-                                                </b-col>
-                                                <b-col>
-                                                    <b-button size="sm" @click="changeStatusCampaign(row, '/declineCampaign').then(function(response){ row.item.campaign_user_status = response});" class="custom_btn_change" :variant="'primary'">
-                                                        <i class="icon-close"></i>
-                                                    </b-button>
-                                                </b-col>
-                                            </b-row>
+                                            <div v-if="offersCards === true" style="margin-top: 15px">
+                                                <b-row>
+                                                    <b-col md="8">
+                                                        <b-button variant="primary" class="font500 uppercase" @click="changeStatusCampaign(row, '/acceptCampaign').then(function(response){ row.item.campaign_user_status = response})">join</b-button>
+                                                    </b-col>
+                                                    <b-col md="4">
+                                                        <b-button size="sm" @click="changeStatusCampaign(row, '/declineCampaign').then(function(response){ row.item.campaign_user_status = response});" class="custom_btn_change" :variant="'primary'">
+                                                            <i class="icon-close"></i>
+                                                        </b-button>
+                                                    </b-col>
+                                                </b-row>
+                                            </div>
                                             <div v-if="offersCards === false">
                                                 <b-button variant="primary" class="font500 uppercase" @click="changeStatusCampaign(row, '/acceptCampaign').then(function(response){ row.item.campaign_user_status = response})">join</b-button>
                                                 <b-button size="sm" @click="changeStatusCampaign(row, '/declineCampaign').then(function(response){ row.item.campaign_user_status = response});" class="custom_btn_change" :variant="'primary'">
@@ -189,7 +195,11 @@
                                         <span class="showsTableCards">Main gift:</span> <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id, tabGifts: true } }">{{ data.item.gift }}</router-link>
                                     </template>
                                     <template slot="end_campaign" slot-scope="data">
-                                        <span class="showsTableCards">Period:</span><span class="font500-cards"> {{ data.item.end_campaign }}<br>or <strong>{{ data.item.end_points }}</strong> points</span>
+                                        <span class="showsTableCards">Campaign ends:</span>
+                                        <span class="font500-cards">
+                                            <span v-if="data.item.end_campaign !== '2000-01-01 00:00:00'">{{ data.item.end_campaign }}</span>
+                                            <span v-if="data.item.end_campaign === '2000-01-01 00:00:00'"><strong>{{ data.item.end_points }}</strong> points</span>
+                                        </span>
                                     </template>
                                     <template slot="campaign_user_status" slot-scope="row">
                                         <div v-if="row.item.campaign_user_status === 'accepted'">
@@ -204,14 +214,16 @@
                                         </div>
                                         <div v-if="!row.item.campaign_user_status">
                                             <b-row v-if="offersCards === true">
-                                                <b-col>
-                                                    <b-button variant="primary" class="font500 uppercase" @click="changeStatusCampaign(row, '/acceptCampaign').then(function(response){ row.item.campaign_user_status = response})">join</b-button>
-                                                </b-col>
-                                                <b-col>
-                                                    <b-button size="sm" @click="changeStatusCampaign(row, '/declineCampaign').then(function(response){ row.item.campaign_user_status = response});" class="custom_btn_change" :variant="'primary'">
-                                                        <i class="icon-close"></i>
-                                                    </b-button>
-                                                </b-col>
+                                                <div style="margin-top: 15px">
+                                                    <b-col md="8">
+                                                        <b-button variant="primary" class="font500 uppercase" @click="changeStatusCampaign(row, '/acceptCampaign').then(function(response){ row.item.campaign_user_status = response})">join</b-button>
+                                                    </b-col>
+                                                    <b-col md="4">
+                                                        <b-button size="sm" @click="changeStatusCampaign(row, '/declineCampaign').then(function(response){ row.item.campaign_user_status = response});" class="custom_btn_change" :variant="'primary'">
+                                                            <i class="icon-close"></i>
+                                                        </b-button>
+                                                    </b-col>
+                                                </div>
                                             </b-row>
                                             <div v-if="offersCards === false">
                                                 <b-button variant="primary" class="font500 uppercase" @click="changeStatusCampaign(row, '/acceptCampaign').then(function(response){ row.item.campaign_user_status = response})">join</b-button>
@@ -329,22 +341,10 @@
                             this.loading = false;
                             return row.item.campaign_user_status
                         })
+                } else {
+                    return row.item.campaign_user_status
                 }
             },
-            acceptElement: async function(item) {
-                 return this.setParticipate(item)
-                    .then(res => vm.$router.push('/influencer-campaigns'))
-                    .catch(err => console.log(err))
-            },
-            setParticipate: function(item){
-                return new Promise(function(resolve, reject){
-                    if (item){
-                        resolve(vm.offers[item.index].status_user = 'participate')
-                    } else {
-                        reject(new Error('No item'))
-                    }
-                })
-            }
         },
         created(){
             vm = this;

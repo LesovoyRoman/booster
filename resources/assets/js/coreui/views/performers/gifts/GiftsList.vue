@@ -236,7 +236,6 @@
             this.loading = true;
             axios.post('/getAllGifts').then(response => {
                 this.loading = false;
-                //console.log(response)
                 if(response.data.gifts instanceof Array) {
                     this.gifts = response.data.gifts
                 }

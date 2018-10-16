@@ -2,13 +2,14 @@
 
 return [
 
-    'languages'             => ['ru', 'en'],
-    'roles'                 => ['admin', 'performer', 'influencer', 'assistant'],
-    'currency'              => ['RUB', 'USD', 'UAH', 'EUR'],
-    'auditories'            => [10, 50, 100, 250, 500, 1000, 10000, 50000],
-    'auditories_age_from'   => [10, 15, 20, 25, 30, 35, 40],
-    'auditories_age_to'     => [15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
-    'topics'                => ['Games', 'Adventure', 'Travel', 'Science', 'Architecture', 'Biology', 'Entertainment'],
+    'languages'                  => ['ru', 'en'],
+    'roles'                      => ['admin', 'performer', 'influencer', 'assistant'],
+    'currency'                   => ['RUB', 'USD', 'UAH', 'EUR'],
+    'auditories'                 => [10, 50, 100, 250, 500, 1000, 10000, 50000],
+    'auditories_age_from'        => [10, 15, 20, 25, 30, 35, 40],
+    'auditories_age_to'          => [15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+    'topics'                     => ['Games', 'Adventure', 'Travel', 'Science', 'Architecture', 'Biology', 'Entertainment'],
+    'influencer_campaign_status' => ['accepted', 'invited', 'invited_accepted', 'invited_declined', 'declined'],
 
 
 
