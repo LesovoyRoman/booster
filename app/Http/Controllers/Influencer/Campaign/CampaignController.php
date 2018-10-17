@@ -5,14 +5,16 @@ namespace App\Http\Controllers\Influencer\Campaign;
 use App\Models\Campaign;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Influencer;
+use App\Models\pivotModels\InfluencerCampaignBonusLink as BonusLink;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CampaignController extends Controller
 {
     protected function influencerCampaignsPoints()
     {
-        $user = Auth::user();
+        $user = Influencer::find(Auth::id());
 
             $campaigns = $user->campaign_influencer_points()
                 ->select('campaigns.name',
@@ -35,13 +37,13 @@ class CampaignController extends Controller
             } else {
                 $response = 'Campaigns not found';
                 return response()->json(['errors' => $response], 200);
-        }
+            }
     }
 
     protected function acceptCampaign(Request $request)
     {
         $data = $request->all();
-        $user = Auth::user();
+        $user = Influencer::find(Auth::id());
         if(isset($data['campaign_id'])){
             $user->campaigns()->attach($data['campaign_id'], array('status' => 'accepted'));
 
@@ -60,7 +62,7 @@ class CampaignController extends Controller
     protected function declineCampaign(Request $request)
     {
         $data = $request->all();
-        $user = Auth::user();
+        $user = Influencer::find(Auth::id());
         if(isset($data['campaign_id'])){
             $user->campaigns()->attach($data['campaign_id'], array('status' => 'declined'));
 
@@ -79,7 +81,7 @@ class CampaignController extends Controller
     protected function declineInvite(Request $request)
     {
         $data = $request->all();
-        $user = Auth::user();
+        $user = Influencer::find(Auth::id());
         if(isset($data['campaign_id'])){
             $invite = $user->campaign_influencer_points()->where('campaign_id', $data['campaign_id'])->first();
             $invite->pivot->status = 'invited_declined';
@@ -100,7 +102,7 @@ class CampaignController extends Controller
     protected function acceptInvite(Request $request)
     {
         $data = $request->all();
-        $user = Auth::user();
+        $user = Influencer::find(Auth::id());
         if(isset($data['campaign_id'])){
             $invite = $user->campaign_influencer_points()->where('campaign_id', $data['campaign_id'])->first();
             $invite->pivot->status = 'invited_accepted';
@@ -120,7 +122,7 @@ class CampaignController extends Controller
 
     protected function influencerCampaignsInvites()
     {
-        $user = Auth::user();
+        $user = Influencer::find(Auth::id());
         $campaigns = $user->campaign_influencer_points()
             ->with(array('gifts' => function($query){
                 $query->select('name', 'campaign_id', 'id', 'is_main');
@@ -154,6 +156,29 @@ class CampaignController extends Controller
             return response()->json(['campaigns' => $campaigns], 200);
         } else {
             $response = 'Invites not found';
+            return response()->json(['errors' => $response], 200);
+        }
+    }
+
+    protected function campaignInfluencerBonusLinks()
+    {
+        $model_table = 'influencer_campaign_bonus_links.';
+        $columns = [$model_table . 'id', $model_table . 'bonus_link', $model_table . 'use_before', $model_table . 'clicked', $model_table . 'user_id', $model_table . 'campaign_id', 'campaigns.name', 'campaigns.id as campaign_id', 'campaigns.created_at'];
+
+        $campaigns_influencer = Influencer::find(Auth::id())->campaigns()->select('campaigns.id', 'campaigns.name', 'campaigns.status')->get();
+        $links = [];
+
+        foreach ($campaigns_influencer as $campaign){
+            if($campaign->status === 'activated'){
+                array_push($links, ['links' => Campaign::find($campaign->id)->influencer_campaign_bonus_links()->get(), 'campaign' => $campaign]);
+            }
+        }
+
+        if(sizeof($links) !== 0)
+        {
+            return response()->json(['links' => $links], 200);
+        } else {
+            $response = 'Links not found';
             return response()->json(['errors' => $response], 200);
         }
     }

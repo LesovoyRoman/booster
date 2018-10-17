@@ -213,8 +213,8 @@
                                             </span>
                                         </div>
                                         <div v-if="!row.item.campaign_user_status">
-                                            <b-row v-if="offersCards === true">
-                                                <div style="margin-top: 15px">
+                                            <div v-if="offersCards === true" style="margin-top: 15px">
+                                                <b-row>
                                                     <b-col md="8">
                                                         <b-button variant="primary" class="font500 uppercase" @click="changeStatusCampaign(row, '/acceptCampaign').then(function(response){ row.item.campaign_user_status = response})">join</b-button>
                                                     </b-col>
@@ -223,8 +223,8 @@
                                                             <i class="icon-close"></i>
                                                         </b-button>
                                                     </b-col>
-                                                </div>
-                                            </b-row>
+                                                </b-row>
+                                            </div>
                                             <div v-if="offersCards === false">
                                                 <b-button variant="primary" class="font500 uppercase" @click="changeStatusCampaign(row, '/acceptCampaign').then(function(response){ row.item.campaign_user_status = response})">join</b-button>
                                                 <b-button size="sm" @click="changeStatusCampaign(row, '/declineCampaign').then(function(response){ row.item.campaign_user_status = response});" class="custom_btn_change" :variant="'primary'">
@@ -360,6 +360,9 @@
                             vm.my_offers.push(item);
                         }
                     })
+                }
+                if(response.data.errors){
+                    vm.$swal('Unfortunately:', response.data.errors, 'error')
                 }
             }).catch( err => {
                 this.loading = false;

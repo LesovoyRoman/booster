@@ -62,6 +62,9 @@ Route::group(['middleware' => 'isInfluencer'], function (){
     Route::post('/influencerInvites', 'Influencer\Campaign\CampaignController@influencerCampaignsInvites');
     Route::post('/acceptInvite', 'Influencer\Campaign\CampaignController@acceptInvite');
     Route::post('/declineInvite', 'Influencer\Campaign\CampaignController@declineInvite');
+
+    // Campaign bonus links
+    Route::post('/campaignInfluencerBonusLinks', 'Influencer\Campaign\CampaignController@campaignInfluencerBonusLinks');
 });
 
 // @todo tmp route, will be rebuilt

@@ -40,7 +40,12 @@ class Campaign extends ModelBase
 
     public function campaign_influencer_points()
     {
-        return $this->belongsToMany('App\Models\User', 'campaign_influencer_points', 'campaign_id', 'user_id')->withPivot('all_points', 'checked_points', 'status');
+        return $this->belongsToMany('App\Models\Influencer', 'campaign_influencer_points', 'campaign_id', 'user_id')->withPivot('all_points', 'checked_points', 'status');
+    }
+
+    public function influencer_campaign_bonus_links()
+    {
+        return $this->hasMany('App\Models\pivotModels\InfluencerCampaignBonusLink', 'campaign_id', 'id');
     }
 
     public function gifts()

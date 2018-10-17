@@ -6,7 +6,9 @@
                     <h2 class="h2">{{ header }}</h2>
                 </b-col>
 
-                <b-col
+                <loading v-if="loading" style="position: fixed; margin-left: -20px; left: 50%; top: 50%"></loading>
+
+                <b-col  v-if="!loading"
                         sm="12"
                         md="12">
                     <b-card>
@@ -39,25 +41,28 @@
 
                                 :current-page="currentPage"
                                 :per-page="perPage">
-                            <template slot="campaign_name" slot-scope="data">
-                                <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                            <template slot="name" slot-scope="data">
+                                <router-link :id="id = data.item.campaign.id" :data="campaign = data.item.campaign" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign.name }}</router-link>
                             </template>
                             <template slot="links" slot-scope="row">
                                 <div v-for="(linkItem, index) in row.item.links">
                                     <b-form-group class="groupLinksCampaigns">
                                         <div v-for="(objItem, key) in linkItem" :key="key" class="inlineBlock">
-                                            <b-form-input :disabled="row.item.active === true" v-if="key === 'path'" v-model="row.item.links[index].path" placeholder="Link path"/>
-                                            <b-btn :disabled="row.item.active === true" :variant="'primary'" v-if="key === 'path'" @click="index === 0 ? addLink(row.item.links) : removeLink(row.index, index)" class="uppercase float-right font500"><span v-if="index === 0">+</span><span v-if="index !== 0">-</span></b-btn>
-                                            <b-form-input :disabled="row.item.active === true" v-if="key === 'gift'" v-model="row.item.links[index].gift" placeholder="Gift"/>
+                                            <b-form-input v-if="key === 'bonus_link'" v-model="row.item.links[index].bonus_link" placeholder="Link path"/>
+                                            <b-btn :variant="'primary'" v-if="key === 'bonus_link'" @click="index === 0 ? addLink(row.item.links) : removeLink(row.index, index)" class="uppercase float-right font500"><span v-if="index === 0">+</span><span v-if="index !== 0">-</span></b-btn>
                                         </div>
                                     </b-form-group>
                                 </div>
                             </template>
-                            <template slot="active" slot-scope="row">
+                            <template slot="date" slot-scope="row">
+                                {{ row.item.campaign.created_at }}
+                            </template>
+
+                            <!--<template slot="active" slot-scope="row">
                                 <b-button size="sm"  @click="row.item.active = !row.item.active" class="custom_btn_change" :variant="'primary'">
                                     <i :class="row.item.active ? 'fa fa-stop-circle' : 'fa fa-play-circle'"></i>
                                 </b-button>
-                            </template>
+                            </template>-->
                             <template slot="change" justified="center" slot-scope="row">
                                 <b-button size="sm" class="custom_btn_change" :variant="'primary'">
                                     <i class="icon-pencil"></i>
@@ -80,11 +85,17 @@
 <script>
     let vm = {};
 
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
+
     export default {
         name: 'CampaignsInfluencer',
+        components: {
+            Loading
+        },
         data(){
             return {
                 header: 'My campaigns',
+                loading: false,
 
                 filter: null,
                 sortBy: null,
@@ -95,17 +106,12 @@
                 perPage    : 10,
                 totalRows  : 0,
 
-                campaigns: [
-                    { id: 1, campaign_name: 'Snacks', active: true, links: [{path: 'https://linkFirst.com', gift: 'First gift'}, {path: 'https://linkSecond.com', gift: 'Second gift'}], date: '2017.12.02' },
-                    { id: 2, campaign_name: 'Cheese', active: false, links: [{path: 'https://linkCheeseFirst.com', gift: 'First cheese gift'},], date: '2018.11.09' },
-                    { id: 3, campaign_name: 'Cheese', active: true, links: [{path: 'https://linkCheeseNew.com', gift: 'Iphone'}, {path: 'https://linkCheesesss.com', gift: 'Samsung Note2'}], date: '2019.02.01' }
-                ],
+                campaigns: [],
 
                 fields: [
-                    { key: 'campaign_name', sortable: true, 'class': 'table_campaign_name' },
+                    { key: 'name', sortable: true, 'class': 'table_name' },
                     { key: 'links', sortable: false, 'class': 'table_links' },
                     { key: 'date', sortable: true, 'class': 'table_date', label: 'Started' },
-                    { key: 'active', label: '', 'class': 'table_label_hidden' },
                     { key: 'change', label: '', 'class': 'table_label_hidden' },
                     { key: 'delete', label: '', 'class': 'table_label_hidden' },
                 ]
@@ -113,6 +119,19 @@
         },
         created() {
             vm = this;
+            this.loading = true;
+            axios.post('/campaignInfluencerBonusLinks').then(response => {
+                this.loading = false;
+                if(response.data.links instanceof Array) {
+                    this.campaigns = response.data.links;
+                }
+                if(response.data.errors){
+                    vm.$swal('Unfortunately:', response.data.errors, 'error')
+                }
+            }).catch( err => {
+                this.loading = false;
+                console.log(err.message)
+            })
         },
         methods: {
             onFiltered (filteredItems) {
@@ -132,7 +151,7 @@
             },
             removeElement: function (item) {
                 if(confirm("Are you sure?")) {
-                    this.campaigns.splice(item.index, 1);
+                    vm.campaigns.splice(item.index, 1);
                 }
             },
         }

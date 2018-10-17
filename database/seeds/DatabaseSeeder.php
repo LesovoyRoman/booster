@@ -26,7 +26,10 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Gifts seeded!');
 
         $this->call(InfluencerCampaignsPoints::class);
-        $this->command->info('influencer-campaigns-points seeded!');
+        $this->command->info('Influencer campaigns points seeded!');
+
+        $this->call(InfluencerCampaignBonusLinks::class);
+        $this->command->info('Influencer campaign bonus links seeded!');
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 

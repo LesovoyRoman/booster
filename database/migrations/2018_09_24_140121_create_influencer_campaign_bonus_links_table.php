@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBonusLinksInfluencersTable extends Migration
+class CreateInfluencerCampaignBonusLinksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBonusLinksInfluencersTable extends Migration
      */
     public function up()
     {
-        Schema::create('bonus_links_influencers', function (Blueprint $table) {
+        Schema::create('influencer_campaign_bonus_links', function (Blueprint $table) {
             $table->increments('id');
             $table->string('bonus_link')->nullable();
             $table->timestamp('use_before')->nullable();
@@ -29,6 +29,6 @@ class CreateBonusLinksInfluencersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bonus_links_influencers');
+        Schema::dropIfExists('influencer_campaign_bonus_links');
     }
 }
