@@ -127,6 +127,11 @@ table.table td, table th, table tr{
      float: left;
      display: inline-block;
      position: relative;
+
+     img {
+       max-width: 100%;
+       max-height: 100%;
+     }
    }
 
    .icons_influencer {
@@ -381,6 +386,11 @@ table.table td, table th, table tr{
 
 .table_offers #table_cards {
 
+  .points_gift {
+    position: static;
+    margin: 10px auto;
+    width: 100%;
+  }
   .table_campaign_name {
     font-size: 20px;
     margin-bottom: 10px;

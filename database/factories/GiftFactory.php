@@ -9,7 +9,7 @@ $factory->define(App\Models\Gift::class, function (Faker $faker) {
     }
     return [
         'campaign_id'           => ++$order,
-        'user_to_id'            => null,
+        'user_to_id'            => $faker->randomElement(array(null, null, 2)),
         'name'                  => $faker->word,
         'description'           => $faker->sentence,
         'points'                => $faker->numberBetween(10000, 200000),

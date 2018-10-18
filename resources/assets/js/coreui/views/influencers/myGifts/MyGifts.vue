@@ -6,6 +6,8 @@
                     <h2 class="h2">{{ header }}</h2>
                 </b-col>
 
+                <loading v-if="loading" style="position: fixed; z-index: 9999; left: 0; top: 0; height: 100%; width: 100%; background: rgba(2,2,2,0.70);"></loading>
+
                 <b-col
                         sm="12"
                         md="12">
@@ -33,23 +35,32 @@
                                 :per-page="perPage">
                             <template slot="name" slot-scope="data">
                                 <div class="photo_gift-block">
-                                    <keep-alive><img :src="data.item.photo" alt="photo_item" class="photo_gift_table"></keep-alive>
+                                    <keep-alive>
+                                        <img v-if="data.item.images.length !== 0" :src="storage_path + '/' + data.item.images[0].image_path" alt="photo" class="photo_gift_table">
+                                        <img v-else :src="storage_path + '/' + noimage" alt="photo" class="photo_gift_table">
+                                    </keep-alive>
                                 </div>
                                 <div class="gift-name-block">
                                     {{ data.item.name }}
                                 </div>
                             </template>
                             <template slot="campaign_name" slot-scope="data">
-                                <router-link :id="id = data.item.id" :data="campaign = data.item" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign_name }}</router-link>
+                                <router-link :id="id = data.item.campaign.id" :data="campaign = data.item.campaign" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign.name }}</router-link>
                             </template>
                             <template slot="points" slot-scope="data">
                                 <span class="">{{ data.item.points }} points</span>
 
-                                <span v-if="data.item.status === 'got'" class="float-right">
+                                <span v-if="data.item.status === 'received'" class="float-right">
                                     <span class=""><i class="icon-check"></i> Received</span>
                                 </span>
-                                <span v-if="data.item.status === 'expects'" class="float-right">
+                                <span v-if="data.item.status === 'ordered'" class="float-right">
+                                    <span class="">Ordered</span>
+                                </span>
+                                <span v-if="data.item.status === 'sent'" class="float-right">
                                     <span class="">Expecting...</span>
+                                </span>
+                                <span class="float-right" v-else>
+                                    <span>In progress...</span>
                                 </span>
                             </template>
                             <template slot="code" slot-scope="data">
@@ -78,28 +89,31 @@
 <script>
     let vm = {};
 
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
+
     export default {
         name: 'MyGifts',
+        components: {
+            Loading
+        },
         data() {
             return {
                 header: 'My gifts',
+                loading: false,
 
                 currentPage: 1,
                 perPage    : 9,
                 totalRows  : 0,
 
+                storage_path: '',
+                noimage: 'images/noimage.jpg',
 
                 filter: null,
                 sortBy: null,
                 sortDesc: false,
                 sortDirection: 'asc',
 
-                gifts: [
-                    { id: 1, photo: '../images/iphone.png', name: 'Iphone 8', points: 10000, campaign_name: 'Snacks', status: 'expects', code: '4907384574598' },
-                    { id: 2, photo: '../images/iphone.png', name: 'Iphone 7', points: 20000, campaign_name: 'Cheese', status: 'got', code: '8437589238542' },
-                    { id: 3, photo: '../images/iphone.png', name: 'Iphone 8', points: 40000, campaign_name: 'Snacks', status: 'expects', code: '9203430924803' },
-                    { id: 4, photo: '../images/iphone.png', name: 'Iphone 7', points: 50000, campaign_name: 'Smth', status: 'got', code: '5094385348534' },
-                ],
+                gifts: [],
 
                 fields: [
                     { key: 'name', sortable: true, 'class': 'name_gift' },
@@ -111,6 +125,20 @@
         },
         created(){
             vm = this;
+            this.storage_path = this.$root.storage_path;
+            this.loading = true;
+            axios.post('/getAllGiftsInfluencer').then(response => {
+                this.loading = false;
+                if(response.data.gifts instanceof Array) {
+                    this.gifts = response.data.gifts
+                }
+                if(response.data.errors){
+                    vm.$swal('Unfortunately:', response.data.errors, 'error')
+                }
+            }).catch( err => {
+                this.loading = false;
+                console.log(err.message)
+            })
         },
         methods: {
             onFiltered (filteredItems) {

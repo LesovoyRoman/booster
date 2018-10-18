@@ -24,7 +24,7 @@ class CreateCampaignsTable extends Migration
             $table->float('product_price')->nullable();
             $table->float('product_boost_price')->nullable();
             $table->string('youtube_link')->nullable();
-            $table->enum('currency', config('enums.currency'))->nullable();
+            $table->enum('currency', config('enums.currency'))->default('RUB')->nullable();
             $table->string('photo_path')->nullable();
             $table->integer('points')->nullable();
             $table->text('conditions')->nullable();

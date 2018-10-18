@@ -5,9 +5,9 @@
                 <b-col sm="12" md="12">
                     <h2 class="h2">{{ header }}</h2>
 
-                    <loading v-if="loading" style="position: fixed; margin-left: -20px; left: 50%; top: 50%"></loading>
+                    <loading v-if="loading" style="position: fixed; z-index: 9999; left: 0; top: 0; height: 100%; width: 100%; background: rgba(2,2,2,0.70);"></loading>
 
-                    <b-card v-if="!loading">
+                    <b-card>
                         <b-tabs pills card>
                             <b-tab title="Active" active>
 

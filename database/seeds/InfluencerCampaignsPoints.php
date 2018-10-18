@@ -21,8 +21,8 @@ class InfluencerCampaignsPoints extends Seeder
         while($i < 50) {
                 DB::table('campaign_influencer_points')->insert(
                     [
-                        'all_points' => $faker->numberBetween(5000, 9999),
-                        'checked_points' => $faker->numberBetween(1, 4999),
+                        'all_points' => $faker->numberBetween(100000, 200000),
+                        'checked_points' => $faker->numberBetween(50000, 99999),
                         'campaign_id' => $faker->numberBetween(1, 100),
                         'user_id' => 2
                     ]

@@ -65,6 +65,14 @@ Route::group(['middleware' => 'isInfluencer'], function (){
 
     // Campaign bonus links
     Route::post('/campaignInfluencerBonusLinks', 'Influencer\Campaign\CampaignController@campaignInfluencerBonusLinks');
+
+    // Gifts
+    Route::post('/getAllGiftsInfluencer', 'Influencer\Gift\GiftController@influencerGifts');
+    Route::post('/getCatalogGifts', 'Influencer\Gift\GiftController@catalogGifts');
+    Route::post('/orderGift', 'Influencer\Gift\GiftController@orderGift');
+
+    // Influencer campaign-points
+    Route::post('/getInfluencerPointsCampaign', 'Influencer\InfluencerController@getCampaignsPoints');
 });
 
 // @todo tmp route, will be rebuilt

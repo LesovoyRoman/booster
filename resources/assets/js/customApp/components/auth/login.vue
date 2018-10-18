@@ -88,6 +88,10 @@
         },
         created () {
             vmThis = this;
+            this.$root.changeHeight();
         },
+        updated() {
+            this.$root.changeHeight();
+        }
     }
 </script>

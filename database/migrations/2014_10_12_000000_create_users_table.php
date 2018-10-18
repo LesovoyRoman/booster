@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('surname')->nullable();
             $table->timestamp('birth_date')->nullable();
             $table->string('phone')->nullable();
-            $table->enum('chosen_lang', config('enums.languages'))->nullable();
+            $table->enum('chosen_lang', config('enums.languages'))->default('ru')->nullable();
             $table->string('work_position')->nullable();
             $table->string('site_link')->nullable();
             $table->string('brand')->nullable();

@@ -11,15 +11,26 @@ class GiftController extends Controller
 {
     public function getAllGifts()
     {
+        $user = auth()->user();
+        if ($user->user_role === 'influencer') {
+            $role_for = 'user_to_id';
+        } else {
+            $role_for = 'user_from_id';
+        }
+
         $gifts = Gift::with(array('Campaign' => function($query){
             $query->select('campaigns.id','campaigns.name');
         }))->with('Images')->where(function ($query){
             $query->select('gift_id', 'campaign_id', 'id', 'is_logo', 'is_avatar', 'image_path');
-        })->where('user_from_id', '=', Auth::id())->get();
+        })->where($role_for, '=', Auth::id())->get();
 
         $response = static::giftsIfPerformer((object)$gifts);
 
-        return response()->json(['gifts' => $response]);
+        if(sizeof($response) > 0){
+            return response()->json(['gifts' => $response]);
+        } else {
+            return response()->json(['errors' => 'Gifts not found']);
+        }
     }
 
     public static function giftsIfPerformer($gifts)

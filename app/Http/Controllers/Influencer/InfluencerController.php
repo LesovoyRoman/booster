@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Influencer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Address;
 
@@ -23,6 +24,14 @@ class InfluencerController extends Controller
     protected function getInfluencer(Request $request)
     {
         return response()->json(['user' => Influencer::where('id', '=', $request['id'])->first()]);
+    }
+
+    protected function getCampaignsPoints()
+    {
+        $campaigns_points = DB::table('campaign_influencer_points')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+        return response()->json(['response' => $campaigns_points]);
     }
 
     protected function updateInfluencer(Request $request)

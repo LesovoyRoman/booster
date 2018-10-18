@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Influencer\Campaign;
 
 use App\Models\Campaign;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Influencer;
-use App\Models\pivotModels\InfluencerCampaignBonusLink as BonusLink;
+use App\Http\Controllers\Common\Campaign\CampaignController as CommonCampaignController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class CampaignController extends Controller
+class CampaignController extends CommonCampaignController
 {
     protected function influencerCampaignsPoints()
     {
@@ -162,9 +160,6 @@ class CampaignController extends Controller
 
     protected function campaignInfluencerBonusLinks()
     {
-        $model_table = 'influencer_campaign_bonus_links.';
-        $columns = [$model_table . 'id', $model_table . 'bonus_link', $model_table . 'use_before', $model_table . 'clicked', $model_table . 'user_id', $model_table . 'campaign_id', 'campaigns.name', 'campaigns.id as campaign_id', 'campaigns.created_at'];
-
         $campaigns_influencer = Influencer::find(Auth::id())->campaigns()->select('campaigns.id', 'campaigns.name', 'campaigns.status')->get();
         $links = [];
 

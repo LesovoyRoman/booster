@@ -6,11 +6,11 @@
                     <h2 class="h2">{{ header }}</h2>
 
                     <b-col v-if="loading">
-                        <loading v-if="loading" style="position: fixed; left: 50%; margin-left: -20px; top: 50%"></loading>
+                        <loading v-if="loading" style="position: fixed; z-index: 9999; left: 0; top: 0; height: 100%; width: 100%; background: rgba(2,2,2,0.70);"></loading>
                     </b-col>
 
                     <!-- CAMPAIGN -->
-                    <b-card v-if="!loading">
+                    <b-card>
                         <form action="">
                             <p class="card-text header_card_simple">Common information</p>
 

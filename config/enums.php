@@ -10,6 +10,7 @@ return [
     'auditories_age_to'          => [15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
     'topics'                     => ['Games', 'Adventure', 'Travel', 'Science', 'Architecture', 'Biology', 'Entertainment'],
     'influencer_campaign_status' => ['accepted', 'invited', 'invited_accepted', 'invited_declined', 'declined'],
+    'statuses_gift'              => ['created', 'ordered', 'received', 'sent'],
 
 
 

@@ -7,10 +7,10 @@
                 </b-col>
 
                 <b-col>
-                    <loading v-if="loading" style="position: fixed; margin-left: -20px; left: 50%; top: 50%"></loading>
+                    <loading v-if="loading" style="position: fixed; z-index: 9999; left: 0; top: 0; height: 100%; width: 100%; background: rgba(2,2,2,0.70);"></loading>
                 </b-col>
 
-                <b-col  v-if="!loading"
+                <b-col
                         sm="12"
                         md="12">
                     <b-card>
