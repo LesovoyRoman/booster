@@ -22,7 +22,7 @@ class CampaignUser extends Seeder
                 [
                     'campaign_id'       => $faker->numberBetween(1, 50),
                     'user_id'           => 2,
-                    'status'            => $faker->randomElement(array('stopped', 'activated')),
+                    'status'            => $faker->randomElement(array('declined', 'accepted')),
                 ]
             );
             $i++;
