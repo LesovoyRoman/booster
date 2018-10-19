@@ -155,7 +155,7 @@
                                     </b-input-group>
                                 </b-form-group>
 
-                                <span class="span-row font500">Total offers: {{ offers.length }}</span>
+                                <span class="span-row font500">My accepted\declined offers: {{ my_offers.length }}</span>
 
                                 <b-table
                                         :id="offersCards ? 'table_cards' : ''"
@@ -326,7 +326,8 @@
                                     type:  response.data.response,
                                     title: 'Campaign ' + response.data.status_campaign + '!',
                                 })
-                                vm.my_offers.push(row);
+                                vm.my_offers.push(row.item);
+                                vm.offers.splice(row.index, 1);
                                 return response.data.status_campaign
                              }
                              if(response.data.error){
@@ -352,12 +353,14 @@
             axios.post('/getAllCampaigns').then(response => {
                 this.loading = false;
                 if(response.data.campaigns instanceof Array) {
-                    this.offers = response.data.campaigns
-                    this.offers.forEach(function(item){
+                    let all_offers = response.data.campaigns
+                        all_offers.forEach(function(item){
                         if(item.gifts[0])
                         item.gift = item.gifts[0].name;
                         if(item.campaign_user_id === response.data.user_id) {
                             vm.my_offers.push(item);
+                        } else {
+                            vm.offers.push(item);
                         }
                     })
                 }
