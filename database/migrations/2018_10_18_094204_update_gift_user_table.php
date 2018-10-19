@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateGiftsTable extends Migration
+class UpdateGiftUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class UpdateGiftsTable extends Migration
      */
     public function up()
     {
-        Schema::table('gifts', function (Blueprint $table) {
-            $table->integer('user_from_id')->unsigned()->nullable()->after('id');
-            $table->foreign('user_from_id')->references('id')->on('users')
+        Schema::table('gift_user', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned()->nullable()->after('id');
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->integer('campaign_id')->unsigned()->nullable()->after('id');
-            $table->foreign('campaign_id')->references('id')->on('campaigns')
+            $table->integer('gift_id')->unsigned()->nullable()->after('id');
+            $table->foreign('gift_id')->references('id')->on('gifts')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

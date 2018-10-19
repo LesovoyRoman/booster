@@ -7,17 +7,14 @@ class Gift extends ModelBase
     protected $fillable = [
         'campaign_id',
         'user_from_id',
-        'user_to_id',
         'name',
         'description',
         'points',
         'price',
         'delivery',
-        'status',
         'photo_path',
         'amazon',
         'amazon_id',
-        'code',
         'is_main',
         'price_product',
         'instructions',
@@ -26,6 +23,12 @@ class Gift extends ModelBase
         'price_boost',
         'currency',
     ];
+
+    public function gift_user()
+    {
+        return $this->belongsToMany('App\Models\Influencer', 'gift_user', 'gift_id', 'user_id')
+            ->withPivot('status', 'code');
+    }
 
     public function campaign()
     {

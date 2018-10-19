@@ -53,10 +53,10 @@
                                 <span v-if="data.item.status === 'received'" class="float-right">
                                     <span class=""><i class="icon-check"></i> Received</span>
                                 </span>
-                                <span v-if="data.item.status === 'ordered'" class="float-right">
+                                <span v-else-if="data.item.status === 'ordered'" class="float-right">
                                     <span class="">Ordered</span>
                                 </span>
-                                <span v-if="data.item.status === 'sent'" class="float-right">
+                                <span v-else-if="data.item.status === 'sent'" class="float-right">
                                     <span class="">Expecting...</span>
                                 </span>
                                 <span class="float-right" v-else>

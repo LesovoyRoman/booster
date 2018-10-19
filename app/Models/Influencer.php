@@ -20,6 +20,12 @@ class Influencer extends User
         'avatar',
     ];
 
+    public function gift_user()
+    {
+        return $this->belongsToMany('App\Models\Gift', 'gift_user', 'user_id', 'gift_id')
+            ->withPivot('status', 'code');
+    }
+
     public function influencer_campaign_bonus_links()
     {
         return $this->hasMany('App\Models\pivotModels\InfluencerCampaignBonusLink', 'user_id', 'id');

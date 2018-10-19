@@ -13,16 +13,19 @@ class GiftController extends Controller
     {
         $user = auth()->user();
         if ($user->user_role === 'influencer') {
-            $role_for = 'user_to_id';
+            $gifts = Gift::with(array('Campaign' => function($query){
+                $query->select('campaigns.id','campaigns.name');
+            }))->with('Images')->where(function ($query){
+                $query->select('gift_id', 'campaign_id', 'id', 'is_logo', 'is_avatar', 'image_path');
+            })->get();
         } else {
             $role_for = 'user_from_id';
+            $gifts = Gift::with(array('Campaign' => function($query){
+                $query->select('campaigns.id','campaigns.name');
+            }))->with('Images')->where(function ($query){
+                $query->select('gift_id', 'campaign_id', 'id', 'is_logo', 'is_avatar', 'image_path');
+            })->where($role_for, '=', Auth::id())->get();
         }
-
-        $gifts = Gift::with(array('Campaign' => function($query){
-            $query->select('campaigns.id','campaigns.name');
-        }))->with('Images')->where(function ($query){
-            $query->select('gift_id', 'campaign_id', 'id', 'is_logo', 'is_avatar', 'image_path');
-        })->where($role_for, '=', Auth::id())->get();
 
         $response = static::giftsIfPerformer((object)$gifts);
 

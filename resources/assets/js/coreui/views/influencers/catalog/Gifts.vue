@@ -85,7 +85,7 @@
 
                             </b-tab>
 
-                            <b-tab v-for="(campaign_gifts, index) in campaigns_gifts" :key="'campaign_gift_' + index" :title="campaign_gifts.campaign.name">
+                            <b-tab v-for="(campaign_gifts, index) in campaigns_gifts" v-if="campaign_gifts.gifts.length !== 0" :key="'campaign_gift_' + index" :title="campaign_gifts.campaign.name">
                                 <b-form-group>
                                     <b-input-group>
                                         <b-form-input v-model="filter" placeholder="Type campaign name or gift"/>
@@ -190,6 +190,7 @@
             this.storage_path = this.$root.storage_path;
             vm = this;
             axios.post('/getCatalogGifts').then(response => {
+                console.log(response);
                 this.loading = false;
                 if(response.data.campaigns_gifts instanceof Array) {
                     let campaigns_gifts = response.data.campaigns_gifts;
@@ -221,13 +222,13 @@
             },
             orderGift(item) {
                 this.loading = true;
-                /*axios.post('/orderGift', {gift_id: item.id}).then(response => {
-                    //this.loading = false;
-                    console.log(response);
+                axios.post('/orderGift', {gift_id: item.id}).then(response => {
+                    this.loading = false;
+                    vm.$router.push('my-gifts')
                 }).catch(err => {
                     this.loading = false;
                     console.log(err);
-                })*/
+                })
             }
         }
     }

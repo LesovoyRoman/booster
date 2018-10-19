@@ -23,11 +23,9 @@ class CreateGiftsTable extends Migration
             $table->enum('currency', config('enums.currency'))->default('RUB')->nullable();
             $table->string('type_boosting')->nullable();
             $table->string('price_boost')->nullable();
-            $table->enum('status', config('enums.statuses_gift'))->default('created')->nullable();
             $table->string('photo_path')->nullable();
             $table->boolean('amazon')->nullable();
             $table->integer('amazon_id')->nullable();
-            $table->string('code')->nullable();
             $table->boolean('is_main')->nullable();
             $table->integer('in_stock')->nullable();
             $table->text('instructions')->nullable();

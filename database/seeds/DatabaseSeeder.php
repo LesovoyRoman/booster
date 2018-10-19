@@ -16,20 +16,26 @@ class DatabaseSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        $this->call(UsersTableSeeder::class);
-        $this->command->info('Users seeded!');
+            $this->call(UsersTableSeeder::class);
+            $this->command->info('users seeded!');
 
-        $this->call(CampaignsTableSeeder::class);
-        $this->command->info('Campaigns seeded!');
+            $this->call(CampaignsTableSeeder::class);
+            $this->command->info('campaigns seeded!');
 
-        $this->call(GiftsTableSeeder::class);
-        $this->command->info('Gifts seeded!');
+            $this->call(GiftsTableSeeder::class);
+            $this->command->info('gifts seeded!');
 
-        $this->call(InfluencerCampaignsPoints::class);
-        $this->command->info('Influencer campaigns points seeded!');
+            $this->call(InfluencerCampaignsPoints::class);
+            $this->command->info('influencer_campaigns_points seeded!');
 
-        $this->call(InfluencerCampaignBonusLinks::class);
-        $this->command->info('Influencer campaign bonus links seeded!');
+            $this->call(InfluencerCampaignBonusLinks::class);
+            $this->command->info('influencer_campaign_bonus_links seeded!');
+
+            $this->call(GiftUser::class);
+            $this->command->info('gift_user seeded!');
+
+            $this->call(CampaignUser::class);
+            $this->command->info('campaign_user seeded!');
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 

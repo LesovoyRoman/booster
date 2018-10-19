@@ -60,17 +60,14 @@ class GiftController extends CommonGiftController
         try {
             $create = Gift::create([
                 'campaign_id'           => $data['current_campaign'],
-                'user_to_id'            => null,
                 'name'                  => $data['name'],
                 'description'           => null,
                 'points'                => $data['points'],
                 'price'                 => $data['price'],
                 'delivery'              => null,
-                'status'                => 'created',
                 'photo_path'            => '',
                 'amazon'                => null,
                 'amazon_id'             => null,
-                'code'                  => null,
                 'is_main'               => $data['is_main'] == true ? 1 : 0,
                 'instructions'          => $data['instructions'],
                 'in_stock'              => $data['in_stock'],
@@ -113,37 +110,11 @@ class GiftController extends CommonGiftController
     {
         try {
             $gift = Gift::where('id', '=', $request['id'])->first();
-            if($gift->status != 'ordered' && $gift->status != 'sent') {
-                $gift->delete();
-            } else {
-                return response()->json([
-                    'errors' => 'Gift can not be deleted! (' . $gift->status . ')'
-                ], 206);
-            }
+            $gift->delete();
 
             return response()->json([
                 'response' => 'Gift deleted successfully!'
             ], 200);
-        } catch (\Exception $e) {
-            return response()->json(['exception' => $e->getMessage()], 111);
-        }
-    }
-
-    protected function changeStatusGift(Request $request)
-    {
-        $id_gift = request('id_gift');
-        $status_to_change = request('new_status');
-
-        $gift = Gift::where('id', '=', $id_gift)->first();
-        try {
-            if($gift->status !== $status_to_change){
-                $gift->status = $status_to_change;
-                $gift->save();
-
-                return response()->json(['response' => 'Status changed to ' . $status_to_change, 'new_status' => $status_to_change], 200);
-            } else {
-                return response()->json(['response' => 'Status gift already ' . $status_to_change], 200);
-            }
         } catch (\Exception $e) {
             return response()->json(['exception' => $e->getMessage()], 111);
         }

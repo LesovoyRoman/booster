@@ -38,7 +38,6 @@ Route::group(['middleware' => 'isPerformer'], function (){
     Route::post('/createNewGift', 'Performer\Gift\GiftController@addGift');
     Route::post('/deleteGift', 'Performer\Gift\GiftController@deleteGift');
     Route::post('/updateGift', 'Performer\Gift\GiftController@updateGift');
-    Route::post('/changeStatusGift', 'Performer\Gift\GiftController@changeStatusGift');
 
     // User
     Route::post('/currentPerformerGetData', 'Performer\PerformerController@getCurrentPerformer');
