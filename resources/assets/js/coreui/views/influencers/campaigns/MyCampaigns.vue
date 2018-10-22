@@ -75,6 +75,16 @@
                             </template>
                         </b-table>
 
+                        <nav>
+                            <b-pagination
+                                    :total-rows="getRowCount(campaigns)"
+                                    :per-page="perPage"
+                                    align="center"
+                                    v-model="currentPage"
+                                    prev-text="Prev"
+                                    next-text="Next"
+                                    hide-goto-end-buttons/>
+                        </nav>
                     </b-card>
                 </b-col>
             </b-row>

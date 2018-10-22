@@ -44,6 +44,7 @@ class CampaignController extends CommonCampaignController
         $user = Influencer::find(Auth::id());
         if(isset($data['campaign_id'])){
             $user->campaigns()->attach($data['campaign_id'], array('status' => 'accepted'));
+            $user->campaign_influencer_points()->attach($data['campaign_id'], array('status' => 'accepted', 'all_points' => 0, 'checked_points' => 0));
 
             // @todo remake it (model cache needs reboot for seeing changes)
             $update_campaign = Campaign::find($data['campaign_id']);
@@ -63,6 +64,7 @@ class CampaignController extends CommonCampaignController
         $user = Influencer::find(Auth::id());
         if(isset($data['campaign_id'])){
             $user->campaigns()->attach($data['campaign_id'], array('status' => 'declined'));
+            $user->campaign_influencer_points()->attach($data['campaign_id'], array('status' => 'declined', 'all_points' => 0, 'checked_points' => 0));
 
             // @todo remake it (model cache needs reboot for seeing changes)
             $update_campaign = Campaign::find($data['campaign_id']);
