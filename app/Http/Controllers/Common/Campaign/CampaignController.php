@@ -19,7 +19,12 @@ class CampaignController extends Controller
             $campaignsOnlyFields = static::getOnlyFieldsCampaigns($fields);
             $response = static::campaignsIfPerformer((object)$campaignsOnlyFields);
 
-            return response()->json(['campaigns' => $response]);
+            if(sizeof($response) !== 0) {
+                return response()->json(['campaigns' => $response], 200);
+            } else {
+                $response = 'Campaigns not found';
+                return response()->json(['errors' => $response], 200);
+            }
 
         } else { // gets all fields
             if($user->user_role !== 'influencer'){
@@ -47,7 +52,12 @@ class CampaignController extends Controller
 
             $response = static::campaignsIfPerformer((object)$campaigns);
 
-            return response()->json(['campaigns' => $response, 'user_id' => Auth::id()]);
+            if(sizeof($response) !== 0) {
+                return response()->json(['campaigns' => $response, 'user_id' => Auth::id()]);
+            } else {
+                $response = 'Campaigns not found';
+                return response()->json(['errors' => $response, 'user_id' => Auth::id()], 200);
+            }
         }
     }
 
@@ -91,9 +101,12 @@ class CampaignController extends Controller
         try {
             $campaign = Campaign::with('Image')->where('id', '=', $request['id'])->get();
 
-            return response()->json([
-                'campaign' => $campaign,
-            ], 200);
+            if(sizeof($campaign) !== 0) {
+                return response()->json(['campaign' => $campaign], 200);
+            } else {
+                $response = 'Campaign not found';
+                return response()->json(['errors' => $response], 200);
+            }
         }  catch (\Exception $e) {
             return response()->json(['exception' => $e->getMessage()]);
         }

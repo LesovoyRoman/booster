@@ -23,7 +23,12 @@ class GiftController extends CommonGiftController
             $query->select('gift_id', 'campaign_id', 'id', 'is_logo', 'is_avatar', 'image_path');
         })->get();
 
-        return response()->json(['gifts' => $all_gifts]);
+        if(sizeof($all_gifts) !== 0) {
+            return response()->json(['gifts' => $all_gifts], 200);
+        } else {
+            $response = 'Gifts not found';
+            return response()->json(['errors' => $response], 200);
+        }
     }
 
     public function campaignGifts($campaign, $join_on_gift_user = false)
@@ -75,7 +80,13 @@ class GiftController extends CommonGiftController
         }
 
         // @todo render new datas on view !
-        return response()->json(['campaigns_gifts' => $campaigns_gifts], 200);
+
+        if(sizeof($campaigns_gifts) !== 0) {
+            return response()->json(['campaigns_gifts' => $campaigns_gifts], 200);
+        } else {
+            $response = 'Gifts not found';
+            return response()->json(['errors' => $response], 200);
+        }
     }
 
     protected function orderGift(Request $request)

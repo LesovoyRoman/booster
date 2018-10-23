@@ -239,6 +239,9 @@
                 if(response.data.gifts instanceof Array) {
                     this.gifts = response.data.gifts
                 }
+                if(response.data.errors){
+                    vm.$swal('Unfortunately:', response.data.errors, 'error')
+                }
             }).catch( err => {
                 this.loading = false;
                 console.log(err.message)

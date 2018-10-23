@@ -62,9 +62,12 @@ class GiftController extends Controller
         try {
             $gift = Gift::with('Images')->where('id', '=', $request['id'])->get();
 
-            return response()->json([
-                'gift' => $gift,
-            ], 200);
+            if(sizeof($gift) !== 0) {
+                return response()->json(['gift' => $gift], 200);
+            } else {
+                $response = 'Gift not found';
+                return response()->json(['errors' => $response], 200);
+            }
         }  catch (\Exception $e) {
             return response()->json(['exception' => $e->getMessage()]);
         }

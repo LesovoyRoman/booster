@@ -152,13 +152,11 @@
             axios.post('/getAllCampaigns', vm.dataRequst).then(response => {
                 this.loading = false;
                 if(response.data.campaigns instanceof Array) {
-                    // from DB
                     this.feedbacks = response.data.campaigns
-                } else {
-                    // from Redis
-                    this.feedbacks = JSON.parse(response.data.campaigns);
                 }
-                //console.log(response.data.campaigns);
+                if(response.data.errors){
+                    vm.$swal('Unfortunately:', response.data.errors, 'error')
+                }
             }).catch( err => {
                 this.loading = false;
                 this.loading = false;

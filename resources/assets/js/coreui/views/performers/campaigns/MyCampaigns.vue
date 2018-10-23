@@ -161,15 +161,11 @@
             axios.post('/getAllCampaigns', this.new_campaign).then(response => {
                 this.loading = false;
                 if(response.data.campaigns instanceof Array) {
-                    // from DB
-                    console.log('campaigns DB');
                     this.activeTable = response.data.campaigns
-                } else {
-                    // from Redis
-                    console.log('campaigns Redis');
-                    this.activeTable = JSON.parse(response.data.campaigns);
                 }
-                //console.log(response.data.campaigns);
+                if(response.data.errors){
+                    vm.$swal('Unfortunately:', response.data.errors, 'error')
+                }
             }).catch( err => {
                 this.loading = false;
                 console.log(err.message)

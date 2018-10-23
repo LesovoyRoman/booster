@@ -211,12 +211,15 @@
             }).then(response => {
                 console.log(response.data.gift)
                 this.loading = false;
-                if(response.status === 200) {
+                if(response.status === 200 && response.data.gift) {
                     vm.gift = response.data.gift[0];
 
                     if(response.data.gift[0].images[0] !== null) {
                         vm.urlImage = this.storage_path + '/' + response.data.gift[0].images[0].image_path;
                     }
+                }
+                if(response.data.errors){
+                    vm.$swal('Unfortunately:', response.data.errors, 'error')
                 }
             }).catch(err => {
                 this.loading = false;

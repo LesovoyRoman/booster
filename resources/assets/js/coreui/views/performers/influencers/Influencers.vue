@@ -223,6 +223,9 @@
                     if(response.data.campaigns instanceof Array) {
                         this.campaigns = response.data.campaigns
                     }
+                    if(response.data.errors){
+                        vm.$swal('Unfortunately:', response.data.errors, 'error')
+                    }
                 }).catch( err => {
                     this.loading = false;
                     console.log(err.message)

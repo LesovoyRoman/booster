@@ -222,7 +222,13 @@ class CampaignController extends CommonCampaignController
     public function getInfluencers()
     {
         $influencers = Influencer::influencers()->with('channels')->get();
-        return response()->json(['influencers' => $influencers]);
+
+        if(sizeof($influencers) !== 0) {
+            return response()->json(['influencers' => $influencers], 200);
+        } else {
+            $response = 'Influencers not found';
+            return response()->json(['errors' => $response], 200);
+        }
     }
 
     // @TODO need to be checked if influencer already invited !!!

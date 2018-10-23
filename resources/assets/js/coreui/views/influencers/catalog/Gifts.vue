@@ -203,6 +203,9 @@
                         vm.campaigns_gifts.push(item); // push to campaign gifts (tabs)
                     });
                 }
+                if(response.data.errors){
+                    vm.$swal('Unfortunately:', response.data.errors, 'error')
+                }
             }).catch( err => {
                 this.loading = false;
                 console.log(err.message)
