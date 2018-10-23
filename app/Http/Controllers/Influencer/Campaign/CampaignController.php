@@ -124,32 +124,29 @@ class CampaignController extends CommonCampaignController
     {
         $user = Influencer::find(Auth::id());
         $campaigns = $user->campaign_influencer_points()
+            ->where('campaigns.status', '=', 'activated')
+            ->where(function ($query) {
+                $query->where('campaign_influencer_points.status', 'invited')
+                    ->orWhere('campaign_influencer_points.status', 'invited_accepted')
+                    ->orWhere('campaign_influencer_points.status', 'invited_declined');
+            })
             ->with(array('gifts' => function($query){
                 $query->select('name', 'campaign_id', 'id', 'is_main');
                 $query->where('is_main', '=', 1);
             }))
-            ->select('campaigns.name',
+            ->select(
+                'campaigns.name',
                 'campaigns.id',
                 'campaigns.product_price',
                 'campaigns.conditions',
                 'campaigns.end_campaign',
                 'campaigns.end_points',
+                'campaign_influencer_points.status',
+                'campaign_influencer_points.user_id',
                 'campaign_influencer_points.campaign_id',
                 'campaign_influencer_points.all_points',
                 'campaign_influencer_points.checked_points'
             )
-            ->where('campaigns.status', '=', 'activated')
-            ->where(function($query) {
-                $query->where('campaign_influencer_points.status', 'invited');
-
-            })->orWhere(function($query) {
-                $query->where('campaign_influencer_points.status', 'invited_accepted');
-
-            })->orWhere(function($query) {
-                $query->where('campaign_influencer_points.status', 'invited_declined');
-
-            })
-            ->where('campaign_influencer_points.user_id', '=', Auth::id())
             ->get();
 
         if(sizeof($campaigns) !== 0) {
@@ -162,12 +159,21 @@ class CampaignController extends CommonCampaignController
 
     protected function campaignInfluencerBonusLinks()
     {
-        $campaigns_influencer = Influencer::find(Auth::id())->campaigns()->select('campaigns.id', 'campaigns.name', 'campaigns.status')->get();
+        $campaigns_influencer = Influencer::find(Auth::id())
+            ->campaigns()
+            ->select('campaigns.id', 'campaigns.name', 'campaigns.status')
+            ->get();
         $links = [];
 
         foreach ($campaigns_influencer as $campaign){
             if($campaign->status === 'activated'){
-                array_push($links, ['links' => Campaign::find($campaign->id)->influencer_campaign_bonus_links()->get(), 'campaign' => $campaign]);
+                array_push($links, [
+                    'links' => Campaign::find($campaign->id)
+                        ->influencer_campaign_bonus_links()
+                        ->where('influencer_campaign_bonus_links.user_id', $campaign->pivot->user_id)
+                        ->get(),
+                    'campaign' => $campaign
+                ]);
             }
         }
 

@@ -18,7 +18,13 @@ class Influencer extends User
         'phone',
         'brand',
         'avatar',
+        'star',
     ];
+
+    public static function influencers()
+    {
+        return self::where('user_role', 'influencer');
+    }
 
     public function gift_user()
     {

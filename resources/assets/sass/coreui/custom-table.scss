@@ -170,6 +170,12 @@ table.table td, table th, table tr{
    }
  }
 
+ .influencers {
+   .photo_influencer_table {
+     max-width: initial !important;
+   }
+ }
+
 .fa.fa-star {
   margin: 0 3px;
   color: #D8D8D8;

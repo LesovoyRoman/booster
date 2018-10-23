@@ -69,7 +69,7 @@ class CampaignController extends Controller
         $field_id_owner = 'id_owner';
         array_push($fields, $field_id_owner);
 
-        $campaignsFields = Campaign::get($fields);
+        $campaignsFields = Campaign::where('campaigns.status', '!=', 'stopped')->get($fields);
         return $campaignsFields;
     }
 

@@ -1,10 +1,12 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper influencers">
         <div class="animated fadeIn">
             <b-row>
                 <b-col sm="12" md="12">
                     <h2 class="h2">{{ header }}</h2>
                 </b-col>
+
+                <loading v-if="loading" style="position: fixed; z-index: 9999; left: 0; top: 0; height: 100%; width: 100%; background: rgba(2,2,2,0.70);"></loading>
 
                 <b-col
                         sm="12"
@@ -86,7 +88,7 @@
                                 :per-page="perPage">
                             <template slot="name" slot-scope="data">
                                 <div class="photo_influencer-block">
-                                    <i class="fa fa-star star_active star_influencer" v-if="data.item.star === 'star'"></i>
+                                    <i class="fa fa-star star_active star_influencer" v-if="data.item.star === 1"></i>
                                     <keep-alive><img :src="data.item.photo" alt="photo_influencer" class="photo_influencer_table"></keep-alive>
                                 </div>
                                 <div class="influencer-name-block">
@@ -96,7 +98,8 @@
                             </template>
                             <template slot="channels" slot-scope="data">
                                 <div class="icons_influencer">
-                                    <i v-for="itemIcon in data.item.channels" :class="'fa fa-' + itemIcon"></i>
+                                    <i v-for="itemIcon in data.item.channels" :class="'fa fa-' + itemIcon.name"></i>
+                                    <span v-for="item in data.item.channels">{{ item.name }}</span>
                                 </div>
                             </template>
                             <template slot="influence" slot-scope="data">
@@ -105,8 +108,8 @@
                             <template slot="auditory" slot-scope="data">
                                 <span class="showsTableCards">Auditory:</span> {{ data.item.auditory }}
                             </template>
-                            <template slot="age" slot-scope="data">
-                                <span class="showsTableCards">Age:</span> {{ data.item.age }}
+                            <template slot="birth_date" slot-scope="data">
+                                <span class="showsTableCards">Birth date:</span> {{ data.item.birth_date }}
                             </template>
                             <template slot="sendOffer" justified="center" slot-scope="row">
                                 <b-button :variant="'primary'" @click="prepareSendOffer(row)" class="sendOffer">Send offer</b-button>
@@ -137,7 +140,10 @@
 
             <h5>for participationg in</h5>
             <form id="form_sendOffer">
-                <b-form-select dark v-model="chosenCampaignOffer" :options="campaignsForOffer"></b-form-select>
+                <b-form-select dark v-model="chosenCampaignOffer">
+                    <option :value="null" disabled>Choose the campaign</option>
+                    <option v-for="(campaign, index) in campaigns" :value="campaign.id">{{ campaign.name }}</option>
+                </b-form-select>
                 <b-btn :variant="'primary'" @click="sendRequest(chosenInfluencer)" class="sendOfferModal">Send offer</b-btn>
             </form>
 
@@ -146,12 +152,17 @@
 </template>
 
 <script>
+    import Loading from 'vue-loading-spinner/src/components/Circle8'
     let vm = {};
 
     export default {
         name: 'Influencers',
+        components: {
+            Loading
+        },
         data() {
             return {
+                loading: false,
                 header: 'Influencers',
                 filterChannels: null,
                 influencer_topic: null,
@@ -160,13 +171,13 @@
                 influencersCards: false,
                 chosenInfluencer: {},
 
+                // @change it !
+                optionsInfluenceLanguages: [],
+                optionsInflueceChannels: [],
+                optionsTopics: [],
 
-                optionsInfluenceLanguages: ['Russian', 'English'],
-                optionsInflueceChannels: ['twitter', 'facebook', 'youtube', 'behance'],
-                optionsTopics: ['Wizard', 'Fashion', 'Nature'],
-
-                campaignsForOffer: ['Snacks', 'Cheese'],
-                chosenCampaignOffer: 'Snacks',
+                campaigns: [],
+                chosenCampaignOffer: null,
 
                 checkbox_group: {},
                 currentPage: 1,
@@ -184,19 +195,9 @@
                 sortDesc: false,
                 sortDirection: 'asc',
 
-                influencers: [
-                    { id: 1, photo: 'images/6.jpg', name: 'Harry Potter', type: 'Wizard', channels: ['twitter', 'facebook', 'youtube'], auditory: 5000000, age: '18-60', influence: 75, star: 'star', lang: 'Russian' },
-                    { id: 2, photo: 'images/7.jpg', name: 'Ron Weasley', type: 'Wizard', channels: ['twitter', 'youtube'], auditory: 500000, age: '20-50', influence: 60, star: '', lang: 'English' },
-                    { id: 3, photo: 'images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: 'star', lang: 'Russian' },
-                    { id: 4, photo: 'images/6.jpg', name: 'Harry Potter', type: 'Wizard', channels: ['twitter', 'facebook', 'youtube'], auditory: 5000000, age: '18-60', influence: 75, star: 'star', lang: 'English' },
-                    { id: 5, photo: 'images/7.jpg', name: 'Ron Weasley', type: 'Wizard', channels: ['twitter', 'youtube'], auditory: 500000, age: '20-50', influence: 60, star: '', lang: 'English' },
-                    { id: 6, photo: 'images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: 'star', lang: 'Russian' },
-                    { id: 7, photo: 'images/6.jpg', name: 'Harry Potter', type: 'Wizard', channels: ['twitter', 'facebook', 'youtube'], auditory: 5000000, age: '18-60', influence: 75, star: 'star', lang: 'English' },
-                    { id: 8, photo: 'images/7.jpg', name: 'Ron Weasley', type: 'Wizard', channels: ['twitter', 'youtube'], auditory: 500000, age: '20-50', influence: 60, star: '', lang: 'English' },
-                    { id: 9, photo: 'images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: 'star', lang: 'Russian' },
-                    { id: 10, photo: 'images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: 'star', lang: 'English' },
-                    { id: 11, photo: 'images/8.jpg', name: 'Drako Malfoy', type: 'Fashion', channels: ['facebook'], auditory: 100500, age: '20-50', influence: 50, star: 'star', lang: 'English' },
-                ],
+                dataRequst: {fields: ['id', 'name']},
+
+                influencers: [],
                 fields: [
                     /*{ key: 'star', sortable: true, 'class': 'star_influencer table_label_hidden' },*/
                     { key: 'name', sortable: true, 'class': 'name_influncer' },
@@ -204,15 +205,33 @@
                     /*{ key: 'type', sortable: true, 'class': 'type_influencer' },*/
                     { key: 'channels', sortable: false, 'class': 'channels_influencer' },
                     { key: 'auditory', sortable: true, 'class':'auditory_influencer' },
-                    { key: 'age', sortable: true, 'class':'auditory_age_influencer' },
+                    { key: 'birth_date', sortable: true, 'class':'auditory_age_influencer' },
                     { key: 'influence', sortable: true, 'class': 'influence_influencer' },
                     { key: 'sendOffer', label: '', 'class': 'table_label_hidden'},
-
                 ]
             }
         },
         created() {
             vm = this;
+            this.loading = true;
+            axios.post('/getInfluencersPerformer').then(response => {
+                this.influencers = response.data.influencers;
+                this.getOptions();
+                console.log(this.influencers);
+                axios.post('/getAllCampaigns', vm.dataRequst).then(response => {
+                    this.loading = false;
+                    if(response.data.campaigns instanceof Array) {
+                        this.campaigns = response.data.campaigns
+                    }
+                }).catch( err => {
+                    this.loading = false;
+                    console.log(err.message)
+                })
+            }).catch(err => {
+                this.loading = false;
+                console.log(err)
+            });
+
         },
         methods: {
             filterMedia(val){
@@ -228,14 +247,29 @@
             closeModal: function () {
                 this.$refs.modalOffer.hide();
             },
-            sendRequest(item){
-                this.influencers.splice(item.index, 1);
-                this.$refs.modalOffer.hide();
+            sendRequest(){
+                vm.loading = true;
+                axios.post('/sendOfferInfluencer', {
+                    influencer_id: this.chosenInfluencer.id,
+                    campaign_id: this.chosenCampaignOffer,
+                }).then(response => {
+                    this.clearChoseInfluencer();
+                    this.$refs.modalOffer.hide();
+                    vm.loading = false;
+                }).catch(err => {
+                    this.$refs.modalOffer.hide();
+                    vm.loading = false;
+                    console.log(err)
+                })
             },
             prepareSendOffer: function(row) {
                 vm.sendTo = row.item.name;
-                vm.chosenInfluencer = row;
+                vm.chosenInfluencer = row.item;
                 this.$refs.modalOffer.show();
+            },
+            clearChoseInfluencer(){
+                vm.chosenInfluencer = {};
+                vm.sendTo = '';
             },
             onFiltered (filteredItems) {
                 // Trigger pagination to update the number of buttons/pages due to filtering
@@ -255,6 +289,8 @@
             select: function() {
                 vm.allSelected = false;
             },
+
+            // @ REMAKE IT !!!
             filtered (arrays, topic, channel, lang) {
                 if(topic === null && channel === null && lang === null) {
                     this.getRowCount(this.influencers);
@@ -370,6 +406,26 @@
                     }
                 }
             },
+            getOptions(){
+                this.influencers.forEach(function(item){
+                    item.channels.forEach(function(item){
+                        // channels
+                        if(!vm.optionsInflueceChannels.includes(item.name)) {
+                            vm.optionsInflueceChannels.push(item.name);
+                        }
+                        // topics
+                        if(!vm.optionsTopics.includes(item.topic)) {
+                            vm.optionsTopics.push(item.topic);
+                        }
+                    })
+                    // languages
+                    if(!vm.optionsInfluenceLanguages.includes(item.chosen_lang)) {
+                        vm.optionsInfluenceLanguages.push(item.chosen_lang);
+                    }
+                })
+            },
+
+            // @CHECK IT !!!
             getRowCount (items, topic, channel, lang) {
                 if(topic === null && channel === null && lang === null) {
                     return items.length

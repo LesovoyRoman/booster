@@ -29,6 +29,9 @@ Route::group(['middleware' => 'roleExists'], function () {
 
 // Performer
 Route::group(['middleware' => 'isPerformer'], function (){
+    // Influencers
+    Route::post('/getInfluencersPerformer', 'Performer\Campaign\CampaignController@getInfluencers');
+
     // Campaigns
     Route::post('/createNewCampaign', 'Performer\Campaign\CampaignController@addCampaign');
     Route::post('/updateCampaign', 'Performer\Campaign\CampaignController@updateCampaign');
@@ -42,6 +45,9 @@ Route::group(['middleware' => 'isPerformer'], function (){
     // User
     Route::post('/currentPerformerGetData', 'Performer\PerformerController@getCurrentPerformer');
     Route::post('/currentPerformerSetData', 'Performer\PerformerController@updatePerformer');
+
+    // Send Offer Influencer
+    Route::post('/sendOfferInfluencer', 'Performer\Campaign\CampaignController@sendOfferToInfluencer');
 });
 
 // Influencer

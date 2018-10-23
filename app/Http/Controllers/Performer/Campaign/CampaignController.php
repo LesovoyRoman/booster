@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Image;
 use App\Http\Controllers\Helpers\StringHelper;
+use App\Models\Influencer;
 
 class CampaignController extends CommonCampaignController
 {
@@ -213,11 +214,33 @@ class CampaignController extends CommonCampaignController
                     return response()->json(['response' => 'Campaign updated successfully'], 200);
                 }
             }
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json(['exception' => $e->getMessage()], 111);
         }
     }
 
-    
+    public function getInfluencers()
+    {
+        $influencers = Influencer::influencers()->with('channels')->get();
+        return response()->json(['influencers' => $influencers]);
+    }
+
+    // @TODO need to be checked if influencer already invited !!!
+    public function sendOfferToInfluencer(Request $request)
+    {
+        try {
+            $influencer = Influencer::find($request['influencer_id']);
+            $influencer->campaigns()->attach($request['campaign_id'], array('status' => 'invited'));
+            $influencer->campaign_influencer_points()
+                ->attach($request['campaign_id'], array('status' => 'invited', 'all_points' => 0, 'checked_points' => 0));
+        } catch (\Exception $e) {
+            return response()->json(['exception' => $e->getMessage()], 111);
+        }
+
+        // @todo remake it (model cache needs reboot for seeing changes)
+        $update_campaign = Campaign::find($request['campaign_id']);
+        $update_campaign->save();
+
+        return response()->json(['response' => 'success'], 200);
+    }
 }

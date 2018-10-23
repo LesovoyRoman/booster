@@ -149,29 +149,17 @@
                 actionURI: '/register',
                 auth: this.$root.authenticated,
 
-                topics: [
-                    
-                ],
+                topics: [],
 
-                auditories_age_from: [
-                   
-                ],
+                auditories_age_from: [],
 
-                auditories_age_to: [
-                    
-                ],
+                auditories_age_to: [],
 
-                channels: [
+                channels: [],
 
-                ],
+                languages: [],
 
-                languages: [
-
-                ],
-
-                auditories: [
-                    
-                ],
+                auditories: [],
 
                 picturesBg: [
                     { path: '/images/bgregister1.png'},
@@ -259,7 +247,10 @@
             axios.post('/getConfigEnums').then(response => {
                 this.channels = response.data.enums.channels;
                 this.languages = response.data.enums.languages;
-                this.auditories = response.data.enums.languages
+                this.auditories = response.data.enums.languages;
+                this.auditories_age_from = response.data.enums.auditories_age_from;
+                this.auditories_age_to = response.data.enums.auditories_age_to;
+                this.topics = response.data.enums.topics;
             })
         },
         updated(){
