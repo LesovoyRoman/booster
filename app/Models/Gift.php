@@ -36,7 +36,7 @@ class Gift extends ModelBase
     }
 
     public function images()
-    {
+    { // @todo rendering vue's only the first image (fix it)
         return $this->hasMany('App\Models\Image', 'gift_id', 'id');
     }
 }

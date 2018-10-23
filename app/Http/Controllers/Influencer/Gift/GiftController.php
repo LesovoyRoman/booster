@@ -52,7 +52,7 @@ class GiftController extends CommonGiftController
                     $query->select('gift_id', 'campaign_id', 'id', 'is_logo', 'is_avatar', 'image_path'); // image data
                 })
                 ->select('gift_user.id as gift_user_id', 'gift_user.status as gift_user_status', 'gift_user.code as gift_user_code',
-                    'gifts.id', 'gifts.name', 'gifts.points', 'gifts.in_stock', 'gifts.is_main', 'gifts.campaign_id') // gift_user, images, gifts datas
+                    'gifts.id', 'gifts.name', 'gifts.created_at', 'gifts.points', 'gifts.in_stock', 'gifts.is_main', 'gifts.campaign_id') // gift_user, images, gifts datas
                 ->get();
         }
     }

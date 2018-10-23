@@ -89,7 +89,10 @@
                             <template slot="name" slot-scope="data">
                                 <div class="photo_influencer-block">
                                     <i class="fa fa-star star_active star_influencer" v-if="data.item.star === 1"></i>
-                                    <keep-alive><img :src="data.item.photo" alt="photo_influencer" class="photo_influencer_table"></keep-alive>
+                                    <keep-alive>
+                                        <img v-if="data.item.images.length !== 0" :src="storage_path + '/' + data.item.images[0].image_path" alt="photo" class="photo_influencer_table">
+                                        <img v-else :src="storage_path + '/' + noimage" alt="photo" class="photo_influencer_table">
+                                    </keep-alive>
                                 </div>
                                 <div class="influencer-name-block">
                                     <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, idInfluencer: id, campaign_name: '' } }"><span class="link_influencer">{{ data.item.name }}</span></router-link>
@@ -109,7 +112,7 @@
                                 <span class="showsTableCards">Auditory:</span> {{ data.item.auditory }}
                             </template>
                             <template slot="birth_date" slot-scope="data">
-                                <span class="showsTableCards">Birth date:</span> {{ data.item.birth_date }}
+                                <span class="showsTableCards" v-if="data.item.birth_date">Birth date:</span> {{ data.item.birth_date }}
                             </template>
                             <template slot="sendOffer" justified="center" slot-scope="row">
                                 <b-button :variant="'primary'" @click="prepareSendOffer(row)" class="sendOffer">Send offer</b-button>
@@ -179,6 +182,9 @@
                 campaigns: [],
                 chosenCampaignOffer: null,
 
+                storage_path: '',
+                noimage: 'images/noimage.jpg',
+
                 checkbox_group: {},
                 currentPage: 1,
                 perPage    : 10,
@@ -199,10 +205,7 @@
 
                 influencers: [],
                 fields: [
-                    /*{ key: 'star', sortable: true, 'class': 'star_influencer table_label_hidden' },*/
                     { key: 'name', sortable: true, 'class': 'name_influncer' },
-                    /*{ key: 'photo', sortable: false, 'class': 'photo_influncer' },*/
-                    /*{ key: 'type', sortable: true, 'class': 'type_influencer' },*/
                     { key: 'channels', sortable: false, 'class': 'channels_influencer' },
                     { key: 'auditory', sortable: true, 'class':'auditory_influencer' },
                     { key: 'birth_date', sortable: true, 'class':'auditory_age_influencer' },
@@ -213,6 +216,7 @@
         },
         created() {
             vm = this;
+            this.storage_path = this.$root.storage_path;
             this.loading = true;
             axios.post('/getInfluencersPerformer').then(response => {
                 this.influencers = response.data.influencers;

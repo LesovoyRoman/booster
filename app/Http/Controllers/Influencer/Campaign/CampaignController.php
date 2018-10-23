@@ -21,6 +21,7 @@ class CampaignController extends CommonCampaignController
                     'campaigns.conditions',
                     'campaigns.end_campaign',
                     'campaigns.company',
+                    'campaigns.created_at',
                     'campaigns.end_points',
                     'campaign_influencer_points.campaign_id',
                     'campaign_influencer_points.all_points',
@@ -139,6 +140,7 @@ class CampaignController extends CommonCampaignController
                 'campaigns.id',
                 'campaigns.product_price',
                 'campaigns.conditions',
+                'campaigns.created_at',
                 'campaigns.end_campaign',
                 'campaigns.end_points',
                 'campaign_influencer_points.status',
@@ -161,7 +163,7 @@ class CampaignController extends CommonCampaignController
     {
         $campaigns_influencer = Influencer::find(Auth::id())
             ->campaigns()
-            ->select('campaigns.id', 'campaigns.name', 'campaigns.status')
+            ->select('campaigns.id', 'campaigns.name', 'campaigns.created_at', 'campaigns.status')
             ->get();
         $links = [];
 

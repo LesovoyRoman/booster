@@ -221,7 +221,14 @@ class CampaignController extends CommonCampaignController
 
     public function getInfluencers()
     {
-        $influencers = Influencer::influencers()->with('channels')->get();
+        $influencers = Influencer::influencers()
+            ->with('channels')
+            ->with('Images')
+            /*->where(function ($query){ // images datas
+                $query->select('images.user_id', 'images.id', 'images.is_logo', 'images.is_avatar', 'images.image_path')
+                ->where('images.is_avatar', 1);
+            })*/
+            ->get();
 
         if(sizeof($influencers) !== 0) {
             return response()->json(['influencers' => $influencers], 200);

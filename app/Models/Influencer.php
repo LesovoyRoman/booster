@@ -26,6 +26,11 @@ class Influencer extends User
         return self::where('user_role', 'influencer');
     }
 
+    public function images()
+    { // @todo rendering vue's only the first image (fix it)
+        return $this->hasMany('App\Models\Image', 'user_id', 'id');
+    }
+
     public function gift_user()
     {
         return $this->belongsToMany('App\Models\Gift', 'gift_user', 'user_id', 'gift_id')

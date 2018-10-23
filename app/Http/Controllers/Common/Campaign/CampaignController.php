@@ -42,6 +42,7 @@ class CampaignController extends Controller
                         'campaigns.id',
                         'campaigns.product_price',
                         'campaigns.conditions',
+                        'campaigns.created_at',
                         'campaigns.end_campaign',
                         'campaigns.end_points',
                         'campaign_user.user_id as campaign_user_id',

@@ -214,7 +214,7 @@
                 sortDesc: false,
                 sortDirection: 'asc',
 
-                campaigns: ['Snacks', 'Cheese'],
+                campaigns: [],
 
                 gifts: [],
 
