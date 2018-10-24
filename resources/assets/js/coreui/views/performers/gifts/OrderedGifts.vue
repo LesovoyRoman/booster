@@ -57,9 +57,15 @@
                                     <template slot="points" slot-scope="data">
                                         {{ data.item.points }} <span class="showsTableCards">points</span>
                                     </template>
+                                    <template slot="influencer" slot-scope="data">
+                                        {{ data.item.influencer_name }}
+                                    </template>
+                                    <template slot="phone" slot-scope="data">
+                                        {{ data.item.influencer_phone }}
+                                    </template>
                                     <template slot="status" slot-scope="data">
                                         <div>
-                                            <select name="" id="" class="form-control custom-select" v-model="data.item.status" @change="changeStatusGift(data.item.id, data.item.status).then(function(response) { data.item.status = response }).catch(function(err){  })">
+                                            <select name="" id="" class="form-control custom-select" v-model="data.item.status" @change="changeStatusGift(data.item.code, data.item.status).then(function(response) { data.item.status = response }).catch(function(err){  })">
                                                 <option v-for="status in statuses" :value="status">{{ status }}</option>
                                             </select>
                                         </div>
@@ -120,9 +126,15 @@
                                     <template slot="points" slot-scope="data">
                                         {{ data.item.points }} <span class="showsTableCards">points</span>
                                     </template>
+                                    <template slot="influencer" slot-scope="data">
+                                        {{ data.item.influencer_name }}
+                                    </template>
+                                    <template slot="phone" slot-scope="data">
+                                        {{ data.item.influencer_phone }}
+                                    </template>
                                     <template slot="status" slot-scope="data">
                                         <div>
-                                            <select name="" class="form-control custom-select" v-model="data.item.status" @change="changeStatusGift(data.item.id, data.item.status).then(function(response) { data.item.status = response }).catch(function(err){  })">
+                                            <select name="" class="form-control custom-select" v-model="data.item.status" @change="changeStatusGift(data.item.code, data.item.status).then(function(response) { data.item.status = response }).catch(function(err){  })">
                                                 <option v-for="status in statuses" :value="status">{{ status }}</option>
                                             </select>
                                         </div>
@@ -183,6 +195,12 @@
                                     <template slot="points" slot-scope="data">
                                         {{ data.item.points }} <span class="showsTableCards">points</span>
                                     </template>
+                                    <template slot="influencer" slot-scope="data">
+                                        {{ data.item.influencer_name }}
+                                    </template>
+                                    <template slot="phone" slot-scope="data">
+                                        {{ data.item.influencer_phone }}
+                                    </template>
                                 </b-table>
 
                                 <nav>
@@ -238,6 +256,12 @@
                                     </template>
                                     <template slot="points" slot-scope="data">
                                         {{ data.item.points }} <span class="showsTableCards">points</span>
+                                    </template>
+                                    <template slot="influencer" slot-scope="data">
+                                        {{ data.item.influencer_name }}
+                                    </template>
+                                    <template slot="phone" slot-scope="data">
+                                        {{ data.item.influencer_phone }}
                                     </template>
                                 </b-table>
 
@@ -317,7 +341,8 @@
             vm = this;
             this.storage_path = this.$root.storage_path;
             this.loading = true;
-            axios.post('/getAllGifts').then(response => {
+            axios.post('/getOrderedGifts').then(response => {
+                console.log(response);
                 this.loading = false;
                 if(response.data.gifts instanceof Array) {
                     this.gifts = response.data.gifts
@@ -331,10 +356,10 @@
             })
         },
         methods: {
-            changeStatusGift(id, statusItem){
+            changeStatusGift(code, statusItem){
                 this.loading = true;
                 return axios.post('/changeStatusGift', {
-                    id_gift: id,
+                    code_gift: code,
                     new_status: statusItem
                 }).then(response => {
                     this.loading = false;
@@ -344,18 +369,18 @@
                             title: 'Changed successfully!',
                             text : response.data.new_status,
                         })
-                        return response.data.new_status;
+                        return response.data.status;
                     }
                     if (response.status === 206) {
                         vm.$notify({
                             type:  'danger',
                             title: 'Error',
-                            text : response.data.response,
+                            text : response.data.errors,
                         })
                         return false
                     }
                 }).catch(err => {
-                    reject(err)
+                    console.log(err)
                     this.loading = false;
                 })
             },

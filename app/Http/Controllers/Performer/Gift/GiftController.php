@@ -179,5 +179,23 @@ class GiftController extends CommonGiftController
         }
     }
 
+    protected function getOrderedGifts()
+    {
+        return parent::getAllGifts(true);
+    }
+
+    protected function changeStatusGift(Request $request)
+    {
+        try {
+            $gift_user = DB::table('gift_user')
+                ->where('code', '=', $request['code_gift'])
+                ->update(['status' => $request['new_status']]);
+
+            return response()->json(['status' => $request['new_status']], 200);
+        } catch (\Exception $e){
+            return response()->json(['errors' => $e->getMessage()], 206);
+        }
+
+    }
 
 }
