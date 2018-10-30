@@ -44,7 +44,7 @@ class CampaignController extends CommonCampaignController
                 'end_campaign'      => 'max:255',
             ]);
             if ($validator->fails()) {
-                return response()->json(['errors'=>$validator->errors()]);
+                return response()->json(['errors' => $validator->errors()], 206);
             } else {
                 if($type == 'create') {
                     return $this->create($data, $file);
@@ -70,12 +70,11 @@ class CampaignController extends CommonCampaignController
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['errors'=>$validator->errors()]);
+                return response()->json(['errors' => $validator->errors()], 206);
             } else {
                 if($type == 'create') {
                     return $this->create($data, $file);
                 } else {
-                    echo 'return true';
                     return true;
                 }
             }
@@ -170,12 +169,12 @@ class CampaignController extends CommonCampaignController
             $request->file ? $file = $request->file : $file = null;
             $type = 'update';
 
-            if(!$this->validator($request->all(), $file, $type)) {
+            $validate = $this->validator($request->all(), $file, $type);
 
+            if($validate !== true) {
+                return $validate;
             } else {
-
                 $campaign->name = request('name');
-
                 request('allCities') ? $campaign->city = 'all' : $campaign->city = request('city');
                 request('allCountries') ? $campaign->country = 'all' : $campaign->country = request('country');
                 $campaign->end_campaign = request('end_campaign');
@@ -191,7 +190,6 @@ class CampaignController extends CommonCampaignController
                 $campaign->product_price = request('product_price');
                 $campaign->currency = request('currency');
                 $campaign->points = $campaign->points ? $campaign->points : 0;
-
                 $campaign->save();
 
                 $campaignId = $request['id'];

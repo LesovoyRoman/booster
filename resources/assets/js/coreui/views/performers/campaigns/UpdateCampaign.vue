@@ -368,13 +368,9 @@
                 }
                 //formData.append('data', this.campaign);
                 axios.post('/updateCampaign', formData).then(response => {
-                    console.log(response);
                     this.loading = false;
-                    if(response.status === 200) {
+                    if(response.status === 200 && !response.data.errors) {
                         vm.$swal( 'Congratulates:', 'You have updated campaign!', 'success')
-                    }
-                    if (response.status === 206){
-                        alert(response.data.exception)
                     }
                     if(response.data.errors) {
                         let strErrors = '';
