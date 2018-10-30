@@ -1,3 +1,15 @@
+## Usage
+
+<p>1) Config            -> Edit: .env config file</p>
+<p>2) Dependincies      -> Console: composer install</p>
+<p>3) Migrations        -> Console: php artisan migrate</p>
+<p>4) Seeds             -> Console: php artisan db:seed</p>
+<p>5) Npm               -> Console: npm i</p>
+<p>6) Npm               -> Console: npm run production \ dev \ watch</p>
+<p>7) Laravel Passport  -> Console: php artisan passport:install or php artisan passport:keys</p>
+<p>8) Open project      -> Console: php artisan serve \ php artisan serve --port=3333</p>
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
