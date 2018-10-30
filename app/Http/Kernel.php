@@ -51,7 +51,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'auth' => \Illuminate\Auth\Middleware\Authenticate::class, // default
+        //'milti_auth' => \SMartins\PassportMultiauth\Http\Middleware\MultiAuthenticate::class, // @todo doesn't work
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -65,5 +66,6 @@ class Kernel extends HttpKernel
         'isPerformer' => \App\Http\Middleware\isPerformer::class,
         'isInfluencer' => \App\Http\Middleware\isInfluencer::class,
         'roleExists' => \App\Http\Middleware\roleExists::class,
+        'oauth.providers' => \SMartins\PassportMultiauth\Http\Middleware\AddCustomProvider::class,
     ];
 }

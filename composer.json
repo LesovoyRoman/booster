@@ -11,8 +11,10 @@
         "genealabs/laravel-model-caching": "^0.3.1",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.6.*",
+        "laravel/passport": "^7.0",
         "laravel/tinker": "^1.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "smartins/passport-multiauth": "^4.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

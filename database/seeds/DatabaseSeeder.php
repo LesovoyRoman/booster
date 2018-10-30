@@ -37,6 +37,9 @@ class DatabaseSeeder extends Seeder
             $this->call(CampaignUser::class);
             $this->command->info('campaign_user seeded!');
 
+            $this->call(LaravelOauthPassportClient::class);
+            $this->command->info('oauth_client seeded!');
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
     }
