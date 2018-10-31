@@ -40,6 +40,7 @@ class CampaignController extends Controller
                     }))
                     ->select('campaigns.name',
                         'campaigns.id',
+                        'campaigns.status',
                         'campaigns.product_price',
                         'campaigns.conditions',
                         'campaigns.created_at',
@@ -47,7 +48,7 @@ class CampaignController extends Controller
                         'campaigns.end_points',
                         'campaign_user.user_id as campaign_user_id',
                         'campaign_user.status as campaign_user_status')
-                    ->where('campaigns.status', '=', 'activated')
+                    ->where('campaigns.status', '!=', 'stopped')
                     ->get();
             }
 
@@ -76,11 +77,12 @@ class CampaignController extends Controller
     
     public static function getOnlyFieldsCampaigns($fields)
     {
-        // added field id_owner for searching
+        // added field id_owner & status for searching
         $field_id_owner = 'id_owner';
-        array_push($fields, $field_id_owner);
+        $field_status = 'status';
+        array_push($fields, $field_id_owner, $field_status);
 
-        $campaignsFields = Campaign::where('campaigns.status', '!=', 'stopped')->get($fields);
+        $campaignsFields = Campaign::get($fields)->where('status', '!=', 'stopped');
         return $campaignsFields;
     }
 
