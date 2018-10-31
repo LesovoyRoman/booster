@@ -79,8 +79,8 @@ class GiftController extends CommonGiftController
 
             if($data['is_main'] == true) {
                 $campaign = Campaign::where('id', '=', $data['current_campaign'])->first();
-                if($campaign->status == 'created') {
-                    $campaign->status = 'activated';
+                if($campaign->status == config('statusCampaign.status_campaign_created')) {
+                    $campaign->status = config('statusCampaign.status_campaign_to_be_shown');
                     $campaign->save();
                 }
             }
@@ -145,8 +145,8 @@ class GiftController extends CommonGiftController
 
             if($gift->is_main === 1) {
                 $campaign = Campaign::where('id', '=', $gift->campaign_id)->first();
-                if($campaign->status == 'created') {
-                    $campaign->status = 'activated';
+                if($campaign->status == config('statusCampaign.status_campaign_created')) {
+                    $campaign->status = config('statusCampaign.status_campaign_to_be_shown');
                     $campaign->save();
                 }
             }

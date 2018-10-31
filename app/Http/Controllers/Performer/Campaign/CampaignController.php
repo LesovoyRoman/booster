@@ -107,7 +107,7 @@ class CampaignController extends CommonCampaignController
                 'end_points'        => $data['end_points'],
                 'end_campaign'      => $data['end_campaign'],
                 'id_owner'          => Auth::id(),
-                'status'            => 'created'
+                'status'            => config('statusCampaign.status_campaign_created')
             ]);
 
             $newCampaignId = DB::table('campaigns')->max('id');
@@ -137,21 +137,21 @@ class CampaignController extends CommonCampaignController
 
         $campaign = Campaign::with('Image')->where('id', '=', $id_campaign)->first();
 
-        if($campaign->status === 'activated') {
+        if($campaign->status === config('statusCampaign.status_campaign_to_be_shown')) {
             try {
-                $campaign->status = 'stopped';
+                $campaign->status = config('statusCampaign.status_campaign_stopped');
                 $campaign->save();
 
-                return response()->json(['response' => 'Status changed to stopped!', 'statusChanged' => 'stopped'], 200);
+                return response()->json(['response' => 'Status changed to stopped!', 'statusChanged' => config('statusCampaign.status_campaign_stopped')], 200);
             } catch (\Exception $e) {
                 return response()->json(['exception' => $e->getMessage()], 111);
             }
-        } else if($campaign->status === 'stopped') {
+        } else if($campaign->status === config('statusCampaign.status_campaign_stopped')) {
             try {
-                $campaign->status = 'activated';
+                $campaign->status = config('statusCampaign.status_campaign_to_be_shown');
                 $campaign->save();
 
-                return response()->json(['response' => 'Status changed to activated!', 'statusChanged' => 'activated'], 200);
+                return response()->json(['response' => 'Status changed to activated!', 'statusChanged' => config('statusCampaign.status_campaign_to_be_shown')], 200);
             } catch (\Exception $e) {
                 return response()->json(['exception' => $e->getMessage()], 111);
             }

@@ -7,27 +7,28 @@ use Illuminate\Http\Request;
 use App\Models\Influencer;
 use App\Http\Controllers\Common\Campaign\CampaignController as CommonCampaignController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\In;
 
 class CampaignController extends CommonCampaignController
 {
     protected function influencerCampaignsPoints()
     {
-        $user = Influencer::find(Auth::id());
-
-            $campaigns = $user->campaign_influencer_points()
+            $campaigns = Influencer::find(Auth::id())
+                ->campaign_influencer_points()
                 ->select('campaigns.name',
                     'campaigns.id',
                     'campaigns.product_price',
                     'campaigns.conditions',
                     'campaigns.end_campaign',
                     'campaigns.company',
+                    'campaigns.status',
                     'campaigns.created_at',
                     'campaigns.end_points',
                     'campaign_influencer_points.campaign_id',
                     'campaign_influencer_points.all_points',
-                    'campaign_influencer_points.checked_points'
-                    )
-                ->where('campaigns.status', '=', 'activated')
+                    'campaign_influencer_points.checked_points')
+                // @todo i don"t know should we search with status or not !!!
+                //->where('campaigns.status', '=', config('statusCampaign.status_campaign_to_be_shown'))
                 ->where('campaign_influencer_points.user_id', '=', Auth::id())
                 ->get();
 
@@ -125,7 +126,7 @@ class CampaignController extends CommonCampaignController
     {
         $user = Influencer::find(Auth::id());
         $campaigns = $user->campaign_influencer_points()
-            ->where('campaigns.status', '=', 'activated')
+            ->where('campaigns.status', '=', config('statusCampaign.status_campaign_to_be_shown'))
             ->where(function ($query) {
                 $query->where('campaign_influencer_points.status', 'invited')
                     ->orWhere('campaign_influencer_points.status', 'invited_accepted')
@@ -168,7 +169,7 @@ class CampaignController extends CommonCampaignController
         $links = [];
 
         foreach ($campaigns_influencer as $campaign){
-            if($campaign->status === 'activated'){
+            if($campaign->status === config('statusCampaign.status_campaign_to_be_shown')){
                 array_push($links, [
                     'links' => Campaign::find($campaign->id)
                         ->influencer_campaign_bonus_links()

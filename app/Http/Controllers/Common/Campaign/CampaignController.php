@@ -48,7 +48,7 @@ class CampaignController extends Controller
                         'campaigns.end_points',
                         'campaign_user.user_id as campaign_user_id',
                         'campaign_user.status as campaign_user_status')
-                    ->where('campaigns.status', '!=', 'stopped')
+                    ->where('campaigns.status', '=', config('statusCampaign.status_campaign_to_be_shown'))
                     ->get();
             }
 
@@ -82,7 +82,7 @@ class CampaignController extends Controller
         $field_status = 'status';
         array_push($fields, $field_id_owner, $field_status);
 
-        $campaignsFields = Campaign::get($fields)->where('status', '!=', 'stopped');
+        $campaignsFields = Campaign::get($fields)->where('status', '=', config('statusCampaign.status_campaign_to_be_shown'));
         return $campaignsFields;
     }
 
