@@ -27,4 +27,9 @@ class UserApi extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function address()
+    {
+        return $this->hasOne('App\Models\Address', 'user_api_id', 'id');
+    }
 }

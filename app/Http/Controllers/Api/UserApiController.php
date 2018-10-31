@@ -17,7 +17,8 @@ class UserApiController extends Controller
     /** @var $successStatus - request status
      * @var  $authenticator - custom auth class
      *
-     * use token - header "Authorization", type (Bearer)
+     * use 'Authorization': 'Bearer {token code}'
+     * use 'Accept': 'application\json' - to not get http page response
      */
 
     public $successStatus = 200;
@@ -99,7 +100,8 @@ class UserApiController extends Controller
      */
     public function details(Request $request)
     {
-        return response()->json(['user' => $request->user('api')], $this->successStatus);
+        // @todo make 'with('Address')' to work
+        return response()->json(['user' => $request->user('api')->with('Address')], $this->successStatus);
     }
 
     /**

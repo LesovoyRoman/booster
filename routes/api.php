@@ -14,44 +14,36 @@ use Illuminate\Http\Request;
 */
 
 
+
+// Auth
 Route::post('login', 'Api\UserApiController@login');
 Route::post('register', 'Api\UserApiController@register');
 
+/**
+ * User should have auth token
+ */
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::get('/user_api', function( Request $request ){
-        return $request->user('api');
-    });
-    Route::post('/details', 'Api\UserApiController@details');
+    // Auth
     Route::post('/logout', 'Api\UserApiController@logout');
+
+    // User Data
+    Route::get('/details', 'Api\UserApiController@details');
+
+    // Campaigns
+    Route::get('/allCampaigns', 'Api\CampaignController@getAllCampaigns');
+    Route::post('/campaignInfluencers', 'Api\CampaignController@getCampaignInfluencers');
+
+    // Influencers
+    Route::get('/allInfluencers', 'Api\InfluencerController@getAllInfluencers');
+    Route::post('/influencerCampaigns', 'Api\InfluencerController@getInfluencerCampaigns');
 });
 
-
-/*Route::get('/auth/callback', function (Request $request) {
-    $http = new GuzzleHttp\Client;
-
-    $response = $http->post('http://localhost:3333/oauth/token', [
-        'form_params' => [
-            'grant_type' => 'password',
-            'client_id' => '2',
-            'client_secret' => 'O6ggHgVfztWf3jar2VRhiC0G8Ddc6JxPAjRnpoPs',
-            'redirect_uri' => 'http://example.com/callback',
-            'code' => $request->code,
-        ],
-    ]);
-
-    return json_decode((string) $response->getBody(), true);
-});
-
-Route::get('/redirect', function () {
-    $query = http_build_query([
-        'client_id' => '2',
-        'redirect_uri' => 'http://localhost:3333/auth/callback',
-        'response_type' => 'code',
-        'scope' => '',
-    ]);
-
-    return redirect('http://localhost:3333/oauth/authorize?' . $query);
-});*/
+/**
+ * Bad request 400
+ */
+Route::any('{any}', function (){
+    return response()->json(['errors' => 'Unrecognized request'], 400);
+})->where('any', '.*');
 
 
 
