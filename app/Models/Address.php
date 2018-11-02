@@ -6,6 +6,7 @@ class Address extends ModelBase
 {
     protected $fillable = [
         'user_id',
+        'user_api_id',
         'country',
         'city',
         'street',

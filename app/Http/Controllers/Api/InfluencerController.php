@@ -4,14 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Influencer;
-use App\Http\Controllers\Controller;
 
-class InfluencerController extends Controller
+class InfluencerController extends ApiController
 {
-    protected $statusNotFound = 204;
-    protected $statusSuccess = 200;
-    protected $statusServerError = 500;
-
     /**
      * get all influencer with relations
      *
@@ -29,7 +24,7 @@ class InfluencerController extends Controller
             return response()->json(['influencers' => $influencers], $this->statusSuccess);
         } else {
             $response = 'Influencers not found';
-            return response()->json(['errors' => $response], $this->statusNotFound);
+            return response()->json([$this->errorsAtrArray => $response], $this->statusNotFound);
         }
     }
 
@@ -56,16 +51,16 @@ class InfluencerController extends Controller
                 if(count($influencer) !== 0 && count($influencer_campaigns) !== 0) {
                     return response()->json(['influencer_campaigns' => $influencer_campaigns], $this->statusSuccess);
                 } else {
-                    return response()->json(['errors' => [
+                    return response()->json([$this->errorsAtrArray => [
                         'influencer_campaigns' => $influencer_campaigns,
-                        'message' => 'Influencer or Campaigns not found']
+                        $this->messageAtrArray => 'Influencer or Campaigns not found']
                     ], $this->statusNotFound);
                 }
             }  catch (\Exception $e) {
                 return response()->json(['exception' => $e->getMessage()], $this->statusServerError);
             }
         } else {
-            return response()->json(['errors' => 'Influencer ID not sent'], $this->statusNotFound);
+            return response()->json([$this->errorsAtrArray => 'Influencer ID not sent'], $this->statusNotFound);
         }
     }
 }

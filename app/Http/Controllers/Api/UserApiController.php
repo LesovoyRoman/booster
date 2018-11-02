@@ -4,25 +4,22 @@ namespace App\Http\Controllers\Api;
 
 namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\UserApi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Api\Authenticator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Address;
 
-class UserApiController extends Controller
+class UserApiController extends ApiController
 {
 
-    /** @var $successStatus - request status
+    /**
      * @var  $authenticator - custom auth class
      *
      * use 'Authorization': 'Bearer {token code}'
      * use 'Accept': 'application\json' - to not get http page response
      */
-
-    public $successStatus = 200;
-
     private $authenticator;
 
     public function __construct(Authenticator $authenticator)
@@ -46,53 +43,98 @@ class UserApiController extends Controller
             if( $user = $this->authenticator->attempt($credentials['email'], $credentials['password'], $credentials['provider'])){
                 $token = $user->createToken('My Token')->accessToken;
 
-                return response()->json(['access_token' => $token, 'token_type' => 'Bearer'], $this->successStatus);
+                return response()->json(['access_token' => $token, 'token_type' => 'Bearer'], $this->statusSuccess);
             } else {
-                return response()->json(['error' => 'Unauthorised'], 401);
+                return response()->json([$this->errorsAtrArray => 'Unauthorised'], 401);
             }
         } else {
-            return response()->json(['error' => 'Unauthorised'], 401);
+            return response()->json([$this->errorsAtrArray => 'Unauthorised'], 401);
         }
     }
     /**
-     * Register api
+     * Register user_api + create user's address
      *
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
-        }
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = UserApi::create($input);
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => 'required|email',
+                'password' => 'required',
+                'c_password' => 'required|same:password',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([$this->errorsAtrArray=>$validator->errors()], 401);
+            }
+            $input = $request->all();
 
-        /**
-         * create oauth client (if use oauth)
-         */
-        /*DB::table('oauth_clients')->insert([
-           'user_id'                    => $user->id,
-            'name'                      => 'passport',
-            // @TODO TEMP secret (pass) made by user pass
-            'secret'                    => bcrypt($input['password']),
-            'redirect'                  => 'http://localhost/auth/callback',
-            'personal_access_client'    => 0,
-            'password_client'           => 1,
-            'revoked'                   => 0,
-            'created_at'                => date('Y-m-d H:i:s'),
-            'updated_at'                => date('Y-m-d H:i:s'),
-        ]);*/
-        $success['token'] = $user->createToken('MyApp')->accessToken;
-        $success['name'] = $user->name;
-        return response()->json(['success' => $success], $this->successStatus);
+            $input['password'] = bcrypt($input['password']);
+            $user = UserApi::create($input);
+
+            $success['token'] = $user->createToken('MyApp')->accessToken;
+            $success['name'] = $user->name;
+
+            if(isset($input['country']) && isset($input['city'])){
+                $input['user_api_id'] = $user->id;
+                $address = $this->addAddress(null , $input);
+                if(!isset($address[$this->successAtrArray])) {
+                    return response()->json([
+                        $this->errorsAtrArray => 'User is created, but address not',
+                        $this->responseAtrArray => $success
+                    ], $this->statusSuccess);
+                }
+            }
+
+            return response()->json([$this->successAtrArray => $success], $this->statusSuccess);
+        } catch (\Exception $e){
+            return response()->json([$this->errorsAtrArray => $e->getMessage()], $this->statusServerError);
+        }
     }
+
+
+    /**
+     * Create address of user_api
+     *
+     * @param Request|null $request
+     * @param null $data
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function addAddress(Request $request = null, $data = null)
+    {
+        try {
+            if($request || $data){
+                $request ? $address = $request : $address = $data;
+
+                $success = Address::create([
+                    'user_api_id'   => $address['user_api_id'],
+                    'country'       => $address['country'],
+                    'city'          => $address['city'],
+                    'street'        => isset($address['street']) ? $address['street'] : '',
+                    'home_address'  => isset($address['home_address']) ? $address['home_address'] : '',
+                    'status'        => isset($address['status']) ? $address['status'] : '',
+                    'apartments'    => isset($address['apartments']) ? $address['apartments'] : '',
+                    'zip_code'      => isset($address['zip_code']) ? $address['zip_code'] : '',
+                    'created_at'    => date('Y-m-d H:i:s'),
+                    'updated_ar'    => date('Y-m-d H:i:s')
+                ]);
+
+                if($request) {
+                    return response()->json([$this->successAtrArray => $success], $this->statusSuccess);
+                } else {
+                    return [$this->successAtrArray => $success];
+                }
+
+            } else {
+                return response()->json([$this->errorsAtrArray => 'Address data not sent'], $this->statusNotFound);
+            }
+        } catch (\Exception $e){
+            return response()->json([$this->errorsAtrArray => $e->getMessage()], $this->statusServerError);
+        }
+    }
+
+
     /**
      * details api
      *
@@ -100,8 +142,13 @@ class UserApiController extends Controller
      */
     public function details(Request $request)
     {
-        // @todo make 'with('Address')' to work
-        return response()->json(['user' => $request->user('api')->with('Address')], $this->successStatus);
+        $id_user_api = $request->user('api')->id;
+        $response = $user_api = UserApi::find($id_user_api);
+        if($user_api->address()->count()) {
+            $response = $user_api->address()->get();
+        }
+
+        return response()->json(['user' => $response], $this->statusSuccess);
     }
 
     /**
@@ -114,13 +161,13 @@ class UserApiController extends Controller
         $success = $request->user()->token()->revoke();
         if($success) {
             return response()->json([
-                'message' => 'Successfully logged out',
+                $this->messageAtrArray => 'Successfully logged out',
                 'token_status' => 'Revoked'
-            ], $this->successStatus);
+            ], $this->statusSuccess);
         } else {
             return response()->json([
-                'message' => 'Something went wrong...',
-                'errors'  => 'Token not revoked'
+                $this->messageAtrArray => 'Something went wrong...',
+                $this->errorsAtrArray  => 'Token not revoked'
             ], 401);
         }
     }
