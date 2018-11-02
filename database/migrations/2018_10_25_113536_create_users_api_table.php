@@ -19,6 +19,7 @@ class CreateUsersApiTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('chosen_lang', config('enums.languages'))->default('ru')->nullable();
+            $table->integer('birth_year')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

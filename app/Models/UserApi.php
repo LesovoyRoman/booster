@@ -17,7 +17,7 @@ class UserApi extends Authenticatable
     protected $table = 'users_api';
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'chosen_lang', 'birth_year'
     ];
     /**
      * The attributes that should be hidden for arrays.
