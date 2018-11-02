@@ -66,13 +66,16 @@ class UserApiController extends ApiController
                 'c_password' => 'required|same:password',
             ]);
             if ($validator->fails()) {
-                return response()->json([$this->errorsAtrArray=>$validator->errors()], 401);
+                return response()->json([$this->errorsAtrArray => $validator->errors()], 401);
             }
             $input = $request->all();
 
+            if(UserApi::where('email','=', $input['email'])->count()) {
+                return response()->json([$this->errorsAtrArray => 'User already exists!']);
+            }
+
             $input['password'] = bcrypt($input['password']);
             $user = UserApi::create($input);
-
             $success['token'] = $user->createToken('MyApp')->accessToken;
             $success['name'] = $user->name;
 
