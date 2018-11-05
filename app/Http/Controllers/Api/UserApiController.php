@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
-use App\Models\UserApi;
+use App\Models\Api\UserApi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Api\Authenticator;
@@ -60,19 +60,16 @@ class UserApiController extends ApiController
     {
         try {
             $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'email' => 'required|email',
-                'password' => 'required',
-                'c_password' => 'required|same:password',
+                'name'          => 'required',
+                'email'         => 'required|email|unique:users_api',
+                'password'      => 'required',
+                'c_password'    => 'required|same:password',
+                'birth_year'    => 'integer'
             ]);
             if ($validator->fails()) {
                 return response()->json([$this->errorsAtrArray => $validator->errors()], 401);
             }
             $input = $request->all();
-
-            if(UserApi::where('email','=', $input['email'])->count()) {
-                return response()->json([$this->errorsAtrArray => 'User already exists!']);
-            }
 
             $input['password'] = bcrypt($input['password']);
             $user = UserApi::create($input);

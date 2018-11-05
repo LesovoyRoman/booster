@@ -21,6 +21,6 @@ class Address extends ModelBase
 
     public function user_api()
     {
-        return $this->belongsTo('App\Models\UserApi', 'user_api_id', 'id');
+        return $this->belongsTo('App\Models\Api\UserApi', 'user_api_id', 'id');
     }
 }

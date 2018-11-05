@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Api;
 
 use SMartins\PassportMultiauth\HasMultiAuthApiTokens;
 use Illuminate\Notifications\Notifiable;

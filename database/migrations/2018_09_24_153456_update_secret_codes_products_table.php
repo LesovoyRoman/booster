@@ -18,6 +18,10 @@ class UpdateSecretCodesProductsTable extends Migration
             $table->foreign('campaign_id')->references('id')->on('campaigns')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->integer('user_api_id')->unsigned()->nullable()->after('id');
+            $table->foreign('user_api_id')->references('id')->on('users_api')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
