@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     // Products Codes
     Route::post('/sendSecretCode', 'Api\CodesController@sendCode');
+    Route::post('/sendImageProduct', 'Api\CodesController@sendImage');
 });
 
 /**

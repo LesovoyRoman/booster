@@ -10,7 +10,7 @@ class ImageController extends Controller
 {
 
 
-    static function storeImg($file, $to, $campaign_id = null, $gift_id = null, $type = 'create', $image = null, $avatar = false)
+    static function storeImg($file, $to, $campaign_id = null, $gift_id = null, $type = 'create', $image = null, $avatar = false, $product = 0)
     {
         if($file !== null) {
             try {
@@ -18,22 +18,29 @@ class ImageController extends Controller
 
                 $avatar ? $is_avatar = 1 : $is_avatar = 0;
 
-                if($type == 'create'){
-                    $image = Image::create([
-                        'user_id'       => Auth::id(),
-                        'campaign_id'   => $campaign_id,
-                        'gift_id'       => $gift_id,
-                        'is_avatar'     => $is_avatar,
-                        'is_logo'       => 1,
-                        'image_path'    => substr($path, 6),
-                    ]);
-                } else {
-                    if($image !== null) {
-                        $image->image_path = substr($path, 6);
+                if(Auth::user() || Auth::user('api')){
+                    if($type == 'create'){
+                        $image = Image::create([
+                            'user_id'       => $product === 0 ? Auth::id() : null,
+                            'user_api_id'   => $product === 1 ? Auth::user('api')->id : null,
+                            'campaign_id'   => $campaign_id,
+                            'gift_id'       => $gift_id,
+                            'is_avatar'     => $is_avatar,
+                            'is_logo'       => !$product,
+                            'image_path'    => substr($path, 6),
+                            'product'       => $product
+                        ]);
+                    } else {
+                        if($image !== null) {
+                            $image->image_path = substr($path, 6);
 
-                        $image->save();
+                            $image->save();
+                        }
                     }
+                } else {
+                    return ['errors' => 'Image owner(user) not found.'];
                 }
+
 
                 if($avatar === true){
                     $user = Auth::User();
@@ -41,12 +48,12 @@ class ImageController extends Controller
                     $user->save();
                 }
 
-                return response()->json(['response' => $image, 'idCampaign' => $campaign_id, 'idGift' => $gift_id], 200);
+                return ['response' => $image, 'idCampaign' => $campaign_id, 'idGift' => $gift_id];
             } catch (\Exception $e) {
-                return response()->json(['exception' => $e->getMessage()], 206);
+                return ['exception' => $e->getMessage()];
             }
         } else {
-            return response()->json(['errors' => 'Error, no file.']);
+            return ['errors' => 'Error, no file.'];
         }
     }
 
@@ -65,7 +72,9 @@ class ImageController extends Controller
                 $type = 'update';
             }
 
-            return static::storeImg($file, $to, null, null, $type, $image, $avatar);
+            $store = static::storeImg($file, $to, null, null, $type, $image, $avatar);
+
+            return response()->json(['success' => $store], 200);
         }
     }
 }

@@ -8,14 +8,16 @@ use App\Http\Controllers\Controller;
 class ApiController extends Controller
 {
     /**
-     * @var $statusNotFound -> integer
      * @var $statusSuccess -> integer
+     * @var $statusAccepted -> integer
+     * @var $statusNotFound -> integer
      * @var $statusServerError -> integer
      * @string $successAtrArray -> attribute uses in some responses (success request)
      * @string $errorsAtrArray -> attribute uses in some responses (errors in request)
      * @string $messageAtrArray -> attribute uses in some responses (message after request)
      */
     public $statusSuccess = 200;
+    public $statusAccepted = 202;
     public $statusNotFound = 204;
     public $statusUnauthorized = 401;
     public $statusValidationFailed = 422;

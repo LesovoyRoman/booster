@@ -21,6 +21,7 @@ class CreateImagesTable extends Migration
             $table->boolean('is_logo')->nullable();
             $table->string('image_path', 256)->nullable();
             $table->string('type', 100)->nullable();
+            $table->boolean('product')->default(0);
             $table->timestamps();
         });
     }

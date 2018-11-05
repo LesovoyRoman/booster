@@ -8,6 +8,8 @@ use App\Models\Codes;
 use App\Models\Api\UserApi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\Helpers\StringHelper;
 
 
 class CodesController extends ApiController
@@ -39,6 +41,35 @@ class CodesController extends ApiController
 
             return response()->json([$this->successAtrArray => $success], $this->statusSuccess);
         } catch (\Exception $e){
+            return response()->json([$this->errorsAtrArray => $e->getMessage()], $this->statusServerError);
+        }
+    }
+
+
+    protected function sendImage(Request $request)
+    {
+        try {
+            $request->file ? $file = $request->file : $file = null;
+            if(!$file) return response()->json([$this->errorsAtrArray => 'File not sent'], $this->statusAccepted);
+            if(!$request['campaign_id']) return response()->json([$this->errorsAtrArray => 'Campaign id not sent'], $this->statusAccepted);
+
+            /**
+             * Create path & store product image
+             */
+            $to = StringHelper::translit('public/users_api/user_api_id_' . Auth::user('api')->id . '/products_images/campaign_id_' . $request['campaign_id']);
+            $image = ImageController::storeImg($file, $to, $request['campaign_id'], null, 'create', null, false, 1);
+
+            if($image['response']){
+                /**
+                 * Successfully created image
+                 */
+                return response()->json([$this->successAtrArray => $image], $this->statusSuccess);
+            } else {
+                return response()->json([$this->errorsAtrArray => $image], $this->statusAccepted);
+            }
+
+
+        } catch (\Exception $e) {
             return response()->json([$this->errorsAtrArray => $e->getMessage()], $this->statusServerError);
         }
     }
