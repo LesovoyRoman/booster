@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+/**
+    DO NOT REPLACE ROUTES! (it can lead to unrecognized requests or incorrect working the app)
+ */
+
 
 
 // Auth
@@ -28,6 +32,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     // User Data
     Route::get('/details', 'Api\UserApiController@details');
+    Route::post('/addUserAddress', 'Api\UserApiController@addAddress');
 
     // Campaigns
     Route::get('/allCampaigns', 'Api\CampaignController@getAllCampaigns');
@@ -36,6 +41,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     // Influencers
     Route::get('/allInfluencers', 'Api\InfluencerController@getAllInfluencers');
     Route::post('/influencerCampaigns', 'Api\InfluencerController@getInfluencerCampaigns');
+
+    // Products Codes
+    Route::post('/sendSecretCode', 'Api\CodesController@sendCode');
 });
 
 /**

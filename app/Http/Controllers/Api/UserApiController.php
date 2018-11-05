@@ -45,10 +45,10 @@ class UserApiController extends ApiController
 
                 return response()->json(['access_token' => $token, 'token_type' => 'Bearer'], $this->statusSuccess);
             } else {
-                return response()->json([$this->errorsAtrArray => 'Unauthorised'], 401);
+                return response()->json([$this->errorsAtrArray => 'Unauthorised'], $this->statusUnauthorized);
             }
         } else {
-            return response()->json([$this->errorsAtrArray => 'Unauthorised'], 401);
+            return response()->json([$this->errorsAtrArray => 'Unauthorised'], $this->statusUnauthorized);
         }
     }
     /**
@@ -67,7 +67,7 @@ class UserApiController extends ApiController
                 'birth_year'    => 'integer'
             ]);
             if ($validator->fails()) {
-                return response()->json([$this->errorsAtrArray => $validator->errors()], 401);
+                return response()->json([$this->errorsAtrArray => $validator->errors()], $this->statusValidationFailed);
             }
             $input = $request->all();
 
@@ -77,11 +77,13 @@ class UserApiController extends ApiController
             $success['name'] = $user->name;
 
             if(isset($input['country']) && isset($input['city'])){
-                $input['user_api_id'] = $user->id;
-                $address = $this->addAddress(null , $input);
+                $address = $this->addAddress($request, $user, true);
                 if(!isset($address[$this->successAtrArray])) {
+                    /**
+                    Not created Address
+                     */
                     return response()->json([
-                        $this->errorsAtrArray => 'User is created, but address not',
+                        $this->errorsAtrArray => $address[$this->errorsAtrArray],
                         $this->responseAtrArray => $success
                     ], $this->statusSuccess);
                 }
@@ -101,11 +103,32 @@ class UserApiController extends ApiController
      * @param null $data
      * @return array|\Illuminate\Http\JsonResponse
      */
-    public function addAddress(Request $request = null, $data = null)
+    public function addAddress(Request $request, $user = null, $fromMethod = false)
     {
         try {
-            if($request || $data){
-                $request ? $address = $request : $address = $data;
+            if($request){
+                $address = $request->all();
+                if(!isset($address['user_api_id'])){
+                    $address['user_api_id'] = $user->id;
+                } else {
+                    if(Auth::user('api')->id != $address['user_api_id']){
+                        /**
+                         * user_api_id not as Authenticated one (try to set address to another user_api)
+                         */
+                        return response()->json([$this->errorsAtrArray => 'Authentication user id not same as user_api_id']);
+                    }
+                }
+
+                $validator = Validator::make($address, [
+                    'user_api_id'           => 'required',
+                    'country'               => 'required',
+                    'city'                  => 'required',
+                ]);
+                if ($validator->fails() && $fromMethod) {
+                    return [$this->errorsAtrArray => $validator->errors()];
+                } else if($validator->fails() && !$fromMethod) {
+                    return response()->json([$this->errorsAtrArray => $validator->errors()], $this->statusValidationFailed);
+                }
 
                 $success = Address::create([
                     'user_api_id'   => $address['user_api_id'],
@@ -120,7 +143,7 @@ class UserApiController extends ApiController
                     'updated_ar'    => date('Y-m-d H:i:s')
                 ]);
 
-                if($request) {
+                if(!$fromMethod) {
                     return response()->json([$this->successAtrArray => $success], $this->statusSuccess);
                 } else {
                     return [$this->successAtrArray => $success];

@@ -72,7 +72,7 @@ return [
 
         'users_api' => [
             'driver' => 'eloquent',
-            'model' => App\Models\UserApi::class,
+            'model' => App\Models\Api\UserApi::class,
         ]
     ],
 

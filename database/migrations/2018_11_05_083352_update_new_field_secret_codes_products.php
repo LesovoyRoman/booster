@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateSecretCodesProductsTable extends Migration
+class UpdateNewFieldSecretCodesProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class UpdateSecretCodesProductsTable extends Migration
     public function up()
     {
         Schema::table('secret_codes_products', function (Blueprint $table) {
-            $table->integer('campaign_id')->unsigned()->nullable()->after('id');
-            $table->foreign('campaign_id')->references('id')->on('campaigns')
+            $table->integer('user_api_id')->unsigned()->nullable()->after('id');
+            $table->foreign('user_api_id')->references('id')->on('users_api')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

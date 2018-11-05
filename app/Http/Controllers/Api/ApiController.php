@@ -15,8 +15,10 @@ class ApiController extends Controller
      * @string $errorsAtrArray -> attribute uses in some responses (errors in request)
      * @string $messageAtrArray -> attribute uses in some responses (message after request)
      */
-    public $statusNotFound = 204;
     public $statusSuccess = 200;
+    public $statusNotFound = 204;
+    public $statusUnauthorized = 401;
+    public $statusValidationFailed = 422;
     public $statusServerError = 500;
     public $successAtrArray = 'success';
     public $errorsAtrArray = 'errors';
