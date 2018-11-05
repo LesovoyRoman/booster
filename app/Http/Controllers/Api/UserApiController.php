@@ -130,18 +130,12 @@ class UserApiController extends ApiController
                     return response()->json([$this->errorsAtrArray => $validator->errors()], $this->statusValidationFailed);
                 }
 
-                $success = Address::create([
-                    'user_api_id'   => $address['user_api_id'],
-                    'country'       => $address['country'],
-                    'city'          => $address['city'],
-                    'street'        => isset($address['street']) ? $address['street'] : '',
-                    'home_address'  => isset($address['home_address']) ? $address['home_address'] : '',
-                    'status'        => isset($address['status']) ? $address['status'] : '',
-                    'apartments'    => isset($address['apartments']) ? $address['apartments'] : '',
-                    'zip_code'      => isset($address['zip_code']) ? $address['zip_code'] : '',
-                    'created_at'    => date('Y-m-d H:i:s'),
-                    'updated_ar'    => date('Y-m-d H:i:s')
-                ]);
+                $user_api = UserApi::find($address['user_api_id']);
+                if($user_api->address()->count()) {
+                    $success = $this->addressUpdate($address, $user_api->address()->pluck('id')[0]);
+                } else {
+                    $success = $this->addressCreate($address);
+                }
 
                 if(!$fromMethod) {
                     return response()->json([$this->successAtrArray => $success], $this->statusSuccess);
@@ -155,6 +149,48 @@ class UserApiController extends ApiController
         } catch (\Exception $e){
             return response()->json([$this->errorsAtrArray => $e->getMessage()], $this->statusServerError);
         }
+    }
+
+    /**
+     * @param $address
+     * @return mixed
+     */
+    public function addressCreate($address)
+    {
+        return Address::create([
+            'user_api_id'   => $address['user_api_id'],
+            'country'       => $address['country'],
+            'city'          => $address['city'],
+            'street'        => isset($address['street']) ? $address['street'] : '',
+            'home_address'  => isset($address['home_address']) ? $address['home_address'] : '',
+            'status'        => isset($address['status']) ? $address['status'] : '',
+            'apartments'    => isset($address['apartments']) ? $address['apartments'] : '',
+            'zip_code'      => isset($address['zip_code']) ? $address['zip_code'] : '',
+            'created_at'    => date('Y-m-d H:i:s'),
+            'updated_at'    => date('Y-m-d H:i:s')
+        ]);
+    }
+
+    /**
+     * @param $address_new
+     * @param $id_address
+     * @return mixed
+     */
+    public function addressUpdate($address_new, $id_address)
+    {
+        $address = Address::find($id_address);
+        $address->update([
+            'user_api_id'   => $address_new['user_api_id'],
+            'country'       => $address_new['country'],
+            'city'          => $address_new['city'],
+            'street'        => isset($address_new['street']) ? $address_new['street'] : '',
+            'home_address'  => isset($address_new['home_address']) ? $address_new['home_address'] : '',
+            'status'        => isset($address_new['status']) ? $address_new['status'] : '',
+            'apartments'    => isset($address_new['apartments']) ? $address_new['apartments'] : '',
+            'zip_code'      => isset($address_new['zip_code']) ? $address_new['zip_code'] : '',
+            'updated_at'    => date('Y-m-d H:i:s')
+        ]);
+        return $address;
     }
 
 
