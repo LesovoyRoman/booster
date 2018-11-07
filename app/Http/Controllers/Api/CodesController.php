@@ -104,7 +104,7 @@ class CodesController extends ApiController
                 /**
                  * Successfully created image
                  */
-                return response()->json([$this->successAtrArray => [$image, $success]], $this->statusSuccess);
+                return response()->json([$this->successAtrArray => ['image' => $image, 'buyProduct' => $success]], $this->statusSuccess);
             } else {
                 return response()->json([$this->errorsAtrArray => $image], $this->statusAccepted);
             }
