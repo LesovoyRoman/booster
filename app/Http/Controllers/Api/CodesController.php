@@ -26,6 +26,7 @@ class CodesController extends ApiController
             $validator = Validator::make($request->all(), [
                 'campaign_id'           => 'required',
                 'secret_code'           => 'required|unique:secret_codes_products',
+                'influencer_id'         => 'required'
             ]);
             if ($validator->fails()) {
                 return response()->json([$this->errorsAtrArray => $validator->errors()], $this->statusValidationFailed);
@@ -39,7 +40,12 @@ class CodesController extends ApiController
                 'user_api_id'   => $id_user_api
             ]);
 
-            return response()->json([$this->successAtrArray => $success], $this->statusSuccess);
+            // @todo influencer-links should be different (only one returns)
+            $link = Campaign::find($request['campaign_id'])
+                ->influencer_campaign_bonus_links()
+                ->where('influencer_campaign_bonus_links.user_id', $request['influencer_id'])
+                ->first(); // @todo change
+            return response()->json([$this->successAtrArray => $success, 'link' => $link], $this->statusSuccess);
         } catch (\Exception $e){
             return response()->json([$this->errorsAtrArray => $e->getMessage()], $this->statusServerError);
         }

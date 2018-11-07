@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Codes extends Model
+class Codes extends ModelBase
 {
     protected $table = 'secret_codes_products';
 
