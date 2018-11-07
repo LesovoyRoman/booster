@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSecretCodesProductsTable extends Migration
+class CreateTableUsersApiBuyProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateSecretCodesProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('secret_codes_products', function (Blueprint $table) {
+        Schema::create('users_api_buy_products', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('secret_code')->nullable();
+            $table->enum('type', ['code', 'image'])->default('code');
             $table->boolean('approved')->default(0);
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class CreateSecretCodesProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('secret_codes_products');
+        //
     }
 }
