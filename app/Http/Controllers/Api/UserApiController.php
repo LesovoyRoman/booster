@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Api\Authenticator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Address;
+use Illuminate\Support\Facades\Hash;
 
 class UserApiController extends ApiController
 {
@@ -227,7 +228,49 @@ class UserApiController extends ApiController
             return response()->json([
                 $this->messageAtrArray => 'Something went wrong...',
                 $this->errorsAtrArray  => 'Token not revoked'
-            ], 401);
+            ], $this->statusUnauthorized);
         }
+    }
+
+    public function changePass(Request $request)
+    {
+        $request_data = $request->All();
+        $validator = Validator::make($request_data, [
+            'old_password'          => 'required',
+            'password'              => 'required|same:password|min:8',
+            'c_password'            => 'required|same:password',
+        ]);
+        if($validator->fails()) {
+            return response()->json([$this->errorsAtrArray => $validator->getMessageBag()->toArray()]);
+        }
+        $current_password = Auth::user('api')->password;
+        if(Hash::check($request['old_password'], $current_password)) {
+            $user_api_id = Auth::user('api')->id;
+            $user_api = UserApi::find($user_api_id);
+            $user_api->password = Hash::make($request['password']);
+            $user_api->save();
+            return response()->json([$this->successAtrArray => 'Password updated successfully!'], $this->statusSuccess);
+        }
+        else {
+            $error = array('old_password' => 'Please enter correct old password');
+            return response()->json([$this->errorsAtrArray => $error]);
+        }
+
+    }
+
+    public function changeEmail(Request $request)
+    {
+        $request_data = $request->All();
+        $validator = Validator::make($request_data, [
+            'email'          => 'required|email|unique:users_api'
+        ]);
+        if($validator->fails()) {
+            return response()->json([$this->errorsAtrArray => $validator->getMessageBag()->toArray()]);
+        }
+        $user_api_id = Auth::user('api')->id;
+        $user_api = UserApi::find($user_api_id);
+        $user_api->email = $request['email'];
+        $user_api->save();
+        return response()->json([$this->successAtrArray => 'Email updated successfully!'], $this->statusSuccess);
     }
 }

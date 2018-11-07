@@ -30,9 +30,11 @@ Route::group(['middleware' => 'auth:api'], function(){
     // Auth
     Route::post('/logout', 'Api\UserApiController@logout');
 
-    // User Data
+    // User api
     Route::get('/details', 'Api\UserApiController@details');
     Route::post('/addUserAddress', 'Api\UserApiController@addAddress');
+    Route::post('/currentUserApiChangePass', 'Api\UserApiController@changePass');
+    Route::post('/currentUserApiChangeEmail', 'Api\UserApiController@changeEmail');
 
     // Campaigns
     Route::get('/allCampaigns', 'Api\CampaignController@getAllCampaigns');
