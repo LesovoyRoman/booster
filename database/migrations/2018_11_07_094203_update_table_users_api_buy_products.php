@@ -22,6 +22,10 @@ class UpdateTableUsersApiBuyProducts extends Migration
             $table->foreign('image_id')->references('id')->on('images')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->integer('campaign_id')->unsigned()->nullable()->after('id');
+            $table->foreign('campaign_id')->references('id')->on('campaigns')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

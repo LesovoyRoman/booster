@@ -11,6 +11,8 @@ return [
     'topics'                     => ['Games', 'Adventure', 'Travel', 'Science', 'Architecture', 'Biology', 'Entertainment'],
     'influencer_campaign_status' => ['accepted', 'invited', 'invited_accepted', 'invited_declined', 'declined'],
     'statuses_gift'              => ['created', 'ordered', 'received', 'sent'],
+    'images_types'               => ['api', 'app'],
+    'user_api_buy_products_type' => ['code', 'image'],
 
 
 
