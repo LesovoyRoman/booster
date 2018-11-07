@@ -10,7 +10,7 @@ class ImageController extends Controller
 {
 
 
-    static function storeImg($file, $to, $campaign_id = null, $gift_id = null, $type = 'create', $image = null, $avatar = false, $user_api = null)
+    static function storeImg($file, $to, $campaign_id = null, $gift_id = null, $type = 'create', $image = null, $avatar = false, $id_user_api = null)
     {
         if($file !== null) {
             try {
@@ -21,14 +21,14 @@ class ImageController extends Controller
                 if(Auth::user() || Auth::user('api')){
                     if($type == 'create'){
                         $image = Image::create([
-                            'user_id'       => $user_api === null ? Auth::id() : null,
-                            'user_api_id'   => $user_api !== null ? $user_api : null,
+                            'user_id'       => $id_user_api === null ? Auth::id() : null,
+                            'user_api_id'   => $id_user_api !== null ? $id_user_api : null,
                             'campaign_id'   => $campaign_id,
                             'gift_id'       => $gift_id,
                             'is_avatar'     => $is_avatar,
-                            'is_logo'       => $user_api === null ? 1 : 0,
+                            'is_logo'       => $id_user_api === null ? 1 : 0,
                             'image_path'    => substr($path, 6),
-                            'type'          => $user_api !== null ? 'api' : 'app'
+                            'type'          => $id_user_api !== null ? 'api' : 'app'
                         ]);
                     } else {
                         if($image !== null) {

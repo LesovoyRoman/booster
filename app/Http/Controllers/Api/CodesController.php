@@ -90,7 +90,7 @@ class CodesController extends ApiController
              * Create path & store product image
              */
             $to = StringHelper::translit('public/users_api/user_api_id_' . $id_user_api . '/products_images/campaign_id_' . $campaign_id);
-            $image = ImageController::storeImg($file, $to, $campaign_id, null, 'create', null, false, 1);
+            $image = ImageController::storeImg($file, $to, $campaign_id, null, 'create', null, false, $id_user_api);
 
             if($image['response']){
                 $success = BuyProducts::create([

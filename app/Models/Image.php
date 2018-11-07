@@ -11,7 +11,8 @@ class Image extends ModelBase
         'is_avatar',
         'is_logo',
         'image_path',
-        'type'
+        'type',
+        'user_api_id',
     ];
 
     public function user()
