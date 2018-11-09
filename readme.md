@@ -17,6 +17,18 @@
 8) Open project      -> Console: php artisan serve \ php artisan serve --port=3333.
 
 
+# Email
+-> edit .env file:
+
+MAIL_DRIVER= mailgun
+MAILGUN_DOMAIN = {your-domain}
+MAIL_HOST = smtp.mailgun.org
+MAIL_PORT = 587
+MAIL_USERNAME = smtp.mailgun.org
+MAIL_PASSWORD = {your-password}
+MAILGUN_SECRET = {your-secret}
+MAIL_FROM = {email-from}
+MAIL_ENCRYPTION=tls
 
 
 ## About Laravel
