@@ -263,6 +263,24 @@
                     this.clearChoseInfluencer();
                     this.$refs.modalOffer.hide();
                     vm.loading = false;
+                    if(response.data.info){
+                        vm.$notify({
+                            type:  'info',
+                            title: response.data.info,
+                        })
+                    }
+                    if(response.data.errors){
+                        vm.$notify({
+                            type:  'danger',
+                            title: response.data.errors,
+                        })
+                    }
+                    if(response.data.response){
+                        vm.$notify({
+                            type:  'success',
+                            title: response.data.response,
+                        })
+                    }
                 }).catch(err => {
                     this.$refs.modalOffer.hide();
                     vm.loading = false;

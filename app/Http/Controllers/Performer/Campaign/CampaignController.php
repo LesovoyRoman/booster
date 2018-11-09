@@ -241,6 +241,9 @@ class CampaignController extends CommonCampaignController
     {
         try {
             $influencer = Influencer::find($request['influencer_id']);
+            if($influencer->campaigns()->where('campaign_id', $request['campaign_id'])->count()) {
+                return response()->json(['info' => 'Campaign already sent to influencer'], 200);
+            }
             $influencer->campaigns()->attach($request['campaign_id'], array('status' => 'invited'));
             $influencer->campaign_influencer_points()
                 ->attach($request['campaign_id'], array('status' => 'invited', 'all_points' => 0, 'checked_points' => 0));
@@ -252,6 +255,6 @@ class CampaignController extends CommonCampaignController
         $update_campaign = Campaign::find($request['campaign_id']);
         $update_campaign->save();
 
-        return response()->json(['response' => 'success'], 200);
+        return response()->json(['response' => 'Invite sent!'], 200);
     }
 }
