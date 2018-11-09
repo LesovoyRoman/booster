@@ -50,6 +50,9 @@ Route::group(['middleware' => 'isPerformer'], function (){
 
     // Send Offer Influencer
     Route::post('/sendOfferInfluencer', 'Performer\Campaign\CampaignController@sendOfferToInfluencer');
+
+    // Create Assistant
+    Route::post('/createAssistant', 'Performer\PerformerController@createAssistant');
 });
 
 // Influencer
@@ -80,6 +83,11 @@ Route::group(['middleware' => 'isInfluencer'], function (){
 
     // Influencer campaign-points
     Route::post('/getInfluencerPointsCampaign', 'Influencer\InfluencerController@getCampaignsPoints');
+});
+
+// Assistant
+Route::group(['middleware' => 'isAssistant'], function (){
+
 });
 
 // @todo tmp route, will be rebuilt

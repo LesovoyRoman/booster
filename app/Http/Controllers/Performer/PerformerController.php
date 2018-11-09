@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Performer;
 
+use App\Models\Campaign;
 use App\Models\Performer;
 use App\Http\Controllers\Common\User\UserController;
+use App\Models\Assistant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CreateAssistantEmail;
 use App\Http\Controllers\Helpers\StringHelper;
 use App\Http\Controllers\ImageController;
 use App\Models\Image;
@@ -68,5 +72,57 @@ class PerformerController extends UserController
         ]);
 
         return $validator;
+    }
+
+    /**
+     * Create Assistant by Performer & set access to some campaigns
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function createAssistant(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $validator = Validator::make($data, [
+                'email'      => 'required|max:255|unique:users',
+                'password'   => 'required|min:8',
+            ]);
+            if($validator->fails())
+            {
+                return response()->json(['errors' => $validator->errors()], 206);
+            }
+            $user = Assistant::create([
+                'email'          => $data['email'],
+                'password'       => bcrypt($data['password']),
+                'user_role'      => 'assistant',
+                'name'           => isset($data['name']) ? $data['name'] : 'assistant'
+            ]);
+
+            // set access for assistant to campaigns
+            if(isset($data['campaigns']) && count($data['campaigns']) > 0){
+                foreach($data['campaigns'] as $campaign_id){
+                    $user->campaigns()->attach($campaign_id, array('status' => 'accessed'));
+                }
+            }
+
+            try {
+                $data = [
+                    'subject'  => 'Assistant providing',
+                    'password' => $data['password'],
+                    'message'  => 'Start to participate the project as assistant!',
+                    'email'    => $data['email']
+                ];
+
+                $mail = Mail::to($data['email'])->send(new CreateAssistantEmail($data));
+            } catch(\Exception $e){
+                return response()->json(['errors' => $e->getMessage()], 111);
+            }
+
+            return response()->json(['success' => 'Assistant created successfully!', 'response' => $user, 'mail' => $mail], 200);
+        } catch (\Exception $e) {
+            return response()->json(['exception' => $e->getMessage()], 111);
+        }
+
     }
 }
