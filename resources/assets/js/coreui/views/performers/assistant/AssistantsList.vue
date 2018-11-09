@@ -85,10 +85,6 @@
                             <template slot="campaigns" slot-scope="row">
                                 <router-link v-for="(campaign, index) in row.item.campaigns" :id="campaign.id" :key="'campaign_' + campaign.id" :data="campaign_name = campaign.name" :to="{ name: 'Campaign', params: { campaign:campaign, id: campaign.id } }">{{ campaign.name }}<span v-if="index !== row.item.campaigns.length - 1">, </span></router-link>
                             </template>
-                            <template
-                                slot="new_pass" slot-scope="data">
-                                <b-button href="#" :variant="'primary'" class="">Send new password</b-button>
-                            </template>
                             <template slot="change" justified="center" slot-scope="row">
                                 <b-button size="sm" class="custom_btn_change" :variant="'primary'">
                                     <i class="icon-pencil"></i>
@@ -143,7 +139,6 @@
                     { key: 'name', label: 'Name', sortable: true },
                     { key: 'email', sortable: true, label: 'Email'},
                     { key: 'campaigns', sortable: false, label: 'Campaigns' },
-                    { key: 'new_pass', label: '', 'class': 'table_label_hidden'},
                     { key: 'change', label: '', 'class': 'table_label_hidden' },
                     { key: 'delete', label: '', 'class': 'table_label_hidden' }
                 ],

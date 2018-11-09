@@ -53,6 +53,7 @@ Route::group(['middleware' => 'isPerformer'], function (){
 
     // Create Assistant
     Route::post('/createAssistant', 'Performer\PerformerController@createAssistant');
+    Route::post('/getAssistants', 'Performer\PerformerController@getAssistants');
 });
 
 // Influencer

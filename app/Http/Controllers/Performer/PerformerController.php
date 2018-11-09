@@ -125,4 +125,22 @@ class PerformerController extends UserController
         }
 
     }
+
+    public function getAssistants()
+    {
+        $assistants = Assistant::assistants()
+            ->select('users.email', 'users.name', 'users.id')
+            ->with('images')
+            ->with(array('campaigns' => function($query){
+                $query->select('campaigns.id','campaigns.name','campaigns.status');
+            }))
+            ->get();
+
+        if(sizeof($assistants) !== 0) {
+            return response()->json(['assistants' => $assistants], 200);
+        } else {
+            $response = 'Assistants not found';
+            return response()->json(['errors' => $response], 200);
+        }
+    }
 }
