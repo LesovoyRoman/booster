@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Influencer;
 use Illuminate\Http\Request;
 use App\Models\Campaign;
 use App\Models\Codes;
@@ -56,6 +57,12 @@ class CodesController extends ApiController
             ]);
             $campaign_secret_code->approved = 1;
             $campaign_secret_code->save();
+
+            // @todo now can add to influencer only 1 point, if can be another amount -> get points-price from table 'campaigns'
+            $influencer = Influencer::where('id', $request['influencer_id'])->first();
+            $addPoint = $influencer->campaign_influencer_points()->where('campaign_id', $request['campaign_id'])->first();
+            $addPoint->pivot->checked_points++;
+            $addPoint->pivot->save();
 
             // @todo influencer-links should be different (only one returns)
             $link = Campaign::find($request['campaign_id'])
