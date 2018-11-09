@@ -10,15 +10,15 @@ import Full from '@/containers/Full'
 // Views
 import Dashboard from '@/views/Dashboard'
 
-import Colors from '@/views/theme/Colors'
+/*import Colors from '@/views/theme/Colors'
 import Typography from '@/views/theme/Typography'
 
 import Charts from '@/views/Charts'
 import Widgets from '@/views/Widgets'
-import Loading from '@/views/Loading'
+import Loading from '@/views/Loading'*/
 
 // Views - Components
-import Cards from '@/views/base/Cards'
+/*import Cards from '@/views/base/Cards'
 import Forms from '@/views/base/Forms'
 import Switches from '@/views/base/Switches'
 import Tables from '@/views/base/Tables'
@@ -32,29 +32,29 @@ import Navbars from '@/views/base/Navbars'
 import Paginations from '@/views/base/Paginations'
 import Popovers from '@/views/base/Popovers'
 import ProgressBars from '@/views/base/ProgressBars'
-import Tooltips from '@/views/base/Tooltips'
+import Tooltips from '@/views/base/Tooltips'*/
 
 // Views - Buttons
-import StandardButtons from '@/views/buttons/StandardButtons'
+/*import StandardButtons from '@/views/buttons/StandardButtons'
 import ButtonGroups from '@/views/buttons/ButtonGroups'
 import Dropdowns from '@/views/buttons/Dropdowns'
-import SocialButtons from '@/views/buttons/SocialButtons'
+import SocialButtons from '@/views/buttons/SocialButtons'*/
 
 // Views - Icons
-import Flags from '@/views/icons/Flags'
+/*import Flags from '@/views/icons/Flags'
 import FontAwesome from '@/views/icons/FontAwesome'
-import SimpleLineIcons from '@/views/icons/SimpleLineIcons'
+import SimpleLineIcons from '@/views/icons/SimpleLineIcons'*/
 
 // Views - Notifications
-import Alerts from '@/views/notifications/Alerts'
+/*import Alerts from '@/views/notifications/Alerts'
 import Badges from '@/views/notifications/Badges'
-import Modals from '@/views/notifications/Modals'
+import Modals from '@/views/notifications/Modals'*/
 
 // Views - Pages
 import Page404 from '@/views/pages/Page404'
-import Page500 from '@/views/pages/Page500'
+/*import Page500 from '@/views/pages/Page500'
 import Login from '@/views/pages/Login'
-import Register from '@/views/pages/Register'
+import Register from '@/views/pages/Register'*/
 
 
 // PERFORMERS ROUTES
@@ -82,6 +82,7 @@ import TariffPlan from '@/views/performers/rates/Tariff'
 // Marketers
 import AssistantsList from '@/views/performers/assistant/AssistantsList'
 import CreateAssistant from '@/views/performers/assistant/AddAssistant'
+import UpdateAssistant from '@/views/performers/assistant/UpdateAssistant'
 
 // Influencers
 import InfluencersList from '@/views/performers/influencers/Influencers'
@@ -138,7 +139,7 @@ import AssistantsListAdmin from '@/views/admin/assistants/Assistants'
 Vue.use(Router)
 
 export default new Router({
-  mode           : 'history', // Demo is living in GitHub.io, so required!
+  mode           : 'history',
   linkActiveClass: 'open active',
   scrollBehavior : () => ({ y: 0 }),
   routes         : [
@@ -152,7 +153,6 @@ export default new Router({
             path: 'dashboard',
             name: 'Dashboard',
             component: Dashboard,
-            //meta: {dashboard: true}
         },
         {
             path: 'tariffs',
@@ -163,9 +163,36 @@ export default new Router({
         {
             path: 'assistants',
             name: 'Assistants',
-            component: AssistantsList,
-            meta: { role_performer: true },
+            redirect: '/assistants/all-assistant',
+            meta: {role_performer: true},
+            component: {
+                render (c) {
+                    return c('router-view')
+                },
+            },
+            children: [
+                {
+                    path: 'all-assistant',
+                    name: 'AllAssistants',
+                    component: AssistantsList,
+                    meta: { role_performer: true },
+                },
+                {
+                    path: 'new-assistant',
+                    name: 'CreateAssistant',
+                    component: CreateAssistant,
+                    meta: { role_performer: true },
+                },
+                {
+                    path: 'update-assistant-:idAssistant',
+                    name: 'CreateAssistant',
+                    component: CreateAssistant,
+                    props: true,
+                    meta: { role_performer: true },
+                },
+            ]
         },
+
         {
               path     : 'gifts',
               name     : 'Gifts',
@@ -235,12 +262,6 @@ export default new Router({
             path: 'influencers',
             name: 'Influencers',
             component: InfluencersList,
-            meta: { role_performer: true },
-        },
-        {
-            path: 'new-assistant',
-            name: 'CreateAssistant',
-            component: CreateAssistant,
             meta: { role_performer: true },
         },
         {
@@ -472,7 +493,7 @@ export default new Router({
 
 
           /// default
-        {
+        /*{
           path     : 'theme',
           redirect : '/theme/colors',
           name     : 'Theme',
@@ -701,7 +722,7 @@ export default new Router({
           path     : 'register',
           name     : 'Register',
           component: Register,
-        },
+        },*/
       ],
     },
     {

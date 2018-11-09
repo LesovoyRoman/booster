@@ -14,7 +14,7 @@
                     <b-card>
 
                         <b-form-group>
-                            <b-button href="#" v-bind:to="'/new-assistant'" variant="primary" class="float-left font500 font12 uppercase">add assistant</b-button>
+                            <b-button href="#" v-bind:to="'/assistants/new-assistant'" variant="primary" class="float-left font500 font12 uppercase">add assistant</b-button>
                         </b-form-group>
 
                         <b-form-group>
