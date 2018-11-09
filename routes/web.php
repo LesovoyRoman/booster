@@ -51,9 +51,11 @@ Route::group(['middleware' => 'isPerformer'], function (){
     // Send Offer Influencer
     Route::post('/sendOfferInfluencer', 'Performer\Campaign\CampaignController@sendOfferToInfluencer');
 
-    // Create Assistant
-    Route::post('/createAssistant', 'Performer\PerformerController@createAssistant');
-    Route::post('/getAssistants', 'Performer\PerformerController@getAssistants');
+    // Assistant
+    Route::post('/createAssistant', 'Performer\Assistant\AssistantController@createAssistant');
+    Route::post('/getAssistants', 'Performer\Assistant\AssistantController@getAssistants');
+    Route::post('/getAssistantById', 'Performer\Assistant\AssistantController@getAssistantByIdAndCampaigns');
+    Route::post('/syncAssistantCampaigns', 'Performer\Assistant\AssistantController@syncAssistantCampaigns');
 });
 
 // Influencer

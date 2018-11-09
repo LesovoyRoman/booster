@@ -80,13 +80,14 @@
                             <template
                                     slot="name"
                                     slot-scope="data">
-                                <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, idInfluencer: id, campaign_name: data.item.campaign } }">{{ data.item.name }}</router-link>
+                                <!--<router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'Assistant', params: { influencer: influencer, idInfluencer: id, campaign_name: data.item.campaign } }">{{ data.item.name }}</router-link>-->
+                                {{ data.item.name }}
                             </template>
                             <template slot="campaigns" slot-scope="row">
                                 <router-link v-for="(campaign, index) in row.item.campaigns" :id="campaign.id" :key="'campaign_' + campaign.id" :data="campaign_name = campaign.name" :to="{ name: 'Campaign', params: { campaign:campaign, id: campaign.id } }">{{ campaign.name }}<span v-if="index !== row.item.campaigns.length - 1">, </span></router-link>
                             </template>
                             <template slot="change" justified="center" slot-scope="row">
-                                <b-button size="sm" class="custom_btn_change" :variant="'primary'">
+                                <b-button size="sm" :to="{ name: 'UpdateAssistant', params: { idAssistant:row.item.id }}" class="custom_btn_change" :variant="'primary'">
                                     <i class="icon-pencil"></i>
                                 </b-button>
                             </template>
@@ -202,7 +203,6 @@
             this.loading = true;
             axios.post('/getAssistants').then(response => {
                 this.loading = false;
-                console.log(response.data.assistants)
                 if(response.data.assistants instanceof Array) {
                     vm.assistants = response.data.assistants
                 }

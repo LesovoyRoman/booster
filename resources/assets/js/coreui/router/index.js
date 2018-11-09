@@ -185,8 +185,8 @@ export default new Router({
                 },
                 {
                     path: 'update-assistant-:idAssistant',
-                    name: 'CreateAssistant',
-                    component: CreateAssistant,
+                    name: 'UpdateAssistant',
+                    component: UpdateAssistant,
                     props: true,
                     meta: { role_performer: true },
                 },
