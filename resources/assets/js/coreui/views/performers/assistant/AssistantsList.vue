@@ -6,6 +6,8 @@
                     <h2 class="h2">{{ header }}</h2>
                 </b-col>
 
+                <loading v-if="loading" style="position: fixed; z-index: 9999; left: 0; top: 0; height: 100%; width: 100%; background: rgba(2,2,2,0.70);"></loading>
+
                 <b-col
                         sm="12"
                         md="12">
@@ -81,7 +83,7 @@
                                 <router-link :id="id = data.item.id" :data="influencer = data.item" :to="{ name: 'Influencer', params: { influencer: influencer, idInfluencer: id, campaign_name: data.item.campaign } }">{{ data.item.name }}</router-link>
                             </template>
                             <template slot="campaigns" slot-scope="row">
-                                <router-link v-for="(campaign, index) in row.item.campaigns" :id="id = row.item.id" :key="index" :data="campaign_name = campaign" :to="{ name: 'Campaign', params: { campaign:campaign, id: index } }">{{ campaign }}<span v-if="index !== row.item.campaigns.length - 1">, </span></router-link>
+                                <router-link v-for="(campaign, index) in row.item.campaigns" :id="campaign.id" :key="'campaign_' + campaign.id" :data="campaign_name = campaign.name" :to="{ name: 'Campaign', params: { campaign:campaign, id: campaign.id } }">{{ campaign.name }}<span v-if="index !== row.item.campaigns.length - 1">, </span></router-link>
                             </template>
                             <template
                                 slot="new_pass" slot-scope="data">
@@ -120,23 +122,24 @@
 </template>
 
 <script>
+    import Loading from 'vue-loading-spinner/src/components/Circle10'
     let vm = {};
 
     export default {
         name: 'Assistants',
+        components: {
+            Loading
+        },
         data() {
             return {
                 header: 'Assistants',
+                loading: false,
 
-                assistants: [
-                    { id: 1, name: 'Joseph Stalin', email: 'josephstalin@rasstrelyat.com', campaigns: ['Pineapple', 'Grape', 'Smth'] },
-                    { id: 2, name: 'Adolf Hitler', email: 'adolf@sexymustache.com', campaigns: ['Snacks', 'Cheese'] },
-
-                ],
+                assistants: [],
 
                 fields: [
                     { key: 'assistant_checkbox', 'class': 'table_label_hidden' },
-                    { key: 'id', label: '№' },
+                    { key: 'id', label: 'User ID' },
                     { key: 'name', label: 'Name', sortable: true },
                     { key: 'email', sortable: true, label: 'Email'},
                     { key: 'campaigns', sortable: false, label: 'Campaigns' },
@@ -199,8 +202,22 @@
                 vm.allSelected = false;
             }
         },
-        created() {
+        created(){
             vm = this;
-        }
+            this.loading = true;
+            axios.post('/getAssistants').then(response => {
+                this.loading = false;
+                console.log(response.data.assistants)
+                if(response.data.assistants instanceof Array) {
+                    vm.assistants = response.data.assistants
+                }
+                if(response.data.errors){
+                    vm.$swal('Unfortunately:', response.data.errors, 'error')
+                }
+            }).catch( err => {
+                this.loading = false;
+                console.log(err.message)
+            })
+        },
     }
 </script>
