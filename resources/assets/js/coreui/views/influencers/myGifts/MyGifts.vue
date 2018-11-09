@@ -89,7 +89,7 @@
 <script>
     let vm = {};
 
-    import Loading from 'vue-loading-spinner/src/components/Circle8'
+    import Loading from 'vue-loading-spinner/src/components/Circle10'
 
     export default {
         name: 'MyGifts',
