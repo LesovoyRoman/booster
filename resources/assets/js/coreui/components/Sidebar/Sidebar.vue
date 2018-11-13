@@ -161,6 +161,9 @@ export default {
               if (item.meta.role_influencer === true && vm.user_role === 'influencer'){
                   vm.items_role.push(Object.assign({}, vm.navItems[index])) // only nav for influencer
               }
+              if (item.meta.role_assistant === true && vm.user_role === 'performer' && item.url === '/checking-bonuses'){
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // item for assistant & performer
+              }
               if (item.meta.role_assistant === true && vm.user_role === 'assistant'){
                   vm.items_role.push(Object.assign({}, vm.navItems[index])) // only nav for assistant
               }

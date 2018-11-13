@@ -35,10 +35,17 @@ router.beforeEach((to, from, next) => {
         next('dashboard')
     } else if (role_performer && role_meta !== 'performer' && role_meta !== 'admin') {
         next('dashboard')
-    } else if (role_assistant && role_meta !== 'assistant' && role_meta !== 'admin') {
+    } else if (role_assistant && role_meta !== 'assistant' && role_meta !== 'admin' && role_meta !== 'performer') {
         next('dashboard')
     } else {
         next();
+    }
+
+    // path to assistant profile not accessed for performer
+    if(role_meta === 'performer' && role_assistant){
+        if(to.path === '/account/profile'){
+            next('dashboard')
+        }
     }
 });
 
