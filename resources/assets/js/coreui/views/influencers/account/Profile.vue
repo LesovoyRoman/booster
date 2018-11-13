@@ -361,7 +361,7 @@
             // @todo add new Route, create method
             axios.post('/currentInfluencerGetData').then(response => {
                 this.loading = false;
-                console.log(response);
+                //console.log(response);
                 let user = response.data.user;
                 vm.user.name = user.name;
                 vm.user.surname = user.surname;
@@ -466,7 +466,7 @@
             sendAxiosRequest(data, url) {
                 this.loading = true;
                 axios.post(url, data).then(response => {
-                    console.log(response);
+                    //console.log(response);
                     this.loading = false;
                     if(response.data.response) {
                         vm.$swal( 'Congratulates:', response.data.response, 'success')

@@ -61,7 +61,7 @@ function getRole() {
           // notRegistered
             document.querySelector('meta[name="user_role"]').setAttribute('content', '0'); // setting user
         } else {
-            console.log('user_role ' + response.data.role)
+            //console.log('user_role ' + response.data.role)
             document.querySelector('meta[name="user_role"]').setAttribute('content', response.data.role); // setting user
             localStorage.setItem('user_role', response.data.role);
         }

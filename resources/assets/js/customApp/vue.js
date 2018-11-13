@@ -143,8 +143,8 @@ function app() {
             updateCrsf(redirect) {
                 axios.get('/sessionSetCsrf',
                 ).then(response => {
-                    console.log('old ' + token);
-                    console.log('new ' + response.data);
+                    //console.log('old ' + token);
+                    //console.log('new ' + response.data);
                     token = response.data;
                     document.querySelector('meta[name="csrf-token"]').setAttribute('content', token);
                     window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

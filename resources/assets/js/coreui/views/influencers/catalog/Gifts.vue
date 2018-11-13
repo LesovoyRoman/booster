@@ -190,7 +190,7 @@
             this.storage_path = this.$root.storage_path;
             vm = this;
             axios.post('/getCatalogGifts').then(response => {
-                console.log(response);
+                //console.log(response);
                 this.loading = false;
                 if(response.data.campaigns_gifts instanceof Array) {
                     let campaigns_gifts = response.data.campaigns_gifts;

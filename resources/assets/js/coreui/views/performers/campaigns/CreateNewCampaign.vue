@@ -331,7 +331,7 @@
                 this.urlImage = URL.createObjectURL(file);
             },
             createNewCampaign(){
-                console.log(this.new_campaign);
+                //console.log(this.new_campaign);
                 let formData = new FormData();
                 for (let campaign_data in this.new_campaign) {
                     if(campaign_data == 'file'){
@@ -344,7 +344,7 @@
                 this.loading = true;
                 axios.post('/createNewCampaign', formData).then(response => {
                     this.loading = false;
-                    console.log(response);
+                    //console.log(response);
                     if(response.data.errors) {
                         let strErrors = '';
                         let count = 0;
@@ -375,7 +375,7 @@
                         else if (response.status === 206){
                             console.log(response.data.errors)
                         }
-                        console.log(response)
+                        //console.log(response)
                         //console.log(response.data.response)
                     }
                 }).catch(err => {

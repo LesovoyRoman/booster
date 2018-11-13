@@ -221,7 +221,7 @@
             axios.post('/getInfluencersPerformer').then(response => {
                 this.influencers = response.data.influencers;
                 this.getOptions();
-                console.log(this.influencers);
+                //console.log(this.influencers);
                 axios.post('/getAllCampaigns', vm.dataRequst).then(response => {
                     this.loading = false;
                     if(response.data.campaigns instanceof Array) {

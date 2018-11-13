@@ -179,7 +179,7 @@
                 }
                 this.loading = true;
                 axios.post('/updateGift', formData).then(response => {
-                    console.log(response)
+                    //console.log(response)
                     this.loading = false;
                     if(response.status === 200) {
                         vm.$swal( 'Congratulates:', 'You have updated gift!', 'success')
@@ -209,7 +209,7 @@
             axios.post('/getGiftById', {
                 id: this.idGift,
             }).then(response => {
-                console.log(response.data.gift)
+                //console.log(response.data.gift)
                 this.loading = false;
                 if(response.status === 200 && response.data.gift) {
                     vm.gift = response.data.gift[0];

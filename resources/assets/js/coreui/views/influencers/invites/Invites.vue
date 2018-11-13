@@ -266,7 +266,7 @@
             this.loading = true;
             axios.post('/influencerInvites').then(response => {
                 this.loading = false;
-                console.log(response.data.campaigns)
+                //console.log(response.data.campaigns)
                 if (response.data.campaigns instanceof Array) {
                     this.invites = response.data.campaigns
                     this.invites.forEach(function(item){

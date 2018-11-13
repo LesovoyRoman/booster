@@ -58,8 +58,8 @@
                     },
                     withCredentials: true
                 }).then(function (response) {
-                    console.log('response->');
-                    console.log(response)
+                    //console.log('response->');
+                    //console.log(response)
                     if(response.data === 1) {
                         // admin
                         window.location.href = '/dashboard';

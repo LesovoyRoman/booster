@@ -561,11 +561,11 @@
                 this.loading = false;
                 if(response.data.campaigns instanceof Array) {
                     // from DB
-                    console.log('campaigns id, name from DB');
+                    //console.log('campaigns id, name from DB');
                     this.campaigns = response.data.campaigns
                 } else {
                     // from Redis
-                    console.log('campaigns id, name from Redis');
+                    //console.log('campaigns id, name from Redis');
                     this.campaigns = JSON.parse(response.data.campaigns);
                 }
                 //console.log(response.data.campaigns);
