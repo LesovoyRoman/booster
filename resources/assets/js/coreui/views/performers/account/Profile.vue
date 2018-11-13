@@ -268,8 +268,8 @@
         created(){
             vm = this;
             this.loading = true;
-            this.urlImage = this.storage_path + '/' + 'images/noimage.jpg';
             this.storage_path = this.$root.storage_path;
+            this.urlImage = this.storage_path + '/' + 'images/noimage.jpg';
             axios.post('/currentPerformerGetData').then(response => {
                 this.loading = false;
                 //console.log(response.data.user);
@@ -284,7 +284,7 @@
                 vm.user.legal_company_name = user.legal_company_name;
                 vm.user.company_id = user.company_id;
                 vm.user.site_link = user.site_link;
-                if(user.photo_path.length > 0) {
+                if(user.photo_path) {
                     this.urlImage = this.storage_path + '/' + user.photo_path;
                 }
             })
