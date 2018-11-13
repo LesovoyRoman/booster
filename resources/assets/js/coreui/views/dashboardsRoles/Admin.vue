@@ -247,8 +247,8 @@
     let vm = {};
 
     import { Callout } from '../../components'
-    import CalloutChartExample from './../dashboard/CalloutChartExample'
-    import CardLine3ChartExample from './../dashboard/CardLine3ChartExample'
+    import CalloutChartExample from './../coreComponents/dashboard/CalloutChartExample'
+    import CardLine3ChartExample from './../coreComponents/dashboard/CardLine3ChartExample'
     import MainChart from './../charts/CustomMain.vue'
 
     export default {

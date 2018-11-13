@@ -124,7 +124,7 @@
 <script>
     let arrPoints = 0;
     let vm = {};
-    import SocialBoxChartExample from './../dashboard/SocialBoxChartExample.vue'
+    import SocialBoxChartExample from './../coreComponents/dashboard/SocialBoxChartExample.vue'
 
     export default {
         props: ['influencer', 'idInfluencer'],
