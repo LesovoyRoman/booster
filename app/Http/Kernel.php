@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'appWay' => \App\Http\Middleware\appWay::class,
         'isPerformer' => \App\Http\Middleware\isPerformer::class,
         'isInfluencer' => \App\Http\Middleware\isInfluencer::class,
+        'isAssistant'  => \App\Http\Middleware\isAssistant::class,
         'roleExists' => \App\Http\Middleware\roleExists::class,
         'oauth.providers' => \SMartins\PassportMultiauth\Http\Middleware\AddCustomProvider::class,
     ];
