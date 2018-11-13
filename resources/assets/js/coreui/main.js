@@ -20,8 +20,7 @@ Vue.use(BootstrapVue)
 Vue.use(Notifications)
 Vue.use(Sweetalert)
 
-
-//console.log('router user role -> ' + role_meta)
+let vm = {};
 
 getRole();
 router.beforeEach((to, from, next) => {
@@ -91,9 +90,29 @@ window.Vue = new Vue({
     }
   },
     created(){
+      vm = this;
       axios.post('/getConfigEnums').then(response => {
           this.configEnums = response.data.enums;
           //console.log(this.configEnums);
       })
     },
+    methods: {
+        check(){
+            return new Promise((resolve, reject) => {
+                vm.$swal({
+                    title: 'Are you sure?',
+                    type: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No',
+                }).then((result) => {
+                    if (result.value) {
+                        return resolve(true);
+                    } else if(result.dismiss === vm.$swal.DismissReason.cancel) {
+                        return reject(false);
+                    }
+                })
+            });
+        },
+    }
 })
