@@ -72,10 +72,6 @@ import ResultCampign from '@/views/performers/campaigns/results/ResultCampaign'
 import AllFeedbacks from '@/views/performers/campaigns/feedbacks/Feedbacks'
 import Feedback from '@/views/performers/campaigns/feedbacks/Feedback'
 
-// Bonuses
-import InfluencerBonuses from '@/views/performers/campaigns/bonuses/InfluencerBonuses'
-import CheckingBonuses from '@/views/performers/campaigns/bonuses/CheckingBonuses'
-
 // Tariffs
 import TariffPlan from '@/views/performers/rates/Tariff'
 
@@ -129,8 +125,11 @@ import ProfileCampaign from '@/views/influencers/profileCampaign/ProfileCampaign
 import Influencer from '@/views/influencers/Influencer'
 
 // ASSISTANTS ROUTES
-
+// Assistant
 import ProfileA from '@/views/assistants/account/Profile'
+// Bonuses
+import InfluencerBonuses from '@/views/assistants/bonuses/InfluencerBonuses'
+import CheckingBonuses from '@/views/assistants/bonuses/CheckingBonuses'
 
 // Admin
 import InfluencersListAdmin from '@/views/admin/influencers/InfluencersAdmin'
@@ -302,6 +301,19 @@ export default new Router({
             ]
         },
         {
+            path     : 'checking-bonuses',
+            name     : 'CheckingBonuses',
+            component: CheckingBonuses,
+            meta: { role_assistant: true },
+        },
+        {
+            path     : 'influencer-:id-bonuses',
+            name     : 'InfluencerBonuses',
+            component: InfluencerBonuses,
+            meta: { role_assistant: true },
+            props: true,
+        },
+        {
             path: 'campaigns',
             redirect: '/campaigns/my-campaigns',
             name: 'Campaigns',
@@ -312,12 +324,6 @@ export default new Router({
                 },
             },
             children: [
-                {
-                    path     : 'checking-bonuses',
-                    name     : 'CheckingBonuses',
-                    component: CheckingBonuses,
-                    meta: { role_performer: true },
-                },
                 {
                     path     : 'feedbacks',
                     name     : 'Feedbacks',
@@ -342,13 +348,6 @@ export default new Router({
                             meta: { role_performer: true },
                         },
                     ]
-                },
-                {
-                    path     : 'influencer-:id-bonuses',
-                    name     : 'InfluencerBonuses',
-                    component: InfluencerBonuses,
-                    meta: { role_performer: true },
-                    props: true,
                 },
                 {
                     path     : 'my-campaigns',
@@ -456,7 +455,7 @@ export default new Router({
           name     : 'Influencer',
           component: Influencer,
           props: true,
-            meta: { role_performer: true },
+          meta: { role_performer: true },
         },
 
           /// admin

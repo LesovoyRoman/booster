@@ -43,28 +43,23 @@ export default {
       },
     },
       {
+          name      : 'Checking bonuses',
+          url       : '/checking-bonuses',
+          icon      : 'icon-check',
+          meta: { role_assistant: true },
+      },
+      {
           name    : 'Campaigns',
           url     : '/campaigns',
           icon    : 'icon-globe',
           meta: { role_performer: true },
           children: [
               {
-                  name      : 'Checking bonuses',
-                  url       : '/campaigns/checking-bonuses',
-                  icon      : 'icon-check',
-                  meta: { role_performer: true },
-              },
-              {
                   url       : '/campaigns/feedbacks',
                   name      : 'Feedbacks',
                   icon      : 'icon-feed',
                   meta: { role_performer: true },
               },
-              /*{
-                  url       : '/campaigns/influencers-bonuses',
-                  name      : 'Influencers bonuses',
-                  icon      : 'icon-present',
-              },*/
               {
                   url       : '/campaigns/my-campaigns',
                   name      : 'My campaigns',
