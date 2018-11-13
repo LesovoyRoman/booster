@@ -82,6 +82,10 @@
                                 // influencer
                                 window.location.href = '/dashboard';
                                 break;
+                            case 4:
+                                // assistant
+                                window.location.href = '/dashboard';
+                                break;
                             default:
                                 break;
                         }
