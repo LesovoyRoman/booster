@@ -208,13 +208,15 @@
                 val ? vm.invitesCards = true : vm.invitesCards = false;
                 val ? vm.perPage = 9 : vm.perPage = 10;
             },
-            removeElement: function (item) {
-                if(confirm("Are you sure?")) {
+            removeElement: async function (item) {
+                let check = await vm.$root.check();
+                if (check === true) {
                     this.invites.splice(item.index, 1);
                 }
             },
-            changeStatusInvite(row, url) {
-                if (confirm("Are you sure?")) {
+            async changeStatusInvite(row, url) {
+                let check = await vm.$root.check();
+                if (check === true) {
                     this.loading = true;
                     let campaign_id = row.item.campaign_id;
                     return axios.post(url, {campaign_id: campaign_id})

@@ -391,8 +391,9 @@
             addChannel(){
                 vm.user.channels.push({name: '', topic: '', link: 'https://changeMe.com', auditory: 10, auditory_age_from: 10, auditory_age_to: 20})
             },
-            removeChannel(index_channel) {
-                if(confirm("Are you sure?")) {
+            async removeChannel(index_channel) {
+                let check = await vm.$root.check();
+                if (check === true) {
                     vm.user.channels.splice(index_channel, 1);
                 }
             },

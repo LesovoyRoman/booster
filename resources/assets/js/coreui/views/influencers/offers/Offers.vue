@@ -314,8 +314,9 @@
                 val ? vm.offersCards = true : vm.offersCards = false;
                 val ? vm.perPage = 9 : vm.perPage = 10;
             },
-            changeStatusCampaign(row, url) {
-                if (confirm("Are you sure?")) {
+            async changeStatusCampaign(row, url) {
+                let check = await vm.$root.check();
+                if (check === true) {
                     this.loading = true;
                     let campaign_id = row.item.id;
                     return axios.post(url, {campaign_id: campaign_id})

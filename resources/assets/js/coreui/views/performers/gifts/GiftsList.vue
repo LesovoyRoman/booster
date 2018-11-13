@@ -278,8 +278,9 @@
                     })
                 }
             },
-            removeElement: function (item, id) {
-                if(confirm("Are you sure?")) {
+            removeElement: async function (item, id) {
+                let check = await vm.$root.check();
+                if (check === true) {
                     vm.loading = true;
                     axios.post('/deleteGift', {
                         id: id,

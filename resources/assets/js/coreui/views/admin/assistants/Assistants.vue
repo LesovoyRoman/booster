@@ -187,8 +187,9 @@
                     })
                 }
             },
-            removeElement: function (item) {
-                if(confirm("Are you sure?")) {
+            removeElement: async function (item) {
+                let check = await vm.$root.check();
+                if (check === true) {
                     this.assistants.splice(item.index, 1);
                 }
             },

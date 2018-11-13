@@ -276,8 +276,9 @@
                     })
                 }
             },
-            removeElement: function (item) {
-                if(confirm("Are you sure?")) {
+            async removeElement(item) {
+                let check = await vm.$root.check();
+                if (check === true) {
                     this.users.splice(item.index, 1);
                 }
             },

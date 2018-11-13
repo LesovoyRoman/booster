@@ -154,13 +154,16 @@
             addLink(obj){
                 obj.push({path: '', gift: ''})
             },
-            removeLink(index, indexLink){
-                if(confirm("Are you sure?")) {
+
+            async removeLink(index, indexLink){
+                let check = await vm.$root.check();
+                if (check === true) {
                     vm.campaigns[index].links.splice(indexLink, 1)
                 }
             },
-            removeElement: function (item) {
-                if(confirm("Are you sure?")) {
+            async removeElement(item) {
+                let check = await vm.$root.check();
+                if (check === true) {
                     vm.campaigns.splice(item.index, 1);
                 }
             },
