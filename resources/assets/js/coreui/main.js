@@ -27,12 +27,15 @@ router.beforeEach((to, from, next) => {
     const role_influencer = to.matched.some(record => record.meta.role_influencer)
     const role_admin = to.matched.some(record => record.meta.role_admin)
     const role_performer = to.matched.some(record => record.meta.role_performer)
+    const role_assistant = to.matched.some(record => record.meta.role_assistant)
 
     if (role_admin && role_meta !== 'admin') {
         next('dashboard')
     } else if (role_influencer && role_meta !== 'influencer' && role_meta !== 'admin') {
         next('dashboard')
     } else if (role_performer && role_meta !== 'performer' && role_meta !== 'admin') {
+        next('dashboard')
+    } else if (role_assistant && role_meta !== 'assistant' && role_meta !== 'admin') {
         next('dashboard')
     } else {
         next();

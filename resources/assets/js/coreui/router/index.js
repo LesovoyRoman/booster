@@ -51,7 +51,7 @@ import Badges from '@/views/notifications/Badges'
 import Modals from '@/views/notifications/Modals'*/
 
 // Views - Pages
-import Page404 from '@/views/pages/Page404'
+import Page404 from '@/views/coreComponents/pages/Page404'
 /*import Page500 from '@/views/pages/Page500'
 import Login from '@/views/pages/Login'
 import Register from '@/views/pages/Register'*/
@@ -128,7 +128,11 @@ import ProfileCampaign from '@/views/influencers/profileCampaign/ProfileCampaign
 
 import Influencer from '@/views/influencers/Influencer'
 
+// ASSISTANTS ROUTES
 
+import ProfileA from '@/views/assistants/account/Profile'
+
+// Admin
 import InfluencersListAdmin from '@/views/admin/influencers/InfluencersAdmin'
 import UsersListAdmin from '@/views/admin/users/Users'
 import InvoicesListAdmin from '@/views/admin/invoices/Invoices'
@@ -288,6 +292,13 @@ export default new Router({
                     props: true,
                     meta: { role_performer: true },
                 },
+                {
+                    path      : '/account/profile',
+                    name      : 'ProfileA',
+                    component : ProfileA, // performer
+                    props: true,
+                    meta: { role_assistant: true },
+                }
             ]
         },
         {

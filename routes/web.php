@@ -90,7 +90,7 @@ Route::group(['middleware' => 'isInfluencer'], function (){
 
 // Assistant
 Route::group(['middleware' => 'isAssistant'], function (){
-
+    Route::post('/currentAssistantGetData', 'Assistant\AssistantController@getCurrentAssistant');
 });
 
 // @todo tmp route, will be rebuilt
