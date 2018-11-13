@@ -60,27 +60,30 @@
                 }).then(function (response) {
                     //console.log('response->');
                     //console.log(response)
-                    if(response.data === 1) {
-                        // admin
-                        window.location.href = '/dashboard';
-                    } else if (response.data === 2) {
-                        // performer
-                        window.location.href = '/dashboard';
-                    }  else if (response.data === 3) {
-                        // influencer
-                        window.location.href = '/dashboard';
-                    }  else if (response.data === 4) {
-                        // assistant
-                        window.location.href = '/dashboard';
+                    if (response.data.errors) {
+                        let strErrors = '';
+                        let count = 0;
+                        for (let val in response.data.errors) {
+                            count++;
+                            strErrors += '<span>' + count + ') ' + response.data.errors[val] + '</span> ' + '<br>';
+                        }
+                        vmThis.$swal('There are some problems:', strErrors, 'error')
                     } else {
-                        // user
-                        switch (response.status) {
-                            case 200:
-                                vmThis.$root.statusAuth(true, '/');
+                        switch (response.data) {
+                            case 1:
+                                // admin
+                                window.location.href = '/dashboard';
                                 break;
-
+                            case 2:
+                                // performer
+                                window.location.href = '/dashboard';
+                                break;
+                            case 3:
+                                // influencer
+                                window.location.href = '/dashboard';
+                                break;
                             default:
-                                break
+                                break;
                         }
                     }
                 })

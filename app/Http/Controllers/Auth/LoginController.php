@@ -58,10 +58,12 @@ class LoginController extends Controller
             } else if($user->user_role == 'assistant') {
                 return 4;
             }
-        } else {
-            return $this->sendFailedLoginResponse($request);
         }
+    }
 
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        return response()->json(['errors' => ['These credentials are not correct']], 200);
     }
 
 }
