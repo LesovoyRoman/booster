@@ -83,6 +83,7 @@ export default {
       this.role = localStorage.getItem('user_role');
       this.role === 'performer' ? this.pathProfile = 'ProfileP' : this.pathProfile;
       this.role === 'influencer' ? this.pathProfile = 'ProfileI' : this.pathProfile;
+      this.role === 'assistant' ? this.pathProfile = 'ProfileA' : this.pathProfile;
   }
 }
 
