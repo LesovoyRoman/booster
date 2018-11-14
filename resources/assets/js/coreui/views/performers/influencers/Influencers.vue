@@ -75,7 +75,7 @@
                                 :small="true"
                                 :fixed="false"
                                 responsive="sm"
-                                :items="filtered(influencers, influencer_topic, filterChannels, influencer_lang)"
+                                :items="filtered(influencer_topic, filterChannels, influencer_lang)"
                                 :fields="fields"
 
                                 :filter="filter"
@@ -121,7 +121,7 @@
 
                         <nav>
                             <b-pagination
-                                    :total-rows="getRowCount(influencers, influencer_topic, filterChannels, influencer_lang)"
+                                    :total-rows="filtered(influencer_topic, filterChannels, influencer_lang, true)"
                                     :per-page="perPage"
                                     align="center"
                                     v-model="currentPage"
@@ -221,7 +221,6 @@
             axios.post('/getInfluencersPerformer').then(response => {
                 this.influencers = response.data.influencers;
                 this.getOptions();
-                //console.log(this.influencers);
                 axios.post('/getAllCampaigns', vm.dataRequst).then(response => {
                     this.loading = false;
                     if(response.data.campaigns instanceof Array) {
@@ -314,122 +313,49 @@
             select: function() {
                 vm.allSelected = false;
             },
-
-            // @ REMAKE IT !!!
-            filtered (arrays, topic, channel, lang) {
-                if(topic === null && channel === null && lang === null) {
-                    this.getRowCount(this.influencers);
-                    return this.influencers
-                } else {
-                    let i = 0;
-                    if(channel === null) {
-                        if(lang === null) {
-                            this.influencers.forEach(function (item, index) {
-                                if (item.type === topic) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.influencers.filter(t => t.type === topic));
-                            return this.influencers.filter(t => t.type === topic)
-
-                        } else if(topic === null) {
-                            this.influencers.forEach(function (item, index) {
-                                if (item.lang === lang) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.influencers.filter(t => t.lang === lang));
-                            return this.influencers.filter(t => t.lang === lang)
-
-                        } else {
-                            this.influencers.forEach(function (item, index) {
-                                if (item.type === topic && item.lang === lang) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.influencers.filter(t => t.type === topic && t.lang === lang));
-                            return this.influencers.filter(t => t.type === topic && t.lang === lang)
-                        }
-
-
-                    } else if (topic === null) {
-                        if (channel === null) {
-                            this.influencers.forEach(function (item, index) {
-                                if (item.lang === lang) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.influencers.filter(t => t.lang === lang));
-                            return this.influencers.filter(t => t.lang === lang)
-
-                        } else if (lang === null) {
-                            this.influencers.forEach(function (item, index) {
-                                if (item.channels.includes(channel)) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.influencers.filter(t => t.channels.includes(channel)));
-                            return this.influencers.filter(t => t.channels.includes(channel))
-
-                        } else {
-                            this.influencers.forEach(function (item, index) {
-                                if (item.type === topic && item.channels.includes(channel)) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.influencers.filter(t => t.channels.includes(channel) && t.lang === lang));
-                            return this.influencers.filter(t => t.channels.includes(channel) && t.lang === lang)
-                        }
-
-                        } else if (lang === null){
-                            if(channel === null) {
-                                this.influencers.forEach(function (item, index) {
-                                    if (item.type === topic) {
-                                        i++
-                                    }
-                                });
-
-                                this.getRowCount(this.influencers.filter(t => t.type === topic));
-                                return this.influencers.filter(t => t.type === topic)
-
-                            } else if(topic === null) {
-                                this.influencers.forEach(function (item, index) {
-                                    if (item.channels.includes(channel)) {
-                                        i++
-                                    }
-                                });
-
-                                this.getRowCount(this.influencers.filter(t => t.channels.includes(channel)));
-                                return this.influencers.filter(t => t.channels.includes(channel))
-
-                            } else {
-                                this.influencers.forEach(function (item, index) {
-                                    if (item.type === topic && item.channels.includes(channel)) {
-                                        i++
-                                    }
-                                });
-
-                                this.getRowCount(this.influencers.filter(t => t.type === topic && t.channels.includes(channel)));
-                                return this.influencers.filter(t => t.type === topic && t.channels.includes(channel))
-                            }
-
-                    } else {
-                        this.influencers.forEach(function (item, index) {
-                            if (item.type === topic && item.channels.includes(channel)) {
-                                i++
-                            }
-                        });
-
-                        this.getRowCount(this.influencers.filter(t => t.type === topic && t.channels.includes(channel)));
-                        return this.influencers.filter(t => t.type === topic && t.channels.includes(channel));
-                    }
+            callFilters(data, topic, channel, lang){
+                data = vm.filterTopic(topic, data);
+                data = vm.filterChannel(channel, data);
+                data = vm.filterLang(lang, data);
+                return data;
+            },
+            filterTopic(type, data){
+                switch (type) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        return data.filter(data => data.topics.includes(type));
                 }
+            },
+            filterChannel(type, data){
+                switch (type) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        return data.filter(data => data.channels.includes(type));
+                }
+            },
+            filterLang(type, data){
+                switch (type) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        console.log(data.lang)
+                        console.log(type)
+                        return data.filter(data => data.chosen_lang === type);
+                }
+            },
+            filtered(topic, channel, lang, count = false) {
+                let datas = vm.influencers;
+                datas = vm.callFilters(datas, topic, channel, lang);
+                if(count !== false) return datas.length;
+                return datas;
+            },
+            getRowCount (items) {
+                return items.length
             },
             getOptions(){
                 this.influencers.forEach(function(item){
@@ -448,41 +374,6 @@
                         vm.optionsInfluenceLanguages.push(item.chosen_lang);
                     }
                 })
-            },
-
-            // @CHECK IT !!!
-            getRowCount (items, topic, channel, lang) {
-                if(topic === null && channel === null && lang === null) {
-                    return items.length
-                } else {
-                    if(channel === null) {
-                        if(lang === null) {
-                            return items.filter(t => t.status === topic).length
-                        } else if (topic === null) {
-                            return items.filter(t => t.lang === lang).length
-                        } else {
-                            return items.filter(t => t.lang === lang && t.type === topic).length
-                        }
-                    } else if (topic === null){
-                        if(lang === null) {
-                            return items.filter(t => t.channels.includes(channel)).length
-                        } else if (channel === null) {
-                            return items.filter(t => t.lang === lang).length
-                        } else {
-                            return items.filter(t => t.lang === lang && t.channels.includes(channel)).length
-                        }
-                    } else if (lang === null) {
-                        if(topic === null) {
-                            return items.filter(t => t.channels.includes(channel)).length
-                        } else if (channel === null) {
-                            return items.filter(t => t.type === topic).length
-                        } else {
-                            return items.filter(t => t.type === topic && t.channels.includes(channel)).length
-                        }
-                    } else {
-                        return items.filter(t => t.type === topic && t.channels.includes(channel) && t.lang === lang).length
-                    }
-                }
             },
         },
         computed: {

@@ -6,9 +6,6 @@
                        md="12">
                     <h2 class="h2">{{ header }} {{ influencer.name }}</h2>
                 </b-col>
-
-
-
                         <b-col
                                 sm="12"
                                 md="12">
@@ -35,7 +32,7 @@
 
                             <b-row :current-page="currentPage"
                                    :per-page="perPage">
-                                <b-col md="6" sm="6" xs="12" lg="4" v-for="tmpInfluencer in filtered(tmpInfluencers, sortBy, campaign_name_sort)
+                                <b-col md="6" sm="6" xs="12" lg="4" v-for="tmpInfluencer in filtered(sortBy, campaign_name)
                                 .slice((currentPage - 1) * perPage, currentPage * perPage)" v-bind:key="tmpInfluencer.id"> <!-- pick amount that fits to current page -->
                                     <b-card :title="tmpInfluencer.campaign_name"
                                             img-src="https://picsum.photos/600/300/?image=25"
@@ -75,7 +72,7 @@
 
                                 <nav>
                                     <b-pagination
-                                            :total-rows="getRowCount(tmpInfluencers, sortBy, campaign_name_sort)"
+                                            :total-rows="filtered(sortBy, campaign_name, true)"
                                             :per-page="perPage"
                                             align="center"
                                             v-model="currentPage"
@@ -170,56 +167,37 @@
                     }
                 });
             },
-            filtered (arrays, rule, campaign_name) {
-                if(rule === null && campaign_name === null) {
-                    this.getRowCount(this.tmpInfluencers);
-                    return this.tmpInfluencers
-                } else {
-                    let i = 0;
-                    if(campaign_name === null) {
-                        this.tmpInfluencers.forEach(function (item, index) {
-                            if (item.status === rule) {
-                                i++
-                            }
-                        });
-
-                        this.getRowCount(this.tmpInfluencers.filter(t => t.status === rule));
-                        return this.tmpInfluencers.filter(t => t.status === rule)
-                    } else if (rule === null){
-                        this.tmpInfluencers.forEach(function (item, index) {
-                            if (item.campaign_name === campaign_name) {
-                                i++
-                            }
-                        });
-
-                        this.getRowCount(this.tmpInfluencers.filter(t => t.campaign_name === campaign_name));
-                        return this.tmpInfluencers.filter(t => t.campaign_name === campaign_name);
-                    } else {
-                        this.tmpInfluencers.forEach(function (item, index) {
-                            if (item.status === rule && item.campaign_name === campaign_name) {
-                                i++
-                            }
-                        });
-
-                        this.getRowCount(this.tmpInfluencers.filter(t => t.status === rule && t.campaign_name === campaign_name));
-                        return this.tmpInfluencers.filter(t => t.status === rule && t.campaign_name === campaign_name);
-                    }
+            callFilters(data, type, campaign_name){
+                data = vm.filterType(type, data);
+                data = vm.filterCampaign(campaign_name, data);
+                return data;
+            },
+            filterType(type, data){
+                switch (type) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        return data.filter(data => data.status === type);
                 }
             },
-            getRowCount (items, rule, campaign_rule) {
-                if(rule === null && campaign_rule === null) {
-                    return items.length
-                } else {
-                    if(campaign_rule === null) {
-                        return items.filter(t => t.status === rule).length
-                    } else {
-                        if(rule === null) {
-                            return items.filter(t => t.campaign_name === campaign_rule).length
-                        } else {
-                            return items.filter(t => t.status === rule && t.campaign_name === campaign_rule).length
-                        }
-                    }
+            filterCampaign(campaign_name, data){
+                switch (campaign_name) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        return data.filter(data => data.campaign_name === campaign_name);
                 }
+            },
+            filtered (type, campaign_name, count = false) {
+                let datas = vm.tmpInfluencers;
+                datas = vm.callFilters(datas, type, campaign_name);
+                if(count !== false) return datas.length;
+                return datas;
+            },
+            getRowCount (items) {
+                return items.length
             },
             sorted(arrays) {
                 //return _.orderBy(arrays, 'name', 'asc');

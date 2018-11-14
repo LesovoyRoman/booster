@@ -17,15 +17,13 @@
                             <b-form-group>
                                 <b-input-group>
                                     <b-input-group-prepend>
-                                        <b-form-select dark v-model="sortBy">
-                                            <option slot="first" :value="null">All</option>
+                                        <b-form-select dark v-model="sortBy" v-if="checkedBonuses">
                                             <option :value="'accepted'">Accepted</option>
                                             <option :value="'declined'">Declined</option>
-                                            <option :value="'waiting'">Waiting</option>
                                         </b-form-select>
                                     </b-input-group-prepend>
                                     <b-input-group-prepend>
-                                        <b-form-select dark v-model="campaign_name_sort" :options="optionsUniqueCampaign_name">
+                                        <b-form-select dark v-model="campaign_name" :options="optionsUniqueCampaign_name">
                                             <option slot="first" :value="null">All campaigns</option>
                                         </b-form-select>
                                     </b-input-group-prepend>
@@ -40,13 +38,42 @@
                                             <option :value="'asc'">Date: Old</option>
                                         </b-form-select>
                                     </b-input-group-prepend>
+
+                                    <b-input-group-prepend>
+                                        <div class="custom-control custom-checkbox">
+                                            <input
+                                                    type="checkbox"
+                                                    id="customCheckboxChecked"
+                                                    name="customCheckboxCountry"
+                                                    class="custom-control-input"
+                                                    v-model="checkedBonuses"
+                                                    v-on:change="typeBonuses(false)">
+                                            <label
+                                                    class="custom-control-label"
+                                                    for="customCheckboxChecked">Checked</label>
+                                        </div>
+                                    </b-input-group-prepend>
+                                    <b-input-group-prepend>
+                                        <div class="custom-control custom-checkbox">
+                                            <input
+                                                    type="checkbox"
+                                                    id="customCheckboxUnchecked"
+                                                    name="customCheckboxCountry"
+                                                    class="custom-control-input"
+                                                    v-model="uncheckedBonuses"
+                                                    v-on:change="typeBonuses(true)">
+                                            <label
+                                                    class="custom-control-label"
+                                                    for="customCheckboxUnchecked">Unchecked</label>
+                                        </div>
+                                    </b-input-group-prepend>
                                 </b-input-group>
                             </b-form-group>
 
 
                             <b-row :current-page="currentPage"
                                    :per-page="perPage">
-                                <b-col md="6" sm="6" xs="12" lg="4" v-for="(tmpBonus, index) in filtered(tmpAllBonuses, sortBy, campaign_name_sort, influencer_name_sort)
+                                <b-col md="6" sm="6" xs="12" lg="4" v-for="(tmpBonus, index) in filtered(sortBy, campaign_name, influencer_name_sort)
                                 .slice((currentPage - 1) * perPage, currentPage * perPage)" v-bind:key="tmpBonus.id"> <!-- pick amount that fits to current page -->
                                     <b-card :title="tmpBonus.campaign_name"
                                             img-src="https://picsum.photos/600/300/?image=25"
@@ -86,13 +113,14 @@
 
                                 <nav>
                                     <b-pagination
-                                            :total-rows="getRowCount(tmpAllBonuses, sortBy, campaign_name_sort, influencer_name_sort)"
+                                            :total-rows="filtered(sortBy, campaign_name, influencer_name_sort, true)"
                                             :per-page="perPage"
                                             align="center"
                                             v-model="currentPage"
                                             prev-text="Prev"
                                             next-text="Next"
-                                            hide-goto-end-buttons/>
+                                            hide-goto-end-buttons>
+                                    </b-pagination>
                                 </nav>
                             </b-card>
                         </b-col>
@@ -110,17 +138,18 @@
         data () {
             return {
                 header: 'Checking Bonuses',
-
-                rule: null,
                 filter: null,
                 sortBy: null,
                 influencer_name_sort: null,
-                campaign_name_sort: null,
+                campaign_name: null,
                 sortDesc: false,
                 sortDirection: 'asc',
                 optionsUniqueNames: [],
                 optionsUniqueCampaign_name: [],
                 directionDate: 'desc',
+
+                uncheckedBonuses: true,
+                checkedBonuses: false,
 
                 fields: [
                     { key: 'id', label: '№' },
@@ -175,7 +204,7 @@
         },
         watch: {
             directionDate: {
-                handler:function(val,oldVal,changed) {
+                handler:function(val, oldVal,changed) {
                     vm.filterDate(val)
                 }
             }
@@ -191,6 +220,12 @@
                     }
                 });
             },
+            typeBonuses(type){
+                type ? vm.uncheckedBonuses = true : vm.uncheckedBonuses = false;
+                type ? vm.checkedBonuses = false : vm.checkedBonuses = true;
+                if(vm.uncheckedBonuses === true) vm.sortBy = 'waiting';
+                if(vm.checkedBonuses === true) vm.sortBy = 'accepted';
+            },
             filterDate(type) {
                 this.tmpAllBonuses.sort(function(a,b) {
                    if ( type === 'asc' ) {
@@ -201,108 +236,47 @@
                 })
                 return this.tmpAllBonuses
             },
-            filtered (arrays, rule, campaign_name, influencer_name_sort) {
-                if(rule === null && campaign_name === null && influencer_name_sort === null) {
-                    this.getRowCount(this.tmpAllBonuses);
-                    return this.tmpAllBonuses
-                } else {
-                    let i = 0;
-
-
-                    if(campaign_name === null && influencer_name_sort === null) {
-                        this.tmpAllBonuses.forEach(function (item, index) {
-                            if (item.status === rule) {
-                                i++
-                            }
-                        });
-                        this.getRowCount(this.tmpAllBonuses.filter(t => t.status === rule));
-                        return this.tmpAllBonuses.filter(t => t.status === rule)
-
-                    } else if(rule === null && influencer_name_sort === null) {
-                        this.tmpAllBonuses.forEach(function (item, index) {
-                            if (item.campaign_name === campaign_name) {
-                                i++
-                            } 
-                        });
-                        this.getRowCount(this.tmpAllBonuses.filter(t => t.campaign_name === campaign_name));
-                        return this.tmpAllBonuses.filter(t => t.campaign_name === campaign_name)
-
-                    } else if(rule === null && campaign_name === null) {
-                        this.tmpAllBonuses.forEach(function (item, index) {
-                            if (item.name === influencer_name_sort) {
-                                i++
-                            }
-                        });
-
-                        this.getRowCount(this.tmpAllBonuses.filter(t => t.name === influencer_name_sort));
-                        return this.tmpAllBonuses.filter(t => t.name === influencer_name_sort)
-
-                    } else {
-                        if(influencer_name_sort === null) {
-                            this.tmpAllBonuses.forEach(function (item, index) {
-                                if (item.status === rule && item.campaign_name === campaign_name) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.tmpAllBonuses.filter(t => t.status === rule && t.campaign_name === campaign_name));
-                            return this.tmpAllBonuses.filter(t => t.status === rule && t.campaign_name === campaign_name);
-
-                        } else if (campaign_name === null) {
-                            this.tmpAllBonuses.forEach(function (item, index) {
-                                if (item.status === rule && item.name === influencer_name_sort) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.tmpAllBonuses.filter(t => t.status === rule && t.name === influencer_name_sort));
-                            return this.tmpAllBonuses.filter(t => t.status === rule && t.name === influencer_name_sort);
-
-                        } else if (rule === null) {
-                            this.tmpAllBonuses.forEach(function (item, index) {
-                                if (item.name === influencer_name_sort && item.campaign_name === campaign_name) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.tmpAllBonuses.filter(t => t.name === influencer_name_sort && t.campaign_name === campaign_name));
-                            return this.tmpAllBonuses.filter(t => t.name === influencer_name_sort && t.campaign_name === campaign_name);
-
-                        } else {
-                            this.tmpAllBonuses.forEach(function (item, index) {
-                                if (item.status === rule && item.campaign_name === campaign_name && item.name === influencer_name_sort) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.tmpAllBonuses.filter(t => t.status === rule && t.campaign_name === campaign_name && t.name === influencer_name_sort));
-                            return this.tmpAllBonuses.filter(t => t.status === rule && t.campaign_name === campaign_name && t.name === influencer_name_sort);
-                        }
-                    }
+            callFilters(data, type, campaign_name, influencer_name_sort){
+                data = vm.filterType(type, data);
+                data = vm.filterCampaign(campaign_name, data);
+                data = vm.filterInfluencer(influencer_name_sort, data);
+                return data;
+            },
+            filterType(type, data){
+                switch (type) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        return data.filter(data => data.status === type);
                 }
             },
-            getRowCount (items, rule, campaign_rule, influencer_name_sort) {
-                if(rule === null && campaign_rule === null && influencer_name_sort === null) {
-                    return items.length
-                } else {
-                    if(campaign_rule === null && influencer_name_sort === null) {
-                        return items.filter(t => t.status === rule).length
-                    } else if(rule === null && influencer_name_sort === null) {
-                        return items.filter(t => t.campaign_name === campaign_rule).length
-                    } else if(rule === null && campaign_rule === null) {
-                        return items.filter(t => t.name === influencer_name_sort).length
-                    } else {
-                        if(rule === null) {
-                            return items.filter(t => t.campaign_name === campaign_rule && t.name === influencer_name_sort).length
-                        } else if (campaign_rule === null) {
-                            return items.filter(t => t.status === rule && t.name === influencer_name_sort).length
-                        } else if (influencer_name_sort === null) {
-                            return items.filter(t => t.status === rule && t.campaign_name === campaign_rule).length
-                        } else {
-                            return items.filter(t => t.status === rule && t.campaign_name === campaign_rule && t.name === influencer_name_sort).length
-                        }
-                    }
+            filterCampaign(campaign_name, data){
+                switch (campaign_name) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        return data.filter(data => data.campaign_name === campaign_name);
                 }
+            },
+            filterInfluencer(influencer_name_sort, data){
+                switch (influencer_name_sort) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        return data.filter(data => data.name === influencer_name_sort);
+                }
+            },
+            filtered(type, campaign_name, influencer_name_sort, count = false) {
+                let datas = vm.tmpAllBonuses;
+                datas = vm.callFilters(datas, type, campaign_name, influencer_name_sort);
+                if(count !== false) return datas.length;
+                return datas;
+            },
+            getRowCount (items) {
+                return items.length
             },
             sorted(arrays) {
                 //return _.orderBy(arrays, 'name', 'asc');

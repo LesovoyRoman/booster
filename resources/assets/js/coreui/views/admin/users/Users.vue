@@ -44,7 +44,7 @@
                                 :small="true"
                                 :fixed="false"
                                 responsive="sm"
-                                :items="filtered(users, user_country, user_city, user_type)"
+                                :items="filtered(user_country, user_city, user_type)"
                                 :fields="fields"
 
                                 :filter="filter"
@@ -105,13 +105,14 @@
 
                         <nav>
                             <b-pagination
-                                    :total-rows="getRowCount(users, user_country, user_city, user_type)"
+                                    :total-rows="filtered(user_country, user_city, user_type, true)"
                                     :per-page="perPage"
                                     align="center"
                                     v-model="currentPage"
                                     prev-text="Prev"
                                     next-text="Next"
-                                    hide-goto-end-buttons/>
+                                    hide-goto-end-buttons>
+                            </b-pagination>
                         </nav>
 
                     </b-card>
@@ -284,153 +285,44 @@
             select: function() {
                 vm.allSelected = false;
             },
-            filtered (arrays, country, city, type) {
-                if(country === null && city === null && type === null) {
-                    this.getRowCount(this.users);
-                    return this.users
-                } else {
-                    let i = 0;
-                    if(city === null) {
-                        if(type === null) {
-                            this.users.forEach(function (item, index) {
-                                if (item.country === country) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.users.filter(t => t.country === country));
-                            return this.users.filter(t => t.country === country)
-
-                        } else if(country === null) {
-                            this.users.forEach(function (item, index) {
-                                if (item.type === type) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.users.filter(t => t.type === type));
-                            return this.users.filter(t => t.type === type)
-
-                        } else {
-                            this.users.forEach(function (item, index) {
-                                if (item.type === country && item.type === type) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.users.filter(t => t.type === type && t.country === country));
-                            return this.users.filter(t => t.type === type && t.country === country)
-                        }
-
-
-                    } else if (country === null) {
-                        if (city === null) {
-                            this.users.forEach(function (item, index) {
-                                if (item.type === type) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.users.filter(t => t.type === type));
-                            return this.users.filter(t => t.type === type)
-
-                        } else if (type === null) {
-                            this.users.forEach(function (item, index) {
-                                if (item.city === city) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.users.filter(t => t.city === city));
-                            return this.users.filter(t => t.city === city)
-
-                        } else {
-                            this.users.forEach(function (item, index) {
-                                if (item.type === type && item.city === city) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.users.filter(t => t.city === city && t.type === type));
-                            return this.users.filter(t => t.city === city && t.type === type)
-                        }
-
-                    } else if (type === null){
-                        if(city === null) {
-                            this.users.forEach(function (item, index) {
-                                if (item.country === country) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.users.filter(t => t.country === country));
-                            return this.users.filter(t => t.country === country)
-
-                        } else if(country === null) {
-                            this.users.forEach(function (item, index) {
-                                if (item.city === city) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.users.filter(t => t.city === city));
-                            return this.users.filter(t => t.city === city)
-
-                        } else {
-                            this.users.forEach(function (item, index) {
-                                if (item.country === country && item.city === city) {
-                                    i++
-                                }
-                            });
-
-                            this.getRowCount(this.users.filter(t => t.country === country && t.city === city));
-                            return this.users.filter(t => t.country === country && t.city === city)
-                        }
-
-                    } else {
-                        this.users.forEach(function (item, index) {
-                            if (item.type === country && item.city === city && item.type === type) {
-                                i++
-                            }
-                        });
-
-                        this.getRowCount(this.users.filter(t => t.type === country && t.city === city && t.type === type));
-                        return this.users.filter(t => t.type === country && t.city === city && t.type === type);
-                    }
+            callFilters(data, country, city, type){
+                data = vm.filterCountry(country, data);
+                data = vm.filterCity(city, data);
+                data = vm.filterType(type, data);
+                return data;
+            },
+            filterCountry(type, data){
+                switch (type) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        return data.filter(data => data.country === type);
                 }
             },
-            getRowCount (items, country, city, type) {
-                if(country === null && city === null && type === null) {
-                    return items.length
-                } else {
-                    if(city === null) {
-                        if(type === null) {
-                            return items.filter(t => t.country === country).length
-                        } else if (country === null) {
-                            return items.filter(t => t.type === type).length
-                        } else {
-                            return items.filter(t => t.type === type && t.country === country).length
-                        }
-                    } else if (country === null){
-                        if(type === null) {
-                            return items.filter(t => t.city === city).length
-                        } else if (city === null) {
-                            return items.filter(t => t.type === type).length
-                        } else {
-                            return items.filter(t => t.type === type && t.city === city).length
-                        }
-                    } else if (type === null) {
-                        if(country === null) {
-                            return items.filter(t => t.city === city).length
-                        } else if (city === null) {
-                            return items.filter(t => t.country === country).length
-                        } else {
-                            return items.filter(t => t.country === country && t.city === city).length
-                        }
-                    } else {
-                        return items.filter(t => t.country === country && t.city === city && t.type === type).length
-                    }
+            filterCity(type, data){
+                switch (type) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        return data.filter(data => data.city === type);
                 }
+            },
+            filterCountry(type, data){
+                switch (type) {
+                    case null:
+                        return data;
+                        break;
+                    default:
+                        return data.filter(data => data.type === type);
+                }
+            },
+            filtered(country, city, type, count = false) {
+                let datas = vm.tmpAllBonuses;
+                datas = vm.callFilters(datas, country, city, type);
+                if(count !== false) return datas.length;
+                return datas;
             },
         },
         computed: {
