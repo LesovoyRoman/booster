@@ -87,6 +87,10 @@ a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
   border: $custom_border;
 }
 
+.custom-control {
+  padding-left: 2rem;
+}
+
 .custom-control-label::before {
   background-color: #E1E2E4;
 }
