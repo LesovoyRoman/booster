@@ -13,6 +13,7 @@ class Image extends ModelBase
         'image_path',
         'type',
         'user_api_id',
+        'checked'
     ];
 
     public function user()
