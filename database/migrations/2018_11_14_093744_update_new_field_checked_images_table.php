@@ -14,7 +14,7 @@ class UpdateNewFieldCheckedImagesTable extends Migration
     public function up()
     {
         Schema::table('images', function (Blueprint $table) {
-            $table->boolean('checked')->default(0);
+            $table->enum('checked', config('enums.image_product_status'))->default(0);
         });
     }
 
