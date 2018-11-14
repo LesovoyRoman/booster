@@ -14,6 +14,7 @@ class BuyProducts extends ModelBase
         'image_id',
         'secret_code',
         'type',
+        'influencer_id',
         'approved'
     ];
 
@@ -25,6 +26,11 @@ class BuyProducts extends ModelBase
     public function user_api()
     {
         return $this->belongsTo('App\Models\Api\UserApi', 'user_api_id', 'id');
+    }
+
+    public function influencer()
+    {
+        return $this->belongsTo('App\Models\Influencer', 'influencer_id', 'id');
     }
 
     public function campaign()

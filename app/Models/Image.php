@@ -20,10 +20,12 @@ class Image extends ModelBase
     {
         return $this->belongsTo('App\Models\User');
     }
+
     public function gift()
     {
         return $this->belongsTo('App\Models\Gift');
     }
+
     public function campaign()
     {
         return $this->belongsTo('App\Models\Campaign');

@@ -54,6 +54,7 @@ class CodesController extends ApiController
                 'secret_code'   => $request['secret_code'],
                 'user_api_id'   => $id_user_api,
                 'approved'      => 1,
+                'influencer_id' => $request['influencer_id']
             ]);
             $campaign_secret_code->approved = 1;
             $campaign_secret_code->save();
@@ -80,8 +81,9 @@ class CodesController extends ApiController
     {
         try {
             $request->file ? $file = $request->file : $file = null;
-            if(!$file) return response()->json([$this->errorsAtrArray => 'File not sent'], $this->statusAccepted);
-            if(!$request['campaign_id']) return response()->json([$this->errorsAtrArray => 'Campaign id not sent'], $this->statusAccepted);
+            if(!$file) return response()->json([$this->errorsAtrArray => 'File not sent'], $this->statusValidationFailed);
+            if(!$request['campaign_id']) return response()->json([$this->errorsAtrArray => 'Campaign id not sent'], $this->statusValidationFailed);
+            if(!$request['influencer_id']) return response()->json([$this->errorsAtrArray => 'Influencer id not sent'], $this->statusValidationFailed);
 
             $campaign_id = $request['campaign_id'];
 
@@ -105,7 +107,8 @@ class CodesController extends ApiController
                     'image_id'      => $image['response']->id,
                     'user_api_id'   => $id_user_api,
                     'approved'      => 0,
-                    'type'          => 'image'
+                    'type'          => 'image',
+                    'influencer_id' => $request['influencer_id']
                 ]);
 
                 /**

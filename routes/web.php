@@ -93,6 +93,12 @@ Route::group(['middleware' => 'isAssistant'], function (){
     Route::post('/currentAssistantGetData', 'Assistant\AssistantController@getCurrentAssistant');
 });
 
+Route::group(['middleware' => ['isAssistant' OR 'isPerformer']], function () {
+    // Bonuses (users points)
+    Route::post('/getAllCheckedBonuses', 'Common\Bonuses\BonusesController@getAllCheckedBonuses');
+    Route::post('/getAllUncheckedBonuses', 'Common\Bonuses\BonusesController@getAllUncheckedBonuses');
+});
+
 // @todo tmp route, will be rebuilt
 Route::post('/getAllUsers', 'HomeController@getAllUsers');
 

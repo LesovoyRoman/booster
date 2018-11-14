@@ -14,7 +14,7 @@ return [
     'images_types'               => ['api', 'app'],
     'user_api_buy_products_type' => ['code', 'image'],
     'assistant_access_campaign'  => 'accessed',
-    'image_product_status'       => ['accepted', 'declined', 0],
+    'image_product_status'       => ['accepted', 'declined', '0'],
 
 
 

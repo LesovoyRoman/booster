@@ -7,6 +7,8 @@
                     <h2 class="h2">{{ header }}</h2>
                 </b-col>
 
+                <loading v-if="loading" style="position: fixed; z-index: 9999; left: 0; top: 0; height: 100%; width: 100%; background: rgba(2,2,2,0.70);"></loading>
+
                 <b-col>
 
                         <b-col
@@ -73,8 +75,7 @@
 
                             <b-row :current-page="currentPage"
                                    :per-page="perPage">
-                                <b-col md="6" sm="6" xs="12" lg="4" v-for="(tmpBonus, index) in filtered(sortBy, campaign_name, influencer_name_sort)
-                                .slice((currentPage - 1) * perPage, currentPage * perPage)" v-bind:key="tmpBonus.id"> <!-- pick amount that fits to current page -->
+                                <b-col md="6" sm="6" xs="12" lg="4" v-for="(tmpBonus, index) in allBonusesComputed" v-bind:key="tmpBonus.id"> <!-- pick amount that fits to current page -->
                                     <b-card :title="tmpBonus.campaign_name"
                                             img-src="https://picsum.photos/600/300/?image=25"
                                             img-alt="Image"
@@ -113,7 +114,7 @@
 
                                 <nav>
                                     <b-pagination
-                                            :total-rows="filtered(sortBy, campaign_name, influencer_name_sort, true)"
+                                            :total-rows="allBonusesLengthComputed"
                                             :per-page="perPage"
                                             align="center"
                                             v-model="currentPage"
@@ -133,10 +134,18 @@
 <script>
     let vm = {};
 
+    import Loading from 'vue-loading-spinner/src/components/Circle10'
+
     export default {
         name: 'CheckingBonuses',
+        components: {
+            Loading
+        },
         data () {
             return {
+                loading: false,
+
+                type: 'unchecked',
                 header: 'Checking Bonuses',
                 filter: null,
                 sortBy: null,
@@ -162,79 +171,97 @@
                 totalRows  : 0,
                 fromNumber : 0,
 
-                tmpAllBonuses: [
-                    { id: 1, name: 'Anton Ptushkin', status: 'accepted', campaign_name: 'Snacks', date: new Date('2015-03-25') },
-                    { id: 2, name: 'Kate Pery', status: 'waiting', campaign_name: 'Cheese', date: new Date('2016-03-25') },
-                    { id: 3, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks', date: new Date('2017-03-25') },
-                    { id: 4, name: 'Yuriy Gagarin', status: 'waiting', campaign_name: 'Snacks', date: new Date('2018-03-25') },
-                    { id: 5, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese', date: new Date('2015-03-25') },
-                    { id: 6, name: 'Ksenia Sobchak', status: 'declined', campaign_name: 'Cheese', date: new Date('2015-03-25') },
-                    { id: 7, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks', date: new Date('2019-03-25') },
-                    { id: 8, name: 'Maria Rasputina', status: 'waiting', campaign_name: 'Cheese', date: new Date('2015-03-25') },
-                    { id: 9, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks', date: new Date('2015-03-25') },
-                    { id: 10, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks', date: new Date('2015-03-10') },
-                    { id: 11, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks', date: new Date('2020-03-25') },
-                    { id: 12, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese', date: new Date('2015-03-25') },
-                    { id: 13, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks', date: new Date('2015-05-25') },
-                    { id: 14, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese', date: new Date('2015-03-25') },
-                    { id: 15, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Snacks', date: new Date('2015-07-25') },
-                    { id: 16, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese', date: new Date('2015-03-09') },
-                    { id: 17, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Cheese', date: new Date('2015-09-25') },
-                    { id: 18, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese', date: new Date('2015-03-25') },
-                    { id: 19, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Cheese', date: new Date('2015-03-25') },
-                    { id: 20, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Snacks', date: new Date('2015-12-25') },
-                    { id: 21, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks', date: new Date('2015-03-25') },
-                    { id: 22, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Cheese', date: new Date('2015-03-29') },
-                    { id: 23, name: 'Maria Adolfovna', status: 'declined', campaign_name: 'Snacks', date: new Date('2015-03-25') },
-                    { id: 24, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese', date: new Date('2015-03-30') },
-                    { id: 25, name: 'Maria Adolfovna', status: 'waiting', campaign_name: 'Snacks', date: new Date('2015-03-25') },
-                    { id: 26, name: 'Maria Adolfovna', status: 'accepted', campaign_name: 'Cheese', date: new Date('2015-03-31') }
-                ],
+                allCheckedBonuses: [],
+                allUncheckedBonuses: [],
+                chosenBonuses: [],
             }
         },
         beforeCreate(){
             vm = this;
         },
         created(){
-            this.getOptions();
-            this.filterDate('desc');
+
         },
         computed: {
-
+            allBonusesComputed() {
+                if(vm.type === 'checked' && vm.allCheckedBonuses.length === 0) {
+                    vm.loadUncheckedData('/getAllCheckedBonuses', false).then(resolve => {
+                        return vm.filtered(vm.sortBy, vm.campaign_name, vm.influencer_name_sort, false, vm.type)
+                    })
+                } else if(vm.type !== 'checked' && vm.allUncheckedBonuses.length === 0) {
+                    vm.loadUncheckedData('/getAllUncheckedBonuses', true).then(resolve => {
+                        return vm.filtered(vm.sortBy, vm.campaign_name, vm.influencer_name_sort, false, vm.type)
+                    })
+                } else {
+                    return vm.filtered(vm.sortBy, vm.campaign_name, vm.influencer_name_sort, false, vm.type)
+                }
+            },
+            allBonusesLengthComputed() {
+                return vm.filtered(vm.sortBy, vm.campaign_name, vm.influencer_name_sort, true, vm.type)
+            }
         },
         watch: {
             directionDate: {
-                handler:function(val, oldVal,changed) {
-                    vm.filterDate(val)
+                handler:function(val) {
+                    // @todo make filter of date to work !
+                    //vm.filterDate(val, vm.allBonusesComputed)
                 }
             }
         },
         methods: {
-            getOptions(){
-                this.tmpAllBonuses.forEach(function (item, i) {
-                    if(!vm.optionsUniqueNames.includes(item.name)) {
-                        vm.optionsUniqueNames.push(item.name);
+            getOptions(items){
+                return items.forEach(function (item) {
+                    if(item.influencer && !vm.optionsUniqueNames.includes(item.influencer.name)) {
+                        vm.optionsUniqueNames.push(item.influencer.name);
                     }
-                    if(!vm.optionsUniqueCampaign_name.includes(item.campaign_name)) {
-                        vm.optionsUniqueCampaign_name.push(item.campaign_name);
+                    if(item.campaign && !vm.optionsUniqueCampaign_name.includes(item.campaign.name)) {
+                        vm.optionsUniqueCampaign_name.push(item.campaign.name);
                     }
                 });
             },
             typeBonuses(type){
                 type ? vm.uncheckedBonuses = true : vm.uncheckedBonuses = false;
                 type ? vm.checkedBonuses = false : vm.checkedBonuses = true;
-                if(vm.uncheckedBonuses === true) vm.sortBy = 'waiting';
-                if(vm.checkedBonuses === true) vm.sortBy = 'accepted';
+                if(vm.uncheckedBonuses === true) {
+                    vm.type = 'unchecked';
+                    vm.sortBy = null;
+                }
+                if(vm.checkedBonuses === true) {
+                    vm.type = 'checked';
+                    vm.sortBy = 'accepted';
+                }
             },
-            filterDate(type) {
-                this.tmpAllBonuses.sort(function(a,b) {
+            loadUncheckedData(route, checked){
+                this.loading = true;
+                return new Promise((resolve, reject) => {
+                    axios.post(route).then(response => {
+                        vm.loading = false;
+                        if(response.data.bonuses){
+                            checked === true ? vm.allUncheckedBonuses = response.data.bonuses : vm.allCheckedBonuses = response.data.bonuses
+                            vm.getOptions(response.data.bonuses);
+                            //vm.filterDate('desc', response.data.bonuses);
+                            resolve();
+                        }
+                        if(response.data.errors){
+                            reject()
+                            vm.$swal('Unfortunately:', response.data.errors, 'error')
+                        }
+                    }).catch( err => {
+                        reject()
+                        vm.loading = false;
+                        console.log(err.message)
+                    })
+                });
+            },
+            filterDate(type, items) {
+                items.sort(function(a,b) {
                    if ( type === 'asc' ) {
                        return a.date.getTime() - b.date.getTime()
                    } else {
                        return b.date.getTime() - a.date.getTime()
                    }
                 })
-                return this.tmpAllBonuses
+                return items
             },
             callFilters(data, type, campaign_name, influencer_name_sort){
                 data = vm.filterType(type, data);
@@ -248,7 +275,7 @@
                         return data;
                         break;
                     default:
-                        return data.filter(data => data.status === type);
+                        return data.filter(data => data.image.checked === type);
                 }
             },
             filterCampaign(campaign_name, data){
@@ -257,7 +284,11 @@
                         return data;
                         break;
                     default:
-                        return data.filter(data => data.campaign_name === campaign_name);
+                        return data.filter(function(data){
+                            if(data.campaign)
+                                return data.campaign.name = campaign_name ;
+                            return false
+                        });
                 }
             },
             filterInfluencer(influencer_name_sort, data){
@@ -266,23 +297,30 @@
                         return data;
                         break;
                     default:
-                        return data.filter(data => data.name === influencer_name_sort);
+                        return data.filter(function(data){
+                            if(data.influencer)
+                                return data.influencer.name = influencer_name_sort ;
+                            return false
+                        });
                 }
             },
-            filtered(type, campaign_name, influencer_name_sort, count = false) {
-                let datas = vm.tmpAllBonuses;
+            filtered(type, campaign_name, influencer_name_sort, count = false, typeBonuses) {
+                let datas;
+                typeBonuses === 'checked' ? datas = vm.allCheckedBonuses : datas = vm.allUncheckedBonuses;
                 datas = vm.callFilters(datas, type, campaign_name, influencer_name_sort);
                 if(count !== false) return datas.length;
-                return datas;
+                return vm.slicePerPage(datas);
             },
             getRowCount (items) {
                 return items.length
+            },
+            slicePerPage(items){
+                return items.slice((vm.currentPage - 1) * vm.perPage, vm.currentPage * vm.perPage)
             },
             sorted(arrays) {
                 //return _.orderBy(arrays, 'name', 'asc');
             },
             onFiltered (filteredItems) {
-                // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems
                 this.currentPage = 1
             },
