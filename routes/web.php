@@ -97,6 +97,7 @@ Route::group(['middleware' => ['isAssistant' OR 'isPerformer']], function () {
     // Bonuses (users points)
     Route::post('/getAllCheckedBonuses', 'Common\Bonuses\BonusesController@getAllCheckedBonuses');
     Route::post('/getAllUncheckedBonuses', 'Common\Bonuses\BonusesController@getAllUncheckedBonuses');
+    Route::post('/changeBonusStatus', 'Common\Bonuses\BonusesController@changeBonusStatus');
 });
 
 // @todo tmp route, will be rebuilt

@@ -9,123 +9,126 @@
 
                 <loading v-if="loading" style="position: fixed; z-index: 9999; left: 0; top: 0; height: 100%; width: 100%; background: rgba(2,2,2,0.70);"></loading>
 
-                <b-col>
+                <keep-alive>
+                    <b-col>
 
-                        <b-col
-                                sm="12"
-                                md="12">
-                            <b-card>
+                            <b-col
+                                    sm="12"
+                                    md="12">
+                                <b-card>
 
-                            <b-form-group>
-                                <b-input-group>
-                                    <b-input-group-prepend>
-                                        <b-form-select dark v-model="sortBy" v-if="checkedBonuses">
-                                            <option :value="'accepted'">Accepted</option>
-                                            <option :value="'declined'">Declined</option>
-                                        </b-form-select>
-                                    </b-input-group-prepend>
-                                    <b-input-group-prepend>
-                                        <b-form-select dark v-model="campaign_name" :options="optionsUniqueCampaign_name">
-                                            <option slot="first" :value="null">All campaigns</option>
-                                        </b-form-select>
-                                    </b-input-group-prepend>
-                                    <b-input-group-prepend>
-                                        <b-form-select dark v-model="influencer_name_sort" :options="optionsUniqueNames">
-                                            <option slot="first" :value="null">All influencers</option>
-                                        </b-form-select>
-                                    </b-input-group-prepend>
-                                    <b-input-group-prepend>
-                                        <b-form-select v-model="directionDate">
-                                            <option slot="first" :value="'desc'">Date: New</option>
-                                            <option :value="'asc'">Date: Old</option>
-                                        </b-form-select>
-                                    </b-input-group-prepend>
+                                <b-form-group>
+                                    <b-input-group>
+                                        <b-input-group-prepend>
+                                            <b-form-select dark v-model="sortBy" v-if="checkedBonuses">
+                                                <option :value="'accepted'">Accepted</option>
+                                                <option :value="'declined'">Declined</option>
+                                            </b-form-select>
+                                        </b-input-group-prepend>
+                                        <b-input-group-prepend>
+                                            <b-form-select dark v-model="campaign_name" :options="optionsUniqueCampaign_name">
+                                                <option slot="first" :value="null">All campaigns</option>
+                                            </b-form-select>
+                                        </b-input-group-prepend>
+                                        <b-input-group-prepend>
+                                            <b-form-select dark v-model="influencer_name_sort" :options="optionsUniqueNames">
+                                                <option slot="first" :value="null">All influencers</option>
+                                            </b-form-select>
+                                        </b-input-group-prepend>
+                                        <b-input-group-prepend>
+                                            <b-form-select v-model="directionDate">
+                                                <option slot="first" :value="'desc'">Date: New</option>
+                                                <option :value="'asc'">Date: Old</option>
+                                            </b-form-select>
+                                        </b-input-group-prepend>
 
-                                    <b-input-group-prepend>
-                                        <div class="custom-control custom-checkbox">
-                                            <input
-                                                    type="checkbox"
-                                                    id="customCheckboxChecked"
-                                                    name="customCheckboxCountry"
-                                                    class="custom-control-input"
-                                                    v-model="checkedBonuses"
-                                                    v-on:change="typeBonuses(false)">
-                                            <label
-                                                    class="custom-control-label"
-                                                    for="customCheckboxChecked">Checked</label>
-                                        </div>
-                                    </b-input-group-prepend>
-                                    <b-input-group-prepend>
-                                        <div class="custom-control custom-checkbox">
-                                            <input
-                                                    type="checkbox"
-                                                    id="customCheckboxUnchecked"
-                                                    name="customCheckboxCountry"
-                                                    class="custom-control-input"
-                                                    v-model="uncheckedBonuses"
-                                                    v-on:change="typeBonuses(true)">
-                                            <label
-                                                    class="custom-control-label"
-                                                    for="customCheckboxUnchecked">Unchecked</label>
-                                        </div>
-                                    </b-input-group-prepend>
-                                </b-input-group>
-                            </b-form-group>
+                                        <b-input-group-prepend>
+                                            <div class="custom-control custom-checkbox">
+                                                <input
+                                                        type="checkbox"
+                                                        id="customCheckboxChecked"
+                                                        name="customCheckboxCountry"
+                                                        class="custom-control-input"
+                                                        v-model="checkedBonuses"
+                                                        v-on:change="typeBonuses(false)">
+                                                <label
+                                                        class="custom-control-label"
+                                                        for="customCheckboxChecked">Checked</label>
+                                            </div>
+                                        </b-input-group-prepend>
+                                        <b-input-group-prepend>
+                                            <div class="custom-control custom-checkbox">
+                                                <input
+                                                        type="checkbox"
+                                                        id="customCheckboxUnchecked"
+                                                        name="customCheckboxCountry"
+                                                        class="custom-control-input"
+                                                        v-model="uncheckedBonuses"
+                                                        v-on:change="typeBonuses(true)">
+                                                <label
+                                                        class="custom-control-label"
+                                                        for="customCheckboxUnchecked">Unchecked</label>
+                                            </div>
+                                        </b-input-group-prepend>
+                                    </b-input-group>
+                                </b-form-group>
 
 
-                            <b-row :current-page="currentPage"
-                                   :per-page="perPage">
-                                <b-col md="6" sm="6" xs="12" lg="4" v-for="(tmpBonus, index) in allBonusesComputed" v-bind:key="tmpBonus.id"> <!-- pick amount that fits to current page -->
-                                    <b-card :title="tmpBonus.campaign_name"
-                                            img-src="https://picsum.photos/600/300/?image=25"
-                                            img-alt="Image"
-                                            img-top
-                                            tag="article"
-                                            class="text-center card-custom">
-                                        <p class="card-text text-center">
-                                            {{ tmpBonus.name }}
-                                        </p>
-                                        <p class="card-text text-center">
-                                            from user id {{ tmpBonus.id }}
-                                        </p>
-                                        <p class="card-text text-center">
-                                            Iphone
-                                        </p>
-                                        <div v-if="tmpBonus.status === 'waiting'">
-                                            <b-button variant="secondary" class="float-left" @click="tmpBonus.status = 'declined'">decline</b-button>
-                                            <b-button variant="primary" class="float-right" @click="tmpBonus.status = 'accepted';">accept</b-button>
-                                        </div>
-                                        <div v-if="tmpBonus.status === 'accepted'">
-                                            <p :variant="'primary'" class="text-center uppercase font500 statusCard">
-                                                <i class="icon-check"></i>
-                                                Accepted
+                                <b-row :current-page="currentPage"
+                                       :per-page="perPage">
+                                    <b-col md="6" sm="6" xs="12" lg="4" v-for="(bonusInfluencer, index) in allBonusesComputed" v-bind:key="'bonus_id_' + bonusInfluencer.id + '_campaign_id_' + bonusInfluencer.campaign.id"> <!-- pick amount that fits to current page -->
+                                        <b-card :title="bonusInfluencer.campaign_name"
+                                                :img-src="storage_path + '/' + bonusInfluencer.image.image_path"
+                                                img-alt="Image"
+                                                img-top
+                                                tag="article"
+                                                class="text-center card-custom">
+                                            <p class="card-text text-center">
+                                                {{ bonusInfluencer.name }}
                                             </p>
-                                        </div>
-                                        <div v-if="tmpBonus.status === 'declined'">
-                                            <p :variant="'secondary'" class="text-center uppercase font500 statusCard">
-                                                <i class="icon-close"></i>
-                                                Declined
+                                            <p class="card-text text-center">
+                                                <span v-if="bonusInfluencer.user_api_id">From API User ID: {{ bonusInfluencer.user_api_id }}</span>
+                                                <span v-else>Api User ID not found</span>
                                             </p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </b-card>
-                                </b-col>
-                            </b-row>
+                                            <p class="card-text text-center">
+                                                <span>Campaign: {{ bonusInfluencer.campaign.name }}</span>
+                                            </p>
+                                            <div v-if="bonusInfluencer.image.checked === '0'">
+                                                <b-button variant="secondary" class="float-left" @click="changeStatusBonus('declined', bonusInfluencer)">decline</b-button>
+                                                <b-button variant="primary" class="float-right" @click="changeStatusBonus('accepted', bonusInfluencer)">accept</b-button>
+                                            </div>
+                                            <div v-if="bonusInfluencer.image.checked === 'accepted'">
+                                                <p :variant="'primary'" class="text-center uppercase font500 statusCard">
+                                                    <i class="icon-check"></i>
+                                                    Accepted
+                                                </p>
+                                            </div>
+                                            <div v-if="bonusInfluencer.image.checked === 'declined'">
+                                                <p :variant="'secondary'" class="text-center uppercase font500 statusCard">
+                                                    <i class="icon-close"></i>
+                                                    Declined
+                                                </p>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </b-card>
+                                    </b-col>
+                                </b-row>
 
-                                <nav>
-                                    <b-pagination
-                                            :total-rows="allBonusesLengthComputed"
-                                            :per-page="perPage"
-                                            align="center"
-                                            v-model="currentPage"
-                                            prev-text="Prev"
-                                            next-text="Next"
-                                            hide-goto-end-buttons>
-                                    </b-pagination>
-                                </nav>
-                            </b-card>
-                        </b-col>
-                </b-col>
+                                    <nav>
+                                        <b-pagination
+                                                :total-rows="allBonusesLengthComputed"
+                                                :per-page="perPage"
+                                                align="center"
+                                                v-model="currentPage"
+                                                prev-text="Prev"
+                                                next-text="Next"
+                                                hide-goto-end-buttons>
+                                        </b-pagination>
+                                    </nav>
+                                </b-card>
+                            </b-col>
+                    </b-col>
+                </keep-alive>
             </b-row>
         </div>
     </div>
@@ -145,6 +148,7 @@
             return {
                 loading: false,
 
+                loadedChecked: false,
                 type: 'unchecked',
                 header: 'Checking Bonuses',
                 filter: null,
@@ -156,6 +160,8 @@
                 optionsUniqueNames: [],
                 optionsUniqueCampaign_name: [],
                 directionDate: 'desc',
+
+                storage_path: '',
 
                 uncheckedBonuses: true,
                 checkedBonuses: false,
@@ -180,11 +186,11 @@
             vm = this;
         },
         created(){
-
+            this.storage_path = this.$root.storage_path;
         },
         computed: {
             allBonusesComputed() {
-                if(vm.type === 'checked' && vm.allCheckedBonuses.length === 0) {
+                if(vm.type === 'checked' && vm.loadedChecked === false) {
                     vm.loadUncheckedData('/getAllCheckedBonuses', false).then(resolve => {
                         return vm.filtered(vm.sortBy, vm.campaign_name, vm.influencer_name_sort, false, vm.type)
                     })
@@ -209,6 +215,53 @@
             }
         },
         methods: {
+            checkItemDataToMakeRequest(item){
+                if(!item.campaign
+                    || !item.influencer
+                    || !item.image) {
+                    return false
+                }
+                return true;
+            },
+            checkIfLoadedCheckedDatas(){
+                // return Promise if checked bonuses not loaded & load them
+                return new Promise ((resolve_loaded, reject) => {
+                    if(vm.allCheckedBonuses.length === 0) {
+                        vm.loadUncheckedData('/getAllCheckedBonuses', false).then(resolve => {
+                            vm.filtered(vm.sortBy, vm.campaign_name, vm.influencer_name_sort, false, vm.type)
+                            resolve_loaded(true)
+                        })
+                    } else {
+                        resolve_loaded(true)
+                    }
+                })
+
+            },
+            replaceCheckedItem(checkedItem){
+                vm.allCheckedBonuses.push(checkedItem);
+                let index = vm.allUncheckedBonuses.indexOf(checkedItem);
+                vm.allUncheckedBonuses.splice(index, 1);
+            },
+            changeStatusBonus(new_status, item){
+                vm.loading = true;
+                if(!vm.checkItemDataToMakeRequest(item)) return vm.$swal('Oops:', 'Request data not found', 'error')
+                return axios.post('/changeBonusStatus', {
+                    status: new_status,
+                    image_id: item.image.id,
+                    campaign_id: item.campaign.id,
+                    influencer_id: item.influencer.id
+                }).then(function (response) {
+                    vm.loading = false;
+                    if(response.data.errors){
+                        return vm.$swal('Unfortunately:', response.data.errors, 'error')
+                    }
+                    item.image.checked = response.data.image_status
+                    //vm.checkIfLoadedCheckedDatas().then(resolve_loaded => {
+                    vm.replaceCheckedItem(item);
+                    return vm.$swal(new_status, response.data.image_status, 'success')
+                    //});
+                })
+            },
             getOptions(items){
                 return items.forEach(function (item) {
                     if(item.influencer && !vm.optionsUniqueNames.includes(item.influencer.name)) {
@@ -237,7 +290,12 @@
                     axios.post(route).then(response => {
                         vm.loading = false;
                         if(response.data.bonuses){
-                            checked === true ? vm.allUncheckedBonuses = response.data.bonuses : vm.allCheckedBonuses = response.data.bonuses
+                            if(checked === true){
+                                vm.allUncheckedBonuses = response.data.bonuses
+                            } else {
+                                vm.loadedChecked = true;
+                                vm.allCheckedBonuses = vm.allCheckedBonuses.concat(response.data.bonuses)
+                            }
                             vm.getOptions(response.data.bonuses);
                             //vm.filterDate('desc', response.data.bonuses);
                             resolve();
@@ -286,7 +344,7 @@
                     default:
                         return data.filter(function(data){
                             if(data.campaign)
-                                return data.campaign.name = campaign_name ;
+                                return data.campaign.name === campaign_name ;
                             return false
                         });
                 }
@@ -299,7 +357,7 @@
                     default:
                         return data.filter(function(data){
                             if(data.influencer)
-                                return data.influencer.name = influencer_name_sort ;
+                                return data.influencer.name === influencer_name_sort ;
                             return false
                         });
                 }
