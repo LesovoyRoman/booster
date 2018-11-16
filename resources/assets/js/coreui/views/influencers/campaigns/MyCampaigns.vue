@@ -45,14 +45,15 @@
                                 <router-link :id="id = data.item.campaign.id" :data="campaign = data.item.campaign" :to="{ name: 'ProfileCampaign', params: { campaign:campaign, id: id } }">{{ data.item.campaign.name }}</router-link>
                             </template>
                             <template slot="links" slot-scope="row">
-                                <div v-for="(linkItem, index) in row.item.links">
+                                <div v-for="(linkItem, index) in row.item.links" :key="'link_id_' + index"  v-if="row.item.links">
                                     <b-form-group class="groupLinksCampaigns">
-                                        <div v-for="(objItem, key) in linkItem" :key="key" class="inlineBlock">
-                                            <b-form-input v-if="key === 'bonus_link'" v-model="row.item.links[index].bonus_link" placeholder="Link path"/>
-                                            <b-btn :variant="'primary'" v-if="key === 'bonus_link'" @click="index === 0 ? addLink(row.item.links) : removeLink(row.index, index)" class="uppercase float-right font500"><span v-if="index === 0">+</span><span v-if="index !== 0">-</span></b-btn>
+                                        <div class="inlineBlock">
+                                            <b-form-input v-model="row.item.links[index].bonus_link" placeholder="Link path"/>
+                                            <b-btn :variant="'primary'" @click="removeLink(row.index, index)" class="uppercase float-right font500"><span>-</span></b-btn>
                                         </div>
                                     </b-form-group>
                                 </div>
+                                <b-btn :variant="'primary'" @click="addLink(row.item.links)" class="uppercase float-right font500"><span>+</span></b-btn>
                             </template>
                             <template slot="date" slot-scope="row">
                                 {{ row.item.campaign.created_at }}
