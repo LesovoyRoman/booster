@@ -27,8 +27,13 @@ class CampaignController extends CommonCampaignController
                     'campaign_influencer_points.campaign_id',
                     'campaign_influencer_points.all_points',
                     'campaign_influencer_points.checked_points')
-                // @todo i don"t know should we search with status or not !!!
+                // @todo i don"t know should we search with status 'activated' or not !!!
                 //->where('campaigns.status', '=', config('statusCampaign.status_campaign_to_be_shown'))
+
+                ->where(function ($query) {
+                    $query->where('campaign_influencer_points.status', '=', config('statusCampaign.status_influencer_invited_accepted'))
+                        ->orWhere('campaign_influencer_points.status', '=', config('statusCampaign.status_influencer_accepted'));
+                })
                 ->where('campaign_influencer_points.user_id', '=', Auth::id())
                 ->get();
 
