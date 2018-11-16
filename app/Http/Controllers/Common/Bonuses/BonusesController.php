@@ -92,9 +92,7 @@ class BonusesController extends Controller
             $influencer_id = $request['influencer_id'];
             $campaign_id = $request['campaign_id'];
 
-            $image = Image::find($image_id)
-                ->where('influencer_id', $influencer_id)
-                ->where('campaign_id', $campaign_id)
+            $image = Image::where('id', $image_id)
                 ->first();
             if($image == null) return response()->json(['errors' => 'Image not found'], 200);
             $image->checked = $new_bonus_status;
