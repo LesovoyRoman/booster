@@ -110,6 +110,9 @@ class CampaignController extends CommonCampaignController
                 'status'            => config('statusCampaign.status_campaign_created')
             ]);
 
+            $user = Auth::user();
+            $user->campaigns()->attach($campaign->id, array('status' => 'owner'));
+
             $newCampaignId = DB::table('campaigns')->max('id');
 
             if(isset($file) && $file !== 'undefined') {
