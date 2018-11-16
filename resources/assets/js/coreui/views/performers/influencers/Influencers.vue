@@ -343,8 +343,6 @@
                         return data;
                         break;
                     default:
-                        console.log(data.lang)
-                        console.log(type)
                         return data.filter(data => data.chosen_lang === type);
                 }
             },

@@ -77,12 +77,20 @@ class CampaignController extends Controller
     
     public static function getOnlyFieldsCampaigns($fields)
     {
+        $user = auth()->user();
         // added field id_owner & status for searching
         $field_id_owner = 'id_owner';
         $field_status = 'status';
         array_push($fields, $field_id_owner, $field_status);
 
-        $campaignsFields = Campaign::get($fields)->where('status', '=', config('statusCampaign.status_campaign_to_be_shown'));
+        if($user->user_role == 'performer'){
+            // uses for create gifts & set campaign to 'activated'
+            $campaignsFields = Campaign::get($fields);
+        } else {
+            // get campaign only which already 'activated' (for roles: influencer, assistant)
+            $campaignsFields = Campaign::get($fields)->where('status', '=', config('statusCampaign.status_campaign_to_be_shown'));
+        }
+
         return $campaignsFields;
     }
 
