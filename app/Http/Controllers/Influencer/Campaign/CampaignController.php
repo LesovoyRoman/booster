@@ -26,7 +26,8 @@ class CampaignController extends CommonCampaignController
                     'campaigns.end_points',
                     'campaign_influencer_points.campaign_id',
                     'campaign_influencer_points.all_points',
-                    'campaign_influencer_points.checked_points')
+                    'campaign_influencer_points.checked_points',
+                    'campaign_influencer_points.status')
                 // @todo i don"t know should we search with status 'activated' or not !!!
                 //->where('campaigns.status', '=', config('statusCampaign.status_campaign_to_be_shown'))
 
@@ -168,29 +169,30 @@ class CampaignController extends CommonCampaignController
     protected function campaignInfluencerBonusLinks()
     {
         $campaigns_influencer = Influencer::find(Auth::id())
-            ->campaigns()
-            ->select('campaigns.id', 'campaigns.name', 'campaigns.created_at', 'campaigns.status')
+            ->campaign_influencer_points()
+            ->select('campaigns.id',
+                'campaigns.name',
+                'campaigns.created_at',
+                'campaigns.status',
+                'campaign_influencer_points.status')
+            ->where(function ($query) {
+                $query->where('campaign_influencer_points.status', '=', config('statusCampaign.status_influencer_invited_accepted'))
+                    ->orWhere('campaign_influencer_points.status', '=', config('statusCampaign.status_influencer_accepted'));
+            })
+            ->where('campaigns.status', '=', config('statusCampaign.status_campaign_to_be_shown') )
             ->get();
         $links = [];
 
         foreach ($campaigns_influencer as $campaign){
-            if($campaign->status === config('statusCampaign.status_campaign_to_be_shown')){
-                array_push($links, [
-                    'links' => Campaign::find($campaign->id)
-                        ->influencer_campaign_bonus_links()
-                        ->where('influencer_campaign_bonus_links.user_id', $campaign->pivot->user_id)
-                        ->get(),
-                    'campaign' => $campaign
-                ]);
-            }
+            array_push($links, [
+                'links' => Campaign::find($campaign->id)
+                    ->influencer_campaign_bonus_links()
+                    ->where('influencer_campaign_bonus_links.user_id', $campaign->pivot->user_id)
+                    ->get(),
+                'campaign' => $campaign
+            ]);
         }
 
-        if(sizeof($links) !== 0)
-        {
-            return response()->json(['links' => $links], 200);
-        } else {
-            $response = 'Links not found';
-            return response()->json(['errors' => $response], 200);
-        }
+        return response()->json(['links' => $links], 200);
     }
 }
