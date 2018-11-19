@@ -93,6 +93,11 @@
                                             <p class="card-text text-center">
                                                 <span>Campaign: {{ bonusInfluencer.campaign.name }}</span>
                                             </p>
+                                            <div>
+                                                <p :variant="'primary'" class="text-center uppercase font500">
+                                                    Made: {{ bonusInfluencer.photo_date }}
+                                                </p>
+                                            </div>
                                             <div v-if="bonusInfluencer.image.checked === '0'">
                                                 <b-button variant="secondary" class="float-left" @click="changeStatusBonus('declined', bonusInfluencer)">decline</b-button>
                                                 <b-button variant="primary" class="float-right" @click="changeStatusBonus('accepted', bonusInfluencer)">accept</b-button>
@@ -170,6 +175,7 @@
                     { key: 'id', label: '№' },
                     { key: 'name', label: 'Name' },
                     { key: 'campaign_name', label: 'Campaign' },
+                    { key: 'photo_date', label: 'Created' }
                 ],
 
                 currentPage: 1,

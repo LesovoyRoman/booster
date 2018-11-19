@@ -87,7 +87,9 @@ class CodesController extends ApiController
             $validator = Validator::make($request->all(), [
                 'campaign_id'           => 'required',
                 'influencer_id'         => 'required',
-                'ip_address'            => 'required|ip',
+                //'ip_address'            => 'required|ip',
+                'geo'                   => 'required',
+                //'photo_date'            => 'required'
             ]);
             if ($validator->fails()) {
                 return response()->json([$this->errorsAtrArray => $validator->errors()], $this->statusValidationFailed);
@@ -111,7 +113,9 @@ class CodesController extends ApiController
                     'approved'      => 0,
                     'type'          => 'image',
                     'influencer_id' => $request['influencer_id'],
-                    'ip_address'    => $request['ip_address']
+                    //'ip_address'    => $request['ip_address'],
+                    'geo'                   => $request['geo'],
+                    'photo_date'            => $request['photo_date'] ? $request['photo_date'] : date('Y-m-d H:i:s')
                 ]);
 
                 /**
