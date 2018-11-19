@@ -217,14 +217,15 @@
                                         <b-row>
                                             <b-col>
                                                 <b-form-select dark v-model="new_campaign.checking_type">
+                                                    <option :value="null">Choose type</option>
                                                     <option :value="'Serial number'">Serial number</option>
                                                     <option :value="'Photo'">Photo</option>
                                                 </b-form-select>
                                             </b-col>
                                             <b-col md="6" sm="12" xs="12" v-show="new_campaign.checking_type == 'Serial number'">
                                                 <b-form-group>
-                                                    <b-button :variant="'secondary'" class="uppercase font500 float-left btn-custom-create-campaign">generate</b-button>
-                                                    <b-button :variant="'secondary'" class="uppercase font500 float-right btn-custom-create-campaign">import</b-button>
+                                                    <b-button @click="bind_check_type(true)" :variant="'secondary'" :class="btn_generate_codes_bind">generate</b-button>
+                                                    <b-button @click="bind_check_type(false)" :variant="'secondary'" style="margin-right: 10px" :class="btn_import_codes_bind">import</b-button>
                                                 </b-form-group>
                                             </b-col>
                                         </b-row>
@@ -316,7 +317,9 @@
                     currency: 'RUB',
                     //product_points: 0,
 
-                    checking_type: 'Serial number',
+                    checking_type_generate: null,
+
+                    checking_type: null,
                     conditions: '',
                     instructions: ''
                 }
@@ -329,6 +332,9 @@
             onFileChange(e) {
                 const file = e.target.files[0];
                 this.urlImage = URL.createObjectURL(file);
+            },
+            bind_check_type(value){
+                vm.new_campaign.checking_type_generate = value;
             },
             createNewCampaign(){
                 //console.log(this.new_campaign);
@@ -385,7 +391,18 @@
             }
         },
         computed: {
-           
+           btn_import_codes_bind(){
+               if(vm.new_campaign.checking_type_generate === false) {
+                   return  'uppercase font500 float-right btn-custom-create-campaign active'
+               }
+               return 'uppercase font500 float-right btn-custom-create-campaign'
+           },
+            btn_generate_codes_bind(){
+                if(vm.new_campaign.checking_type_generate === true) {
+                    return 'uppercase font500 float-right btn-custom-create-campaign active'
+                }
+                return 'uppercase font500 float-right btn-custom-create-campaign'
+            }
         },
     }
 </script>

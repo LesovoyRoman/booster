@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Performer\Campaign;
 
 use App\Http\Controllers\ImageController;
+use App\Models\Codes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Common\Campaign\CampaignController as CommonCampaignController;
 use App\Models\Campaign;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Image;
 use App\Http\Controllers\Helpers\StringHelper;
 use App\Models\Influencer;
+use Faker\Factory as Faker;
 
 class CampaignController extends CommonCampaignController
 {
@@ -26,6 +28,11 @@ class CampaignController extends CommonCampaignController
     {
         $timestamp = strtotime($data['end_campaign']);
         $timestamp ? $data['end_campaign'] : null;
+        if($data['checking_type'] !== 'Serial number' &&  $data['checking_type'] !== 'Photo')
+            return response()->json(['errors' => ['You need to choose checking type']], 206);
+
+        if($data['checking_type_generate'] != true && $data['checking_type_generate'] != false || $data['checking_type_generate'] == 'null')
+            return response()->json(['errors' => ['You need to choose import or generate codes']], 206);
 
         if ($data['end_type'] === 'date' && $data['end_campaign'] != 'null') {
             // end campaign by date
@@ -112,6 +119,24 @@ class CampaignController extends CommonCampaignController
 
             $user = Auth::user();
             $user->campaigns()->attach($campaign->id, array('status' => 'owner'));
+
+            /**
+             * Create Codes (if it needs)
+             */
+            if($data['checking_type_generate'] == true) {
+                $faker = Faker::create();
+                $i = 0;
+                while($i < $data['products_in_stock']) {
+                    Codes::create(
+                        [
+                            'campaign_id' => $campaign->id,
+                            'approved'    => 0,
+                            'secret_code' => $faker->unique()->randomNumber(8)
+                        ]
+                    );
+                    $i++;
+                }
+            }
 
             $newCampaignId = DB::table('campaigns')->max('id');
 
