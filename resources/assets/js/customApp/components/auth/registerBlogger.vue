@@ -237,21 +237,23 @@
         },
         created() {
             vmThis = this;
-            this.channels = this.$root.configEnums.channels;
-            this.languages = this.$root.configEnums.languages;
-            this.auditories = this.$root.configEnums.auditories;
-            this.auditories_age_to = this.$root.configEnums.auditories_age_to;
-            this.auditories_age_from = this.$root.configEnums.auditories_age_from;
-            this.topics = this.$root.configEnums.topics;
-            
-            axios.post('/getConfigEnums').then(response => {
-                this.channels = response.data.enums.channels;
-                this.languages = response.data.enums.languages;
-                this.auditories = response.data.enums.languages;
-                this.auditories_age_from = response.data.enums.auditories_age_from;
-                this.auditories_age_to = response.data.enums.auditories_age_to;
-                this.topics = response.data.enums.topics;
-            })
+            if(this.$root.configEnums.channels) {
+                this.channels = this.$root.configEnums.channels;
+                this.languages = this.$root.configEnums.languages;
+                this.auditories = this.$root.configEnums.auditories;
+                this.auditories_age_to = this.$root.configEnums.auditories_age_to;
+                this.auditories_age_from = this.$root.configEnums.auditories_age_from;
+                this.topics = this.$root.configEnums.topics;
+            } else {
+                axios.post('/getConfigEnums').then(response => {
+                    this.channels = response.data.enums.channels;
+                    this.languages = response.data.enums.languages;
+                    this.auditories = response.data.enums.auditories;
+                    this.auditories_age_from = response.data.enums.auditories_age_from;
+                    this.auditories_age_to = response.data.enums.auditories_age_to;
+                    this.topics = response.data.enums.topics;
+                })
+            }
         },
         updated(){
             this.$root.changeHeight();

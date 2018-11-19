@@ -56,6 +56,8 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
+        //var_dump($user);
+
         $this->guard()->login($user);
 
         return $this->registered($request, $user)
@@ -146,12 +148,12 @@ class RegisterController extends Controller
 
                 Channel::create([
                     'user_id'             => $influencer->id,
-                    'name'                => $data['influenceChannel'],
-                    'link'                => $data['linkChannel'],
-                    'auditory'            => $data['sizeAuditory'],
-                    'auditory_age_from'   => $data['auditoryAgeFrom'],
-                    'auditory_age_to'     => $data['auditoryAgeTo'],
-                    'topic'               => $data['topic'],
+                    'name'                => $data['influenceChannel'] ? $data['influenceChannel'] : null,
+                    'link'                => $data['linkChannel'] ? $data['linkChannel'] : null,
+                    'auditory'            => $data['auditory'] ? $data['auditory'] : null,
+                    'auditory_age_from'   => $data['auditory_age_from'] ? $data['auditory_age_from'] : null,
+                    'auditory_age_to'     => $data['auditory_age_to'] ? $data['auditory_age_to'] : null,
+                    'topic'               => $data['topic'] ? $data['topic'] : null,
                 ]);
 
                 return $influencer;
