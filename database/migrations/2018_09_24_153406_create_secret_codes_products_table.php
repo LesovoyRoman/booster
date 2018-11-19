@@ -16,7 +16,6 @@ class CreateSecretCodesProductsTable extends Migration
         Schema::create('secret_codes_products', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('secret_code')->nullable();
-            $table->string('ip_address')->nullable();
             $table->boolean('approved')->default(0);
             $table->timestamps();
         });

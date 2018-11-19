@@ -15,7 +15,8 @@ class BuyProducts extends ModelBase
         'secret_code',
         'type',
         'influencer_id',
-        'approved'
+        'approved',
+        'ip_address'
     ];
 
     public function image()

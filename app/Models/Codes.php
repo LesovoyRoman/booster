@@ -10,7 +10,6 @@ class Codes extends ModelBase
         'campaign_id',
         'secret_code',
         'approved',
-        'ip_address'
     ];
 
     public function campaign()
