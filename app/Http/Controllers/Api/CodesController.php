@@ -28,7 +28,7 @@ class CodesController extends ApiController
             $validator = Validator::make($request->all(), [
                 'campaign_id'           => 'required',
                 'secret_code'           => 'required',
-                'influencer_id'         => 'required'
+                'influencer_id'         => 'required',
             ]);
             if ($validator->fails()) {
                 return response()->json([$this->errorsAtrArray => $validator->errors()], $this->statusValidationFailed);
@@ -54,7 +54,8 @@ class CodesController extends ApiController
                 'secret_code'   => $request['secret_code'],
                 'user_api_id'   => $id_user_api,
                 'approved'      => 1,
-                'influencer_id' => $request['influencer_id']
+                'influencer_id' => $request['influencer_id'],
+                'ip_address'    => $request['ip_address']
             ]);
             $campaign_secret_code->approved = 1;
             $campaign_secret_code->save();
@@ -82,16 +83,17 @@ class CodesController extends ApiController
         try {
             $request->file ? $file = $request->file : $file = null;
             if(!$file) return response()->json([$this->errorsAtrArray => 'File not sent'], $this->statusValidationFailed);
-            if(!$request['campaign_id']) return response()->json([$this->errorsAtrArray => 'Campaign id not sent'], $this->statusValidationFailed);
-            if(!$request['influencer_id']) return response()->json([$this->errorsAtrArray => 'Influencer id not sent'], $this->statusValidationFailed);
+
+            $validator = Validator::make($request->all(), [
+                'campaign_id'           => 'required',
+                'influencer_id'         => 'required',
+                'ip_address'            => 'required|ip',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([$this->errorsAtrArray => $validator->errors()], $this->statusValidationFailed);
+            }
 
             $campaign_id = $request['campaign_id'];
-
-            $campaign_secret_code = Codes::where('campaign_id', $request['campaign_id'])
-                ->first();
-            if($campaign_secret_code == null){
-                return response()->json([$this->errorsAtrArray => 'ID campaign invalid'], $this->statusValidationFailed);
-            }
 
             $id_user_api = Auth::user('api')->id;
 
@@ -108,7 +110,8 @@ class CodesController extends ApiController
                     'user_api_id'   => $id_user_api,
                     'approved'      => 0,
                     'type'          => 'image',
-                    'influencer_id' => $request['influencer_id']
+                    'influencer_id' => $request['influencer_id'],
+                    'ip_address'    => $request['ip_address']
                 ]);
 
                 /**

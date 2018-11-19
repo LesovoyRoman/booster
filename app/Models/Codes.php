@@ -9,7 +9,8 @@ class Codes extends ModelBase
     protected $fillable = [
         'campaign_id',
         'secret_code',
-        'approved'
+        'approved',
+        'ip_address'
     ];
 
     public function campaign()
