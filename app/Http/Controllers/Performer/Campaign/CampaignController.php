@@ -14,17 +14,20 @@ use App\Models\Image;
 use App\Http\Controllers\Helpers\StringHelper;
 use App\Models\Influencer;
 use Faker\Factory as Faker;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class CampaignController extends CommonCampaignController
 {
 
     protected function addCampaign(Request $request)
     {
-        $request->file ? $file = $request->file : $file = null;
-        return $this->validator($request->all(), $file);
+        $request->file !== "null" && $request->file !== null ? $file = $request->file : $file = null;
+        $request->file_csv !== "null" && $request->file_csv !== null ? $file_csv = $request->file_csv : $file_csv = null;
+
+        return $this->validator($request->all(), $file, 'create', $file_csv);
     }
 
-    protected function validator(array $data, $file, $type = 'create')
+    protected function validator(array $data, $file, $type = 'create', $file_csv)
     {
         $timestamp = strtotime($data['end_campaign']);
         $timestamp ? $data['end_campaign'] : null;
@@ -33,6 +36,11 @@ class CampaignController extends CommonCampaignController
 
         if($data['checking_type_generate'] != true && $data['checking_type_generate'] != false || $data['checking_type_generate'] == 'null')
             return response()->json(['errors' => ['You need to choose import or generate codes']], 206);
+
+
+        if($data['checking_type_generate'] == "false" && $file_csv == null) {
+            return response()->json(['errors' => ['File CSV not found']], 206);
+        }
 
         if ($data['end_type'] === 'date' && $data['end_campaign'] != 'null') {
             // end campaign by date
@@ -54,7 +62,7 @@ class CampaignController extends CommonCampaignController
                 return response()->json(['errors' => $validator->errors()], 206);
             } else {
                 if($type == 'create') {
-                    return $this->create($data, $file);
+                    return $this->create($data, $file, $file_csv);
                 } else {
                     return true;
                 }
@@ -80,7 +88,7 @@ class CampaignController extends CommonCampaignController
                 return response()->json(['errors' => $validator->errors()], 206);
             } else {
                 if($type == 'create') {
-                    return $this->create($data, $file);
+                    return $this->create($data, $file, $file_csv);
                 } else {
                     return true;
                 }
@@ -88,7 +96,7 @@ class CampaignController extends CommonCampaignController
         }
     }
 
-    protected function create(array $data, $file)
+    protected function create(array $data, $file, $file_csv)
     {
         $data['end_campaign'] == 'null' ? $data['end_campaign'] = '2000-01-01 00:00:00' : $data['end_campaign'];
         $data['allCities'] == 'true' ? $data['city'] = 'all' : $data['city'];
@@ -120,11 +128,12 @@ class CampaignController extends CommonCampaignController
             $user = Auth::user();
             $user->campaigns()->attach($campaign->id, array('status' => 'owner'));
 
+            $faker = Faker::create();
+
             /**
              * Create Codes (if it needs)
              */
-            if($data['checking_type_generate'] == true) {
-                $faker = Faker::create();
+            if($data['checking_type_generate'] == "true") {
                 $i = 0;
                 while($i < $data['products_in_stock']) {
                     Codes::create(
@@ -135,6 +144,39 @@ class CampaignController extends CommonCampaignController
                         ]
                     );
                     $i++;
+                }
+            }
+            /**
+             * Import Codes (if it needs)
+             */
+            else {
+                $codes = (new FastExcel)->configureCsv(';', '#', '\n', 'gbk')->import($file_csv->getPathName());
+
+                $codes = $codes->toArray();
+                $codes = array_values($codes);
+                // @todo first row can be written as header (should fix it) => maybe special function in FirstExcel package
+                $first_key = 0;
+
+                foreach ($codes as $code) {
+                    foreach ($code as $key => $cc)
+                    // @todo if avoid the header of csv file -> $key will not be needed
+                    if($first_key == 0 && $key !== '') {
+                        Codes::create(
+                            [
+                                'campaign_id' => $campaign->id,
+                                'approved'    => 0,
+                                'secret_code' => $key
+                            ]
+                        );
+                    }
+                    $first_key = $key;
+                    Codes::create(
+                        [
+                            'campaign_id' => $campaign->id,
+                            'approved'    => 0,
+                            'secret_code' => $cc
+                        ]
+                    );
                 }
             }
 
@@ -154,10 +196,9 @@ class CampaignController extends CommonCampaignController
                 return response()->json(['response' => $campaign, 'idCampaign' => $newCampaignId]);
             }
         } catch (\Exception $e) {
-            return response()->json(['exception' => $e->getMessage()]);
+            return response()->json(['exception' => $e->getMessage()], 206);
         }
     }
-
 
     protected function changeStatusCampaign(Request $request)
     {

@@ -14,6 +14,7 @@
         "laravel/passport": "^7.0",
         "laravel/tinker": "^1.0",
         "predis/predis": "^1.1",
+        "rap2hpoutre/fast-excel": "^0.11.0",
         "smartins/passport-multiauth": "^4.0"
     },
     "require-dev": {

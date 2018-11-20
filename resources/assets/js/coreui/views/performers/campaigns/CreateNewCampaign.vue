@@ -11,7 +11,7 @@
 
                     <!-- CAMPAIGN -->
                     <b-card>
-                        <form action="">
+                        <form action="" enctype="multipart/form-data" accept-charset="utf-8">
                             <p class="card-text header_card_simple">Common information</p>
 
                             <b-row>
@@ -225,7 +225,12 @@
                                             <b-col md="6" sm="12" xs="12" v-show="new_campaign.checking_type == 'Serial number'">
                                                 <b-form-group>
                                                     <b-button @click="bind_check_type(true)" :variant="'secondary'" :class="btn_generate_codes_bind">generate</b-button>
-                                                    <b-button @click="bind_check_type(false)" :variant="'secondary'" style="margin-right: 10px" :class="btn_import_codes_bind">import</b-button>
+
+                                                    <label style="margin-right: 10px" for="imported_csv" @click="bind_check_type(false);" :variant="'secondary'" :class="btn_import_codes_bind">
+                                                       import
+                                                    </label>
+                                                    <b-form-file type="file" :variant="'secondary'" style="margin-right: 10px" class="hidden" id="imported_csv" v-model="new_campaign.file_csv" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" hidden>import</b-form-file>
+
                                                 </b-form-group>
                                             </b-col>
                                         </b-row>
@@ -312,7 +317,8 @@
                     products_in_stock: 0,
                     product_name: '',
                     youtube_link: '',
-                    file: {},
+                    file: null,
+                    file_csv: null,
                     product_price: 0.00,
                     currency: 'RUB',
                     //product_points: 0,
@@ -340,6 +346,9 @@
                 //console.log(this.new_campaign);
                 let formData = new FormData();
                 for (let campaign_data in this.new_campaign) {
+                    if(campaign_data == 'file_csv') {
+                        formData.append('file_csv', document.getElementById('imported_csv').files[0]);
+                    }
                     if(campaign_data == 'file'){
                         formData.append('file', document.getElementById('logoCampaign').files[0]);
                     } else {
@@ -393,9 +402,9 @@
         computed: {
            btn_import_codes_bind(){
                if(vm.new_campaign.checking_type_generate === false) {
-                   return  'uppercase font500 float-right btn-custom-create-campaign active'
+                   return  'uppercase font500 btn btn-secondary float-right btn-custom-create-campaign active'
                }
-               return 'uppercase font500 float-right btn-custom-create-campaign'
+               return 'uppercase font500 btn btn-secondary float-right btn-custom-create-campaign'
            },
             btn_generate_codes_bind(){
                 if(vm.new_campaign.checking_type_generate === true) {
