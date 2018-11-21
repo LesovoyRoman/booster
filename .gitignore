@@ -10,6 +10,7 @@ public/js/
 public/css/
 public/custom/
 public/mix-manifest.json
+resources/markUp
 Homestead.json
 Homestead.yaml
 npm-debug.log
