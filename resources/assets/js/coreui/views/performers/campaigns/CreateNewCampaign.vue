@@ -74,6 +74,7 @@
                                                         name="customCheckboxCountry"
                                                         class="custom-control-input"
                                                         v-model="new_campaign.allCountries"
+                                                        @change="chooseAllCountries"
                                                         :value="true">
                                                 <label
                                                         class="custom-control-label"
@@ -81,15 +82,13 @@
                                             </div>
                                             <b-form-select :disabled="new_campaign.allCountries" dark v-model="new_campaign.country">
                                                 <option :value="null">Choose from list</option>
-                                                <option :value="'Ukraine'">Ukraine</option>
-                                                <option :value="'Russia'">Russia</option>
-                                                <option :value="'USA'">USA</option>
+                                                <option v-for="country in countries" :value="country.id">{{ country.name }}</option>
                                             </b-form-select>
                                         </b-form-group>
                                     </b-col>
                                     <b-col  md="6" lg="6" sm="12" xs="12">
                                         <b-form-group id="fieldset_campaignCity">
-                                            <label for="campaignCity">City of Campaign</label>
+                                            <label for="campaignCity">Region of Campaign</label>
                                             <div class="custom-control custom-checkbox">
                                                 <input
                                                         type="checkbox"
@@ -97,16 +96,15 @@
                                                         name="customCheckboxCity"
                                                         class="custom-control-input"
                                                         v-model="new_campaign.allCities"
+                                                        @click="new_campaign.city = null"
                                                         :value="true">
                                                 <label
                                                         class="custom-control-label"
-                                                        for="customCheckboxCity">All cities</label>
+                                                        for="customCheckboxCity">All regions</label>
                                             </div>
                                             <b-form-select dark :disabled="new_campaign.allCities" v-model="new_campaign.city">
                                                 <option :value="null">Choose from list</option>
-                                                <option :value="'Kharkov'">Kharkov</option>
-                                                <option :value="'Moscow'">Moscow</option>
-                                                <option :value="'Los Santos'">Los Santos</option>
+                                                <option v-for="city in cities" v-if="new_campaign.country === city.country_id" :value="city.id" >{{ city.name }}</option>
                                             </b-form-select>
                                         </b-form-group>
                                     </b-col>
@@ -328,7 +326,7 @@
                     checking_type: null,
                     conditions: '',
                     instructions: ''
-                }
+                },
             }
         },
         created() {
@@ -342,10 +340,20 @@
             bind_check_type(value){
                 vm.new_campaign.checking_type_generate = value;
             },
+            chooseAllCountries(){
+                vm.new_campaign.country = null;
+                if(vm.new_campaign.allCountries === true) vm.new_campaign.allCities = true;
+            },
             createNewCampaign(){
                 //console.log(this.new_campaign);
                 let formData = new FormData();
                 for (let campaign_data in this.new_campaign) {
+                    if(campaign_data == 'country' || campaign_data == 'city') {
+                        let country = vm.$root.countries.filter(item => item.id === vm.campaign.country);
+                        let city = vm.$root.cities.filter(item => item.id === vm.campaign.city);
+                        formData.append('country', country);
+                        formData.append('city', city);
+                    }
                     if(campaign_data == 'file_csv') {
                         formData.append('file_csv', document.getElementById('imported_csv').files[0]);
                     }
@@ -411,6 +419,12 @@
                     return 'uppercase font500 float-right btn-custom-create-campaign active'
                 }
                 return 'uppercase font500 float-right btn-custom-create-campaign'
+            },
+            countries(){
+                return vm.$root.countries
+            },
+            cities(){
+                return vm.$root.cities
             }
         },
     }

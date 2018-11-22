@@ -142,8 +142,6 @@
 
                 performer_modal: {},
 
-                countries: [],
-                cities: [],
                 performer_types: [],
 
                 filter: null,
@@ -208,6 +206,12 @@
                     .filter(f => f.sortable)
                     .map(f => { return { text: f.label, value: f.key } })
             },
+            /*countries(){
+                return vm.$root.countries
+            },
+            cities(){
+                return vm.$root.cities
+            }*/
         }
     }
 </script>

@@ -97,14 +97,19 @@ window.Vue = new Vue({
     return {
         storage_path: storage_path,
         configEnums: {},
+        countries: [],
+        cities: [],
     }
   },
     created(){
       vm = this;
-      axios.post('/getConfigEnums').then(response => {
-          this.configEnums = response.data.enums;
-          //console.log(this.configEnums);
-      })
+        axios.post('/getConfigEnums').then(response => {
+            this.configEnums = response.data.enums;
+        })
+        axios.post('/getConfigCountriesCities').then(response => {
+            this.countries = response.data.countries;
+            this.cities = response.data.cities;
+        })
     },
     methods: {
         check(){

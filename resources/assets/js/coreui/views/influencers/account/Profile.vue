@@ -98,16 +98,20 @@
                                             description=""
                                     >
                                         <label for="user_country">Country</label>
-                                        <b-form-select dark v-model="user.address.country" :options="countries"></b-form-select>
+                                        <b-form-select dark v-model="user.address.country">
+                                            <option :value="null">Choose from list</option>
+                                            <option v-for="country in countries" :value="country.id">{{ country.name }}</option>
+                                        </b-form-select>
                                     </b-form-group>
 
                                     <b-form-group
                                             id="fieldset_user_city"
                                             description=""
                                     >
-                                        <label for="user_city">City</label>
+                                        <label for="user_city">Region</label>
                                         <b-form-select dark v-model="user.address.city">
-                                            <option v-for="option in cities[user.address.country]">{{ option }}</option>
+                                            <option :value="null">Choose from list</option>
+                                            <option v-for="city in cities" v-if="campaign.country === city.country_id" :value="city.id" >{{ city.name }}</option>
                                         </b-form-select>
                                     </b-form-group>
 
@@ -330,7 +334,7 @@
                     file: {},
                     channels: [],
                     address: {
-                        country: 'Ukraine',
+                        country: '',
                         city: '',
                         street: '',
                         home_address: '',
@@ -339,12 +343,6 @@
                     },
                 },
 
-                countries: ['Ukraine', 'Russia', 'USA'],
-                cities: {
-                    Ukraine: ['Kharkov', 'Kiev'],
-                    Russia: ['Moscow', 'Rostov'],
-                    USA: ['New-York', 'Los Angeles']
-                },
                 topics: [],
                 channels: [],
                 auditories: [],
@@ -368,6 +366,8 @@
                 vm.user.email = user.email;
                 vm.user.phone = user.phone;
                 vm.user.brand = user.brand;
+                vm.user.country = user.country;
+                vm.user.city = user.city;
                 let count = 0;
                 if(user.channels) {
                     vm.user.channels = user.channels;
@@ -424,6 +424,8 @@
                     user_channels.forEach(function (item) {
                         updateChannels.update.push(item);
                     });
+                    let country = vm.$root.countries.filter(item => item.id === vm.user.country);
+                    let city = vm.$root.cities.filter(item => item.id === vm.user.city);
                     let data = {
                         name: vm.user.name,
                         surname: vm.user.surname,
@@ -431,6 +433,8 @@
                         brand: vm.user.brand,
                         address: vm.user.address,
                         channels: updateChannels,
+                        country: country,
+                        city: city
                     };
                     vm.sendAxiosRequest(data, '/currentInfluencerSetData');
                 }
@@ -530,5 +534,13 @@
                 return vm.errors.length
             },
         },
+        computed: {
+            countries(){
+                return vm.$root.countries
+            },
+            cities(){
+                return vm.$root.cities
+            }
+        }
     }
 </script>

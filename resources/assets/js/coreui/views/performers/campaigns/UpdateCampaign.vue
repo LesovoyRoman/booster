@@ -65,6 +65,7 @@
                                                     name="customCheckboxCountry"
                                                     class="custom-control-input"
                                                     v-model="campaign.allCountries"
+                                                    @change="chooseAllCountries"
                                                     :value="true">
                                             <label
                                                     class="custom-control-label"
@@ -72,15 +73,13 @@
                                         </div>
                                         <b-form-select :disabled="campaign.allCountries" dark v-model="campaign.country">
                                             <option :value="null">Choose from list</option>
-                                            <option :value="'Ukraine'">Ukraine</option>
-                                            <option :value="'Russia'">Russia</option>
-                                            <option :value="'USA'">USA</option>
+                                            <option v-for="country in countries" :value="country.id">{{ country.name }}</option>
                                         </b-form-select>
                                     </b-form-group>
                                 </b-col>
                                 <b-col>
                                     <b-form-group id="fieldset_campaignCity">
-                                        <label for="campaignCity">City of Campaign</label>
+                                        <label for="campaignCity">Region of Campaign</label>
                                         <div class="custom-control custom-checkbox">
                                             <input
                                                     type="checkbox"
@@ -88,16 +87,15 @@
                                                     name="customCheckboxCity"
                                                     class="custom-control-input"
                                                     v-model="campaign.allCities"
+                                                    @click="campaign.city = null"
                                                     :value="true">
                                             <label
                                                     class="custom-control-label"
-                                                    for="customCheckboxCity">All cities</label>
+                                                    for="customCheckboxCity">All regions</label>
                                         </div>
                                         <b-form-select dark :disabled="campaign.allCities" v-model="campaign.city">
                                             <option :value="null">Choose from list</option>
-                                            <option :value="'Kharkov'">Kharkov</option>
-                                            <option :value="'Moscow'">Moscow</option>
-                                            <option :value="'Los Santos'">Los Santos</option>
+                                            <option v-for="city in cities" v-if="campaign.country === city.country_id" :value="city.id" >{{ city.name }}</option>
                                         </b-form-select>
                                     </b-form-group>
                                 </b-col>
@@ -350,8 +348,18 @@
                     vm.$router.go(-1)
                 }
             },
+            countries(){
+                return vm.$root.countries
+            },
+            cities(){
+                return vm.$root.cities
+            }
         },
         methods: {
+            chooseAllCountries(){
+                vm.campaign.country = null;
+                if(vm.campaign.allCountries === true) vm.campaign.allCities = true;
+            },
             onFileChange(e) {
                 const file = e.target.files[0];
                 this.urlImage = URL.createObjectURL(file);
@@ -360,12 +368,18 @@
                 this.loading = true;
                 let formData = new FormData();
                 for (let campaign_data in this.campaign) {
-                    if(campaign_data == 'file'){
+                    if(campaign_data == 'country' || campaign_data == 'city') {
+                        let country = vm.$root.countries.filter(item => item.id === vm.campaign.country);
+                        let city = vm.$root.cities.filter(item => item.id === vm.campaign.city);
+                        formData.append('country', country);
+                        formData.append('city', city);
+                    } else if(campaign_data == 'file'){
                         formData.append('file', document.getElementById('logoCampaign').files[0]);
                     } else {
                         formData.append(campaign_data, this.campaign[campaign_data]);
                     }
                 }
+
                 //formData.append('data', this.campaign);
                 axios.post('/updateCampaign', formData).then(response => {
                     this.loading = false;

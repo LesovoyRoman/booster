@@ -11,4 +11,9 @@ class ConfigSender extends Controller
     {
         return response()->json(['enums' => config('enums')]);
     }
+
+    public function returnConfigCountriesCities()
+    {
+        return response()->json(['countries' => config('countries'), 'cities' => config('cities')]);
+    }
 }

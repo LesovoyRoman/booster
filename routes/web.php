@@ -8,6 +8,7 @@ Route::get('/{any}', function () {
 
 // Configs
 Route::post('/getConfigEnums', 'Helpers\ConfigSender@returnConfigEnumsJson');
+Route::post('/getConfigCountriesCities', 'Helpers\ConfigSender@returnConfigCountriesCities');
 
 
 // For each role
