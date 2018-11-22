@@ -19,7 +19,7 @@ class CitiesCountriesSeeder extends Seeder
         $this->countries = config('countries');
 
         foreach ($this->countries as $country){
-            DB::table('countries')->create([
+            DB::table('countries')->insert([
                 'id'   => $country['id'],
                 'name' => $country['name']
             ]);
@@ -28,7 +28,7 @@ class CitiesCountriesSeeder extends Seeder
         $this->cities = config('cities');
 
         foreach ($this->cities as $city){
-            DB::table('cities')->create([
+            DB::table('cities')->insert([
                 'name' => $city['name'],
                 'id_country' => $city['id_country']
             ]);
