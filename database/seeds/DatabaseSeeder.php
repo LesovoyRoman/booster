@@ -40,6 +40,9 @@ class DatabaseSeeder extends Seeder
             $this->call(LaravelOauthPassportClient::class);
             $this->command->info('oauth_client seeded!');
 
+            $this->call(CitiesCountriesSeeder::class);
+            $this->command->info('cities_countries seeded!');
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
     }
