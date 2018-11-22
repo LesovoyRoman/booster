@@ -30,7 +30,7 @@ class CitiesCountriesSeeder extends Seeder
         foreach ($this->cities as $city){
             DB::table('cities')->insert([
                 'name' => $city['name'],
-                'id_country' => $city['id_country']
+                'country_id' => $city['country_id']
             ]);
         }
     }
