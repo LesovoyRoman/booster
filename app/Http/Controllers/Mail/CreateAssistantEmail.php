@@ -31,7 +31,8 @@ class CreateAssistantEmail extends Mailable
      {
          $subject = $this->data['subject'];
          return $this->view('emails.createAssistantEmail', $this->data)
-                     ->subject($subject);
+                    ->from('boostys@gmail.com', 'BOOSTYS')
+                    ->subject($subject);
 
      }
 }

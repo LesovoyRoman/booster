@@ -121,6 +121,7 @@
 
 <script>
 
+    import Loading from 'vue-loading-spinner/src/components/Circle10'
     let vmThis = {};
 
     export default {

@@ -31,6 +31,7 @@ class ResetPassword extends Mailable
     {
         $subject = $this->data['subject'];
         return $this->view('emails.resetPassword', $this->data)
+            ->from('boostys@gmail.com', 'BOOSTYS')
             ->subject($subject);
 
     }

@@ -31,9 +31,13 @@
 
 <script>
     let vmThis = {};
+    import Loading from 'vue-loading-spinner/src/components/Circle10'
 
     export default {
         name: 'login',
+        components: {
+            Loading
+        },
         data() {
             return {
                 credentials: {
