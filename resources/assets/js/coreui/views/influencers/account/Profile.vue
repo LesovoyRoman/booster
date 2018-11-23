@@ -111,7 +111,7 @@
                                         <label for="user_city">Region</label>
                                         <b-form-select dark v-model="user.address.city">
                                             <option :value="null">Choose from list</option>
-                                            <option v-for="city in cities" v-if="campaign.country == city.country_id" :value="city.id" >{{ city.name }}</option>
+                                            <option v-for="city in cities" v-if="user.address.country == city.country_id" :value="city.id" >{{ city.name }}</option>
                                         </b-form-select>
                                     </b-form-group>
 
