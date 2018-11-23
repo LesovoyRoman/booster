@@ -14,9 +14,8 @@ Vue.use(Sweetalert)
 import home from './components/home.vue'
 import login from './components/auth/login.vue'
 import notFound from './components/notFound.vue'
-//import registerPerformer from './components/auth/registerPerformer.vue'
-//import registerBlogger from './components/auth/registerBlogger.vue'
 import register from './components/auth/register.vue'
+import resetPassword from './components/auth/resetPassword.vue'
 
 const defaultPage = 'login';
 const homePage = 'home';
@@ -42,7 +41,7 @@ function authCheck() {
             authenticated = false
             localStorage.setItem('authenticated', false);
         }
-        console.log(response.data.auth);
+        //console.log(response.data.auth);
         routesAllowToUse(authenticated);
     })
         .catch(error => {
@@ -59,6 +58,7 @@ function routesAllowToUse() {
         { path: '/', component: home, name: 'home', meta: { nothingImg: true } },
         { path: "*", component: notFound, name: 'notFound', meta: { nothingImg: true } },
         { path: '/login', component: login, name: 'login',  meta: { redirectHome: true } },
+        { path: '/resetPassword', component: resetPassword, name: 'resetPassword',  meta: { redirectHome: true } },
         { path: '/registration', component: register, name: 'Register', meta: { redirectHome: true } },
 
         /*

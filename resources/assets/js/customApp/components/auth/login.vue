@@ -15,13 +15,13 @@
                     <input type="password" class="form-control" id="password" name="password" v-model="credentials.password">
                 </div>
                 <div class="form-group">
-                    <router-link class="float-link" v-bind:to="'/password-rescue'">Forgot password?</router-link>
+                    <router-link class="float-link" v-bind:to="'/resetPassword'">Forgot password?</router-link>
 
                     <button type="submit" class="btn btn-primary" onclick="event.preventDefault()"  @click="loginData()">submit</button>
                 </div>
 
                 <div class="form-group">
-                    <router-link class="" v-bind:to="'/register-performer'"><span class="color-dark">Do not have an account?</span> REGISTRATION</router-link>
+                    <router-link class="" v-bind:to="'/registration'"><span class="color-dark">Do not have an account?</span> REGISTRATION</router-link>
                 </div>
             </form>
         </div>

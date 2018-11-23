@@ -20,8 +20,7 @@
             return {
                 routes: [
                     {to: '/login', name: 'Login'},
-                    {to: '/register-performer', name: 'Performer Registration'},
-                    {to: '/register-blogger', name: 'Blogger Registration'}
+                    {to: '/registration', name: 'Registration'},
                 ]
             }
         },

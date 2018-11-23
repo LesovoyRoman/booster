@@ -10,6 +10,7 @@ Route::get('/{any}', function () {
 Route::post('/getConfigEnums', 'Helpers\ConfigSender@returnConfigEnumsJson');
 Route::post('/getConfigCountriesCities', 'Helpers\ConfigSender@returnConfigCountriesCities');
 
+Route::post('/resetPassword', 'Auth\ResetPasswordController@resetPassword');
 
 // For each role
 Route::group(['middleware' => 'roleExists'], function () {
