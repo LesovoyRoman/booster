@@ -111,7 +111,7 @@
                                         <label for="user_city">Region</label>
                                         <b-form-select dark v-model="user.address.city">
                                             <option :value="null">Choose from list</option>
-                                            <option v-for="city in cities" v-if="campaign.country === city.country_id" :value="city.id" >{{ city.name }}</option>
+                                            <option v-for="city in cities" v-if="campaign.country == city.country_id" :value="city.id" >{{ city.name }}</option>
                                         </b-form-select>
                                     </b-form-group>
 
@@ -424,8 +424,6 @@
                     user_channels.forEach(function (item) {
                         updateChannels.update.push(item);
                     });
-                    let country = vm.$root.countries.filter(item => item.id === vm.user.country);
-                    let city = vm.$root.cities.filter(item => item.id === vm.user.city);
                     let data = {
                         name: vm.user.name,
                         surname: vm.user.surname,
@@ -433,8 +431,8 @@
                         brand: vm.user.brand,
                         address: vm.user.address,
                         channels: updateChannels,
-                        country: country,
-                        city: city
+                        country: vm.user.country,
+                        city: vm.user.city
                     };
                     vm.sendAxiosRequest(data, '/currentInfluencerSetData');
                 }

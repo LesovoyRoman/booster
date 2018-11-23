@@ -95,7 +95,7 @@
                                         </div>
                                         <b-form-select dark :disabled="campaign.allCities" v-model="campaign.city">
                                             <option :value="null">Choose from list</option>
-                                            <option v-for="city in cities" v-if="campaign.country === city.country_id" :value="city.id" >{{ city.name }}</option>
+                                            <option v-for="city in cities" :value="city.id" v-if="campaign.country == city.country_id" >{{ city.name }}</option>
                                         </b-form-select>
                                     </b-form-group>
                                 </b-col>
@@ -368,12 +368,7 @@
                 this.loading = true;
                 let formData = new FormData();
                 for (let campaign_data in this.campaign) {
-                    if(campaign_data == 'country' || campaign_data == 'city') {
-                        let country = vm.$root.countries.filter(item => item.id === vm.campaign.country);
-                        let city = vm.$root.cities.filter(item => item.id === vm.campaign.city);
-                        formData.append('country', country);
-                        formData.append('city', city);
-                    } else if(campaign_data == 'file'){
+                    if(campaign_data == 'file'){
                         formData.append('file', document.getElementById('logoCampaign').files[0]);
                     } else {
                         formData.append(campaign_data, this.campaign[campaign_data]);

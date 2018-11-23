@@ -27,19 +27,24 @@ class CampaignController extends CommonCampaignController
         return $this->validator($request->all(), $file, 'create', $file_csv);
     }
 
-    protected function validator(array $data, $file, $type = 'create', $file_csv)
+    protected function validator(array $data, $file, $type = 'create', $file_csv = null)
     {
         $timestamp = strtotime($data['end_campaign']);
         $timestamp ? $data['end_campaign'] : null;
-        if($data['checking_type'] !== 'Serial number' &&  $data['checking_type'] !== 'Photo')
-            return response()->json(['errors' => ['You need to choose checking type']], 206);
+        /**
+         * only create campaign
+         */
+        if($type == 'create') {
+            if($data['checking_type'] !== 'Serial number' &&  $data['checking_type'] !== 'Photo')
+                return response()->json(['errors' => ['You need to choose checking type']], 206);
 
-        if($data['checking_type_generate'] != true && $data['checking_type_generate'] != false || $data['checking_type_generate'] == 'null')
-            return response()->json(['errors' => ['You need to choose import or generate codes']], 206);
+            if($data['checking_type_generate'] != true && $data['checking_type_generate'] != false || $data['checking_type_generate'] == 'null')
+                return response()->json(['errors' => ['You need to choose import or generate codes']], 206);
 
 
-        if($data['checking_type_generate'] == "false" && $file_csv == null) {
-            return response()->json(['errors' => ['File CSV not found']], 206);
+            if($data['checking_type_generate'] == "false" && $file_csv == null) {
+                return response()->json(['errors' => ['File CSV not found']], 206);
+            }
         }
 
         if ($data['end_type'] === 'date' && $data['end_campaign'] != 'null') {

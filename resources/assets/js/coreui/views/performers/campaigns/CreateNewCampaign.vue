@@ -104,7 +104,7 @@
                                             </div>
                                             <b-form-select dark :disabled="new_campaign.allCities" v-model="new_campaign.city">
                                                 <option :value="null">Choose from list</option>
-                                                <option v-for="city in cities" v-if="new_campaign.country === city.country_id" :value="city.id" >{{ city.name }}</option>
+                                                <option v-for="city in cities" v-if="new_campaign.country == city.country_id" :value="city.id" >{{ city.name }}</option>
                                             </b-form-select>
                                         </b-form-group>
                                     </b-col>
@@ -345,15 +345,8 @@
                 if(vm.new_campaign.allCountries === true) vm.new_campaign.allCities = true;
             },
             createNewCampaign(){
-                //console.log(this.new_campaign);
                 let formData = new FormData();
                 for (let campaign_data in this.new_campaign) {
-                    if(campaign_data == 'country' || campaign_data == 'city') {
-                        let country = vm.$root.countries.filter(item => item.id === vm.campaign.country);
-                        let city = vm.$root.cities.filter(item => item.id === vm.campaign.city);
-                        formData.append('country', country);
-                        formData.append('city', city);
-                    }
                     if(campaign_data == 'file_csv') {
                         formData.append('file_csv', document.getElementById('imported_csv').files[0]);
                     }
