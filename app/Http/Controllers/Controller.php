@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * DEVELOPED BY LESOVOY ROMAN
+ * https://github.com/LesovoyRoman
+ * romalesov@ukr.net
+ */
+
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
