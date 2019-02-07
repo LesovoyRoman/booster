@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +12,16 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
-Route::get('/sessionSetCsrf', 'SetCsrf@setCsrf'); // get crsf
+Route::get('/{any}', function () {
+    return view('appcustom');
+})->where('any', '.*')->middleware('appWay');
 
-Route::post('/authCheck', 'User@authCheck'); // check if authenticated user
+Route::post('/userrole', 'HomeController@index');
 
-Route::get('/{any}', function () { // break all routes and return app (simple page application)
-    return view('app');
-})->where('any', '.*');
+Route::get('/sessionSetCsrf', 'SetCsrf@setCsrf');
+
+Route::post('/authCheck', 'User@authCheck');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+

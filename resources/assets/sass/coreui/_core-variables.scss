@@ -1,0 +1,31 @@
+// core overrides
+
+
+// colors
+$color_link_simple: #fff;
+
+$main-color: #BD4013 !default;
+
+$navbar-brand-bg:                       $main-color !default;
+$navbar-color:                          #fff !default;
+$navbar-hover-color:                    #ffa382 !default;
+$navbar-active-color:                   #ffa382 !default;
+
+$sidebar-bg:                            #fff !default;
+$sidebar-nav-link-color:                #000 !default;
+$sidebar-nav-link-active-color:         #fff !default;
+$sidebar-nav-link-hover-color:          #fff !default;
+$sidebar-nav-link-hover-bg:             $main-color !default;
+$sidebar-nav-link-active-bg:            $main-color !default;
+
+$sidebar-nav-link-icon-color:           #fff !default;
+$sidebar-nav-link-active-icon-color:    #fff !default;
+$sidebar-nav-link-hover-icon-color:     #fff !default;
+
+$sidebar-nav-dropdown-indicator-color:  #fff !default;
+
+
+
+
+// sizes
+$navbar-brand-logo-size:              85% auto !default;
