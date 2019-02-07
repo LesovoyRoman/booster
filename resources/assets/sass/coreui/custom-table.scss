@@ -1,0 +1,536 @@
+// tables
+
+table.table {
+  tr  {
+    td, th {
+      padding: 0.6rem;
+    }
+  }
+
+  .table_campaign_name {
+    color: black;
+  }
+}
+
+table.table td, table th, table tr{
+  vertical-align: middle;
+
+
+  th.table_label_hidden {
+    color: transparent;
+    background: transparent;
+
+    &:hover, &:active, &:focus {
+      color: transparent;
+      background: transparent;
+    }
+  }
+}
+
+.table_label_hidden {
+  .custom-checkbox {
+    margin-right: -15px;
+  }
+}
+
+.showsTableCards {
+  display: none;
+}
+
+.tab-content {
+  border: none;
+}
+
+.custom_btn_change {
+  padding: 0px;
+  background: transparent;
+  border: 0;
+
+  &:active, &:hover, &:focus {
+    background: transparent !important;
+    box-shadow: none !important;
+
+    i {
+      color: $main-color;
+    }
+  }
+
+  i {
+    color: black;
+    //font-size: 15px;
+    font-size: 22px;
+
+    &.fa-stop-circle, &.fa-play-circle {
+      font-size: 25px;
+      vertical-align: super;
+    }
+  }
+}
+ thead th {
+   //font-weight: 500;
+   font-weight: 700;
+   color: $color_table;
+
+
+   &:hover, &:active, &:focus, &.sorting_asc, &.sorting_desc {
+     background: $main-color;
+     color: white;
+   }
+ }
+
+ tbody tr td {
+
+   color: lighten($color_table, 20);
+
+   &.table_points {
+     font-weight: 500;
+     color: $color_table;
+   }
+
+   .star_influencer {
+     position: absolute;
+     top: calc(50% - 7px);
+   }
+
+   .photo_influencer_table, .photo_gift_table {
+     margin-left: 30px;
+     border-radius: 4px;
+     //width: 48px;
+
+     height: 48px;
+
+     &.photo_gift_table {
+       margin-left: 0;
+       max-width: 48px;
+     }
+   }
+
+   .points_gift {
+     color: #000;
+   }
+
+   .influencer-name-block, .gift-name-block {
+     margin-left: 10px;
+     display: inline-block;
+   }
+
+   .gift-name-block {
+     color: #000;
+     line-height: 48px;
+     font-weight: 500;
+   }
+
+
+
+   .photo_influencer-block, .photo_gift-block {
+     width: 80px;
+     float: left;
+     display: inline-block;
+     position: relative;
+
+     img {
+       width: 48px;
+       max-height: 100%;
+     }
+   }
+
+   .icons_influencer {
+     i {
+       font-size: 18px;
+       color: #595f62;
+       margin: auto 2px;
+     }
+   }
+ }
+
+ .spanKeyTable {
+   color: #516378;
+ }
+
+ .spanBorderBottomTable {
+   border-bottom: 1px solid #caccce;
+ }
+
+ .groupLinksCampaigns {
+   input, button {
+     margin: auto 3px;
+   }
+
+   .inlineBlock {
+     display: inline-block;
+     width: auto;
+     vertical-align: middle;
+     input {
+       width: auto;
+       display: inline-block;
+     }
+     button {
+       margin-top: 3px;
+     }
+   }
+ }
+
+ .influencers {
+   .photo_influencer_table {
+     max-width: initial !important;
+   }
+ }
+
+.fa.fa-star {
+  margin: 0 3px;
+  color: #D8D8D8;
+}
+.fa.fa-star.star_active {
+  color: $main-color;
+}
+
+#feedback .b-table-stacked {
+  tr {
+    border-top: 1px solid $main-color;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+  td {
+    grid-template-columns: 100% auto;
+    border: none;
+  }
+  td:before {
+    display: none;
+  }
+  td.comment_id {
+    display: none;
+  }
+  td.comment_username {
+    font-weight: 500;
+  }
+  td.comment_text {
+    color: $gray-color
+  }
+}
+
+
+#table_cards {
+
+  .check-box-influencers {
+    display: none;
+  }
+
+  .influencer-name-block, .gift-name-block {
+    line-height: initial;
+  }
+
+
+
+  .check-box-gifts {
+    display: none !important;
+  }
+  thead {
+    display: none !important;
+  }
+  tbody {
+
+    // gifts
+    .gift-name-block {
+      font-size: 18px;
+      color: #000;
+      text-align: center;
+    }
+
+    .gift-name-block {
+      position: relative;
+      margin-top: 30px;
+      &:before {
+        position: absolute;
+        content: '';
+        height: 1px;
+        width: calc(100% + 30px);
+        left: -15px;
+        top: -6px;
+        background-color: #E1E2E4;
+      }
+    }
+    .campaign_gift {
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .points_gift {
+      color: #000;
+    }
+    .points_gift, .inStock_gift {
+      position: absolute;
+      bottom: 20px;
+      left: 15px;
+      margin-top: 20px;
+    }
+    .change-gift, .delete-gift, .change-campaign {
+      display: none;
+    }
+    .inStock_gift {
+      left: auto;
+      right: 15px;
+    }
+
+    tr {
+      display: inline-block;
+      width: 30%;
+      margin: 15px 1.5%;
+      padding: 15px;
+      border: $custom_border;
+      position: relative;
+
+      td {
+        display: block;
+        border: none;
+        padding: 0;
+        margin: 2px auto;
+
+        .showsTableCards {
+          display: inline-block;
+        }
+
+        &.channels_influencer, &.auditory_influencer {
+          width: auto;
+          display: inline-block;
+
+          &.channels_influencer {
+            padding-left: 0;
+            width: auto;
+            float: right;
+          }
+        }
+
+        .influencer-name-block, .gift-name-block {
+          display: block;
+          margin-left: 0;
+          margin-top: 5px;
+        }
+        .influencer-name-block {
+          margin-top: 35px;
+        }
+        .gift-name-block {
+          margin-top: 20px;
+        }
+        .photo_influencer_table, .photo_gift_table {
+          display: block;
+          width: calc(100% + 30px);
+          height: 260px;
+          margin-left: -15px;
+          margin-top: -17px;
+          border-radius: 0;
+        }
+        .photo_gift_table {
+          width: auto;
+          height: auto;
+          max-width: 100%;
+          margin: 0;
+        }
+        .star_influencer {
+          top: 10px;
+          left: 0px;
+        }
+        .photo_influencer-block,  .photo_item-block, .photo_gift-block {
+          display: block;
+          float: none;
+          width: auto;
+          height: 235px;
+        }
+        .photo_gift-block {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .link_influencer, .link_gift {
+          font-size: 20px;
+          margin-top: 10px;
+        }
+        .star_influencer {
+          font-size: 18px;
+        }
+        &.influence_influencer {
+          span {
+            color: #000;
+          }
+        }
+        .sendOffer {
+          display: block;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+
+// offers
+.table_offers, .table_invites {
+  td.table_conditions {
+    font-weight: 500;
+    color: black;
+  }
+}
+
+#table_cards {
+  .custom_btn_change {
+    float: right;
+    margin-top: 6px;
+  }
+  .statusOfferConsider, .statusOfferParticipating {
+    font-size: 16px;
+    padding-top: 15px;
+    float: right;
+  }
+}
+
+.table_invites {
+  .custom_btn_change {
+    margin-left: 15px;
+  }
+}
+
+.table_offers #table_cards {
+
+  .points_gift {
+    position: static;
+    margin: 10px auto;
+    width: 100%;
+  }
+  .table_campaign_name {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .table_conditions {
+    font-weight: normal;
+    color: #516378;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .table_price {
+    font-size: 13px;
+  }
+  .table_prize, .table_period {
+    color: black;
+  //  font-weight: 500;
+  }
+  .table_period {
+    margin-bottom: 15px
+  }
+  .table_status {
+    margin-top: 5px;
+    display: block;
+    text-align: center;
+
+    button {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+#myGifts .campaign_gift {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    content: '';
+    height: 1px;
+    width: calc(100% + 30px);
+    left: -15px;
+    bottom: -40px;
+    background-color: #E1E2E4;
+  }
+}
+
+#catalogGifts, #myGifts {
+  table .points_gift {
+    width: calc(100% - 30px)
+  }
+}
+
+#profileCampaign {
+  tbody {
+    .name_gift .gift-name-block {
+      color: $main-color
+    }
+  }
+}
+
+#myGifts {
+  table {
+    .points_gift {
+      position: static;
+      width: 100%;
+      margin-bottom: 15px;
+      margin-top: 0;
+    }
+    .campaign_gift {
+      margin-bottom: 10px;
+    }
+    .code_gift p {
+      color: black;
+      margin-bottom: 0;
+
+      span {
+        color: black;
+      }
+    }
+  }
+}
+
+.name_user {
+  cursor: pointer;
+  position: relative;
+
+  div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+  }
+  &:hover {
+    span {
+      text-decoration: underline;
+    }
+  }
+}
+
+#catalogGifts, #giftsList {
+  .points_gift, .inStock_gift {
+    margin-bottom: 20px;
+  }
+}
+
+.statusOfferConsider, .statusOfferParticipating {
+  line-height: 28px;
+}
+
+@media screen and (max-width: 996px)  {
+  #table_cards {
+    tbody {
+      tr {
+        width: 48%;
+        margin: 15px 1%;
+      }
+    }
+
+
+  }
+}
+
+@media screen and (max-width: 676px)  {
+  #table_cards {
+    tbody {
+      tr {
+        width: 100%;
+        display: block;
+        max-width: 280px;
+        margin: 15px auto;
+      }
+    }
+  }
+}

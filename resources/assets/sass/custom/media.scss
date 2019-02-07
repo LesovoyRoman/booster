@@ -1,0 +1,61 @@
+@media screen and (min-width: 969px) {
+  // login
+
+  #app {
+    padding: 20px 30px;
+    padding-bottom: 55px;
+  }
+}
+
+@media screen and (max-width: 968px) {
+  #app, #bg_app {
+
+  }
+
+  #app {
+    padding: 20px;
+  }
+}
+
+@media screen and (min-width: 601px) {
+  // login
+  #app, #bg_app {
+    width: 50%;
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  // login
+  #app {
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 70px;
+    width: 100%;
+    display: block;
+    float: none;
+  }
+  #bg_app {
+    display: none;
+  }
+  #login, #register {
+    padding-top: 25px;
+  }
+  #login {
+    padding-top: 10vh;
+  }
+
+  /// ASIDE custom
+  .aside-menu-hidden .aside-menu {
+
+  }
+
+  // footer
+  .footer-custom {
+    width: 100%;
+
+    .text-footer-custom {
+      left: 35px;
+    }
+  }
+}

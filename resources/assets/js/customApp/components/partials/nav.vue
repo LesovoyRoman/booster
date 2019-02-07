@@ -2,26 +2,27 @@
 
     <div id="navVue">
         <header>
-            <div v-if="!this.$root.authenticated">
-                <b-nav pills justified>
-                        <b-nav-item><router-link v-bind:to="'/login'">Login</router-link></b-nav-item>
-                        <b-nav-item><router-link v-bind:to="'/register'">Registration</router-link></b-nav-item>
-                        <b-nav-item><router-link v-bind:to="'/'">Home</router-link></b-nav-item>
-                </b-nav>
-            </div>
-            <div  v-if="this.$root.authenticated">
-                <div class="links">
-                    <router-link v-bind:to="'/'">Home</router-link>
-
-                    <a @click="logout()" href="" onclick="event.preventDefault();">Logout</a>
-                </div>
-            </div>
+            <b-link
+                    class="navbar-brand"
+                    to="#"/>
+           <!-- <button id="btn_call_menu_custom"
+                    class="navbar-toggler aside-menu-toggler d-md-down-none btn-primary"
+                    type="button"
+                    @click="asideToggle">
+                <span class=""><i class="fa fa-bars fa-1x"></i></span>
+            </button>-->
         </header>
+        <nav class="nav_custom_app">
+            <router-link vairant="secondary" v-bind:to="'/login'">Login</router-link>
+            <router-link vairant="secondary" v-bind:to="'/registration'">Registration</router-link>
+        </nav>
     </div>
 
 </template>
 
 <script>
+    let vm = {};
+
     export default {
         name: 'navVue',
         methods: {
@@ -38,6 +39,19 @@
                         vmThis.$root.updateCrsf();
                     });
             },
+           /* asideToggle (e) {
+                e.preventDefault()
+                document.getElementById('bg_app').classList.toggle('open')
+                document.getElementById('app').classList.toggle('open')
+            },*/
         },
+        created(){
+            vm = this;
+        },
+        watch:{
+            /*$route (to, from){
+                vm.asideToggle(event);
+            }*/
+        }
     }
 </script>

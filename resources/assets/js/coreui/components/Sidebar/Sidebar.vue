@@ -5,7 +5,7 @@
     <nav class="sidebar-nav">
       <div slot="header"/>
       <ul class="nav">
-        <template v-for="(item, index) in navItems">
+        <template v-for="(item, index) in items_role">
           <template v-if="item.title">
             <SidebarNavTitle
               :key="index"
@@ -109,6 +109,9 @@ import SidebarNavLink from './SidebarNavLink'
 import SidebarNavTitle from './SidebarNavTitle'
 import SidebarNavItem from './SidebarNavItem'
 import SidebarNavLabel from './SidebarNavLabel'
+
+let vm = {};
+
 export default {
   name : 'Sidebar',
   props: {
@@ -117,6 +120,12 @@ export default {
       required: true,
       default : () => [],
     },
+  },
+  data(){
+    return {
+        user_role: localStorage.getItem('user_role'),
+        items_role: [],
+    }
   },
   components: {
     SidebarFooter,
@@ -129,6 +138,37 @@ export default {
     SidebarNavTitle,
     SidebarNavItem,
     SidebarNavLabel,
+  },
+  created(){
+      vm = this;
+      const role_admin = 'role_admin';
+      const role_performer = 'role_performer';
+      const role_influencer = 'role_influencer';
+      const role_assistant = 'role_assistant';
+
+      vm.navItems.forEach(function (item, index) {
+
+          if ("meta" in item) {
+              if(item.meta.dashboard === true) {
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // dashboards
+              }
+              if(item.meta.role_admin === true && vm.user_role === 'admin'){
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // only nav for admin
+              }
+              if (item.meta.role_performer === true && vm.user_role === 'performer'){
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // only nav for performer
+              }
+              if (item.meta.role_influencer === true && vm.user_role === 'influencer'){
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // only nav for influencer
+              }
+              if (item.meta.role_assistant === true && vm.user_role === 'performer' && item.url === '/checking-bonuses'){
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // item for assistant & performer
+              }
+              if (item.meta.role_assistant === true && vm.user_role === 'assistant'){
+                  vm.items_role.push(Object.assign({}, vm.navItems[index])) // only nav for assistant
+              }
+          }
+      })
   },
   methods: {
     handleClick (e) {

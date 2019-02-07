@@ -4,11 +4,11 @@
       <component
         :is="wrapper.element"
         v-bind="wrapper.attributes">
-        {{ name }}
+        <!--{{ name }}-->
       </component>
     </template>
     <template v-else>
-      {{ name }}
+     <!-- {{ name }}-->
     </template>
   </li>
 </template>
@@ -42,3 +42,11 @@ export default {
   },
 }
 </script>
+
+<!-- @todo -->
+
+<style>
+  .nav-title {
+    padding: 0 !important;
+  }
+</style>

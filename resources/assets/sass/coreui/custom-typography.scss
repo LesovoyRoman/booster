@@ -1,0 +1,74 @@
+h2 {
+  color: $h-color;
+  font-size: $h-2-size !important;
+  margin-bottom: $h-2-margin-bottom !important;
+}
+
+.header_card_simple {
+  text-transform: uppercase;
+  //color: $color_text_common;
+  color: rgba(0, 0, 0, 0.50);
+  display: block;
+}
+
+.card-header-custom {
+  color: $main-color;
+  font-size: 24px;
+
+  span {
+    color: $black-color
+  }
+
+  &.small-header {
+    font-size: 16px;
+  }
+}
+
+.title_stars {
+  margin-left: 10px;
+}
+
+.font12 {
+  font-size: 12px !important;
+}
+.fontNormal {
+  font-weight: normal !important;
+}
+
+.btn {
+  line-height: 1;
+}
+
+.paragraph_simple {
+  font-size: 18px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.span-row {
+  display: block;
+  color: black;
+}
+
+.color-twitter {
+  color: #00aced !important;
+}
+.color-facebook {
+  color: #3b5998 !important;
+}
+.color-vk {
+  color: #416cb1 !important;
+}
+.color-youtube {
+
+}
+
+.swal2-popup .swal2-title {
+  font-size: 24px !important;
+  text-align: left;
+}
+
+.swal2-popup #swal2-content {
+  font-size: 18px;
+  font-weight: bold;
+}

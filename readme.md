@@ -1,11 +1,35 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## Usage
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+1) Config            -> Edit: .env config file.
+
+2) Dependincies      -> Console: composer install.
+
+3) Migrations        -> Console: php artisan migrate.
+
+4) Seeds             -> Console: php artisan db:seed.
+
+5) Npm               -> Console: npm i.
+
+6) Npm               -> Console: npm run production \ dev \ watch.
+
+7) Laravel Passport  -> Console: php artisan passport:install or php artisan passport:keys.
+
+8) Open project      -> Console: php artisan serve \ php artisan serve --port=3333.
+
+
+# Email
+-> edit .env file:
+
+MAIL_DRIVER= mailgun
+MAILGUN_DOMAIN = {your-domain}
+MAIL_HOST = smtp.mailgun.org
+MAIL_PORT = 587
+MAIL_USERNAME = smtp.mailgun.org
+MAIL_PASSWORD = {your-password}
+MAILGUN_SECRET = {your-secret}
+MAIL_FROM = {email-from}
+MAIL_ENCRYPTION=tls
+
 
 ## About Laravel
 
@@ -63,3 +87,8 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Developed by:
+- Lesovoy Roman
+- https://github.com/LesovoyRoman
+- romalesov@ukr.net

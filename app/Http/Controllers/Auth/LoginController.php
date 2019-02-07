@@ -46,13 +46,24 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        $user = auth()->user();
-        if($user->user_role == 'admin') {
-            return 1111;
-        } else {
-            return $this->authenticated($request, $this->guard()->user())
-                ?: redirect()->intended($this->redirectPath());
+        if(auth()->user()) {
+            $user = auth()->user();
+            $this->authenticated($request, $this->guard()->user());
+            if($user->user_role == 'admin') {
+                return 1;
+            } else if($user->user_role == 'performer') {
+                return 2;
+            } else if($user->user_role == 'influencer') {
+                return 3;
+            } else if($user->user_role == 'assistant') {
+                return 4;
+            }
         }
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        return response()->json(['errors' => ['These credentials are not correct']], 200);
     }
 
 }

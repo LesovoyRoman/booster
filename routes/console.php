@@ -16,3 +16,10 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+$output = new Symfony\Component\Console\Output\ConsoleOutput();
+$output->writeln("
+    DEVELOPED BY LESOVOY ROMAN
+    https://github.com/LesovoyRoman
+    romalesov@ukr.net
+");

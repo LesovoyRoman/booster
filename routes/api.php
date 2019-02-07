@@ -13,6 +13,51 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+    DO NOT REPLACE ROUTES! (it can lead to unrecognized requests or incorrect working the app)
+ */
+
+
+
+// Auth
+Route::post('login', 'Api\UserApiController@login');
+Route::post('register', 'Api\UserApiController@register');
+
+/**
+ * User should have auth token
+ */
+Route::group(['middleware' => 'auth:api'], function(){
+    // Auth
+    Route::post('/logout', 'Api\UserApiController@logout');
+
+    // User api
+    Route::get('/details', 'Api\UserApiController@details');
+    Route::post('/addUserAddress', 'Api\UserApiController@addAddress');
+    Route::post('/currentUserApiChangePass', 'Api\UserApiController@changePass');
+    Route::post('/currentUserApiChangeEmail', 'Api\UserApiController@changeEmail');
+
+    // Campaigns
+    Route::get('/allCampaigns', 'Api\CampaignController@getAllCampaigns');
+    Route::post('/campaignInfluencers', 'Api\CampaignController@getCampaignInfluencers');
+
+    // Influencers
+    Route::get('/allInfluencers', 'Api\InfluencerController@getAllInfluencers');
+    Route::post('/influencerCampaigns', 'Api\InfluencerController@getInfluencerCampaigns');
+
+    // Products Codes
+    Route::post('/sendSecretCode', 'Api\CodesController@sendCode');
+    Route::post('/sendImageProduct', 'Api\CodesController@sendImage');
+
+    // Feedbacks
+    Route::post('/sendFeedback', 'Api\ApiFeedbacksController@sendFeedbackProduct');
 });
+
+/**
+ * Bad request 400
+ */
+Route::any('{any}', function (){
+    return response()->json(['errors' => 'Unrecognized request'], 400);
+})->where('any', '.*');
+
+
+

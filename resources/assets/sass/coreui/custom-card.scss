@@ -1,0 +1,125 @@
+.card-custom {
+  margin-top: 15px;
+  margin-bottom: 15px;
+
+  .card-text {
+    margin-bottom: 2px;
+
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 6px 10px;
+    margin: 4px auto;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  .statusCard {
+    margin-bottom: 0;
+    margin-top: 15px;
+  }
+}
+
+.card {
+  label {
+    font-weight: 500;
+  }
+}
+
+.card-body {
+  overflow-x: auto;
+}
+
+
+#tabs_tariffs {
+  .card-header {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    background: transparent;
+
+    .nav {
+      justify-content: center;
+    }
+
+    .nav-item {
+      &:first-child {
+        .nav-link {
+          margin-right: 20px;
+
+          &:before {
+            position: absolute;
+            right: -10px;
+            content: '';
+            top: 15px;
+            height: 25px;
+            width: 1px;
+            background: black;
+            -webkit-transform: rotate(20deg);
+            transform: rotate(20deg);
+          }
+        }
+      }
+    }
+    .nav-link {
+      font-size: 24px;
+      background: transparent;
+      color: $color_text_common;
+      position: relative;
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      &.active {
+        color: $main-color
+      }
+    }
+  }
+}
+
+.card-info-influencer {
+
+  .block_logo_user {
+    margin-bottom: 20px;
+    width: 250px;
+    max-width: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+// canvas
+#resultCampaign {
+  canvas {
+    max-height: 65vh;
+    width: auto !important;
+    margin: 0 auto;
+  }
+  #line-chart, #bar-chart {
+    min-width: 90% !important;
+  }
+}
+
+#fieldset_assistant_access {
+  label.btn {
+    &:first-child {
+      margin-left: 0;
+    }
+    &.active {
+      background: $main-color;
+      color: white;
+    }
+    font-weight: normal;
+    margin: auto 10px;
+  }
+}
+
+// logo user
+#account .block_logo_user #logo, #account .block_logo_user #label_logo_user {
+  cursor: pointer;
+  &:hover, &:active {
+    background-color: rgba(0, 0, 0, 0.07);
+  }
+}

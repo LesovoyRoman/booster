@@ -1,6 +1,33 @@
 // Here you can add other styles
 @import "core-variables";
+@import "custom-typography";
+@import "custom-table";
+@import "custom-sidebar";
+@import "custom-card";
+@import "tariffs";
+@import "custom-label";
+@import "custom-modals";
+@import "gifts";
+@import "account";
+@import "influencersApp";
+@import "border-radius";
+@import "modal-payment";
+@import "custom-chart";
+@import "custom-dashboards";
+@import "custom-steps";
 
+body {
+  background: $color-bg-body;
+}
+
+
+a, h6, h5, h4, h3, h2, h1, span, p, pre, li {
+  font-family: 'Rubik', sans-serif !important;
+}
+
+.sidebar .nav-link {
+  font-weight: 400;
+}
 // colors
 .navbar-nav .nav-link {
   color: $color_link_simple
@@ -15,7 +42,289 @@
   }
 }
 
-/*
-.sidebar .nav-link i {
-  color: #fff;
-}*/
+.nav-item.nav-dropdown.open .nav-link i {
+  color: $sidebar-nav-link-active-icon-color
+}
+
+.app-header.navbar .navbar-brand {
+  border-bottom: none;
+}
+
+.btn-secondary {
+  padding: 6px 35px;
+}
+
+.btn-secondary {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.custom_btn_change {
+  margin-left: 15px;
+}
+
+.font500 {
+  font-weight: 500 !important;
+}
+
+.font24 {
+  font-size: 24px !important;
+}
+
+.font18 {
+  font-size: 18px !important;
+}
+
+#table_cards .font500-cards {
+  font-weight: 500 !important;
+}
+
+.uppercase {
+  text-transform: uppercase !important;
+}
+
+.form-control, .custom-file-label {
+  border: $custom_border;
+}
+
+.custom-control {
+  padding-left: 2rem;
+}
+
+.custom-control-label::before {
+  background-color: #E1E2E4;
+}
+
+.divider_custom {
+  width: 100%;
+  height: 1px;
+  background: $main-color;
+  margin: 10px auto;
+}
+
+.btn-custom-create-campaign.btn {
+  padding: 8px 35px;
+}
+
+.input-group-prepend {
+  select, input, textarea, button {
+    margin-right: 10px;
+  }
+}
+
+.custom_tooltip_label {
+  padding: 0px;
+  font-size: 13px;
+  background: #EAEAEA;
+  border-radius: 50%;
+  color: #7bcdff;
+  margin-left: 10px;
+  width: 19px;
+  height: 19px;
+  display: inline-block;
+  text-align: center;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.main {
+  position: relative;
+  padding-bottom: 50px;
+}
+.app-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 14px 25px;
+}
+
+
+.card .nav-pills.card-header-pills {
+
+  .nav-item a {
+    text-transform: uppercase;
+  }
+}
+
+.verticalTop {
+
+  td { vertical-align: top !important; }
+  vertical-align: top !important;
+}
+
+.colorMain {
+  color: $main-color !important;
+}
+
+.holder-img-profile-campaign {
+  width: 250px;
+  height: 250px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+.group-info-custom {
+  margin: 15px auto 15px 0;
+}
+
+.relative {
+  position: relative !important;
+}
+
+.margin-top-30 {
+  margin-top: 30px !important;
+}
+
+.margin-top-15 {
+  margin-top: 15px !important;
+}
+
+.colorBlack {
+  color: black !important;
+}
+
+.sidebar .nav-item.addNewCampaign {
+  margin: 20px auto;
+  max-width: 90%;
+  border-radius: 20px;
+
+  a {
+    padding: 10px 20px;
+    border-radius: 20px;
+
+    .icon-plus {
+      margin-right: 4px;
+    }
+  }
+}
+
+.sidebar-minimized .nav-item.addNewCampaign  {
+  a {
+    padding: 10px 0;
+    .icon-plus {
+      width: 47px;
+    }
+  }
+}
+
+
+.link_custom_hidden_influencer {
+  color: black;
+
+  &:hover, &.active, &:active {
+    color: $main-color
+  }
+}
+
+.link_custom_hidden_influencer:hover, .link_custom_hidden_influencer:active, .link_custom_hidden_influencer:focus {
+  text-decoration: none !important;
+}
+
+.block_influencer_campaign {
+  position: relative;
+  margin: 15px auto;
+
+  &.highest {
+    background: #53c02f;
+    &:hover, &:active {
+      background: rgba(82, 176, 47, 0.95);
+    }
+  }
+  &.high {
+    background: #00acedb3;
+    &:hover, &:active {
+      background: rgba(0, 145, 203, 0.85);
+    }
+  }
+  &.low {
+    background: #ed6200c9;
+    &:hover, &:active {
+      background: rgba(203, 78, 0, 0.96);
+    }
+  }
+  &.lowest {
+    background: #e7261dd9;
+    &:hover, &:active {
+      background: rgba(203, 35, 26, 0.92);
+    }
+  }
+  border-radius: 20px;
+
+  .card_campaign_influencer_info {
+    position: relative;
+    z-index: 3;
+  }
+
+
+  .inner_block_influener_campaign {
+    padding: 15px;
+    text-align: center;
+
+    .icon-influencer-power {
+      width: 60px;
+      margin-right: 10px;
+      display: inline-block;
+      position: relative;
+      z-index: 2;
+    }
+
+    .name {
+      font-size: 26px;
+      text-align: center;
+      display: block;
+      margin-bottom: 10px;
+      line-height: 40px;
+      font-weight: 500;
+    }
+    .influence {
+      font-size: 26px;
+      font-weight: 500;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 60px;
+    }
+    span, a {
+      color: white;
+    }
+  }
+}
+
+
+.block_logo_user img {
+  max-width: 100%;
+}
+
+#renderedImageBlock {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+  max-width: 100%;
+  border-radius: 20px;
+  background: rgba(128, 128, 128, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.70);
+}
+#renderedImageBlock img {
+  width: auto;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@media screen and (max-width: 760px) {
+  .btn {
+    float: none;
+    display: block;
+    margin: 5px auto;
+  }
+}

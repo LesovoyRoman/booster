@@ -2,10 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Controllers\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class Role
 {

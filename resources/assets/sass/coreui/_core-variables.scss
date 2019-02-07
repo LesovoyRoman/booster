@@ -1,10 +1,15 @@
 // core overrides
 
 
-// colors
-$color_link_simple: #fff;
+$color-bg-body:                         #f0f0f0 !default;
 
-$main-color: #BD4013 !default;
+// colors
+$color_link_simple:                     #fff;
+
+$color_text_common:                     #28313B !default;
+
+$main-color:                            #BD4013 !default;
+//$main-color:                            #6d739d !default; // blue variant
 
 $navbar-brand-bg:                       $main-color !default;
 $navbar-color:                          #fff !default;
@@ -18,14 +23,31 @@ $sidebar-nav-link-hover-color:          #fff !default;
 $sidebar-nav-link-hover-bg:             $main-color !default;
 $sidebar-nav-link-active-bg:            $main-color !default;
 
-$sidebar-nav-link-icon-color:           #fff !default;
+$sidebar-nav-link-icon-color:           #000 !default;
 $sidebar-nav-link-active-icon-color:    #fff !default;
 $sidebar-nav-link-hover-icon-color:     #fff !default;
 
 $sidebar-nav-dropdown-indicator-color:  #fff !default;
-
-
-
+$sidebar-nav-dropdown-bg:               rgba(189, 64, 19, 0.65) !default;
 
 // sizes
-$navbar-brand-logo-size:              85% auto !default;
+$navbar-brand-logo-size:                80% auto !default;
+
+// typography
+$h-color :                              $color_text_common !default;
+$h-2-size:                              32px !default;
+$h-2-margin-bottom:                     30px !default;
+
+
+$secondary:                             #D8D8D8 !default;
+
+// table
+$active-field-color:                    rgba(189, 64, 19, 0.65) !default;
+
+$gray-color:                            #707070 !default;
+$black-color:                           #000 !default;
+
+$color_list:                            #686F76 !default;
+$color_table:                           #28313B !default;
+
+$custom_border:                         1px solid #E1E2E4 !default;

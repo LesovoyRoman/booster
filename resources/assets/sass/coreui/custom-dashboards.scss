@@ -1,0 +1,93 @@
+#dashboard {
+
+  .tab-content {
+    background: transparent;
+  }
+
+  .card {
+    margin-bottom: 0;
+    margin: 15px auto;
+  }
+
+  .list-campaigns-dashboard {
+    strong {
+      display: inline-block
+    }
+
+    .desc {
+      margin-left: 0
+    }
+
+    .value {
+      right: 0;
+    }
+  }
+
+  .gift {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .list_custom_scope {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-left: 0;
+    margin-bottom: 0;
+
+    li {
+      list-style: none;
+      text-align: center;
+      padding: 0 10px;
+    }
+  }
+
+  .card-tariff-dashboard {
+    width: 250px;
+    padding: 15px;
+    background: #888a8c21;
+    //height: 200px;
+    max-width: 100%;
+    color: #777372;
+    border-radius: 4px;
+
+    h5,h6,h3, h4, span {
+      color: #2c2928;
+    }
+
+    h5, h6 {
+      margin-bottom: 1px;
+    }
+
+    .heaader_tariff {
+      color: #d44816a1
+    }
+  }
+
+  .card-gift-dashboard {
+    width: 200px;
+    padding: 15px;
+    text-align: center;
+    margin: 0 auto;
+
+    img {
+      max-width: 100%;
+      display: block;
+      margin: 0 auto 15px auto;
+    }
+  }
+}
+
+
+@media screen and (max-width: 991px) {
+  #dashboard {
+
+    .list_custom_scope {
+      flex-direction: column;
+
+      .text-muted {
+        display: inline-block;
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+
+html {
+  min-height: 100vh;
+  background: #fff;
+
+  body {
+    height: 100%;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+}
+
+#app {
+  padding: 20px 30px;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-link {
+  float: left;
+}
+
+.color-dark {
+  color: $gray-900;
+}
+

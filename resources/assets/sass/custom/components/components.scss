@@ -1,0 +1,82 @@
+
+// btns
+.btn-primary {
+  padding: 6px 35px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin: 10px 0 0 auto;
+  display: block;
+}
+
+#btn_call_menu_custom {
+  padding: 7px 10px;
+  font-size: 18px;
+  float: right;
+  background: $main-color-custom;
+  margin-top: 7px;
+  display: block !important;
+}
+
+// aside
+.aside-menu .nav a {
+  background: white;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 2px auto;
+  width: 100%;
+
+  &:hover, &:active {
+    text-decoration: none;
+    color: white;
+    background: $main-color-custom;
+  }
+}
+
+
+// brand
+.navbar-brand {
+  //background: url('~static/img/logoOrange.png') no-repeat center/contain;
+  background: url('~static/img/logoOrange.svg') no-repeat center/contain;
+  padding: 5px;
+  width: 200px;
+  height: 50px;
+}
+
+
+// footer
+.footer-custom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+
+  .text-footer-custom {
+    color: rgba(0, 0, 0, 0.53);
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    left: 45px;
+  }
+}
+
+
+// form
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 0 !important;
+}
+
+select, textarea, .btn, input, .card, .custom-select, .nav-pills .nav-item a, .custom-control-label::after, .custom-control-label::before, .card input.form-control, .form-group input {
+  border-radius: 4px;
+}
+
+.swal2-popup #swal2-content {
+  padding: 0 40px;
+  text-align: left !important;
+}
