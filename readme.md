@@ -21,13 +21,21 @@
 -> edit .env file:
 
 MAIL_DRIVER= mailgun
+
 MAILGUN_DOMAIN = {your-domain}
+
 MAIL_HOST = smtp.mailgun.org
+
 MAIL_PORT = 587
+
 MAIL_USERNAME = smtp.mailgun.org
+
 MAIL_PASSWORD = {your-password}
+
 MAILGUN_SECRET = {your-secret}
+
 MAIL_FROM = {email-from}
+
 MAIL_ENCRYPTION=tls
 
 
